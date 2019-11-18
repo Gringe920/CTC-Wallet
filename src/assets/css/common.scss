@@ -1,0 +1,47 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+  display: block;
+}
+
+img {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #00FF00;
+}
+
+a:link, a:visited {
+}
+
+a:hover {
+}
+
+a, a:focus, button, input {
+  outline: none;
+  font-family: inherit;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+ul, li {
+  list-style-type: none;
+}
+
+html {
+  overflow-y: auto;
+}
+
+body, html, #app {
+  font-family: "PingFang SC", "Microsoft Yahei", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  user-select: none;
+  background: #000;
+}
