@@ -1,6 +1,6 @@
 <template>
   <section class="acceptCoin">
-    <Header></Header>
+    <Header title="记录"></Header>
     <div class="acceptCoin_type">
       <div  :class="type==1?'divactive':''" @click="changetype(1)">收款</div>
       <div :class="type==2?'divactive':''" @click="changetype(2)">转账</div>
@@ -24,15 +24,13 @@
   </section>
 </template>
 <script>
-import Header from "@/components/header.vue";
 export default {
   name: "acceptCoin",
   data() {
     return {
-      type: this.$route.query.id
+      type: 1,
     };
   },
-  components: { Header },
   methods: {
     changetype(index) {
       this.type = index;

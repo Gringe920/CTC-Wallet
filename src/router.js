@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Wallet from './views/wallet/index.vue' //钱包首页
 import AcceptCoin from './views/wallet/acceptCoin.vue' //钱包收款记录页面
+import Advert from './views/user/advert.vue' //公告
+import AdvertDetails from './views/user/advertDetails.vue' //公告详情
 
 Vue.use(Router)
 
@@ -25,6 +27,17 @@ export default new Router({
       name: 'wallet',
       component: Wallet
     },
+    {
+      path: '/advert',
+      name: 'advert',
+      component: Advert
+    },
+    {
+      path: '/advertDetails',
+      name: 'advertDetails',
+      component: AdvertDetails
+    },
+    
     {
       path: '/acceptCoin',
       name: 'acceptCoin',

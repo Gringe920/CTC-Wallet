@@ -20,7 +20,7 @@
         </router-link>
         <router-link tag="a" to="/wallet" :class="$route.name=='wallet'?'nav-active':''" >
             <div class="thenav">
-                  <img src="./assets/images/wallet_press@2x.png" alt="" srcset="" v-if="$route.name=='wallet'" >
+                <img src="./assets/images/wallet_press@2x.png" alt="" srcset="" v-if="$route.name=='wallet'" >
                 <img src="./assets/images/wallet@2x.png" alt="" srcset="" v-else >
                 <span class="nav-title">钱包</span>
             </div>
@@ -28,7 +28,7 @@
         <router-link tag="a" to="/user" :class="$route.name=='user'?'nav-active':''"  >
             <div class="thenav">
                 <img src="./assets/images/my_account@2x.png" alt="" srcset="" v-if="$route.name=='user'" >
-                <img src="./assets/images/my@3x.png" alt="" srcset="" v-else >
+                <img src="./assets/images/my@2x.png" alt="" srcset="" v-else >
                 <span class="nav-title">我的</span>
             </div>
         </router-link>
@@ -57,7 +57,7 @@ body,html{
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color:$bg;
+  background:$bg;
   .navall {
     background: $nav-bg;
     display: flex;

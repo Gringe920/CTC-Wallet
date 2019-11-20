@@ -1,6 +1,6 @@
 <template>
   <section class="walletall">
-    <Header></Header>
+    <Header title="钱包" :rightEv='toacceptCoin' :leftShow='false' :rightIcon="require('../../assets/images/record@2x.png')" ></Header>
     <div class="walletbanner">
       <div class="w-t">
         <span>当前资产</span>
@@ -30,14 +30,13 @@
         <div class="c_l">冻结：&nbsp;  {{hidden?'******':item.nocan}} </div>
       </div> 
       <div class="coin4">
-        <div class="shou" @click="toacceptCoin(1,item.name)">收款</div>
-        <div class="zhuan" @click="toacceptCoin(2,item.name)">转账</div>
+        <div class="shou" @click="toacceptCoin">收款</div>
+        <div class="zhuan" @click="toacceptCoin">转账</div>
       </div>
     </div>
   </section>
 </template>
 <script>
-import Header from "@/components/header.vue";
 export default {
   name: "wallet",
   data() {
@@ -71,7 +70,6 @@ export default {
       ]
     };
   },
-  components: { Header },
   watch: {
     searchmsg() {
       if (this.searchmsg != "") {
@@ -86,9 +84,8 @@ export default {
       this.hidden = !this.hidden
 
     },
-    toacceptCoin(index,coin){
- 
-        this.$router.push({ path: "/acceptCoin", query: { id: index ,coin:coin} });
+    toacceptCoin(){
+        this.$router.push({ path: "/acceptCoin"});
     }
   }
   

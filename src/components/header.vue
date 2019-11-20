@@ -1,35 +1,69 @@
 <template>
-  <section class="header" >
-        <img  @click="reply" src="../assets/images/home_search_white.png" alt="" class="icon_l">
-        <span>钱包</span>
-        <img src="../assets/images/record@2x.png" alt="" class="icon-r">
+  <section class="header" :style="`background:${color}`">
+        <img  v-if="leftShow&&!leftIcon"  @click="reply" src="../assets/images/home_search_white.png" alt="" class="icon_l">
+         <img  v-if="leftShow&&leftIcon"  @click="reply" :src="leftIcon" alt="" class="icon_l">
+        <span>{{title}}</span>
+        <img @click="topath"  v-if="rightIcon" :src="rightIcon" alt="" class="icon-r">
   </section>
 </template>
 <script>
+/**
+ * 引用方式
+ *   <header  left-icon="bg.png" :left-show="true" :right-icon="require('../../assets/images/home_c2c_press.svg')" :back-func="func1" :right-ev="func2" title="首页1"></t-nav>
+ */
+
 export default {
   name: "",
   data() {
     return {};
   },
+  props: {
+    color: {
+      // 背景色
+      type: String,
+      default: "trasparent"
+    },
+    leftIcon: {
+      //  左侧图标地址
+      type: String,
+      default: ""
+    },
+    leftShow: {
+      // 是否显示返回按钮
+      type: Boolean,
+      default: true
+    },
+    title: {
+      // 居中标题
+      type: String,
+      default: "首页"
+    },
+    rightIcon: {
+      // 右侧图标地址
+      type: String,
+      default: "../assets/images/home_search_white.png"
+    },
+    rightEv: {
+      // 右侧event
+      type: Function,
+      default: () => {
+        return null;
+      }
+    }
+  },
   methods: {
-    reply() {
-      if (this.backFunc) {
-        this.backFunc();
+    topath() {
+      if (this.rightEv) {
+        this.rightEv();
         return;
       }
+    },
+    reply() {
       if (typeof plus == "object") {
         let webview = plus.webview.getLaunchWebview();
         webview.back();
       } else {
-        if (
-          this.$route.name == "set" ||
-          this.$route.name == "invite" ||
-          this.$route.name == "tradePaw"
-        ) {
-          this.$router.push({ name: "safety" });
-        } else {
           this.$router.go(-1);
-        }
       }
     }
   }
@@ -44,18 +78,25 @@ export default {
   width: 100vw;
   background: $bg;
   color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  text-align: center;
+  span {
+    line-height: 50px;
+  }
   img {
     width: 25px;
     height: 25px;
+    margin-top: 13px;
   }
   .icon_l {
-    margin-left: 2%;
+    position: absolute;
+    left: 15px;
   }
   .icon-r {
-    padding-right: 2% !important;
+    position: absolute;
+    right: 15px;
   }
 }
 </style>
