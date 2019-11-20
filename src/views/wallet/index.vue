@@ -30,7 +30,7 @@
         <div class="c_l">冻结：&nbsp;  {{hidden?'******':item.nocan}} </div>
       </div> 
       <div class="coin4">
-        <div class="shou" @click="toacceptCoin">收款</div>
+        <div class="shou"  @click="toroute('shoukuan')" >收款</div>
         <div class="zhuan" @click="toacceptCoin">转账</div>
       </div>
     </div>

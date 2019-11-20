@@ -5,9 +5,9 @@ import Wallet from './views/wallet/index.vue' //钱包首页
 import AcceptCoin from './views/wallet/acceptCoin.vue' //钱包收款记录页面
 import Advert from './views/user/advert.vue' //公告
 import AdvertDetails from './views/user/advertDetails.vue' //公告详情
+import shoukuan from './views/wallet/shoukuan.vue' //钱包收款记录页面
 
 Vue.use(Router)
-
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -26,6 +26,11 @@ export default new Router({
       path: '/wallet',
       name: 'wallet',
       component: Wallet
+    },
+    {
+      path: '/shoukuan',
+      name: 'shoukuan',
+      component: shoukuan
     },
     {
       path: '/advert',

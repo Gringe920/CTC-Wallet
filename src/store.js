@@ -5,9 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+    showNav:true
   },
   mutations: {
+    showNav(state, data) {
+      state.showNav = data;
+    },
 
   },
   actions: {
