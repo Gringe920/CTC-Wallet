@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="home-type">
-      <div class="ht_box">
+      <div class="ht_box" @click="toroute('shoukuan')">
         <img src="../assets/images/receivables.png" alt="" srcset="">
         <div>收款</div>
       </div>
@@ -19,7 +19,7 @@
         <img src="../assets/images/activation@2x.png" alt="" srcset="">
         <div>激活</div>
       </div>
-       <div class="ht_box">
+       <div class="ht_box"   @click="toroute('zhuanqian')">
         <img src="../assets/images/transfer@2x.png" alt="" srcset="">
         <div>转账</div>
       </div>

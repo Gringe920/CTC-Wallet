@@ -5,7 +5,9 @@ import Wallet from './views/wallet/index.vue' //钱包首页
 import AcceptCoin from './views/wallet/acceptCoin.vue' //钱包收款记录页面
 import Advert from './views/user/advert.vue' //公告
 import AdvertDetails from './views/user/advertDetails.vue' //公告详情
-import shoukuan from './views/wallet/shoukuan.vue' //钱包收款记录页面
+import shoukuan from './views/wallet/shoukuan.vue' //收款
+import zhuanqian from './views/wallet/zhuanqian.vue' //转账
+import detais from './views/wallet/detais.vue' //收款转账详情
 
 Vue.use(Router)
 export default new Router({
@@ -31,6 +33,16 @@ export default new Router({
       path: '/shoukuan',
       name: 'shoukuan',
       component: shoukuan
+    },
+    {
+      path: '/zhuanqian',
+      name: 'zhuanqian',
+      component: zhuanqian
+    },
+    {
+      path: '/detais/:id',
+      name: 'detais',
+      component:detais
     },
     {
       path: '/advert',

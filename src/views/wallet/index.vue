@@ -31,7 +31,7 @@
       </div> 
       <div class="coin4">
         <div class="shou"  @click="toroute('shoukuan')" >收款</div>
-        <div class="zhuan" @click="toacceptCoin">转账</div>
+        <div class="zhuan" @click="toroute('zhuanqian')">转账</div>
       </div>
     </div>
   </section>

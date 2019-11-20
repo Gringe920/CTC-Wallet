@@ -71,7 +71,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
-  z-index: 1000;
+  z-index: 10;
   height: 50px;
   position: fixed;
   top: 0;

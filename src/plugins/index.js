@@ -3,7 +3,7 @@ Vue.mixin({
 
   methods: {
     toroute(path){
-      this.$router.push({ name: path});
+      this.$router.push({ path: path});
     }
   }
 })

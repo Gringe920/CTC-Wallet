@@ -5,6 +5,7 @@ import store from './store'
 import i18n from './i18n/'
 import './plugins/components'
 import './plugins/index'
+
 Vue.config.productionTip = false;
 new Vue({
     router,

@@ -18,6 +18,7 @@
         <div>收付款</div>
       </div>
     </div>
+  
   </section>
 </template>
 <script>
@@ -32,7 +33,6 @@ export default {
   mounted(){
   },
   computed: {
-    ...mapState('showNav')
   },
   methods: {
     toacceptCoin() {
@@ -43,7 +43,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .shoukuan{
-  margin:50px 0;
+  margin-top:50px ;
   width: 100vw;
   text-align: center;
   display: flex;

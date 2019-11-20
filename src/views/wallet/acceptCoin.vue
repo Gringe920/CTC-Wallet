@@ -7,7 +7,7 @@
       <div :class="type==3?'divactive':''" @click="changetype(3)">兑换</div>
     </div>
     <div class="zhuaninfo">
-      <div class="zhuan" v-for="item in 4" :key="item">
+      <div class="zhuan" v-for="item in 4" :key="item" @click="toroute('/detais/'+type)">
         <div class="top">
           <img src="../../assets/images/night_record_time@2x.png" alt="" srcset="">
           2019/01

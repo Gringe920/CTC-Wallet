@@ -10,3 +10,20 @@ $bg2:rgba(50,54,69,0.6);
 $border:rgba(255,255,255,0.05);
 $border2:#323645;
 $color2:#828A95;
+$bg3:rgba(0,0,0,0.3);
+$bg4:rgba(0,0,0,0.5);
+
+.btn { //公共按钮 ，浮动在底部  
+  width: 90%;
+ margin: 0 auto;
+ margin: 0 5%;
+ position: fixed;  left: 0;
+ bottom: 20px;
+ display: block;
+ line-height: 44px;
+ text-align: center;
+ background: rgba(0, 194, 143, 1);
+ border-radius: 22px;
+ color: $white;
+ height: 44px;
+}

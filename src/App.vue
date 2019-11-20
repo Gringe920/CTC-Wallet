@@ -53,6 +53,13 @@ export default {
       }
     }
   },
+  mounted(){
+      if(this.$route.name=='home'||this.$route.name=='wallet'||this.$route.name=='DAPP'){
+          this.$store.commit("showNav", true);
+      }else{
+        this.$store.commit("showNav", false);
+      }
+  },
   computed: {
     ...mapState(['showNav'])
   },
