@@ -1,3 +1,6 @@
+/**
+ * this.$toast.show('your text')
+ */
 import Vue from 'vue'
 import ToastComponent from './toast'
 
@@ -9,6 +12,9 @@ const toast = {
     install: (Vue, options) => {
         const option = {
             duration: '1200'
+        }
+        for(let o in options){
+            option[o] = options[o]
         }
         Vue.prototype.$toast = (content, type) => {
             if(type == 'hide'){
