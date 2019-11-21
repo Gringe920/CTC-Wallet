@@ -126,7 +126,7 @@ export default {
       align-items: center;
       width: 84%;
       height: 50px;
-  
+      font-size: 14px;
       white-space: nowrap;
       line-height: 50px;
       div{

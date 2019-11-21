@@ -8,6 +8,7 @@ import AdvertDetails from './views/user/advertDetails.vue' //公告详情
 import shoukuan from './views/wallet/shoukuan.vue' //收款
 import zhuanqian from './views/wallet/zhuanqian.vue' //转账
 import detais from './views/wallet/detais.vue' //收款转账详情
+import Dapp from './views/dapp/index.vue' //DAPP首页
 
 Vue.use(Router)
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
       path: '/wallet',
       name: 'wallet',
       component: Wallet
+    },
+    {
+      path: '/dapp',
+      name: 'dapp',
+      component: Dapp
     },
     {
       path: '/shoukuan',

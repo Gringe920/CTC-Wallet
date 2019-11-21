@@ -25,6 +25,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+// xm 2019/11/20
 .advertDetails {
   margin: 50px 15px;
   .title {
