@@ -46,7 +46,8 @@ export default {
   },
   watch:{
     "$route"(n, o) {
-      if(this.$route.name=='home'||this.$route.name=='wallet'||this.$route.name=='DAPP'){
+      var show = this.$route.name=='home'||this.$route.name=='wallet'||this.$route.name=='dapp'
+      if(show){
           this.$store.commit("showNav", true);
       }else{
         this.$store.commit("showNav", false);
@@ -54,7 +55,7 @@ export default {
     }
   },
   mounted(){
-      if(this.$route.name=='home'||this.$route.name=='wallet'||this.$route.name=='DAPP'){
+      if(this.$route.name=='home'||this.$route.name=='wallet'||this.$route.name=='dapp'){
           this.$store.commit("showNav", true);
       }else{
         this.$store.commit("showNav", false);
