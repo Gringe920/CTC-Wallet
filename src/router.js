@@ -10,6 +10,9 @@ import zhuanqian from './views/wallet/zhuanqian.vue' //转账
 import detais from './views/wallet/detais.vue' //收款转账详情
 import Dapp from './views/dapp/index.vue' //DAPP首页
 
+
+import Download from './views/download' 
+
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -65,6 +68,11 @@ export default new Router({
       path: '/acceptCoin',
       name: 'acceptCoin',
       component:AcceptCoin
+    },
+    {
+      path: '/download',
+      name: 'download',
+      component: Download
     },
     {
       path: '/about',
