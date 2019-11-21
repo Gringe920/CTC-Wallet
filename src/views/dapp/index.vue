@@ -28,7 +28,7 @@
             <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
           </div>
         </div>
-         <div class="navbox">
+         <div class="navbox" @click="toroute('trade')">
           <div class="left">
             <img src="../../assets/images/transaction@2x.png" alt="" srcset="">
             <div class="text">

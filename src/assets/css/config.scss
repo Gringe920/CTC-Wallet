@@ -6,14 +6,25 @@ $nav-bg:#171B29;
 $bg:#1F2332;
 $white:#ffffff;
 $color1:#7D8398;
+$color2:#828A95;
+$color3:#515871;
 $bg2:rgba(50,54,69,0.6);
 $border:rgba(255,255,255,0.05);
 $border2:#323645;
-$color2:#828A95;
 $bg3:rgba(0,0,0,0.3);
 $bg4:rgba(0,0,0,0.5);
 $bg5:rgba(50,54,69,0.8);
+$bg6:rgba(0,194,143,0.1);
+$bg7:rgba(23,27,41,0.2);
+$up:#FF615D;
+$down:#00C28F;
 
+.up{
+  color:#FF615D;
+}
+.down{
+  color: #00C28F;
+}
 .btn { //公共按钮 ，浮动在底部  
   width: 90%;
  margin: 0 auto;
