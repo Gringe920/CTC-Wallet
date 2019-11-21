@@ -24,42 +24,21 @@
                       class="d-btn"/>
         </div>
         <div class="download-qrcode">
-            <canvas id="canvas"></canvas>
-            <img src="" alt="">
+            <rQrcode qrcodeUrl="www.baidu.com"/>
         </div>
     </div>
 </template>
 
 <script>
-import QRCode from 'qrcode'
+
 
 export default {
-    created(){
-        this.$toast.show('textxtx')
-    },
     data(){
         return {
-            innerBtnData: {
-                width: '64%',
-                height: '92px',
-                bgColor: 'linear-gradient(90deg,rgba(0,194,143,1) 0%,rgba(0,204,255,1) 100%);',
-                borRadio: '46px'
-            }
         }
     },
-    mounted(){
-        this.setQrcode();
-    },
-    methods: {
-        setQrcode(){
-            const canvas = document.getElementById('canvas');
-            const qrcodeUrl = 'http://www.baidu.com';
-            QRCode.toCanvas(canvas, qrcodeUrl, err => {
-                if(err) console.log(err);
-                console.log('qrcode success')
-            })
-        }
-    }
+    
+    
 }
 </script>
 <style lang="scss" scoped>
@@ -95,10 +74,7 @@ export default {
         width: 38.6%;
         margin: 0 auto;
         padding-top: 35px;
-        #canvas{
-            width: 100% !important;
-            height: 100% !important;
-        }
+        
     }
 }
 </style>
