@@ -1,0 +1,65 @@
+<template>
+    <div class="container" 
+         @click="comfirm"
+         :style="{width: width, height: height}">
+        <button :style="{background: bgColor}" class="bor-radio">
+            <i :class="icon" v-if="icon"></i>
+            {{text}}
+        </button>
+    </div>
+</template>
+<script>
+export default {
+    props: {
+        width: String,
+        height: String,
+        bgColor: String,
+        text: String,
+        icon: String
+    },
+    data(){
+        return {
+            
+        }
+    },
+    methods: {
+        comfirm(){
+            this.$emit('comfirm')
+        }
+    }
+}
+</script>
+<style lang="scss" scoped>
+.container{
+    text-align: center;
+    margin: 0 auto;
+    i{
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        background-size: 100% 100%;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    i.download_ios{
+        background-image: url('../assets/images/download_ios@2x.png');
+    }
+    i.download_android{
+        background-image: url('../assets/images/download_android@2x.png');
+    }
+    i.download_web{
+        background-image: url('../assets/images/download_web@2x.png');
+    }
+    button{
+        height: 46px;
+        color: #fff;
+        font-size: 14px;
+        width: 100%;
+        border: 0;
+        font-size: 16px;
+        &.bor-radio{
+            border-radius: 32px;
+        }
+    }
+}
+</style>
