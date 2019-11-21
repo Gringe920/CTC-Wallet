@@ -25,7 +25,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item">
+            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
                 <i class="icon my_a"></i>
                 <p>语言设置</p>
                 <div class="turn-right">
