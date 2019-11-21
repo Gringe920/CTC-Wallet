@@ -1,7 +1,7 @@
 <template>
   <section class="header" :style="`background:${color}`">
-        <img  v-if="leftShow&&!leftIcon"  @click="reply" src="../assets/images/home_search_white.png" alt="" class="icon_l">
-         <img  v-if="leftShow&&leftIcon"  @click="reply" :src="leftIcon" alt="" class="icon_l">
+        <img  v-if="leftShow && !leftIcon"  @click="reply" src="../assets/images/home_search_white.png" alt="" class="icon_l">
+        <img  v-if="leftShow && leftIcon"  @click="reply" :src="leftIcon" alt="" class="icon_l">
         <span>{{title}}</span>
         <img @click="topath"  v-if="rightIcon" :src="rightIcon" alt="" class="icon-r">
   </section>

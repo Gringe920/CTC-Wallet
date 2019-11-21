@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-view/>
-    </div>
+    <router-view/>
     <div v-if="showNav" class="bg navall" >
         <router-link tag="a"   to="/home"   :class="($route.name=='empty'||$route.name=='home')?'nav-active':''">
             <div class="thenav">
@@ -41,25 +39,24 @@ export default {
   name: "app",
   data() {
     return {
-      // showNav: true
+      routeList: ['home', 'wallet', 'dapp', 'user']
     };
   },
   watch:{
     "$route"(n, o) {
-      var show = this.$route.name=='home'||this.$route.name=='wallet'||this.$route.name=='dapp'
-      if(show){
-          this.$store.commit("showNav", true);
-      }else{
-        this.$store.commit("showNav", false);
-      }
+      this.showBottomNav()
     }
   },
+  methods: {
+    showBottomNav(){
+      this.$store.commit("showNav", this.shouldShowBottomNav());
+    },
+    shouldShowBottomNav(){
+      return this.routeList.indexOf(this.$route.name) > -1
+    } 
+  },
   mounted(){
-      if(this.$route.name=='home'||this.$route.name=='wallet'||this.$route.name=='dapp'){
-          this.$store.commit("showNav", true);
-      }else{
-        this.$store.commit("showNav", false);
-      }
+    this.showBottomNav()
   },
   computed: {
     ...mapState(['showNav'])

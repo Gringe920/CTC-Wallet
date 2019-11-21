@@ -13,6 +13,7 @@ import Dapp from './views/dapp/index.vue' //DAPP首页
 
 import Download from './views/download' 
 import Invite from "./views/invite"
+import User from "./views/user"
 
 Vue.use(Router)
 export default new Router({
@@ -79,6 +80,11 @@ export default new Router({
       path: '/invite',
       name: 'invite',
       component: Invite
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: User
     },
     {
       path: '/about',
