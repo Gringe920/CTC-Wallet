@@ -28,7 +28,7 @@
             <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
           </div>
         </div>
-         <div class="navbox">
+         <div class="navbox" @click="toroute('trade')">
           <div class="left">
             <img src="../../assets/images/transaction@2x.png" alt="" srcset="">
             <div class="text">
@@ -124,7 +124,7 @@ export default {
   margin-bottom:60px;
   .header {
     background: url("../../assets/images/dapp_bj@2x.png");
-    height: 50px;
+    height: 60px;
     padding-top: 20px;
     background-repeat: no-repeat;
     background-size: cover;
