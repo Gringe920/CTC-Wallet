@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="account-import" v-show="!editMode">
+      <div class="account-import" v-show="!editMode" @click="$router.push({path: '/exportAddr'})">
         <i></i>
         导入地址
       </div>

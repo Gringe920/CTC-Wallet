@@ -15,6 +15,8 @@ import Invite from "./views/invite"
 import User from "./views/user"
 import Lang from "./views/user/lang"
 import AccountManage from './views/user/accountManage'
+import ExportAddr from './views/user/exportAddr'
+
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -100,6 +102,11 @@ export default new Router({
       path: '/accountManage',
       name: 'accountManage',
       component: AccountManage
+    },
+    {
+      path: '/exportAddr',
+      name: 'exportAddr',
+      component: ExportAddr
     },
     {
       path: '/about',
