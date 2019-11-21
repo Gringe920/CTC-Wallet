@@ -49,12 +49,12 @@ export default {
   data() {
     return {
       hidden: false,
-      isjihuo:false,
+      isjihuo: false
     };
   },
-  methods:{
-    tohidden(){
-      this.hidden = ! this.hidden
+  methods: {
+    tohidden() {
+      this.hidden = !this.hidden;
     }
   },
   components: {}
@@ -74,15 +74,15 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color:$color1;
+      color: $color1;
       font-size: 16px;
-      .imgs{
-        width: 30px;height: 30px;
-
+      .imgs {
+        width: 30px;
+        height: 30px;
       }
     }
     .home-t2 {
-       margin: 0 15px 0 30px;
+      margin: 0 15px 0 30px;
       font-size: 24px;
       color: $color1;
       font-weight: bold;
@@ -92,35 +92,36 @@ export default {
       }
     }
   }
-  .home-type{
-      width: 100%;
+  .home-type {
+    width: 100%;
     display: flex;
     height: 125px;
-    background: url('../assets/images/home_bj_2@2x.png');
+    background: url("../assets/images/home_bj_2@2x.png");
     justify-content: space-around;
-      background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-size: cover;
     align-items: center;
-    .ht_box{
+    .ht_box {
       font-size: 12px;
-      color:$color1;
-      img{
+      color: $color1;
+      img {
         width: 30px;
         height: 30px;
       }
     }
   }
-  .advert{
+  .advert {
     border: 1px solid red;
-    display: flex;justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-     margin: 20px 15px;
-     border-radius: 24px;
-     border: 1px solid $border2;
-     background:rgba(50,54,69,1);
-     height: 50px;
-     padding: 0 15px;
-    .advert_l{
+    margin: 20px 15px;
+    border-radius: 24px;
+    border: 1px solid $border2;
+    background: rgba(50, 54, 69, 1);
+    height: 50px;
+    padding: 0 15px;
+    .advert_l {
       color: $white;
       display: flex;
       align-items: center;
@@ -129,48 +130,47 @@ export default {
       font-size: 14px;
       white-space: nowrap;
       line-height: 50px;
-      div{
-            overflow-y:scroll;
+      div {
+        overflow-y: scroll;
       }
-      img{
+      img {
         width: 20px;
         height: 20px;
         margin-right: 5px;
       }
     }
-    .advert_r{
-      color:$color1;
+    .advert_r {
+      color: $color1;
+      font-size: 14px;
     }
-    .advert_r:hover{
+    .advert_r:hover {
       color: $active;
     }
-    
   }
-  .jiuo{
+  .jiuo {
     margin: 0 15px;
-    background:$border2;
-    border-radius:5px;
+    background: $border2;
+    border-radius: 5px;
     display: flex;
     padding: 20px 15px;
-    img{
+    img {
       width: 40px;
       height: 70px;
       margin-right: 15px;
     }
-    .jiho_r{
+    .jiho_r {
       display: inline-block;
-      .t{
+      .t {
         font-size: 16px;
         font-weight: bold;
-        color:$white;
+        color: $white;
         margin-bottom: 10px;
       }
-      .last{
-        color:$color1;
+      .last {
+        color: $color1;
         font-weight: 14px;
       }
     }
-
   }
 }
 </style>

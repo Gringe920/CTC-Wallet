@@ -1,6 +1,7 @@
 <template>
   <section class="dapp">
       <div class="header">DAPP</div>
+      <div class="bg"></div>
       <div class="content">
         <div class="text1">共识</div>
         <div class="navbox">
@@ -118,6 +119,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+// xm 2019/11/21 
 .dapp {
   margin-bottom:60px;
   .header {
@@ -130,12 +132,19 @@ export default {
     text-align: center;
     font-weight: bold;
   }
+  .bg{
+    height: 5px;
+    margin: 0 15px;
+    border-radius:10px 10px 0px 0px;
+    background-image: linear-gradient(270deg,rgba(0,194,143,0) 0%,rgba(0,194,143,1) 100%);  
+  }
   .content{
     margin: 0 15px;
     background: $bg5;
     padding:0 15px;
     border-radius: 8px;
-    border-top: 10px solid linear-gradient(270deg,rgba(0,194,143,0) 0%,rgba(0,194,143,1) 100%);
+    // border: 10px solid linear-gradient(rgba(0,194,143,0),rgba(0,194,143,1));
+    border: 10px solid linear-gradient(red,green);
     .navbox{
       padding: 8px 0;
       display: flex;justify-content: space-between;
