@@ -28,6 +28,13 @@ export default {
       type: String,
       default: ""
     },
+    leftEv: {
+      // 左侧event
+      type: Function,
+      default: () => {
+        return null;
+      }
+    },
     leftShow: {
       // 是否显示返回按钮
       type: Boolean,
@@ -59,6 +66,9 @@ export default {
       }
     },
     reply() {
+      if(this.leftEv()){
+        return;
+      }
       if (typeof plus == "object") {
         let webview = plus.webview.getLaunchWebview();
         webview.back();

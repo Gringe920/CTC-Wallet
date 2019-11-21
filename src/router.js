@@ -13,7 +13,8 @@ import Trade from './views/trade/index.vue' //交易中心
 import Download from './views/download' 
 import Invite from "./views/invite"
 import User from "./views/user"
-import Lang from "./views/user/lang.vue"
+import Lang from "./views/user/lang"
+import AccountManage from './views/user/accountManage'
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -94,6 +95,11 @@ export default new Router({
       path: '/lang',
       name: 'lang',
       component: Lang
+    },
+    {
+      path: '/accountManage',
+      name: 'accountManage',
+      component: AccountManage
     },
     {
       path: '/about',

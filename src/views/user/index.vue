@@ -33,7 +33,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item">
+            <div class="user-nav-item" @click="$router.push({path: '/accountManage'})">
                 <i class="icon my_account"></i>
                 <p>账户管理</p>
                 <div class="turn-right">
