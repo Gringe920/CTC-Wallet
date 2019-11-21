@@ -124,7 +124,7 @@ export default {
   margin-bottom:60px;
   .header {
     background: url("../../assets/images/dapp_bj@2x.png");
-    height: 50px;
+    height: 60px;
     padding-top: 20px;
     background-repeat: no-repeat;
     background-size: cover;
