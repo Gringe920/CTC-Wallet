@@ -11,6 +11,8 @@ import detais from './views/wallet/detais.vue' //收款转账详情
 import Dapp from './views/dapp/index.vue' //DAPP首页
 import Trade from './views/trade/index.vue' //交易中心
 import lastOrder from './views/trade/lastOrder' //交易中心历史记录
+import tradeDetails from './views/trade/tradeDetails' //交易中心对应k线深度图页面
+
 import Download from './views/download' 
 import Invite from "./views/invite"
 import User from "./views/user"
@@ -40,6 +42,11 @@ export default new Router({
       path: '/trade',
       name: 'trade',
       component: Trade
+    },
+    {
+      path: '/tradeDetails',
+      name: 'tradeDetails',
+      component: tradeDetails
     },
     {
       path: '/lastOrder',

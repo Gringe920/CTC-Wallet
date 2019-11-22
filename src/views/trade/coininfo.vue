@@ -8,7 +8,7 @@
         <span @click="changeopen" >BTC/USDT</span>
         <div class="fudong">-0.87%</div>
       </div>
-      <div class="coin-r">
+      <div class="coin-r"  @click="toroute('tradeDetails')">
         <img src="../../assets/images/k_line@2x.png" alt="" srcset="">
       </div>
     </div>
@@ -22,7 +22,7 @@
       </div>
       <div class="coinall">
         <div class="coin_l">
-          <div class="serch" :class="!searchstatus?'':'down'" @click="searchstatus = true">
+          <div class="serch" :class="!searchstatus?'':'down'" @click="searchstatus =!searchstatus">
             <img src="../../assets/images/search_gray@2x.png" alt="" srcset="" v-if="!searchstatus">
              <img src="../../assets/images/search_gray_press@2x.png" alt="" srcset="" v-else>
             搜索
@@ -52,18 +52,18 @@ export default {
   data() {
     return {
       open: false,
-      checkcoin:'usdt',
-      searchstatus:false,
+      checkcoin: "usdt",
+      searchstatus: false,
       coins: {
-        usdt: ["btc", "trx", "eos", "tan", "csc", "ccc", "bth", "snk"],
+        usdt: ["btc",  "csc", "ccc", "bth", "snk"],
         eth: ["usdt", "eos", "btc"],
         btc: ["sbk", "eth", "csc", "eos"]
       }
     };
   },
   methods: {
-    tochangcoin(key){
-      this.checkcoin = key
+    tochangcoin(key) {
+      this.checkcoin = key;
     },
     changeopen() {
       this.open = !this.open;
@@ -110,30 +110,50 @@ export default {
     }
   }
   .changecoin {
+    position: absolute;
+    width: 100vw;
+    min-height: 100%;
     // height: calc(100vh-100px);
-    min-height:   90vh;
+    min-height: 90vh;
     background: $bg4;
     .nav {
-      padding: 0 15px;
+      // padding: 0 15px;
       color: $color3;
       height: 42px;
       background: $nav-bg;
-      display: flex;
-      justify-content: space-between;
+      font-size: 14px;
+      // display: flex;
+      // justify-content: space-between;
       div {
         display: inline-block;
         line-height: 42px;
-        // width: 25%;
-        // border: 1px solid red;
+      }
+      div:nth-child(1) {
+        padding-left: 15px;
+        text-align: left;
+        width: 25%;
+      }
+      div:nth-child(2) {
+        width: 30%;
+        padding-left: 15px;
+      }
+      div:nth-child(3) {
+        width: 22.5%;
+      }
+      div:nth-child(4) {
+        width: 22.5%;
+        padding-right: 15px;
+        text-align: right;
       }
     }
     .coinall {
+      font-size: 14px;
       display: flex;
-         background: $bg;
+      background: $bg;
       .coin_l {
-         padding: 0 15px;
-        background: $nav-bg ;
-        width: 20%;
+        padding: 0 10px;
+        background: $nav-bg;
+        width: 25%;
         color: $color1;
         .serch {
           padding: 15px 0;
@@ -144,29 +164,28 @@ export default {
           }
         }
         .coinbox {
-          padding: 15px 0;
+          padding: 10px 0;
         }
       }
       .coin-r {
         color: $color1;
         width: 75%;
         display: inline-block;
-        .search{
-          border:1px solid $border;
+        .search {
+          border: 1px solid $border;
           height: 40px;
           display: flex;
-          margin:  15px;
+          margin: 15px;
           justify-content: space-between;
           align-items: center;
-          padding:0 5px;
-          input{
-            background:  none;
-            border:none;
+          padding: 0 5px;
+          input {
+            background: none;
+            border: none;
             color: $color1;
             height: 100%;
-            
           }
-          img{
+          img {
             width: 14px;
             height: 14px;
           }
@@ -177,6 +196,20 @@ export default {
           background: $bg;
           border-bottom: 1px solid $nav-bg;
           justify-content: space-around;
+          font-size: 14px;
+          div:nth-child(1) {
+            padding-left: 15px;
+            width: 40%;
+          }
+          div:nth-child(2) {
+            padding-left: 15px;
+            width: 30%;
+          }
+          div:nth-child(3) {
+            text-align: right;
+            padding-right: 15px;
+            width: 30%;
+          }
         }
       }
     }
