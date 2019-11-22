@@ -48,6 +48,9 @@ export default {
 <style lang="scss" scoped>
 
 .buysell {
+  height: 100%;
+  display: inline-block;
+  vertical-align: text-top;
   color: $color1;
   width: 50%;
   padding-left: 15px;
@@ -106,8 +109,8 @@ export default {
     align-items: center;
     margin-top: 15px;
     .changnumactive{
-      background: $active;
-      color:$white;
+      background: $bg6;
+      color:$active;
     }
     div{
        color: $color1;
@@ -122,7 +125,7 @@ export default {
   }
   .allmoney{
     font-size: 14px;
-    margin-top: 30px;
+    margin-top: 55px;
     span{
       color: $white;
     }
