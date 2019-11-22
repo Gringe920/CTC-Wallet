@@ -18,6 +18,8 @@ import AccountManage from './views/user/accountManage'
 import ExportAddr from './views/user/exportAddr'
 import MnemonicWord from './views/user/mnemonicWord'
 
+import Login from './views/login'
+
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -113,6 +115,11 @@ export default new Router({
       path: '/mnemonicWord',
       name: 'mnemonicWord',
       component: MnemonicWord
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/about',
