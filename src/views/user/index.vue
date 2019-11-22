@@ -96,7 +96,7 @@
         .user-nav-item{
             display: flex;
             align-items: center;
-            padding: 15px;
+            padding: 15px 0;
             position: relative;
             i.icon{
                 display: inline-block;
