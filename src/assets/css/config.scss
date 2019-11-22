@@ -19,24 +19,3 @@ $bg6:rgba(0,194,143,0.1);
 $bg7:rgba(23,27,41,0.2);
 $up:#FF615D;
 $down:#00C28F;
-
-.up{
-  color:#FF615D;
-}
-.down{
-  color: #00C28F;
-}
-.btn { //公共按钮 ，浮动在底部  
-  width: 90%;
- margin: 0 auto;
- margin: 0 5%;
- position: fixed;  left: 0;
- bottom: 20px;
- display: block;
- line-height: 44px;
- text-align: center;
- background: rgba(0, 194, 143, 1);
- border-radius: 22px;
- color: $white;
- height: 44px;
-}

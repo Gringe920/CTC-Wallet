@@ -20,16 +20,20 @@ export default {
   padding: 30px;
   color: $color1;
   .imgbox{
-    width: 80px;
-    height: 80px;
+    width: 30%;
+    height: 30%;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 200px;
+    max-height: 200px;
     display: flex;
     justify-content:center;
     align-items: center;
     margin-bottom: 10px;
     border: 1px dashed $color1;
     img{
-      width: 80px;
-      height: 80px;
+      width: 100%;
+      height: 100%;
     }
   }
 }

@@ -62,7 +62,7 @@
 .container{
     background-image: url('../../assets/images/my_bj@2x.png');
     background-size: 100% 100%;
-    height: 100%;
+    min-height: 100vh;
     .userinfo{
         display: flex;
         align-items: center;
