@@ -4,33 +4,43 @@
       <div>价格</div>
       <div>数量</div>
     </div>
-    <div class="box">
-      <div v-for=" item in 6" :key="item" class="boxtext">
+    <div class="box" v-if="type != 3" :class="type !=1 ? 'addbox':''">
+      <div  v-for=" item in 16" :key="item" class="boxtext">
           <div class="price up">8675.87</div> 
           <div  class="t2">0.4456</div>
       </div>
     </div>
-    <div class="all">8673.85</div>   
+    <div class="all" :class="type ==2 ? 'down':'up'">8673.85</div>   
     <div class="yue">=23243.23&nbsp;CNY</div>
-    <div class="box">
-      <div v-for=" item in 6" :key="item" class="boxtext">
-          <div class="price down">8675.87</div> 
+    <div class="box" v-if="type != 2"  :class="type !=1 ? 'addbox':''">
+      <div v-for=" item in 16" :key="item" class="boxtext"  >
+          <div class="price down" >8675.87</div> 
           <div class="t2">0.4456</div>
       </div>
     </div>
     <div class="check">
-      <div> <img src="../../assets/images/business@2x.png" alt="" srcset=""></div>
-       <div><img src="../../assets/images/night_buy@2x.png" alt="" srcset=""></div>
-        <div><img src="../../assets/images/night_sell@2x.png" alt="" srcset=""></div>
-     
-      
-      
+      <div v-if="type!=1" @click="totype(1)"> <img src="../../assets/images/business@2x.png" alt="" srcset=""></div>
+         <div v-if="type==1"  class="noborer"> <img src="../../assets/images/business_press@2x.png" alt="" srcset=""></div>
+        <div v-if="type!=3" @click="totype(3)" ><img src="../../assets/images/night_sell@2x.png" alt="" srcset=""></div>
+       <div v-if="type==3" class="noborer"><img src="../../assets/images/night_sell_press@2x.png" alt="" srcset=""></div>
+        <div v-if="type==2" class="noborer"><img src="../../assets/images/night_buy_press@2x.png" alt="" srcset=""></div>
+        <div v-if="type!=2" @click="totype(2)"><img src="../../assets/images/night_buy@2x.png" alt="" srcset=""></div>
     </div>
   </section>
 </template>
 <script>
 export default {
-  name: "depth"
+  name: "depth",
+  data(){
+    return{
+      type:1
+    }
+  },
+  methods:{
+    totype(index){
+      this.type = index;
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -51,13 +61,15 @@ export default {
   }
   .all {
     margin-top: 7px;
-    color: $up;
     font-size: 14pxx;
   }
   .yue {
     margin: 7px 0;
     color: $color3;
     font-size: 10px;
+  }
+  .addbox{
+    height: 240px !important;
   }
   .box {
     height: 120px;
@@ -78,6 +90,9 @@ export default {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+    .noborer{
+      border:none;
+    }
     div{
       border: 1px dashed $color1;
 
