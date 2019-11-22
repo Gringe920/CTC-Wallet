@@ -57,6 +57,7 @@ export default {
         width: 100%;
         border: 0;
         font-size: 16px;
+        background-color: #00C28F;
         &.bor-radio{
             border-radius: 32px;
         }

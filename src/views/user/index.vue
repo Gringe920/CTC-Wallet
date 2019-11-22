@@ -18,7 +18,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item">
+            <div class="user-nav-item" @click="$router.push({path: '/invite'})">
                 <i class="icon my_share"></i>
                 <p>分享APP</p>
                 <div class="turn-right">
