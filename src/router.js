@@ -22,6 +22,7 @@ import ExportAddr from './views/user/exportAddr'
 import MnemonicWord from './views/user/mnemonicWord'
 
 import Login from './views/login'
+import Convolution from './views/dapp/convolution'
 
 Vue.use(Router)
 export default new Router({
@@ -133,6 +134,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/convolution',
+      name: 'convolution',
+      component: Convolution
     },
     {
       path: '/about',

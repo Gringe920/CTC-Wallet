@@ -1,5 +1,5 @@
 <template>
-    <div class="container" 
+    <div class="btn-container" 
          @click="comfirm"
          :style="{width: width, height: height}">
         <button :style="{background: bgColor}" class="bor-radio">
@@ -30,7 +30,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.container{
+.btn-container{
     text-align: center;
     margin: 0 auto;
     i{

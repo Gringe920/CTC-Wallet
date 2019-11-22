@@ -4,7 +4,7 @@
       <div class="bg"></div>
       <div class="content">
         <div class="text1">共识</div>
-        <div class="navbox">
+        <div class="navbox" @click="$router.push({path: './convolution'})">
           <div class="left">
             <img src="../../assets/images/convolution@2x.png" alt="" srcset="">
             <div class="text">
