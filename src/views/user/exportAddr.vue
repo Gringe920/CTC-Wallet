@@ -2,6 +2,7 @@
   <div class="container">
     <Header title="导入地址" />
     <div class="content">
+      <!-- tabs -->
       <div class="tabs">
         <div class="tab" @click="selectTab(0)" :class="{'active': activeIndex == 0}">
           助记词
@@ -16,11 +17,17 @@
       <div class="inputFwk" :class="{'active': activeIndex == 0}">
         <div class="input-title">请填写您的助记词</div>
         <textarea class="input-area" placeholder="英文单词请按空格分隔单词" />
+        <div class="error-msg">*当前助记词输入错误，请检查</div>
       </div>
       <div class="inputFwk" :class="{'active': activeIndex == 1}">
         <div class="input-title">请输入您的私钥地址</div>
         <textarea class="input-area" placeholder="RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ" />
       </div>
+      <!-- 提交按钮 -->
+      <r-button width="87.3%"
+                bgColor="#00C28F"
+                text="开始导入"
+                class="submit"/>
     </div>
   </div>
 </template>
@@ -29,7 +36,7 @@
 export default {
   data() {
     return {
-      activeIndex: 0
+      activeIndex: 0 // 0助记词，1私钥
     };
   },
   methods: {
@@ -94,6 +101,17 @@ export default {
       display: inline-block;
       width: 100%;
     }
+    .error-msg{
+      font-size: 12px;
+      color: #FF615D;
+      margin-top: 12px;
+    }
+  }
+  .submit{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 </style>
