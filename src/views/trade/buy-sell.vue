@@ -61,18 +61,20 @@ export default {
          width: 50%;
          line-height: 35px;
          text-align: center;
-        //  border: 1px solid red;
+           border: 1px dashed $color1;
+           color: $white;
      
     }
     .buy{
        background: url('../../assets/images/buy_bj_press@2x.png');
            background-repeat: no-repeat;
-         background-size: contain;
+         background-size: cover ;
     }
     .sell{
-      background: url('../../assets/images/sell_bj@2x.png');
+      // background: url('../../assets/images/sell_bj@2x.png');
           background-repeat: no-repeat;
          background-size: contain;
+         color: $color1;
     }
   }
   .price{
