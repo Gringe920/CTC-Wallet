@@ -10,6 +10,7 @@
         <span>{{hidden?'******':"8900.00"}}</span>&nbsp;{{hidden ?'******':"CNY"}}
       </div>
     </div>
+    <div class="bg"></div>
     <div class="home-type">
       <div class="ht_box" @click="toroute('shoukuan')">
         <img src="../assets/images/receivables.png" alt="" srcset="">
@@ -24,6 +25,7 @@
         <div>转账</div>
       </div>
     </div>
+     <div class="bg"></div>
     <div class="advert">
       <div class="advert_l" @click="toroute('advertDetails')">
         <img src="../assets/images/horn@2x.png" alt="" srcset="">
@@ -91,6 +93,11 @@ export default {
         color: $white;
       }
     }
+  }
+     .bg{
+    height: 2px;
+    border-radius:10px 10px 0px 0px;
+    background-image: linear-gradient(270deg,rgba(0,194,143,1) 0%,rgba(0,194,143,0) 100%);  
   }
   .home-type {
     width: 100%;
