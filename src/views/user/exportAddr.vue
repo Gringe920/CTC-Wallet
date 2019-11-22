@@ -13,7 +13,7 @@
           <span class="active-line" v-if="activeIndex == 1"></span>
         </div>
       </div>
-      <!-- 助记词 -->
+      <!-- 助记词/私钥 -->
       <div class="inputFwk" :class="{'active': activeIndex == 0}">
         <div class="input-title">请填写您的助记词</div>
         <textarea class="input-area" placeholder="英文单词请按空格分隔单词" />
