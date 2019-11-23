@@ -24,6 +24,7 @@ import ChangeSecurePsw from './views/user/changeSecurePsw'
 
 import Login from './views/login'
 import Convolution from './views/dapp/convolution'
+import Exchange from './views/dapp/exchange'
 
 Vue.use(Router)
 export default new Router({
@@ -145,6 +146,11 @@ export default new Router({
       path: '/convolution',
       name: 'convolution',
       component: Convolution
+    },
+    {
+      path: '/exchange',
+      name: 'exchange',
+      component: Exchange
     },
     {
       path: '/about',

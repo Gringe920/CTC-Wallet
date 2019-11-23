@@ -4,11 +4,11 @@
       title="账户管理"
       :right-icon="require('../../assets/images/my_edit@2x.png')"
       :right-ev="openEdit"
-      v-show="!editMode"
+      v-if="!editMode"
     />
     <Header
       title="账户管理"
-      v-show="editMode"
+      v-if="editMode"
       :left-icon="require('../../assets/images/top_off_white@2x.png')"
       :left-ev="openEdit"
     />

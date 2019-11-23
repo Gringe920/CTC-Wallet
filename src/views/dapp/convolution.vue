@@ -38,7 +38,7 @@
                 </div>
             </div>
             <r-button text="兑换" class="convolut-btn"
-                      @comfirm="$router.push({'path': '/'})"/>
+                      @comfirm="$router.push({'path': '/exchange'})"/>
         </div>
     </div>
 </template>
