@@ -20,6 +20,7 @@ import Lang from "./views/user/lang"
 import AccountManage from './views/user/accountManage'
 import ExportAddr from './views/user/exportAddr'
 import MnemonicWord from './views/user/mnemonicWord'
+import ChangeSecurePsw from './views/user/changeSecurePsw'
 
 import Login from './views/login'
 import Convolution from './views/dapp/convolution'
@@ -114,6 +115,11 @@ export default new Router({
       path: '/lang',
       name: 'lang',
       component: Lang
+    },
+    {
+      path: '/changeSecurePsw',
+      name: 'changeSecurePsw',
+      component: ChangeSecurePsw
     },
     {
       path: '/accountManage',

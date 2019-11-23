@@ -40,7 +40,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item">
+            <div class="user-nav-item" @click="$router.push({path: '/changeSecurePsw'})">
                 <i class="icon my_lock"></i>
                 <p>登录密码</p>
                 <div class="turn-right">

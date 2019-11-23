@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="account-import" v-show="!editMode" @click="$router.push({path: '/exportAddr'})">
+      <div class="account-import" v-if="!editMode" @click="$router.push({path: '/exportAddr'})">
         <i></i>
         导入地址
       </div>
@@ -49,17 +49,17 @@ export default {
       addressList: [
         {
           name: "RCP地址",
-          address: "RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ",
+          address: "RKWPDQTXW3FUPZTUNVCEAUG8H",
           isChosen: false
         },
         {
           name: "RCP地址1",
-          address: "RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ",
+          address: "RKWPDQTXW3FUPZTUNVCEAUG8H",
           isChosen: false
         },
         {
           name: "RCP地址2",
-          address: "RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ",
+          address: "RKWPDQTXW3FUPZTUNVCEAUG",
           isChosen: false
         }
       ]
@@ -88,7 +88,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   i.choose {
-    width: 14px;
+    min-width: 14px;
     height: 14px;
     border-radius: 7px;
     border: 1px solid #fff;
@@ -102,7 +102,8 @@ export default {
     }
   }
   .account-list {
-    margin: 75px 15px 0;
+    margin: 0 15px;
+    padding-top: 75px;
     .account-item {
       background: #323645;
       border-radius: 10px;
@@ -110,6 +111,10 @@ export default {
       margin-bottom: 10px;
       display: flex;
       align-items: center;
+      overflow: hidden;
+      .item-content{
+        overflow: hidden;
+      }
       i {
         margin-right: 15px;
       }
@@ -120,6 +125,9 @@ export default {
       .address {
         color: #7d8398;
         font-size: 12px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
     .account-import {
