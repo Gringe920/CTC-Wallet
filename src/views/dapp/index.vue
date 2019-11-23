@@ -16,7 +16,7 @@
             <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
           </div>
         </div>
-        <div class="navbox">
+        <div class="navbox" @click="$router.push({path: './digMine'})">
           <div class="left">
             <img src="../../assets/images/mining@2x.png" alt="" srcset="">
             <div class="text">

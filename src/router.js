@@ -25,6 +25,7 @@ import ChangeSecurePsw from './views/user/changeSecurePsw'
 import Login from './views/login'
 import Convolution from './views/dapp/convolution'
 import Exchange from './views/dapp/exchange'
+import DigMine from './views/dapp/digMine'
 
 Vue.use(Router)
 export default new Router({
@@ -151,6 +152,11 @@ export default new Router({
       path: '/exchange',
       name: 'exchange',
       component: Exchange
+    },
+    {
+      path: '/digMine',
+      name: 'digMine',
+      component: DigMine
     },
     {
       path: '/about',
