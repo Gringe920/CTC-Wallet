@@ -26,6 +26,7 @@ import Login from './views/login'
 import Convolution from './views/dapp/convolution'
 import Exchange from './views/dapp/exchange'
 import DigMine from './views/dapp/digMine'
+import HashGuess from './views/dapp/hashGuess'
 
 Vue.use(Router)
 export default new Router({
@@ -157,6 +158,11 @@ export default new Router({
       path: '/digMine',
       name: 'digMine',
       component: DigMine
+    },
+    {
+      path: '/hashGuess',
+      name: 'hashGuess',
+      component: HashGuess
     },
     {
       path: '/about',
