@@ -22,7 +22,7 @@ import ExportAddr from './views/user/exportAddr'
 import MnemonicWord from './views/user/mnemonicWord'
 import ChangeSecurePsw from './views/user/changeSecurePsw'
 import AddrDetail from './views/user/addrDetail'
-
+import RemoveAddr from './views/user/removeAddr'
 
 import Login from './views/login'
 import Convolution from './views/dapp/convolution'
@@ -209,6 +209,11 @@ export default new Router({
       path: '/addrDetail',
       name: 'addrDetail',
       component: AddrDetail
+    },
+    {
+      path: '/removeAddr',
+      name: 'removeAddr',
+      component: RemoveAddr
     },
     {
       path: '/about',
