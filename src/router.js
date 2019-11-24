@@ -27,6 +27,7 @@ import Convolution from './views/dapp/convolution'
 import Exchange from './views/dapp/exchange'
 import DigMine from './views/dapp/digMine'
 import HashGuess from './views/dapp/hashGuess'
+import Sequence from './views/dapp/sequence'
 
 Vue.use(Router)
 export default new Router({
@@ -163,6 +164,11 @@ export default new Router({
       path: '/hashGuess',
       name: 'hashGuess',
       component: HashGuess
+    },
+    {
+      path: '/sequence',
+      name: 'sequence',
+      component: Sequence
     },
     {
       path: '/about',

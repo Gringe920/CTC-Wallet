@@ -92,6 +92,7 @@ export default {};
     .jackpot {
       color: #7d8398;
       font-size: 14px;
+      margin-bottom: 12px;
     }
 
     .jackpot-detail {
@@ -101,6 +102,7 @@ export default {};
       .jackpot-num {
         font-size: 26px;
         float: left;
+        font-family: DINAlternate-Bold, DINAlternate;
       }
       .jackpot-unit {
         float: right;
@@ -173,12 +175,12 @@ export default {};
       }
     }
   }
-  .btn-guess{
-      position: fixed;
-      bottom: 20px;
-      width: 90%;
-      left: 50%;
-      transform: translateX(-50%);
+  .btn-guess {
+    position: fixed;
+    bottom: 20px;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 </style>

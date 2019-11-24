@@ -101,6 +101,7 @@ export default {
         color: #fff;
         font-size: 22px;
         font-weight: bold;
+        font-family:DINAlternate-Bold,DINAlternate;
       }
 
       .unit {
