@@ -21,7 +21,7 @@ export default {
     color: {
       // 背景色
       type: String,
-      default: "trasparent"
+      default: "transparent"
     },
     leftIcon: {
       //  左侧图标地址
