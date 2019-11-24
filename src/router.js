@@ -21,6 +21,8 @@ import AccountManage from './views/user/accountManage'
 import ExportAddr from './views/user/exportAddr'
 import MnemonicWord from './views/user/mnemonicWord'
 import ChangeSecurePsw from './views/user/changeSecurePsw'
+import AddrDetail from './views/user/addrDetail'
+
 
 import Login from './views/login'
 import Convolution from './views/dapp/convolution'
@@ -202,6 +204,11 @@ export default new Router({
       path: '/betaPowerDetail',
       name: 'betaPowerDetail',
       component: BetaPowerDetail
+    },
+    {
+      path: '/addrDetail',
+      name: 'addrDetail',
+      component: AddrDetail
     },
     {
       path: '/about',
