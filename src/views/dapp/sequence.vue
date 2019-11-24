@@ -54,15 +54,14 @@ export default {};
     background-color: #323645;
     margin: 15px 15px 80px 15px;
     padding: 0 15px 20px 15px;
+    border-radius: 5px;
     .highlight {
-      //   background-image: url("../../assets/images/hash_bj@2x.png");
       background: linear-gradient(
         270deg,
         rgba(0, 194, 143, 0) 0%,
         rgba(0, 194, 143, 1) 100%
       );
       border-radius: 5px 5px 0px 0px;
-      width: 100%;
       height: 5px;
       margin: 0 -15px 15px -15px;
     }

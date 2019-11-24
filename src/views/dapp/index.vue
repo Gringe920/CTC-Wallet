@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="text1 text2">社区</div>
-           <div class="navbox">
+           <div class="navbox" @click="$router.push({path: './xPowerCompaign'})">
           <div class="left">
             <img src="../../assets/images/x@2x.png" alt="" srcset="">
             <div class="text">
@@ -52,7 +52,7 @@
             <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
           </div>
         </div>
-        <div class="navbox">
+        <div class="navbox" @click="$router.push({path: './yPowerCompaign'})">
           <div class="left">
             <img src="../../assets/images/y@2x.png" alt="" srcset="">
             <div class="text">
@@ -63,7 +63,7 @@
             <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
           </div>
         </div>
-         <div class="navbox">
+         <div class="navbox" @click="$router.push({path: './newbieReward'})">
           <div class="left">
             <img src="../../assets/images/award@2x.png" alt="" srcset="">
             <div class="text">
@@ -74,7 +74,7 @@
             <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
           </div>
         </div>
-           <div class="navbox">
+           <div class="navbox" @click="$router.push({path: './tradeCompaign'})">
           <div class="left">
             <img src="../../assets/images/trading_competition@2x.png" alt="" srcset="">
             <div class="text">

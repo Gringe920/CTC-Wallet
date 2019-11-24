@@ -28,6 +28,10 @@ import Exchange from './views/dapp/exchange'
 import DigMine from './views/dapp/digMine'
 import HashGuess from './views/dapp/hashGuess'
 import Sequence from './views/dapp/sequence'
+import TradeCompaign from './views/dapp/tradeCompaign'
+import NewbieReward from './views/dapp/newbieReward'
+import XPowerCompaign from './views/dapp/xPowerCompaign'
+import YPowerCompaign from './views/dapp/yPowerCompaign'
 
 Vue.use(Router)
 export default new Router({
@@ -169,6 +173,23 @@ export default new Router({
       path: '/sequence',
       name: 'sequence',
       component: Sequence
+    },
+    {
+      path: '/tradeCompaign',
+      name: 'tradeCompaign',
+      component: TradeCompaign
+    },{
+      path: '/newbieReward',
+      name: 'newbieReward',
+      component: NewbieReward
+    },{
+      path: '/xPowerCompaign',
+      name: 'xPowerCompaign',
+      component: XPowerCompaign
+    },{
+      path: '/yPowerCompaign',
+      name: 'yPowerCompaign',
+      component: YPowerCompaign
     },
     {
       path: '/about',
