@@ -32,6 +32,8 @@ import TradeCompaign from './views/dapp/tradeCompaign'
 import NewbieReward from './views/dapp/newbieReward'
 import XPowerCompaign from './views/dapp/xPowerCompaign'
 import YPowerCompaign from './views/dapp/yPowerCompaign'
+import AlphaPowerDetail from './views/dapp/alphaPowerDetail'
+import BetaPowerDetail from './views/dapp/betaPowerDetail'
 
 Vue.use(Router)
 export default new Router({
@@ -190,6 +192,16 @@ export default new Router({
       path: '/yPowerCompaign',
       name: 'yPowerCompaign',
       component: YPowerCompaign
+    },
+    {
+      path: '/alphaPowerDetail',
+      name: 'alphaPowerDetail',
+      component: AlphaPowerDetail
+    },
+    {
+      path: '/betaPowerDetail',
+      name: 'betaPowerDetail',
+      component: BetaPowerDetail
     },
     {
       path: '/about',
