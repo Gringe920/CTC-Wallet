@@ -17,7 +17,7 @@
       <div class="sequence-consume">
         <div class="title">接龙花费</div>
         <div class="input-area">
-          <input class="num-input" />
+          <input class="num-input" placeholder="输入数量" />
           <div class="unit">RCP</div>
         </div>
       </div>
