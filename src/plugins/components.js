@@ -3,8 +3,10 @@ const header = () => import(/* webpackChunkName: "header" */ '../components/head
 const button = () => import(/* webpackChunkName: "header" */ '../components/button');
 const qrcode = () => import(/* webpackChunkName: "header" */ '../components/qrcode');
 const empty = () => import(/* webpackChunkName: "empty" */ '../components/empty');
+const countdown = () => import(/* webpackChunkName: "countdown" */ '../components/countdown');
 
 Vue.component('Header', header);
 Vue.component('rButton', button);
 Vue.component('rQrcode', qrcode);
 Vue.component('Empty', empty);
+Vue.component('Countdown', countdown);
