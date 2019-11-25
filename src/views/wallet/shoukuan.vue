@@ -9,12 +9,14 @@
       <div class="copy">点击可复制</div>
     </div>
     <div class="erweim">
-      <div class="erbox">
-        <img src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
+      <div class="erbox"  @click="toroute('scanning')">
+        <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
+        <img   v-else src="../../assets/images/scan_white_prohibit.png" alt="" srcset="">
         <div>扫一扫</div>
       </div>
       <div class="erbox">
-        <img src="../../assets/images/qr_white@2x.png" alt="" srcset="">
+        <img v-if="showshoukuan" src="../../assets/images/qr_white@2x.png" alt="" srcset="">
+         <img v-else src="../../assets/images/qr_white_prohibit@2x.png" alt="" srcset="">
         <div>收付款</div>
       </div>
     </div>
@@ -27,6 +29,7 @@ export default {
   name: "shoukuan",
   data(){
     return{
+      showshoukuan:true,
       address:'RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ',
     }
   },
@@ -48,7 +51,6 @@ export default {
   text-align: center;
   display: flex;
   justify-content: center;
-  text-align: center;
   align-items: center;
   flex-direction: column;
   .content{
@@ -60,7 +62,7 @@ export default {
     overflow: hidden;
     background:url("../../assets/images/qr_bj@2x(1).png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     position: relative;
     .erwema{
       margin-top: 45px;
@@ -93,7 +95,7 @@ export default {
       color: $color1;
       font-size: 14px;
       img{
-        width: 44px;height: 44px;
+        width: 30px;height: 30px;
         margin-bottom: 10px;
       }
     }

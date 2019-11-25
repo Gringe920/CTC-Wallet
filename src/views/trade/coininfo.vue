@@ -74,6 +74,7 @@ export default {
 <style lang="scss" scoped>
 .coininfo {
   width: 100%;
+  height: 100%;
   .coin {
     display: flex;
     justify-content: space-between;
@@ -114,7 +115,7 @@ export default {
     width: 100vw;
     min-height: 100%;
     // height: calc(100vh-100px);
-    min-height: 90vh;
+    height: 100%;
     background: $bg4;
     .nav {
       // padding: 0 15px;

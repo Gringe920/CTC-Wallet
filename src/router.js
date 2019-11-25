@@ -8,6 +8,7 @@ import AdvertDetails from './views/user/advertDetails.vue' //公告详情
 import shoukuan from './views/wallet/shoukuan.vue' //收款
 import zhuanqian from './views/wallet/zhuanqian.vue' //转账
 import detais from './views/wallet/detais.vue' //收款转账详情
+import scanning from './views/wallet/scanning.vue' //扫一扫
 import Dapp from './views/dapp/index.vue' //DAPP首页
 import Trade from './views/trade/index.vue' //交易中心
 import lastOrder from './views/trade/lastOrder' //交易中心历史记录
@@ -52,6 +53,11 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/scanning',
+      name: 'scanning',
+      component:scanning
     },
     {
       path: '/trade',

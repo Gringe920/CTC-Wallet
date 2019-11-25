@@ -3,10 +3,13 @@
     <Header title="交易中心"></Header>
     <!-- 导航币种类型 -->
     <coininfo></coininfo>
-    <!-- 左侧买入卖出 -->
+    <div class="box">
+          <!-- 左侧买入卖出 -->
     <buysell></buysell>
     <!--  深度-->
     <depth></depth>
+    </div>
+
     <!-- 当前委托 -->
     <entrust></entrust>
   </section>
@@ -29,7 +32,14 @@ export default {
 <style lang="scss" scoped>
 .trade {
   margin-top: 50px;
+  position: relative;
   text-transform: uppercase;
+  .box{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+  }
 }
 </style>
 

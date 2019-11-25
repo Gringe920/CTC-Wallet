@@ -113,10 +113,11 @@ export default {
   .bg {
     height: 2px;
     border-radius: 10px 10px 0px 0px;
+
     background-image: linear-gradient(
-      270deg,
-      rgba(0, 194, 143, 1) 0%,
-      rgba(0, 194, 143, 0) 100%
+      90deg,
+      rgba(0, 194, 143, 0) 0%,
+      rgba(0, 194, 143, 3) 100%
     );
   }
   .home-type {
@@ -125,8 +126,8 @@ export default {
     height: 125px;
     border-radius: 0 0 0 50px;
     background: linear-gradient(
-      196deg,
-      rgba(31, 35, 50, 1) 40%,
+      235deg,
+      rgba(31, 35, 50, 1) 0%,
       rgba(50, 54, 69, 1) 100%
     );
     // background: url("../assets/images/home_bj_2@2x.png");
@@ -137,6 +138,7 @@ export default {
     .ht_box {
       font-size: 12px;
       color: $color1;
+      text-align: center;
       img {
         width: 30px;
         height: 30px;

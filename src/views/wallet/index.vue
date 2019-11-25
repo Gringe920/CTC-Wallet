@@ -24,7 +24,7 @@
     </div>
     <div class="money" v-for="(item,index) in coins" :key="index">
     <div class="coin">{{item.name}}</div>
-      <div class="coin2">{{hidden?'******':item.CNY}} <span>{{hidden?'******':'= '+item.UST}}</span> </div>
+      <div class="coin2">{{hidden?'******':item.CNY}} <span>{{hidden?'******':'≈ '+item.UST}}</span> </div>
       <div class="coin3">
         <div class="c_l">可用：&nbsp;  {{hidden?'******':item.can}}</div>
         <div class="c_l">冻结：&nbsp;  {{hidden?'******':item.nocan}} </div>
@@ -132,6 +132,9 @@ export default {
     margin: 20px 0;
     color: $color1;
     .h_l {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
       img {
         margin-right: 5px;
         width: 12px;
@@ -146,7 +149,7 @@ export default {
       border-radius: 2px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       img {
-        width: 12px;
+        width: 20px;
         padding: 0 5px;
         height: 12px;
       }
@@ -169,6 +172,7 @@ export default {
     height: 100%;
     background: $bg2;
     margin-bottom: 20px;
+    border-radius: 5px;
 
     .coin {
       padding: 20px 15px 0 15px;

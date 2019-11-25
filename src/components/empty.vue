@@ -8,18 +8,18 @@
 </template>
 <script>
 export default {
-  name:'empty'
-}
+  name: "empty"
+};
 </script>
 <style lang="scss" scoped>
-.empty{
+.empty {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 30px;
   color: $color1;
-  .imgbox{
+  .imgbox {
     width: 30%;
     height: 30%;
     min-width: 80px;
@@ -27,11 +27,10 @@ export default {
     max-width: 200px;
     max-height: 200px;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
-    border: 1px dashed $color1;
-    img{
+    img {
       width: 100%;
       height: 100%;
     }

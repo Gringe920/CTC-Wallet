@@ -61,7 +61,6 @@ export default {
          width: 50%;
          line-height: 35px;
          text-align: center;
-           border: 1px dashed $color1;
            color: $white;
      
     }
