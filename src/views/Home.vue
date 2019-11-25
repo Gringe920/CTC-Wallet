@@ -41,6 +41,7 @@
         <div class="last">{{!isjihuo ?'您需要寻找一位伙伴协助您激活地址，才能使用DAPP':'您可以畅游RCP，并使用您喜欢的DAPP功能。'}}</div>
       </div>
     </div>
+
   </div>
 </template>
 
