@@ -16,7 +16,7 @@
         <img src="../assets/images/receivables.png" alt="" srcset="">
         <div>收款</div>
       </div>
-       <div class="ht_box">
+       <div class="ht_box" @click="isShowPswModal = !isShowPswModal">
         <img src="../assets/images/activation@2x.png" alt="" srcset="">
         <div>激活</div>
       </div>
@@ -41,7 +41,14 @@
         <div class="last">{{!isjihuo ?'您需要寻找一位伙伴协助您激活地址，才能使用DAPP':'您可以畅游RCP，并使用您喜欢的DAPP功能。'}}</div>
       </div>
     </div>
-
+    <r-modal title="激活地址"
+        @on-ok="submitPsw"
+        :show="isShowPswModal"
+        @on-cancel="isShowPswModal = false">
+      <div class="inp-password">
+          <input type="password" placeholder="请输入激活地址">
+      </div>
+  </r-modal>
   </div>
 </template>
 
@@ -52,10 +59,18 @@ export default {
   data() {
     return {
       hidden: false,
-      isjihuo: false
+      isjihuo: false,
+      isShowPswModal:false
     };
   },
   methods: {
+    submitPsw(){
+      this.isShowPswModal =false;
+      this.isjihuo =true;
+    },
+    changeAddrModal() {
+      this.isShowModal = true;
+    },
     tohidden() {
       this.hidden = !this.hidden;
     }
@@ -95,10 +110,14 @@ export default {
       }
     }
   }
-     .bg{
+  .bg {
     height: 2px;
-    border-radius:10px 10px 0px 0px;
-    background-image: linear-gradient(270deg,rgba(0,194,143,1) 0%,rgba(0,194,143,0) 100%);  
+    border-radius: 10px 10px 0px 0px;
+    background-image: linear-gradient(
+      270deg,
+      rgba(0, 194, 143, 1) 0%,
+      rgba(0, 194, 143, 0) 100%
+    );
   }
   .home-type {
     width: 100%;
