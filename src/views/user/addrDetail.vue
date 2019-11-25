@@ -2,7 +2,7 @@
   <section>
       <Header title="地址详情" />
       <div class="detail-list">
-          <div class="detail-row">
+          <div class="detail-row" @click="changeAddrModal">
               <span>更改地址名称</span>
               <i></i>
           </div>
@@ -19,12 +19,41 @@
               <i></i>
           </div>
       </div>
+        <!-- 更换地址弹窗 -->
+        <r-modal title="修改地址名称"
+             @on-ok="submit"
+             :btnText="激动"
+             :show="isShowModal"
+             @on-cancel="isShowModal = false">
+            <div class="inp-password">
+            <input type="text" placeholder="限25字以内">
+            </div>
+        </r-modal>
+        <!-- 安全密码弹窗 -->
+        <r-modal title="安全密码"
+             @on-ok="submitPsw"
+             :show="isShowPswModal"
+             @on-cancel="isShowPswModal = false">
+            <div class="inp-password">
+                <input type="password" placeholder="请输入安全密码">
+            </div>
+        </r-modal>
   </section>
 </template>
 
 <script>
 export default {
-
+    data(){
+        return{
+            isShowModal: false,
+            isShowPswModal: false
+        }
+    },
+    methods: {
+        changeAddrModal(){
+            this.isShowModal = true;
+        }
+    }
 }
 </script>
 

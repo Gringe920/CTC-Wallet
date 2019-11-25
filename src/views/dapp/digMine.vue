@@ -15,7 +15,7 @@
         <div class="mine-card-unactivated" v-show="true">
           <div class="state">未激活</div>
           <div class="statement">持有100RCP激活挖矿</div>
-          <span class="to-activate">立即激活</span>
+          <span class="to-activate" @click="showActivatedModal">立即激活</span>
         </div>
       </div>
       <!-- X算力 -->
@@ -108,11 +108,31 @@
         </div>
       </div>
     </div>
+    <r-modal title="激活提示"
+             @on-ok="submitActive"
+             :show="isShowModal"
+             @on-cancel="isShowModal = false">
+      <p class="active-content">激活需要持有100RCP激活</p>
+    </r-modal>
   </section>
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      isShowModal: false
+    }
+  },
+  methods: {
+    submitActive(){
+      this.isShowModal = false;
+    },
+    showActivatedModal(){
+      this.isShowModal = true;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -310,6 +330,11 @@ export default {};
         }
       }
     }
+  }
+  .active-content{
+    text-align: center;
+    font-size: 14px;
+    color:#7D8398;
   }
 }
 </style>

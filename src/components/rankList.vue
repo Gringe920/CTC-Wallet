@@ -7,7 +7,6 @@
         <div class="address">地址：{{item.address}}</div>
         <div class="power">算力：{{item.power}}</div>
       </div>
-      <!-- <div class="divider"></div> -->
     </div>
   </section>
 </template>
@@ -44,7 +43,7 @@ export default {
 
   .rank-item {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 21px;
     .divider {
