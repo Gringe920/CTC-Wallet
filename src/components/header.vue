@@ -21,7 +21,7 @@ export default {
     color: {
       // 背景色
       type: String,
-      default: "transparent"
+      default: '#1F2332;',
     },
     leftIcon: {
       //  左侧图标地址
@@ -81,6 +81,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
+  background: $bg;
   z-index: 10;
   height: 50px;
   position: fixed;
