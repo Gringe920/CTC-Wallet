@@ -93,7 +93,6 @@ export default {
     .inp-password{
         background:rgba(50,54,69,1);
         border-radius:6px;
-        opacity:0.6;
         border:1px solid rgba(87,94,121,1);
         margin: 0 15px;
         input{
