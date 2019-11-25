@@ -85,7 +85,12 @@ export default {
 
     },
     toacceptCoin(){
-        this.$router.push({ path: "/acceptCoin"});
+        this.$router.push({ 
+          path: "/acceptCoin",
+          query: {
+            type: 0
+          }
+        });
     }
   }
   

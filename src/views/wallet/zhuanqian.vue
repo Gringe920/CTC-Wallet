@@ -52,7 +52,12 @@ export default {
       this.close = ! this.close;
     },
     toacceptCoin() {
-      this.$router.push({ path: "/acceptCoin" });
+      this.$router.push({ 
+          path: "/acceptCoin",
+          query: {
+            type: 1
+          }
+        });
     }
   }
 };

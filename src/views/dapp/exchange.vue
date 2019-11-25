@@ -2,6 +2,7 @@
   <section class="exchange">
       <Header title="兑换"
               :right-icon="require('../../assets/images/record@2x.png')"
+              :right-ev="toAccept"
               />
       <div class="container">
         <div class="ex-content">
@@ -66,6 +67,14 @@ export default {
     },
     submit(){
 
+    },
+    toAccept(){
+      this.$router.push({ 
+          path: "/acceptCoin",
+          query: {
+            type: 2
+          }
+        });
     }
   }
 }

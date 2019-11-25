@@ -2,25 +2,28 @@
   <section class="acceptCoin">
     <Header title="记录"></Header>
     <div class="acceptCoin_type">
-      <div  :class="type==1?'divactive':''" @click="changetype(1)">收款</div>
-      <div :class="type==2?'divactive':''" @click="changetype(2)">转账</div>
-      <div :class="type==3?'divactive':''" @click="changetype(3)">兑换</div>
+      <div
+        :class="idx == activeIdx ? 'divactive' : '' "
+        @click="changetype(idx)"
+        v-for="(item, idx) in typeArr"
+        :key="idx"
+      >{{item}}</div>
     </div>
+    <!-- 收款 -->
     <div class="zhuaninfo">
       <div class="zhuan" v-for="item in 4" :key="item" @click="toroute('/detais/'+type)">
         <div class="top">
-          <img src="../../assets/images/night_record_time@2x.png" alt="" srcset="">
+          <img src="../../assets/images/night_record_time@2x.png" alt srcset />
           2019/01
         </div>
         <div class="center">
-          <div >转出500 &nbsp;RPC</div>
-          <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
+          <div>转出500 &nbsp;RPC</div>
+          <img src="../../assets/images/triangle@2x.png" alt srcset />
         </div>
-        <div class="last">
-          12/30 &nbsp;22:30
-        </div>
+        <div class="last">12/30 &nbsp;22:30</div>
       </div>
     </div>
+    <!-- 兑换 -->
   </section>
 </template>
 <script>
@@ -28,12 +31,14 @@ export default {
   name: "acceptCoin",
   data() {
     return {
-      type: 1,
+      //0 收款 1 转账 2 兑换
+      activeIdx: this.$route.query.type,
+      typeArr: ["收款", "转账", "兑换"]
     };
   },
   methods: {
     changetype(index) {
-      this.type = index;
+      this.activeIdx = index;
     }
   }
 };
