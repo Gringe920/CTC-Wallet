@@ -60,13 +60,13 @@ export default {
     return {
       hidden: false,
       isjihuo: false,
-      isShowPswModal:false
+      isShowPswModal: false
     };
   },
   methods: {
-    submitPsw(){
-      this.isShowPswModal =false;
-      this.isjihuo =true;
+    submitPsw() {
+      this.isShowPswModal = false;
+      this.isjihuo = true;
     },
     changeAddrModal() {
       this.isShowModal = true;
@@ -123,8 +123,12 @@ export default {
     width: 100%;
     display: flex;
     height: 125px;
-    border-radius:0 0 0 50px;
-background:linear-gradient(196deg,rgba(31,35,50,1) 40%,rgba(50,54,69,1) 100%);
+    border-radius: 0 0 0 50px;
+    background: linear-gradient(
+      196deg,
+      rgba(31, 35, 50, 1) 40%,
+      rgba(50, 54, 69, 1) 100%
+    );
     // background: url("../assets/images/home_bj_2@2x.png");
     justify-content: space-around;
     background-repeat: no-repeat;
@@ -159,6 +163,9 @@ background:linear-gradient(196deg,rgba(31,35,50,1) 40%,rgba(50,54,69,1) 100%);
       font-size: 14px;
       white-space: nowrap;
       line-height: 50px;
+      div::-webkit-scrollbar {
+        display: none;
+      }
       div {
         overflow-x: scroll;
       }
