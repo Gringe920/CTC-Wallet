@@ -26,6 +26,7 @@ import RemoveAddr from './views/user/removeAddr'
 import ExportSecretKey from './views/user/exportSecretKey'
 
 import Login from './views/login'
+import SetupAddr from './views/login/setupAddr'
 import Convolution from './views/dapp/convolution'
 import Exchange from './views/dapp/exchange'
 import DigMine from './views/dapp/digMine'
@@ -220,6 +221,11 @@ export default new Router({
       path: '/exportSecretKey',
       name: 'exportSecretKey',
       component: ExportSecretKey
+    },
+    {
+      path: '/setupAddr',
+      name: 'setupAddr',
+      component: SetupAddr
     },
     {
       path: '/about',
