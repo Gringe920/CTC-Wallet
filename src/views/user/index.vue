@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="user-navigation">
-            <div class="user-nav-item">
+            <div class="user-nav-item" @click="activeAddr">
                 <i class="icon my_activation"></i>
                 <p>激活</p>
                 <div class="turn-right">
@@ -55,9 +55,31 @@
                 </div>
             </div>
         </div>
+        <r-modal title="激活地址"
+             @on-ok="submit"
+             :btnText="激动"
+             :show="isShowModal"
+             @on-cancel="isShowModal = false">
+            <div class="inp-password">
+            <input type="text" placeholder="输入激活地址">
+            </div>
+        </r-modal>
     </div>
 </template>
-
+<script>
+export default {
+    data(){
+        return{
+            isShowModal: false
+        }
+    },
+    methods: {
+        activeAddr(){
+            this.isShowModal = true;
+        }
+    }
+}
+</script>
 <style lang="scss" scoped>
 .container{
     background-image: url('../../assets/images/my_bj@2x.png');

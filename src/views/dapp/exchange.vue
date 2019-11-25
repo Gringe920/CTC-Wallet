@@ -37,6 +37,14 @@
         </div>
       </div>
       <r-button text="确定" width="90%" class="btn-comfirm"></r-button>
+      <r-modal title="安全密码"
+             @on-ok="submit"
+             :show="isShowModal"
+             @on-cancel="isShowModal = false">
+        <div class="inp-password">
+          <input type="password" placeholder="请输入安全密码">
+        </div>
+      </r-modal>
   </section>
 </template>
 
@@ -45,7 +53,8 @@ export default {
   data(){
     return {
       fromValue: '',
-      toValue: ''
+      toValue: '',
+      isShowModal: false
     }
   },
   methods: {
@@ -54,6 +63,9 @@ export default {
       [fromValue, toValue] = [toValue, fromValue]
       this.fromValue = fromValue;
       this.toValue = toValue;
+    },
+    submit(){
+
     }
   }
 }

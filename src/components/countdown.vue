@@ -88,7 +88,7 @@ export default {
   }
   .clock {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 
     .block {
       background-color: #1f2332;
