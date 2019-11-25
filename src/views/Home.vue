@@ -48,7 +48,7 @@
       <div class="inp-password">
           <input type="password" placeholder="请输入激活地址">
       </div>
-  </r-modal>
+    </r-modal>
   </div>
 </template>
 
@@ -123,7 +123,9 @@ export default {
     width: 100%;
     display: flex;
     height: 125px;
-    background: url("../assets/images/home_bj_2@2x.png");
+    border-radius:0 0 0 50px;
+background:linear-gradient(196deg,rgba(31,35,50,1) 40%,rgba(50,54,69,1) 100%);
+    // background: url("../assets/images/home_bj_2@2x.png");
     justify-content: space-around;
     background-repeat: no-repeat;
     background-size: cover;
@@ -158,7 +160,7 @@ export default {
       white-space: nowrap;
       line-height: 50px;
       div {
-        overflow-y: scroll;
+        overflow-x: scroll;
       }
       img {
         width: 20px;

@@ -1,7 +1,7 @@
 import Vue from "vue"
 import VueI18n from "vue-i18n"
 
-import zh from './lang/zh';
+import zh from './lang/zh.js';
 
 Vue.use(VueI18n);
 
