@@ -1,6 +1,6 @@
 <template>
   <section class="newbie-reward">
-    <Header title />
+    <Header title color='none' />
     <div class="banner">
       <img src="../../assets/images/award_bj@2x.png" alt class="bg" />
       <div class="title">新人奖</div>

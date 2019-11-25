@@ -1,6 +1,6 @@
 <template>
   <section class="trade-compaign">
-    <Header title />
+    <Header title color='none' />
     <div class="banner">
       <img src="../../assets/images/trading_competition_bj@2x.png" alt class="bg" />
       <div class="title">交易大赛</div>

@@ -1,6 +1,6 @@
 <template>
   <section class="hash-guess">
-    <Header title />
+    <Header title color='none' />
     <div class="top-banner">
       <div class="banner-bg">
         <img src="../../assets/images/hash_bj@2x.png" />

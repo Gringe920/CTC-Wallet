@@ -1,6 +1,6 @@
 <template>
   <section class="ypower">
-    <Header title />
+    <Header title  color='none'/>
     <div class="banner">
       <img src="../../assets/images/y_bj@2x.png" alt class="bg" />
       <div class="title">X算力竞赛</div>

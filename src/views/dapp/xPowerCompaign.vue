@@ -1,6 +1,6 @@
 <template>
   <section class="xpower">
-    <Header title />
+    <Header title  color='none'/>
     <div class="banner">
       <img src="../../assets/images/x_bj@2x.png" alt class="bg" />
       <div class="title">X算力争霸</div>
