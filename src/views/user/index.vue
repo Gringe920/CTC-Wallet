@@ -57,7 +57,7 @@
         </div>
         <r-modal title="激活地址"
              @on-ok="submit"
-             :btnText="激动"
+             btnText="激活"
              :show="isShowModal"
              @on-cancel="isShowModal = false">
             <div class="inp-password">
@@ -76,6 +76,9 @@ export default {
     methods: {
         activeAddr(){
             this.isShowModal = true;
+        },
+        submit(){
+            console.log('----')
         }
     }
 }

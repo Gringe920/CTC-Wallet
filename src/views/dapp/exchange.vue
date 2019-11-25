@@ -10,12 +10,12 @@
           </div>
           <div class="ex-count">
             <div class="row from">
-              <span>从</span>
-              <input type="text" v-model="fromValue" />
+              <span class="r-key">从</span>
+              <span class="r-value">{{fromValue}}</span>
             </div>
             <div class="row to">
-              <span>到</span>
-              <input type="text" v-model="toValue" />
+              <span class="r-key">到</span>
+              <span class="r-value">{{toValue}}</span>
             </div>
             <div class="transfer" @click="transfer">
               <img src="../../assets/images/night_asset_switch@2x.png" alt="">
@@ -52,8 +52,8 @@
 export default {
   data(){
     return {
-      fromValue: '',
-      toValue: '',
+      fromValue: 'BRC',
+      toValue: 'RCP',
       isShowModal: false
     }
   },
@@ -97,15 +97,12 @@ export default {
             border-bottom: 1px solid rgba(31,35,50,1);
           }
         }
-        span{
+        span.r-key{
           margin-right: 20px;
           color: #687D9C;
         }
-        input{
+        span.r-value{
           color: #fff;
-          appearance: none;
-          border: 0;
-          background: transparent;
         }
       }
       .transfer{

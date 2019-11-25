@@ -71,6 +71,7 @@ export default {
       return true;
     },
     chooseItem(item) {
+        if(!this.editMode) this.$router.push({path: '/addrDetail'})
         this.addressList.map(o => {
             if(o.name == item.name) o.isChosen = !item.isChosen
             return o;
@@ -79,7 +80,7 @@ export default {
     },
     chooseAll() {
       this.isChosenAll = !this.isChosenAll;
-      this.addressList.map(item => (item.isChosen = !item.isChosen));
+      this.addressList.map(item => (item.isChosen = this.isChosenAll));
     }
   }
 };

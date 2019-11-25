@@ -6,11 +6,11 @@
               <span>更改地址名称</span>
               <i></i>
           </div>
-          <div class="detail-row">
+          <div class="detail-row" @click="$router.push({path: '/mnemonicWord'})">
               <span>备份地址助记词</span>
               <i></i>
           </div>
-          <div class="detail-row">
+          <div class="detail-row" @click="$router.push({path: '/exportSecretKey'})">
               <span>导出私钥</span>
               <i></i>
           </div>
@@ -22,7 +22,7 @@
         <!-- 更换地址弹窗 -->
         <r-modal title="修改地址名称"
              @on-ok="submit"
-             :btnText="激动"
+             btnText="激活"
              :show="isShowModal"
              @on-cancel="isShowModal = false">
             <div class="inp-password">
@@ -52,6 +52,12 @@ export default {
     methods: {
         changeAddrModal(){
             this.isShowModal = true;
+        },
+        submitPsw(){
+
+        },
+        submit(){
+            
         }
     }
 }

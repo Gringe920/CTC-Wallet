@@ -97,6 +97,7 @@ export default {
             bottom: 0;
             display: inline-block;
             width: 100%;
+            left: 0;
         }
     }
 }
