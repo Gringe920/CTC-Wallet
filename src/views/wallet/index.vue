@@ -1,9 +1,9 @@
 <template>
   <section class="walletall">
-    <Header title="钱包" :rightEv='toacceptCoin' :leftShow='false' :rightIcon="require('../../assets/images/record@2x.png')" ></Header>
+    <Header :title="$t(`wallet.name`)" :rightEv='toacceptCoin' :leftShow='false' :rightIcon="require('../../assets/images/record@2x.png')" ></Header>
     <div class="walletbanner">
       <div class="w-t">
-        <span>当前资产</span>
+        <span>{{$t(`wallet.zichan`)}}</span>
         <img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye@2x.png" alt="" srcset="" v-if="!hidden">
          <img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye_off@2x.png" alt="" srcset="" v-else>
       </div>
@@ -15,23 +15,23 @@
       <div class="h_l" @click="hiddenmoney">
         <img src="../../assets/images/night_asset_unchecked@2x.png" alt="" srcset="" v-if="!hidden">
         <img src="../../assets/images/asset_selection@2x.png" alt="" srcset="" v-else>
-        <span>隐藏小额资产</span>
+        <span>{{$t(`wallet.hide`)}}</span>
       </div>
       <div class="h_r" :class="serchnow? 'searchwid':''">
         <img src="../../assets/images/night_asset_search@2x.png" alt="" srcset="">
-        <input type="text" placeholder="搜索" v-model="searchmsg"> 
+        <input type="text" :placeholder="$t(`wallet.serch`)"  v-model="searchmsg"> 
       </div>
     </div>
     <div class="money" v-for="(item,index) in coins" :key="index">
     <div class="coin">{{item.name}}</div>
       <div class="coin2">{{hidden?'******':item.CNY}} <span>{{hidden?'******':'≈ '+item.UST}}</span> </div>
       <div class="coin3">
-        <div class="c_l">可用：&nbsp;  {{hidden?'******':item.can}}</div>
-        <div class="c_l">冻结：&nbsp;  {{hidden?'******':item.nocan}} </div>
+        <div class="c_l">{{$t(`wallet.can`)}}：&nbsp;  {{hidden?'******':item.can}}</div>
+        <div class="c_l">{{$t(`wallet.nocan`)}}：&nbsp;  {{hidden?'******':item.nocan}} </div>
       </div> 
       <div class="coin4">
-        <div class="shou"  @click="toroute('shoukuan')" >收款</div>
-        <div class="zhuan" @click="toroute('zhuanqian')">转账</div>
+        <div class="shou"  @click="toroute('shoukuan')" >{{$t(`wallet.shou`)}}</div>
+        <div class="zhuan" @click="tozhuanzang(item.name)">{{$t(`wallet.fu`)}}</div>
       </div>
     </div>
   </section>
@@ -71,6 +71,7 @@ export default {
     };
   },
   watch: {
+
     searchmsg() {
       if (this.searchmsg != "") {
         this.serchnow = true;
@@ -80,6 +81,14 @@ export default {
     }
   },
   methods:{
+        tozhuanzang(item){
+        this.$router.push({ 
+          path: "/zhuanqian",
+          query: {
+            coin: item
+          }
+        });
+    },
     hiddenmoney(){
       this.hidden = !this.hidden
 

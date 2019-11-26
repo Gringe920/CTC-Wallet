@@ -1,12 +1,12 @@
 <template>
   <section class="detais">
-      <Header :title="type ==0 ?'收款详情':type==1?'转账详情':'兑换详情'" ></Header>
-      <div class="text">{{type ==0 ?'转入':type== 1?'转出':'兑换'}}500 PYC</div>
-      <div class="text2">{{type ==0 ?'收入':'支出'}}</div>
+      <Header :title="type ==0 ?$t(`wallet.info1`):type==1?$t(`wallet.info2`):$t(`wallet.info3`)" ></Header>
+      <div class="text">{{type ==0 ?$t(`wallet.info4`):type== 1?$t(`wallet.zhuanchu`):$t(`wallet.duhuan`)}}500 PYC</div>
+      <div class="text2">{{type ==0 ?$t(`wallet.info5`):$t(`wallet.info6`)}}</div>
       <div class="text3">{{type ==0 ?'+':'-'}}500 PYC</div>
-      <div class="text2">对方地址</div>
+      <div class="text2">{{$t(`wallet.info7`)}}</div>
       <div class="text3">RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQUPZTUNVCEAUG8HEDXEX7ZWQ</div>
-      <div class="text2">创建时间</div>
+      <div class="text2">{{$t(`wallet.info8`)}}</div>
       <div class="text3">2019/01/03 08:00</div>
   </section>
 </template>

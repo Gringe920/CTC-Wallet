@@ -10,9 +10,9 @@
         </div>
       </div>
       <div class="toubox_r">
-          <div><span>高</span><span>3573.86</span> </div>
-          <div><span>低</span><span>3573.86</span></div>
-          <div><span>24h</span><span>15678</span></div>
+          <div><span>{{$t(`Trade.height`)}}</span><span>3573.86</span> </div>
+          <div><span>{{$t(`Trade.low`)}}</span><span>3573.86</span></div>
+          <div><span>{{$t(`Trade.tiemup`)}}</span><span>15678</span></div>
       </div>
     </div>
     <k></k>
@@ -22,26 +22,26 @@
     </div>
     <div class="shizhibox" v-if="shizhi">
       <div class="box">
-        <span>比特币总市值</span>
+        <span>比特币{{$t(`Trade.marketmoney`)}}</span>
         <span>5434.3亿</span>
       </div>
        <div class="box">
-        <span>比特币挂单量</span>
+        <span>比特币{{$t(`Trade.gudannum`)}}</span>
         <span>24755.34</span>
       </div>
        <div class="box">
-        <span>比特币成交量</span>
+        <span>比特币{{$t(`Trade.volume`)}}</span>
         <span>24755.34</span>
       </div>
        <div class="box">
-        <span>全网用户量</span>
+        <span> {{$t(`Trade.allusernum`)}}</span>
         <span>12,334,12</span>
       </div>
       
     </div>
     <div class="busell">
-      <div class="buy">买入</div>
-      <div class="sell">卖出</div>
+      <div class="buy"> {{$t(`Trade.canbuy`)}}</div>
+      <div class="sell"> {{$t(`Trade.cansell`)}}</div>
     </div>
   </section>
 </template>

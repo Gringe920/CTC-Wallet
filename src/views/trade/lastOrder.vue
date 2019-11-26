@@ -1,41 +1,41 @@
 <template>
   <section class="lastOrder">
-    <Header title="历史记录"></Header>
+    <Header :title="$t(`Trade.nojilu`)"></Header>
      <div class="detais" v-for="item in 5" :key="item">
         <div class="t">
           <div class="t_l">
-            <span class="type">买入</span>
+            <span class="type">{{$t(`Trade.canbuy`)}}</span>
             <span class="coin">BTC/USDT</span>
           </div>
           <div class="t_r">
-            全部成交
+            {{$t(`Trade.allchengjiao`)}}
           </div>
         </div>
         <div class="c">
           <div class="textbox">
-            <div class="text1">时间</div>
+            <div class="text1">{{$t(`Trade.time`)}}</div>
             <div class="tet2">19/01 08：00</div>
           </div>
            <div class="textbox textbox2">
-            <div class="text1">委托价格</div>
+            <div class="text1">{{$t(`Trade.entrusetprice`)}}</div>
             <div class="tet2">0.000000</div>
           </div>
            <div class="textbox textbox3">
-            <div class="text1">委托数目</div>
+            <div class="text1">{{$t(`Trade.entrustnum`)}}</div>
             <div class="tet2">0.000000</div>
           </div>
         </div>
          <div class="c">
           <div class="textbox">
-            <div class="text1">成交量</div>
+            <div class="text1">{{$t(`Trade.volume`)}}</div>
             <div class="tet2">2.50000</div>
           </div>
            <div class="textbox textbox2">
-            <div class="text1">为成交量</div>
+            <div class="text1">{{$t(`Trade.weifinsied`)}}</div>
             <div class="tet2">0.000000</div>
           </div>
            <div class="textbox textbox3">
-            <div class="text1">成交总额</div>
+            <div class="text1">{{$t(`Trade.inished`)}}</div>
             <div class="tet2">0.000000</div>
           </div>
         </div>

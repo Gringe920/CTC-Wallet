@@ -1,6 +1,6 @@
 <template>
   <section class="trade">
-    <Header title="交易中心"></Header>
+    <Header :title="$t(`Trade.tradecenter`)"></Header>
     <!-- 导航币种类型 -->
     <coininfo></coininfo>
     <div class="box">

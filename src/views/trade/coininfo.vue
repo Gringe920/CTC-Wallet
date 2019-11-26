@@ -1,6 +1,6 @@
 <template>
   <section class="coininfo">
-    <!-- 币种 -->
+    <!-- 币种 {{$t(`Trade.`)}}-->
     <div class="coin">
       <div class="coin_l">
         <img  @click="changeopen" src="../../assets/images/transaction_list_lower@2x.png" alt="" srcset="" v-if="!open">
@@ -15,17 +15,17 @@
     <!-- 币种选择弹窗  @click="changeopen"-->
     <div class="changecoin"   v-if="open">
       <div class="nav">
-        <div>市场选择</div>
-        <div>币种</div>
-        <div>最新价</div>
-        <div>24H涨跌</div>
+        <div> {{$t(`Trade.markets`)}}</div>
+        <div>{{$t(`Trade.coin`)}}</div>
+        <div>{{$t(`Trade.newprice`)}}</div>
+        <div>{{$t(`Trade.tiemup`)}}</div>
       </div>
       <div class="coinall">
         <div class="coin_l">
           <div class="serch" :class="!searchstatus?'':'down'" @click="searchstatus =!searchstatus">
             <img src="../../assets/images/search_gray@2x.png" alt="" srcset="" v-if="!searchstatus">
              <img src="../../assets/images/search_gray_press@2x.png" alt="" srcset="" v-else>
-            搜索
+            {{$t(`wallet.serch`)}}
           </div>
           <div @click.stop="tochangcoin(key)" v-for="(item,key) in coins" :key="key" class="coinbox" :class="key==checkcoin ?'down':''">
             {{key}}
@@ -33,7 +33,7 @@
         </div>
         <div class="coin-r" >
           <div class="search" v-if="searchstatus">
-            <input type="text" placeholder="请输入搜索内容">
+            <input type="text" :placeholder="$t(`wallet.searchtext`)">
             <img  @click="searchstatus = false" src="../../assets/images/night_search_delete@2x.png" alt="" srcset="">
           </div>
           <div class="box" v-for="(item,index) in coins[checkcoin]" :key="item">

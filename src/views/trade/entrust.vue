@@ -1,10 +1,10 @@
 <template>
   <section class="entrust">
     <div class="nav">
-      <div class="nav-l">当前委托</div>
+      <div class="nav-l">{{$t(`Trade.weituo`)}}</div>
       <div class="nav-r"  @click="toroute('lastOrder')">
         <img src="../../assets/images/transaction_record@2x.png" alt="" srcset="">
-        <span>历史记录</span>
+        <span>{{$t(`Trade.nojilu`)}}</span>
       </div>
     </div>
     <div class="content">
@@ -12,25 +12,25 @@
       <div class="detais" v-for="item in 4" :key="item">
         <div class="t">
           <div class="t_l">
-            <span class="type">买入</span>
+            <span class="type">{{$t(`Trade.canbuy`)}}</span>
             <span class="coin">BTC/USDT</span>
             <span class="time">10/01 58:00</span>
           </div>
           <div class="t_r">
-            撤单
+            {{$t(`Trade.cexiaoing`)}}
           </div>
         </div>
         <div class="c">
           <div class="textbox">
-            <div class="text1">价格(USDT)</div>
+            <div class="text1">{{$t(`Trade.price`)}}(USDT)</div>
             <div class="tet2">0.000000</div>
           </div>
            <div class="textbox textbox2">
-            <div class="text1">价格(USDT)</div>
+            <div class="text1">{{$t(`wallet.zhuanqian2`)}}(USDT)</div>
             <div class="tet2">0.000000</div>
           </div>
            <div class="textbox textbox3">
-            <div class="text1">实际成交(BTC)</div>
+            <div class="text1">{{$t(`Trade.chengjiao`)}}(BTC)</div>
             <div class="tet2">0.000000</div>
           </div>
         </div>

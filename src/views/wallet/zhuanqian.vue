@@ -1,42 +1,50 @@
 <template>
   <section class="zhuanqian">
-      <Header title="转账" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record@2x.png')"></Header>
+      <Header :title="$t(`wallet.fu`)" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record@2x.png')"></Header>
       <div class="cointype">
-        <div class="l">BTC</div>
+        <div class="l">{{coin}}</div>
         <div class="r" @click="toclose">
-          选择币种
+         {{$t(`wallet.zhuanqian1`)}}
           <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
         </div>
       </div>
       <div class="box2">
-        <div class="text1">接收地址</div>
+        <div class="text1"> {{$t(`wallet.zhuanqian3`)}}</div>
         <div class="text2">
-          <input type="text" placeholder="请输入或长按粘贴地址">
+          <input type="text" :placeholder="$t(`wallet.zhuanqian9`)">
           <img src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
         </div>
       </div>
        <div class="box2">
-        <div class="text1">数量</div>
+        <div class="text1"> {{$t(`wallet.zhuanqian2`)}}</div>
         <div class="text2">
-          <input type="text" placeholder="请输入数量" class="in2">
+          <input type="text" :placeholder="$t(`wallet.zhuanqian8`)" class="in2">
           <div class="r">
-            <span>btc&nbsp;&nbsp;|</span>&nbsp;&nbsp;全部
+            <span>btc&nbsp;&nbsp;|</span>&nbsp;&nbsp; {{$t(`wallet.zhuanqian4`)}}
           </div>
         </div>
-         <div class="l">*可用：0.0000 BTC；手续费：0.0000 RCP</div>
+         <div class="l">* {{$t(`wallet.can`)}}：0.0000 BTC； {{$t(`wallet.zhuanqian5`)}}：0.0000 RCP</div>
       </div>
-      <div class="btn">确定</div>
+      <div class="btn" @click="submit" > {{$t(`wallet.zhuanqian6`)}}</div>
       <div class="coinchange" v-if="close" @click="toclose">
         <div class="coinbox">
-          <div class="coin" v-for="item in 4 " :key='item'>
+          <div @click="coin= item" class="coin" v-for="item in coins" :key='item'>
             <img src="../../assets/images/btc@2x.png" alt="" srcset="">
-            <div>BTC</div>
+            <div>{{item}}</div>
           </div>
            <div class="coin cg" >
-            <div @click.stop="toclose">取消</div>
+            <div @click.stop="toclose"> {{$t(`wallet.zhuanqian7`)}}</div>
           </div>
         </div>
       </div>
+      <r-modal :title="$t(`wallet.zhuanqian10`)"
+        @on-ok="submitPsw"
+        :show="isShowPswModal"
+        @on-cancel="isShowPswModal = false">
+      <div class="inp-password">
+          <input type="password" :placeholder="$t(`wallet.zhuanqian12`)">
+      </div>
+    </r-modal>
   </section>
 </template>
 <script>
@@ -44,21 +52,32 @@ export default {
   name: "zhuanqian",
   data() {
     return {
-      close:false,
-  
+      close: false,
+      isShowPswModal: false,
+      coins: ["btc", "xrp", "eos", "bth"],
+      coin: this.$route.query.coin
     };
   },
   methods: {
-    toclose(){
-      this.close = ! this.close;
+    submit(){
+      this.isShowPswModal = true
+    },
+    submitPsw(){
+
+    },
+    changeAddrModal() {
+      this.isShowModal = true;
+    },
+    toclose() {
+      this.close = !this.close;
     },
     toacceptCoin() {
-      this.$router.push({ 
-          path: "/acceptCoin",
-          query: {
-            type: 1
-          }
-        });
+      this.$router.push({
+        path: "/acceptCoin",
+        query: {
+          type: 1
+        }
+      });
     }
   }
 };
@@ -121,8 +140,8 @@ export default {
         color: $white;
         background: none;
       }
-      .in2{
-         min-width: 70%;
+      .in2 {
+        min-width: 70%;
       }
       .r {
         bottom: 1px solid red;
@@ -146,7 +165,9 @@ export default {
         border-top: 10px solid $nav-bg;
       }
       .coin {
+        width: 100%;
         text-align: center;
+
         height: 48px;
         color: $color1;
         display: flex;

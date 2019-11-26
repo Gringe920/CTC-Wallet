@@ -1,17 +1,17 @@
 <template>
   <section class="scanning">
-    <Header title="扫一扫" righttext='相册'></Header>
+    <Header :title="$t(`wallet.scanning1`)" :righttext='$t(`wallet.scanning2`)'></Header>
     <div class="content"></div>
     <div class="erweim">
       <div class="erbox"  @click="toroute('scanning')">
         <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
         <img   v-else src="../../assets/images/scan_white_prohibit.png" alt="" srcset="">
-        <div :class="showshoukuan?'':'coloractive'">扫一扫</div>
+        <div :class="showshoukuan?'':'coloractive'">{{$t(`wallet.scanning1`)}}</div>
       </div>
       <div class="erbox" @click="toroute('shoukuan')">
         <img v-if="showshoukuan" src="../../assets/images/qr_white@2x.png" alt="" srcset="">
          <img v-else src="../../assets/images/qr_white_prohibit@2x.png" alt="" srcset="">
-        <div :class="!showshoukuan?'':'coloractive'">收付款</div>
+        <div :class="!showshoukuan?'':'coloractive'">{{$t(`wallet.scanning3`)}}</div>
       </div>
     </div>
   </section>
@@ -32,6 +32,7 @@ html,
 #app {
   background: none !important;
 }
+
 .scanning {
   background: rgba(0, 0, 0, 0.01);
   padding-top: 50px;
@@ -57,8 +58,7 @@ html,
   }
   .erweim {
     position: absolute;
-    bottom: 40px;
-    margin-top: 50px;
+   bottom: 40px;
     width: 100%;
     display: flex;
     justify-content: space-around;

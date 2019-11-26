@@ -1,29 +1,29 @@
 <template>
   <section class="buysell">
     <div class="type">
-      <div @click="type='buy'" :class="type== 'buy'? 'buy':'' ">买入</div>
-      <div @click="type='sell'" :class="type== 'sell'? 'sell':'' ">卖出</div>
+      <div @click="type='buy'" :class="type== 'buy'? 'buy':'' ">{{$t(`Trade.canbuy`)}}</div>
+      <div @click="type='sell'" :class="type== 'sell'? 'sell':'' ">{{$t(`Trade.cansell`)}}</div>
     </div>
     <div class="price">
-      <div>价格</div>
-      <input type="text" placeholder="请输入价格" v-model="price" >
+      <div>{{$t(`Trade.price`)}}</div>
+      <input type="text" placeholder="{{$t(`Trade.pricein`)}}" v-model="price" >
     </div>
     <div class="yue">=8976.0CNY</div>
     <div class="price">
-       <div >数量</div>
-      <input type="Number" placeholder="请输入数量" v-model="num">
+       <div >{{$t(`wallet.zhuanqian2`)}}</div>
+      <input type="Number" :placeholder="$t(`wallet.zhuanqian8`)" v-model="num">
     </div>
     <div class="yue">
-      <span>可用</span>
+      <span>{{$t(`Trade.can2`)}}</span>
       <span>{{cannum}}usdt</span>
     </div>
     <div class="changnum">
       <div :class="num == cannum*item ? 'changnumactive':''"  v-for="item in percents" :key="item" @click="changenum(item)">{{item*100}}%</div>
     </div>
-    <div class="allmoney">交易额 
+    <div class="allmoney">{{$t(`Trade.turnover`)}} 
       <span>---</span>
     </div>
-    <div class="btn2" :class='type=="buy"?"buybg":"sellbg"'>{{type=='buy'?'买入':"卖出"}}</div>
+    <div class="btn2" :class='type=="buy"?"buybg":"sellbg"'>{{type=='buy'? $t(`Trade.canbuy`):$t(`Trade.cansell`)}}</div>
   </section>
 </template>
 <script>

@@ -1,8 +1,8 @@
 <template>
   <section class="depth">
     <div class="top">
-      <div>价格</div>
-      <div>数量</div>
+      <div>{{$t(`Trade.price`)}}</div>
+      <div>{{$t(`wallet.zhuanqian2`)}}</div>
     </div>
     <div class="box" v-if="type != 3" :class="type !=1 ? 'addbox':''">
       <div  v-for=" item in 16" :key="item" class="boxtext">
