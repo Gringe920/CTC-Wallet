@@ -31,7 +31,7 @@ export default {
     background:rgba(23,27,41,1);
     border-radius:10px;
     opacity:0.7;
-    color: #fff;
+    color: $white;
     padding: 15px 30px;
 }
 </style>

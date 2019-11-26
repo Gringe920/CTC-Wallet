@@ -142,7 +142,7 @@ export default {
     margin: 0 15px;
 
     .divider {
-      background: #1f2332;
+      background: $bg;
       height: 1px;
       margin: 0 -15px;
     }
@@ -153,7 +153,7 @@ export default {
       font-size: 14px;
       .power-item-name {
         float: left;
-        color: #7d8398;
+        color: $color1;
       }
       .power-item-value {
         float: right;
@@ -172,8 +172,8 @@ export default {
     .calc-power-group {
       margin: 15px 0;
       padding: 14px 15px 0px;
-      background: #323645;
-      color: #fff;
+      background: $border2;
+      color: $white;
     }
 
     .icon-subtitle {
@@ -205,13 +205,13 @@ export default {
         }
         .profit {
           font-size: 34px;
-          color: #fff;
+          color: $white;
           margin-bottom: 5px;
           font-family: DINAlternate-Bold, DINAlternate;
         }
         .cash {
           font-size: 16px;
-          color: #fff;
+          color: $white;
           font-family: LucidaGrande-Bold, LucidaGrande;
         }
         i.eye {
@@ -227,7 +227,7 @@ export default {
       }
       .mine-card-unactivated {
         position: relative;
-        color: #fff;
+        color: $white;
         overflow: hidden;
         .state {
           font-size: 29px;
@@ -242,9 +242,9 @@ export default {
           right: 0;
           top: 0;
           padding: 6px 12px;
-          background-color: #fff;
+          background-color: $white;
           font-size: 14px;
-          color: #00c28f;
+          color: $active;
           border-radius: 17px;
         }
       }
@@ -302,13 +302,13 @@ export default {
             background-image: url("../../assets/images/blank_page@2x.png");
             background-size: 100% 100%;
             display: inline-block;
-            border: 1px dashed #7d8398;
+            border: 1px dashed $color1;
             width: 80px;
             height: 80px;
           }
 
           .no-data-note {
-            color: #7d8398;
+            color: $color1;
             font-size: 12px;
           }
         }
@@ -322,7 +322,7 @@ export default {
           justify-content: space-between;
           align-items: baseline;
           .date {
-            color: #7d8398;
+            color: $color1;
             font-size: 10px;
             line-height: 10px;
             margin-top: 8px;
@@ -334,7 +334,7 @@ export default {
   .active-content{
     text-align: center;
     font-size: 14px;
-    color:#7D8398;
+    color:$color1;
   }
 }
 </style>

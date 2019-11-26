@@ -111,7 +111,7 @@ export default {
           color: #687D9C;
         }
         span.r-value{
-          color: #fff;
+          color: $white;
         }
       }
       .transfer{
@@ -134,7 +134,7 @@ export default {
       padding: 15px;
       .count-name{
         font-size: 12px;
-        color: #fff;
+        color: $white;
         margin-bottom: 12px;
       }
       .inp-coin-count{
@@ -142,37 +142,37 @@ export default {
         font-size: 14px;
         justify-content:space-between;
         padding-bottom: 15px;
-        border-bottom: 1px solid #1F2332;
+        border-bottom: 1px solid $bg;
         input{
           width: 69%;
           background-color: transparent;
           border: 0;
           line-height: 14px;
-          color: #fff;
+          color: $white;
           &::placeholder{
-            color: #7D8398;
+            color: $color1;
           }
         }
         .chose-type{
           display: flex;
 
           span.c-name{
-            color: #7D8398;
+            color: $color1;
             margin-right: 10px;
           }
           span.line{
             margin-right: 10px;
-            color: #7D8398;
+            color: $color1;
           }
           span.c-all{
-            color: #fff;
+            color: $white;
           }
         }
         
       }
       .tips{
         font-size: 12px;
-        color: #7D8398;
+        color: $color1;
         padding-top: 12px; 
       }
     }

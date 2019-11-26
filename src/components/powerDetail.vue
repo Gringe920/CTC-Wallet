@@ -24,7 +24,7 @@ export default {
 .power-detail {
   padding: 10px 15px;
   .chart-head {
-    color: #7d8398;
+    color: $color1;
     font-size: 12px;
     display: flex;
     justify-content: space-between;
@@ -34,7 +34,7 @@ export default {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    color: #fff;
+    color: $white;
   }
 }
 </style>

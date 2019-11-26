@@ -39,7 +39,7 @@ export default {
     padding: 15px 0;
     align-items: center;
     margin-bottom: 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid $border3;
     img {
       width: 35px;
       height: 35px;

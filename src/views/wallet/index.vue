@@ -163,7 +163,7 @@ export default {
         height: 20px;
         background: $bg;
         border: none;
-        color: #fff;
+        color: $white;
       }
     }
     .searchwid {

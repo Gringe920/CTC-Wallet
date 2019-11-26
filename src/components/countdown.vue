@@ -82,7 +82,7 @@ export default {
 <style lang="scss" scoped>
 .countdown {
   .title {
-    color: #7d8398;
+    color: $color1;
     font-size: 14px;
     margin-bottom: 15px;
   }
@@ -91,21 +91,21 @@ export default {
     justify-content: flex-start;
 
     .block {
-      background-color: #1f2332;
+      background-color: $bg;
       text-align: center;
       padding: 5px 10px;
       margin-right: 10px;
       max-width: 46px;
 
       .val {
-        color: #fff;
+        color: $white;
         font-size: 22px;
         font-weight: bold;
         font-family:DINAlternate-Bold,DINAlternate;
       }
 
       .unit {
-        color: #7d8398;
+        color: $color1;
         font-size: 12px;
       }
     }

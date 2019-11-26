@@ -55,7 +55,7 @@ export default {
     .content{
         margin: 0px 15px;
         & >.common-bg{
-            background-color: #323645;
+            background-color: $border2;
             border-radius: 5px;
             padding: 15px;
             margin-bottom: 20px;
@@ -63,7 +63,7 @@ export default {
         .percent{
             .c-title{
                 font-size: 12px;
-                color:#fff;
+                color:$white;
                 margin-bottom: 33px;
                 i{
                     display: inline-block;
@@ -77,7 +77,7 @@ export default {
             }
             .count{
                 font-size: 24px;
-                color: #fff;
+                color: $white;
                 margin-bottom: 5px;
             }
         }
@@ -88,15 +88,15 @@ export default {
                 align-items: center;
                 justify-content:  space-between;
                 font-size: 14px;
-                border-bottom: 1px solid #1F2332;
+                border-bottom: 1px solid $bg;
                 .name{
-                    color: #7D8398;
+                    color: $color1;
                     padding: 15px 0;
                 }
                 .value{
-                    color: #fff;
+                    color: $white;
                     &.green{
-                        color: #00C28F;
+                        color: $active;
                     }
                 }
             }
@@ -109,18 +109,18 @@ export default {
                 margin-bottom: 15px;
                 p.p-tit{
                     font-size: 14px;
-                    color: #fff;
+                    color: $white;
                 }
                 .tips{
                     span{
                         font-size: 12px;
-                        color: #7D8398;
+                        color: $color1;
                         margin-left: 20px;
                         i{
                             width: 4px;
                             height: 4px;
                             display: inline-block;
-                            background-color: #00C28F;
+                            background-color: $active;
                             border-radius: 4px;
                             margin-right: 5px;
                             vertical-align: middle; 
@@ -135,7 +135,7 @@ export default {
                     border-bottom-right-radius: 30px;
                     text-align: right;
                     margin-bottom: 5px;
-                    color: #fff;
+                    color: $white;
                     font-size: 12px;
                     &.green{
                         background-color: #107260;

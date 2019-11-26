@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .rank-list {
-  color: #fff;
+  color: $white;
   .title {
     font-size: 14px;
     margin-bottom: 21px;
@@ -48,7 +48,7 @@ export default {
     margin-bottom: 21px;
     .divider {
       margin: 18px -15px;
-      background-color: #1f2332;
+      background-color: $bg;
       height: 1px;
     }
     .rank-icon {
@@ -65,7 +65,7 @@ export default {
       }
       .power {
         font-size: 12px;
-        color: #7d8398;
+        color: $color1;
       }
     }
     .newbie {

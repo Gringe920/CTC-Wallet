@@ -7,7 +7,7 @@
         <div class="login-btn-group">
                 <r-button width="73%"
                         text="创建地址"
-                        bgColor="#00C28F"
+                        bgColor="$active"
                         class="setup-addr"
                         @comfirm="$router.push({path: './exportAddr'})"/>
                 <r-button width="73%"
@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .container{
-    background-color: #171B29;
+    background-color: $nav-bg;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,16 +64,16 @@ export default {
         }
         .tips{
             font-size: 12px;
-            color: #fff;
+            color: $white;
             text-align: center;
             span{
-                color: #00C28F;
+                color: $active;
             }
             i{
                 display: inline-block;
                 width: 14px;
                 height: 14px;
-                border: 1px solid #fff;
+                border: 1px solid $white;
                 border-radius: 7px;
                 margin-right: 5px;
                 vertical-align: middle;

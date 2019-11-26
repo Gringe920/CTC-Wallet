@@ -133,14 +133,14 @@ export default {
         padding-top: 60px;
         .tips{
             font-size: 14px;
-            color: #fff;
+            color: $white;
             margin-bottom: 22px;
         }
         .fill-in-world{
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            background-color: #323645;
+            background-color: $border2;
             border-radius:2px;
             opacity:0.6;
             text-align: center;
@@ -148,7 +148,7 @@ export default {
             .fill-item{
                 width: 33%;
                 font-size: 14px;
-                color: #fff;
+                color: $white;
                 padding: 15px 0;
             }
         }
@@ -156,7 +156,7 @@ export default {
             
             margin-bottom: 30px;
             textarea{
-                background-color: #323645;
+                background-color: $border2;
                 border-radius:2px;
                 height: 206px;
                 width: 100%;
@@ -169,8 +169,8 @@ export default {
             flex-wrap: wrap;
             margin-top: 30px;
             .word-item{
-                background-color: #323645;
-                color: #fff;
+                background-color: $border2;
+                color: $white;
                 font-size: 14px;
                 text-align: center;
                 padding: 6px 0;
@@ -182,7 +182,7 @@ export default {
                 }
                 &.active{
                     background-color: #1c333b;
-                    color: #00C28F;
+                    color: $active;
                 }
             }
         }
@@ -193,13 +193,13 @@ export default {
                 margin-bottom: 20px;
             }
             p.success-txt{
-                color: #00C28F;
+                color: $active;
                 font-size: 14px;
                 margin-bottom: 15px;
             }
             .attention  {
                 font-size: 12px;
-                color: #7D8398;
+                color: $color1;
             }
             
         }

@@ -67,7 +67,7 @@ export default {
   }
 
   .content {
-    background-color: #323645;
+    background-color: $border2;
     margin: 15px;
     padding: 0 15px 15px;
     border-radius: 5px;

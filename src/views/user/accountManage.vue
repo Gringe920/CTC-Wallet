@@ -92,7 +92,7 @@ export default {
     min-width: 14px;
     height: 14px;
     border-radius: 7px;
-    border: 1px solid #fff;
+    border: 1px solid $white;
 
     display: inline-block;
     vertical-align: middle;
@@ -106,7 +106,7 @@ export default {
     margin: 0 15px;
     padding-top: 75px;
     .account-item {
-      background: #323645;
+      background: $border2;
       border-radius: 10px;
       padding: 15px;
       margin-bottom: 10px;
@@ -121,10 +121,10 @@ export default {
       }
       .name {
         font-size: 14px;
-        color: #fff;
+        color: $white;
       }
       .address {
-        color: #7d8398;
+        color: $color1;
         font-size: 12px;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -133,7 +133,7 @@ export default {
     }
     .account-import {
       background-color: rgba(0, 194, 143, 0.1);
-      color: #00c28f;
+      color: $active;
       padding: 26px 15px;
       border-radius: 10px;
       font-size: 14px;
@@ -154,16 +154,16 @@ export default {
     bottom: 0;
     width: 100%;
     padding: 15px;
-    color: #fff;
+    color: $white;
     font-size: 14px;
     i {
       margin-right: 5px;
     }
     .delete {
-      background-color: #00c28f;
+      background-color: $active;
       padding: 7px 20px;
       font-size: 14px;
-      color: #fff;
+      color: $white;
       position: absolute;
       right: 15px;
       top: 10px;

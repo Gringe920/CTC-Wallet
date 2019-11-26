@@ -70,12 +70,12 @@ section{
       padding-top: 70px;
       .detail-row{
           font-size: 14px;
-          color: #fff;
+          color: $white;
           padding: 15px 0;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          border-bottom: 1px solid rgba(255,255,255,0.05);
+          border-bottom: 1px solid $border;
           i{
               display: inline-block;
               background-image: url('../../assets/images/triangle@2x.png');

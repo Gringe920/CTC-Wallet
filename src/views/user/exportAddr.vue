@@ -25,7 +25,7 @@
       </div>
       <!-- 提交按钮 -->
       <r-button width="87.3%"
-                bgColor="#00C28F"
+                bgColor="$active"
                 text="开始导入"
                 class="submit"/>
     </div>
@@ -58,18 +58,18 @@ export default {
       padding: 10px 0;
       .tab {
         font-size: 14px;
-        color: #7d8398;
+        color: $color1;
         position: relative;
         width: 50%;
         text-align: center;
         &.active {
-          color: #00c28f;
+          color: $active;
         }
         .active-line {
           display: inline-block;
           width: 22px;
           height: 2px;
-          background-color: #00c28f;
+          background-color: $active;
           position: absolute;
           bottom: -10px;
           left: 50%;
@@ -83,10 +83,10 @@ export default {
     padding: 17px;
     .input-title {
       font-size: 14px;
-      color: #7d8398;
+      color: $color1;
     }
     .input-area {
-      background-color: #323645;
+      background-color: $border2;
       border: none;
       margin-top: 20px;
       height: 124px;
@@ -103,7 +103,7 @@ export default {
     }
     .error-msg{
       font-size: 12px;
-      color: #FF615D;
+      color: $up;
       margin-top: 12px;
     }
   }

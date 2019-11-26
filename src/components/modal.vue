@@ -60,7 +60,7 @@ export default {
         border-radius:16px 16px 0px 0px;
         padding: 0 0 15px;
         position: absolute;
-        color:#fff;
+        color:$white;
         .modal-header{
             text-align: center;
             padding: 30px 0;
@@ -82,11 +82,11 @@ export default {
             }
             .cancel{
                 border:1px solid rgba(0,194,143,1);
-                color: #00C28F;
+                color: $active;
             }
             .comfirm{
-                color: #fff;
-                background-color: #00C28F;
+                color: $white;
+                background-color: $active;
             }
         }
     }
@@ -101,11 +101,11 @@ export default {
             outline: none;
             font-size: 14px;
             padding: 12px;
-            color: #fff;
+            color: $white;
             background-color: transparent;
             width: 100%;
             &::placeholder{
-                color: #7D8398;
+                color: $color1;
             }
 
         }
