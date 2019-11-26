@@ -8,7 +8,7 @@
         <span @click="changeopen" >BTC/USDT</span>
         <div class="fudong">-0.87%</div>
       </div>
-      <div class="coin-r"  @click="toroute('tradeDetails')">
+      <div class="coin-r"  @click="toRoute('tradeDetails')">
         <img src="../../assets/images/k_line@2x.png" alt="" srcset="">
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <section class="advert">
     <Header title="公告"></Header>
-    <div v-for="item in 4" :key="item" class="advertbox" @click="toroute('advertDetails')">
+    <div v-for="item in 4" :key="item" class="advertbox" @click="toRoute('advertDetails')">
       <div class="text">11月25日RCP发布最新上币活动公告</div>
       <div class="time">2018-11-18</div>
     </div>

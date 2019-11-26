@@ -3,13 +3,13 @@
     <Header :title="$t(`wallet.shoukuan1`)" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record@2x.png')"></Header>
     <div class="content">
       <div class="erwema">
-        <img src="../../assets/images/erweima.png" alt="" srcset="">
+           <rQrcode qrcodeUrl="www.baidu.com"/>
       </div>
       <div class="adderss">{{address}}</div>
       <div class="copy">{{$t(`wallet.shoukuan2`)}}</div>
     </div>
     <div class="erweim">
-      <div class="erbox"  @click="toroute('scanning')">
+      <div class="erbox"  @click="toRoute('scanning')">
         <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
         <img   v-else src="../../assets/images/scan_white_prohibit.png" alt="" srcset="">
         <div  :class="showshoukuan?'':'coloractive'">{{$t(`wallet.scanning1`)}}</div>
@@ -75,8 +75,13 @@ export default {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: relative;
+    text-align: center;
     .erwema {
+      margin:  0 auto;
       margin-top: 45px;
+      width: 220px;
+      height: 220px;
+
       img {
         width: 220px;
         height: 220px;

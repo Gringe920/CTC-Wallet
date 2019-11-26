@@ -8,7 +8,7 @@
     </div>
     <!-- 收款 -->
     <div class="zhuaninfo">
-      <div class="zhuan" v-for="item in 4" :key="item" @click="toroute('/detais/'+activeIdx)">
+      <div class="zhuan" v-for="item in 4" :key="item" @click="toRoute('/detais/'+activeIdx)">
         <div class="top">
           <img src="../../assets/images/night_record_time@2x.png" alt srcset />
           2019/01

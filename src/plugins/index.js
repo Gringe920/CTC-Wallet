@@ -2,7 +2,7 @@ import Vue from "vue";
 Vue.mixin({
 
   methods: {
-    toroute(path){
+    toRoute(path){
       this.$router.push({ path: path});
     }
   }

@@ -30,7 +30,7 @@
         <div class="c_l">{{$t(`wallet.nocan`)}}：&nbsp;  {{hidden?'******':item.nocan}} </div>
       </div> 
       <div class="coin4">
-        <div class="shou"  @click="toroute('shoukuan')" >{{$t(`wallet.shou`)}}</div>
+        <div class="shou"  @click="toRoute('shoukuan')" >{{$t(`wallet.shou`)}}</div>
         <div class="zhuan" @click="tozhuanzang(item.name)">{{$t(`wallet.fu`)}}</div>
       </div>
     </div>

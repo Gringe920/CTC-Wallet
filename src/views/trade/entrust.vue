@@ -2,7 +2,7 @@
   <section class="entrust">
     <div class="nav">
       <div class="nav-l">{{$t(`Trade.weituo`)}}</div>
-      <div class="nav-r"  @click="toroute('lastOrder')">
+      <div class="nav-r"  @click="toRoute('lastOrder')">
         <img src="../../assets/images/transaction_record@2x.png" alt="" srcset="">
         <span>{{$t(`Trade.nojilu`)}}</span>
       </div>

@@ -12,7 +12,7 @@
     </div>
     <div class="bg"></div>
     <div class="home-type">
-      <div class="ht_box" @click="toroute('shoukuan')">
+      <div class="ht_box" @click="toRoute('shoukuan')">
         <img src="../assets/images/receivables.png" alt="" srcset="">
         <div>{{$t(`home.home2`)}}</div>
       </div>
@@ -20,18 +20,18 @@
         <img src="../assets/images/activation@2x.png" alt="" srcset="">
         <div>{{$t(`home.home3`)}}</div>
       </div>
-       <div class="ht_box"   @click="toroute('zhuanqian')">
+       <div class="ht_box"   @click="toRoute('zhuanqian')">
         <img src="../assets/images/transfer@2x.png" alt="" srcset="">
         <div>{{$t(`home.home4`)}}</div>
       </div>
     </div>
      <div class="bg"></div>
     <div class="advert">
-      <div class="advert_l" @click="toroute('advertDetails')">
+      <div class="advert_l" @click="toRoute('advertDetails')">
         <img src="../assets/images/horn@2x.png" alt="" srcset="">
         <div>11月25日RCP发布最新上币活动公告</div>
       </div>
-      <div class="advert_r" @click="toroute('advert')">{{$t(`home.home5`)}}</div>
+      <div class="advert_r" @click="toRoute('advert')">{{$t(`home.home5`)}}</div>
     </div>
     <div class="jiuo">
       <img src="../assets/images/not_active@2x.png" alt="" srcset="" v-if="!isjihuo">
@@ -86,7 +86,7 @@ export default {
     width: 100%;
     background: url("../assets/images/home_bj_1@2x.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     .home-l {
       padding: 40px 15px 20px 30px;
       display: flex;
@@ -111,9 +111,12 @@ export default {
     }
   }
   .bg {
+    position: relative;
+    top: -20px;
     height: 2px;
     border-radius: 10px 10px 0px 0px;
-
+    width: 80%;
+    float: right;
     background-image: linear-gradient(
       90deg,
       rgba(0, 194, 143, 0) 0%,
@@ -121,6 +124,8 @@ export default {
     );
   }
   .home-type {
+    position: relative;
+    top: -20px;
     width: 100%;
     display: flex;
     height: 125px;
@@ -146,6 +151,8 @@ export default {
     }
   }
   .advert {
+        position: relative;
+    top: -20px;
     border: 1px solid red;
     display: flex;
     justify-content: space-between;
@@ -186,6 +193,8 @@ export default {
     }
   }
   .jiuo {
+      position: relative;
+    top: -20px;
     margin: 0 15px;
     background: $border2;
     border-radius: 5px;
