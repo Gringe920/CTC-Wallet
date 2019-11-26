@@ -6,7 +6,7 @@
     </div>
     <div class="price">
       <div>{{$t(`Trade.price`)}}</div>
-      <input type="text" placeholder="{{$t(`Trade.pricein`)}}" v-model="price" >
+      <input type="text" :placeholder="$t(`Trade.pricein`)" v-model="price" >
     </div>
     <div class="yue">=8976.0CNY</div>
     <div class="price">

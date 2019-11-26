@@ -44,7 +44,6 @@ export default {
     cansell:"卖出",
     volume:"成交量",
     statistical:'合计',
-    weituo:"委托中",
     cexiao:'已撤销',
     weifinsied:"未成交量",
     finished:'成交总额',

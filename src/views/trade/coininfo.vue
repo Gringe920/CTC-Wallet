@@ -33,7 +33,7 @@
         </div>
         <div class="coin-r" >
           <div class="search" v-if="searchstatus">
-            <input type="text" :placeholder="$t(`wallet.searchtext`)">
+            <input type="text" :placeholder="$t(`Trade.searchtext`)">
             <img  @click="searchstatus = false" src="../../assets/images/night_search_delete@2x.png" alt="" srcset="">
           </div>
           <div class="box" v-for="(item,index) in coins[checkcoin]" :key="item">

@@ -2,7 +2,7 @@
   <div class="home">
     <div class="hometou">
       <div class="home-l">
-        <div class="ke">{{$t(`wallet.home1`)}}</div>
+        <div class="ke">{{$t(`home.home1`)}}</div>
           <img  class="imgs" @click="tohidden" src="../assets/images/wallet_asset_eye@2x.png" alt="" srcset="" v-if="!hidden">
          <img class="imgs"  @click="tohidden" src="../assets/images/wallet_asset_eye_off@2x.png" alt="" srcset="" v-else>
       </div>
@@ -14,15 +14,15 @@
     <div class="home-type">
       <div class="ht_box" @click="toroute('shoukuan')">
         <img src="../assets/images/receivables.png" alt="" srcset="">
-        <div>{{$t(`wallet.home2`)}}</div>
+        <div>{{$t(`home.home2`)}}</div>
       </div>
        <div class="ht_box" @click="isShowPswModal = !isShowPswModal">
         <img src="../assets/images/activation@2x.png" alt="" srcset="">
-        <div>{{$t(`wallet.home3`)}}</div>
+        <div>{{$t(`home.home3`)}}</div>
       </div>
        <div class="ht_box"   @click="toroute('zhuanqian')">
         <img src="../assets/images/transfer@2x.png" alt="" srcset="">
-        <div>{{$t(`wallet.home4`)}}</div>
+        <div>{{$t(`home.home4`)}}</div>
       </div>
     </div>
      <div class="bg"></div>
@@ -31,22 +31,22 @@
         <img src="../assets/images/horn@2x.png" alt="" srcset="">
         <div>11月25日RCP发布最新上币活动公告</div>
       </div>
-      <div class="advert_r" @click="toroute('advert')">{{$t(`wallet.home5`)}}</div>
+      <div class="advert_r" @click="toroute('advert')">{{$t(`home.home5`)}}</div>
     </div>
     <div class="jiuo">
       <img src="../assets/images/not_active@2x.png" alt="" srcset="" v-if="!isjihuo">
       <img src="../assets/images/phine_active@2x.png" alt="" srcset="" v-else>
       <div class="jiho_r">
-        <div class="t">{{!isjihuo ?$t(`wallet.home6`):$t(`wallet.home7`)}}</div>
-        <div class="last">{{!isjihuo ?$t(`wallet.home8`):$t(`wallet.home9`)}}</div>
+        <div class="t">{{!isjihuo ?$t(`home.home6`):$t(`home.home7`)}}</div>
+        <div class="last">{{!isjihuo ?$t(`home.home8`):$t(`home.home9`)}}</div>
       </div>
     </div>
-    <r-modal :title="$t(`wallet.home10`)"
+    <r-modal :title="$t(`home.home10`)"
         @on-ok="submitPsw"
         :show="isShowPswModal"
         @on-cancel="isShowPswModal = false">
       <div class="inp-password">
-          <input type="password" :placeholder="$t(`wallet.home11`)">
+          <input type="password" :placeholder="$t(`home.home11`)">
       </div>
     </r-modal>
   </div>

@@ -35,7 +35,7 @@
             <div class="tet2">0.000000</div>
           </div>
            <div class="textbox textbox3">
-            <div class="text1">{{$t(`Trade.inished`)}}</div>
+            <div class="text1">{{$t(`Trade.finished`)}}</div>
             <div class="tet2">0.000000</div>
           </div>
         </div>
