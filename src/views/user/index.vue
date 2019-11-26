@@ -12,7 +12,7 @@
         <div class="user-navigation">
             <div class="user-nav-item" @click="activeAddr">
                 <i class="icon my_activation"></i>
-                <p>激活</p>
+                <p>{{$t('user.index.active')}}</p>
                 <div class="turn-right">
                     <span>未激活</span>
                     <i></i>

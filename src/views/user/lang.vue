@@ -21,24 +21,39 @@ export default {
             langList: [{
                 name: '中文简体',
                 icon: 'china',
-                isSelect: true
+                isSelect: true,
+                locale: 'zh'
             },{
                 name: '中文繁体',
                 icon: 'hongkong',
-                isSelect: false
+                isSelect: false,
+                locale: 'zhCN'
             },{
                 name: 'English',
                 icon: 'usa',
-                isSelect: false
+                isSelect: false,
+                locale: 'en'
             },{
                 name: 'русский язык',
                 icon: 'russia',
-                isSelect: false
-            }]
+                isSelect: false,
+                locale: 'ru'
+            }],
+            localeOption: ''
         }
+    },
+    created(){
+        const localeOption = window.localStorage.getItem('localeOption')
+        if(localeOption) this.setLangList(JSON.parse(localeOption))
     },
     methods: {
         selectLang(option){
+            this.setLangList(option)
+            window.localStorage.setItem('localeOption', JSON.stringify(option))
+            this.$i18n.locale = option.locale;
+            console.log(this.$i18n)
+        },
+        setLangList(option){
             this.langList = this.langList.map(item => {
                 item.isSelect = false
                 if(item.name == option.name)  item.isSelect = true
