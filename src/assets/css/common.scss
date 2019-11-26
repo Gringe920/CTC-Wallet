@@ -11,7 +11,6 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 img {
   border: none;
 }
-
 a {
   text-decoration: none;
   color: #00FF00;
@@ -55,6 +54,13 @@ body, html, #app {
 }
 .down{
   color: #00C28F !important;
+}
+.buybg{
+  background: #00C28F !important;
+}
+.sellbg{
+  background:#FF615D !important;
+
 }
 .btn { //公共按钮 ，浮动在底部  
   width: 90%;

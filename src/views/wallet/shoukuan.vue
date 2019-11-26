@@ -12,12 +12,12 @@
       <div class="erbox"  @click="toroute('scanning')">
         <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
         <img   v-else src="../../assets/images/scan_white_prohibit.png" alt="" srcset="">
-        <div>扫一扫</div>
+        <div  :class="showshoukuan?'':'coloractive'">扫一扫</div>
       </div>
       <div class="erbox">
         <img v-if="showshoukuan" src="../../assets/images/qr_white@2x.png" alt="" srcset="">
          <img v-else src="../../assets/images/qr_white_prohibit@2x.png" alt="" srcset="">
-        <div>收付款</div>
+        <div  :class="!showshoukuan?'':'coloractive'">收付款</div>
       </div>
     </div>
   
@@ -81,7 +81,11 @@ export default {
       overflow: hidden;
       margin-top: 70px;
       text-align: center;
+      overflow-x: scroll;
     }
+      .adderss::-webkit-scrollbar {
+        display: none;
+      }
     .copy{
      margin-top: 10px;
       font-size:12px;
@@ -91,9 +95,13 @@ export default {
     }
 
   }
+  .coloractive{
+    color: $white;
+  }
   .erweim{
-    margin-top: 50px;
     width: 100%;
+    position: absolute;
+    bottom: 40px;
     display: flex;
     justify-content: space-around;
     .erbox{

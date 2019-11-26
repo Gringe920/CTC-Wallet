@@ -60,7 +60,7 @@ export default {
     margin-bottom: 10px;
   }
   .all {
-    margin-top: 7px;
+    padding-top: 7px;
     font-size: 14pxx;
   }
   .yue {
@@ -89,13 +89,11 @@ export default {
   .check{
     display: flex;
     justify-content: flex-end;
-    margin-top: 10px;
+    padding-top: 10px;
     .noborer{
       border:none;
     }
     div{
-      border: 1px dashed $color1;
-
       width: 15px;
       height: 15px;
       margin-left: 15px;

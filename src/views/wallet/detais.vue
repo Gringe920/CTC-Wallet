@@ -1,9 +1,9 @@
 <template>
   <section class="detais">
-      <Header :title="type ==1 ?'收款详情':'转账详情'" ></Header>
-      <div class="text">{{type ==1 ?'转入':'转出'}}500 PYC{{type}}</div>
-      <div class="text2">{{type ==1 ?'转入':'支出'}}</div>
-      <div class="text3">{{type ==1 ?'+':'-'}}500 PYC</div>
+      <Header :title="type ==0 ?'收款详情':type==1?'转账详情':'兑换详情'" ></Header>
+      <div class="text">{{type ==0 ?'转入':type== 1?'转出':'兑换'}}500 PYC</div>
+      <div class="text2">{{type ==0 ?'收入':'支出'}}</div>
+      <div class="text3">{{type ==0 ?'+':'-'}}500 PYC</div>
       <div class="text2">对方地址</div>
       <div class="text3">RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQUPZTUNVCEAUG8HEDXEX7ZWQ</div>
       <div class="text2">创建时间</div>
@@ -14,7 +14,9 @@
 export default {
   name: "detais",
   data(){
+    
     return{
+        //0 收款 1 转账 2 兑换
       type:this.$route.params.id,
     }
   },

@@ -3,6 +3,7 @@
         <img  v-if="leftShow && !leftIcon"  @click="reply" src="../assets/images/home_search_white.png" alt="" class="icon_l">
         <img  v-if="leftShow && leftIcon"  @click="reply" :src="leftIcon" alt="" class="icon_l">
         <span>{{title}}</span>
+        <span   @click="totextpath"  v-if="righttext" class="text_r" >{{righttext}}</span>
         <img @click="topath"  v-if="rightIcon" :src="rightIcon" alt="" class="icon-r">
   </section>
 </template>
@@ -45,6 +46,11 @@ export default {
       type: String,
       default: "首页"
     },
+     righttext: {
+      // 居中标题
+      type: String,
+      default: ""
+    },
     rightIcon: {
       // 右侧图标地址
       type: String,
@@ -65,6 +71,8 @@ export default {
         return;
       }
     },
+    totextpath(){
+    },
     reply() {
       if(this.leftEv()){
         return;
@@ -73,7 +81,11 @@ export default {
         let webview = plus.webview.getLaunchWebview();
         webview.back();
       } else {
+         if((this.$route.name=='shoukuan'||this.$route.name=='scanning')){
+          this.$router.push({name:'wallet'});
+        }else {
           this.$router.go(-1);
+        }
       }
     }
   }
@@ -107,6 +119,10 @@ export default {
     left: 15px;
   }
   .icon-r {
+    position: absolute;
+    right: 15px;
+  }
+  .text_r{
     position: absolute;
     right: 15px;
   }

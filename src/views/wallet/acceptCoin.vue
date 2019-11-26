@@ -11,13 +11,13 @@
     </div>
     <!-- 收款 -->
     <div class="zhuaninfo">
-      <div class="zhuan" v-for="item in 4" :key="item" @click="toroute('/detais/'+type)">
+      <div class="zhuan" v-for="item in 4" :key="item" @click="toroute('/detais/'+activeIdx)">
         <div class="top">
           <img src="../../assets/images/night_record_time@2x.png" alt srcset />
           2019/01
         </div>
         <div class="center">
-          <div>转出500 &nbsp;RPC</div>
+          <div><span v-if="activeIdx==2">BTC</span>{{activeIdx==0 ?"收款":activeIdx==1? "转出":"兑换"}}500RPC</div>
           <img src="../../assets/images/triangle@2x.png" alt srcset />
         </div>
         <div class="last">12/30 &nbsp;22:30</div>
@@ -39,6 +39,7 @@ export default {
   methods: {
     changetype(index) {
       this.activeIdx = index;
+  
     }
   }
 };

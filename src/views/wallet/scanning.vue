@@ -1,33 +1,37 @@
 <template>
   <section class="scanning">
-    <Header title="扫一扫"></Header>
-    <div class="all">
-      <section class="content"></section>
-      <div class="erweim">
-          <div class="erbox">
-            <img src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
-            <div>扫一扫</div>
-          </div>
-          <div class="erbox">
-            <img src="../../assets/images/qr_white@2x.png" alt="" srcset="">
-            <div>收付款</div>
-          </div>
+    <Header title="扫一扫" righttext='相册'></Header>
+    <div class="content"></div>
+    <div class="erweim">
+      <div class="erbox"  @click="toroute('scanning')">
+        <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
+        <img   v-else src="../../assets/images/scan_white_prohibit.png" alt="" srcset="">
+        <div :class="showshoukuan?'':'coloractive'">扫一扫</div>
+      </div>
+      <div class="erbox" @click="toroute('shoukuan')">
+        <img v-if="showshoukuan" src="../../assets/images/qr_white@2x.png" alt="" srcset="">
+         <img v-else src="../../assets/images/qr_white_prohibit@2x.png" alt="" srcset="">
+        <div :class="!showshoukuan?'':'coloractive'">收付款</div>
       </div>
     </div>
-   
   </section>
 </template>
 <script>
 export default {
-  name: "scanning"
+  name: "scanning",
+  data(){
+    return{
+      showshoukuan:false
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
-
-body,html,#app {
+body,
+html,
+#app {
   background: none !important;
 }
-
 .scanning {
   background: rgba(0, 0, 0, 0.01);
   padding-top: 50px;
@@ -36,26 +40,28 @@ body,html,#app {
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
   .content {
-    width: 80vw;
-    max-width: 400px;
-    height: 80vw;
-    max-height: 400px;
+    margin-top: 30%;
+    width: 70vw;
+    max-width: 300px;
+    height: 70vw;
+    max-height: 300px;
     background: $white;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     opacity: 0.1;
     position: relative;
   }
+  .coloractive{
+    color: $white;
+  }
   .erweim {
-    padding: 0 10px;
+    position: absolute;
+    bottom: 40px;
     margin-top: 50px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     .erbox {
       color: $color1;
       font-size: 14px;

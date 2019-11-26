@@ -44,7 +44,8 @@ export default {
   name: "zhuanqian",
   data() {
     return {
-      close:false
+      close:false,
+  
     };
   },
   methods: {
