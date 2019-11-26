@@ -16,8 +16,11 @@
                         class="export-addr"
                         @comfirm="$router.push({path: './exportAddr'})"/>
                 <div class="tips">
-                    <i @click="select" :class="{'active': isAllow}"></i>
-                    我已经仔细阅读并同意<span>《RCP用户协议》</span>
+                    <label @click="select">
+                        <i :class="{'active': isAllow}"></i>
+                        我已经仔细阅读并同意
+                    </label>
+                    <span>《RCP用户协议》</span>
                 </div>
         </div>
       </div>

@@ -8,7 +8,10 @@ import './plugins/components'
 import './plugins/index'
 import Toast from "@/components/toast"
 
+import wallet from "./plugins/wallet";
+
 Vue.use(Toast);
+
 Vue.config.productionTip = false;
 new Vue({
     router,
