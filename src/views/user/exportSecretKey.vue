@@ -52,26 +52,26 @@ export default {
         }
         p{
             font-size: 14px;
-            color: #FF615D
+            color: $up
         }
     }
     .secret-key-list{
         margin: 0 15px;
         padding-top: 40px;
         .secret-key-box{
-            background-color: #323645;
+            background-color: $border2;
             border-radius:5px;
             padding: 15px;
             position: relative;
             margin-bottom: 15px;
-            color: #fff;
+            color: $white;
             .stitle{
                 font-size: 14px;
                 padding-bottom: 10px;
             }
             .s-addr{
                 font-size: 12px;
-                color: #7D8398;
+                color: $color1;
                 width: 100%;
                 overflow: hidden;
                 white-space: nowrap;

@@ -21,7 +21,7 @@ export default {
     color: {
       // 背景色
       type: String,
-      default: '#1F2332;',
+      default: '$bg;',
     },
     leftIcon: {
       //  左侧图标地址
@@ -89,7 +89,7 @@ export default {
   left: 0;
   width: 100vw;
   background: $bg;
-  color: #ffffff;
+  color: $white;
   // display: flex;
   // justify-content: space-between;
   // align-items: center;

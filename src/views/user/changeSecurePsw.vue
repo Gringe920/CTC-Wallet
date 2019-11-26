@@ -19,7 +19,7 @@ export default {};
 
 <style lang="scss" scoped>
 .content {
-  background-color: #323645;
+  background-color: $border2;
   margin: 70px 15px 0px;
   padding: 15px;
 
@@ -41,12 +41,12 @@ export default {};
   .divider {
       width: 100%;
       height: 1px;
-      background-color: #1F2332;
+      background-color: $bg;
       margin: 15px 0;
   }
 }
 .error-msg{
-    color: #FF615D;
+    color: $up;
     font-size: 12px;
     padding:12px 0 0 15px;
 }

@@ -42,7 +42,7 @@ html {
 body, html, #app {
   font-family: "PingFang SC", "Microsoft Yahei", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   user-select: none;
-  background: #1F2332;
+  background: $bg;
   width: 100%;
   // height: 100%;
 }
@@ -51,10 +51,10 @@ body, html, #app {
   height:0px;
 }
 .up{
-  color:#FF615D !important;
+  color:$up !important;
 }
 .down{
-  color: #00C28F !important;
+  color: $active !important;
 }
 .btn { //公共按钮 ，浮动在底部  
   width: 90%;

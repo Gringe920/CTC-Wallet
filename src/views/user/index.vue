@@ -104,19 +104,19 @@ export default {
         .info{
             .name{
                 font-size: 20px;
-                color: #fff;
+                color: $white;
                 margin-bottom: 10px;
             }
             .uid{
                 font-size: 12px;
-                color: #7D8398
+                color: $color1
             }
         }
     }
     .user-navigation{
         padding: 0 15px;
         margin: 0 15px;
-        background-color: #1F2332;
+        background-color: $bg;
         border-radius: 10px;
         .user-nav-item{
             display: flex;
@@ -150,14 +150,14 @@ export default {
             }
             p{
                 font-size: 14px;
-                color: #fff;
+                color: $white;
             }
             .turn-right{
                 position: absolute;
                 right: 0;
                 span{
                     font-size: 12px;
-                    color: #7D8398
+                    color: $color1
                 }
                 i{
                     display: inline-block;

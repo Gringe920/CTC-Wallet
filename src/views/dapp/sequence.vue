@@ -51,7 +51,7 @@ export default {};
     }
   }
   .content {
-    background-color: #323645;
+    background-color: $border2;
     margin: 15px 15px 80px 15px;
     padding: 0 15px 20px 15px;
     border-radius: 5px;
@@ -68,19 +68,19 @@ export default {};
 
     .divider {
       margin: 18px -15px;
-      background-color: #1f2332;
+      background-color: $bg;
       height: 1px;
     }
 
     .sequence-member {
       margin-bottom: 12px;
       font-size: 14px;
-      color: #7d8398;
+      color: $color1;
     }
 
     .sequence-num {
       font-family: DINAlternate-Bold, DINAlternate;
-      color: #fff;
+      color: $white;
       font-size: 26px;
       font-weight: bold;
     }
@@ -88,11 +88,11 @@ export default {};
     .sequence-consume {
       font-size: 14px;
       .title {
-        color: #fff;
+        color: $white;
         margin-bottom: 15px;
       }
       .input-area {
-        background-color: #1f2332;
+        background-color: $bg;
         border-radius: 5px;
         overflow: hidden;
         padding: 12px 12px;
@@ -101,11 +101,11 @@ export default {};
           background: transparent;
           outline: none;
           border: none;
-          color: #fff;
+          color: $white;
           width: 85%;
         }
         .unit {
-          color: #fff;
+          color: $white;
           float: right;
         }
       }

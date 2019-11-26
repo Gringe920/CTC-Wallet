@@ -26,7 +26,7 @@ export default {
     font-size: 14px;
     .attention{
         
-        color: #7D8398;
+        color: $color1;
         margin-bottom: 20px;
     }
     .inp-textarea{
@@ -38,7 +38,7 @@ export default {
             background-color: transparent;
             border: none;
             appearance: none;
-            color: #fff;
+            color: $white;
             height: 124px;
             width: 100%;
             outline: none;

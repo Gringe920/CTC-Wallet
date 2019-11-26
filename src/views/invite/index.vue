@@ -42,7 +42,7 @@
         }
         .code{
             font-size: 44px;
-            color: #00C28F;
+            color: $active;
             margin-bottom: 35px;
         }
         .text{

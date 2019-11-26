@@ -52,12 +52,12 @@ export default {
     }
     button{
         height: 46px;
-        color: #fff;
+        color: $white;
         font-size: 14px;
         width: 100%;
         border: 0;
         font-size: 16px;
-        background-color: #00C28F;
+        background-color: $active;
         &.bor-radio{
             border-radius: 32px;
         }

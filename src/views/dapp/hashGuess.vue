@@ -73,7 +73,7 @@ export default {};
     }
   }
   .content {
-    background-color: #323645;
+    background-color: $border2;
     margin: 15px 15px 80px 15px;
     border-radius: 5px;
     padding: 0 15px 20px 15px;
@@ -89,13 +89,13 @@ export default {};
     }
 
     .jackpot {
-      color: #7d8398;
+      color: $color1;
       font-size: 14px;
       margin-bottom: 12px;
     }
 
     .jackpot-detail {
-      color: #fff;
+      color: $white;
       font-weight: bold;
       overflow: hidden;
       .jackpot-num {
@@ -116,14 +116,14 @@ export default {};
       .progressed {
         float: left;
         width: 68%;
-        background-color: #00c28f;
+        background-color: $active;
         height: 5px;
         border-radius: 5px;
       }
 
       .all {
         width: 100%;
-        background-color: #1f2332;
+        background-color: $bg;
         height: 5px;
         border-radius: 5px;
       }
@@ -131,7 +131,7 @@ export default {};
 
     .remained-jackpot {
       font-size: 12px;
-      color: #7d8398;
+      color: $color1;
       overflow: hidden;
       .remained-num {
         float: left;
@@ -143,18 +143,18 @@ export default {};
 
     .divider {
       margin: 18px -15px;
-      background-color: #1f2332;
+      background-color: $bg;
       height: 1px;
     }
 
     .guess-num {
       font-size: 14px;
       .title {
-        color: #fff;
+        color: $white;
         margin-bottom: 15px;
       }
       .input-area {
-        background-color: #1f2332;
+        background-color: $bg;
         border-radius: 5px;
         overflow: hidden;
         padding: 12px 12px;
@@ -163,11 +163,11 @@ export default {};
           background: transparent;
           outline: none;
           border: none;
-          color: #fff;
+          color: $white;
           width: 85%;
         }
         .unit {
-          color: #fff;
+          color: $white;
           float: right;
         }
       }
