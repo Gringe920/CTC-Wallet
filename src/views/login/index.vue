@@ -9,12 +9,12 @@
                         text="创建地址"
                         bgColor="$active"
                         class="setup-addr"
-                        @comfirm="$router.push({path: './setupAddr'})"/>
+                        @comfirm="$router.push({path: '/setupAddr'})"/>
                 <r-button width="73%"
                         text="导入地址"
                         bgColor="#00CCFF"
                         class="export-addr"
-                        @comfirm="$router.push({path: './exportAddr'})"/>
+                        @comfirm="$router.push({path: '/exportAddr'})"/>
                 <div class="tips">
                     <label @click="select">
                         <i :class="{'active': isAllow}"></i>
