@@ -20,7 +20,7 @@ const toast = {
             if(type == 'hide'){
                 toastNode.isShowToast = showToast = false;
             }else{
-                if(toastNode) rertun;
+                if(toastNode) return;
                 toastNode = new ToastContructor({
                     data: {
                         isShowToast: showToast,
