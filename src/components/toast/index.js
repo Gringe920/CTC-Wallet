@@ -12,7 +12,7 @@ const ToastContructor = Vue.extend(ToastComponent)
 const toast = {
     install: (Vue, options) => {
         const option = {
-            duration: '3000'
+            duration: '1200'
         }
         for (let o in options) {
             option[o] = options[o]

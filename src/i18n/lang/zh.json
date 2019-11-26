@@ -87,5 +87,10 @@
     "zhuanqian9":"请输入或长按粘贴地址",
     "zhuanqian10":"交易密码",
     "zhuanqian12":"请输入交易密码"
+  },
+  "user": {
+    "index": {
+      "active": "激活"
+    }
   }
 }

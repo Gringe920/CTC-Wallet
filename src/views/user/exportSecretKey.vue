@@ -14,9 +14,11 @@
                   <div class="s-addr">
                       RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ
                   </div>
-                  <div class="copy-icon">
-                      <img src="../../assets/images/copy@2x.png" class="copy-icon-img" alt="">
-                  </div>
+                  <r-copy copyText="RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ">
+                    <div class="copy-icon">
+                        <img src="../../assets/images/copy@2x.png" class="copy-icon-img" alt="">
+                    </div>
+                  </r-copy>
               </div>
               <div class="secret-key-box">
                   <div class="stitle">
@@ -25,9 +27,11 @@
                   <div class="s-addr">
                       RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ
                   </div>
-                  <div class="copy-icon">
-                      <img src="../../assets/images/copy@2x.png" class="copy-icon-img" alt="">
-                  </div>
+                  <r-copy copyText="RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ">
+                    <div class="copy-icon">
+                        <img src="../../assets/images/copy@2x.png" class="copy-icon-img" alt="">
+                    </div>
+                  </r-copy>
               </div>
           </div> 
       </div>

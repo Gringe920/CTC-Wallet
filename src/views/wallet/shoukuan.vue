@@ -6,7 +6,9 @@
            <rQrcode qrcodeUrl="www.baidu.com"/>
       </div>
       <div class="adderss">{{address}}</div>
-      <div class="copy">{{$t(`wallet.shoukuan2`)}}</div>
+      <r-copy :copyText="address">
+        <div class="copy">{{$t(`wallet.shoukuan2`)}}</div>
+      </r-copy>
     </div>
     <div class="erweim">
       <div class="erbox"  @click="toRoute('scanning')">

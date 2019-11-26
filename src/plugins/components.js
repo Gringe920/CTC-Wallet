@@ -6,7 +6,8 @@ const empty = () => import(/* webpackChunkName: "empty" */ '../components/empty'
 const countdown = () => import(/* webpackChunkName: "countdown" */ '../components/countdown');
 const rankList = () => import(/* webpackChunkName: "rankList" */ '../components/rankList');
 const powerDetail = () => import(/* webpackChunkName: "powerDetail" */ '../components/powerDetail');
-const modal = () => import(/* webpackChunkName: "powerDetail" */ '../components/modal');
+const modal = () => import(/* webpackChunkName: "modal" */ '../components/modal');
+const copy = () => import(/* webpackChunkName: "copy" */ '../components/copy');
 
 Vue.component('Header', header);
 Vue.component('rButton', button);
@@ -16,3 +17,4 @@ Vue.component('Countdown', countdown);
 Vue.component('RankList', rankList);
 Vue.component('PowerDetail', powerDetail);
 Vue.component('rModal', modal);
+Vue.component('rCopy', copy);

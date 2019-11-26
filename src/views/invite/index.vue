@@ -11,10 +11,13 @@
             <div class="invite-qrcode">
                 <rQrcode qrcodeUrl="www.baidu.com"/>
             </div>
-            <r-button bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
+            <r-copy copyText="fuzhifuzhi">
+                <r-button bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
                       text="复制推广链接"
                       width="76%"
                       class="invite-button"></r-button>
+            </r-copy>
+            
         </div>
     </div>
 </template>
