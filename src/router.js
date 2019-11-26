@@ -14,31 +14,32 @@ import Trade from './views/trade/index.vue' //交易中心
 import lastOrder from './views/trade/lastOrder' //交易中心历史记录
 import tradeDetails from './views/trade/tradeDetails' //交易中心对应k线深度图页面
 
-import Download from './views/download' 
-import Invite from "./views/invite"
-import User from "./views/user"
-import Lang from "./views/user/lang"
-import AccountManage from './views/user/accountManage'
-import ExportAddr from './views/user/exportAddr'
-import MnemonicWord from './views/user/mnemonicWord'
-import ChangeSecurePsw from './views/user/changeSecurePsw'
-import AddrDetail from './views/user/addrDetail'
-import RemoveAddr from './views/user/removeAddr'
-import ExportSecretKey from './views/user/exportSecretKey'
+import Download from './views/download' //下载界面
+import Invite from "./views/invite" //邀请
+import User from "./views/user" //我的首页
+import Lang from "./views/user/lang" //语言设置
 
-import Login from './views/login'
-import SetupAddr from './views/login/setupAddr'
-import Convolution from './views/dapp/convolution'
-import Exchange from './views/dapp/exchange'
-import DigMine from './views/dapp/digMine'
-import HashGuess from './views/dapp/hashGuess'
-import Sequence from './views/dapp/sequence'
-import TradeCompaign from './views/dapp/tradeCompaign'
-import NewbieReward from './views/dapp/newbieReward'
-import XPowerCompaign from './views/dapp/xPowerCompaign'
-import YPowerCompaign from './views/dapp/yPowerCompaign'
-import AlphaPowerDetail from './views/dapp/alphaPowerDetail'
-import BetaPowerDetail from './views/dapp/betaPowerDetail'
+import AccountManage from './views/user/accountManage' //账号管理
+import ExportAddr from './views/user/exportAddr' //导出地址
+import MnemonicWord from './views/user/mnemonicWord' //备份助记词
+import ChangeSecurePsw from './views/user/changeSecurePsw' //修改安全密码
+import AddrDetail from './views/user/addrDetail' //地址详情
+import RemoveAddr from './views/user/removeAddr' //移除地址
+import ExportSecretKey from './views/user/exportSecretKey' //导出私钥
+
+import Login from './views/login' //登陆
+import SetupAddr from './views/login/setupAddr' //创建地址
+import Convolution from './views/dapp/convolution' //卷积
+import Exchange from './views/dapp/exchange' //兑换
+import DigMine from './views/dapp/digMine' //挖矿
+import HashGuess from './views/dapp/hashGuess' //竞猜
+import Sequence from './views/dapp/sequence' //接龙
+import TradeCompaign from './views/dapp/tradeCompaign' //交易大赛
+import NewbieReward from './views/dapp/newbieReward' //新人奖
+import XPowerCompaign from './views/dapp/xPowerCompaign' //X算力争霸
+import YPowerCompaign from './views/dapp/yPowerCompaign' //Y算力竞赛
+import AlphaPowerDetail from './views/dapp/alphaPowerDetail' //α算力明细
+import BetaPowerDetail from './views/dapp/betaPowerDetail' //β算力明细
 
 Vue.use(Router)
 export default new Router({
