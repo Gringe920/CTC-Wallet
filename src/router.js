@@ -29,6 +29,8 @@ import ExportSecretKey from './views/user/exportSecretKey' //导出私钥
 
 import Login from './views/login' //登陆
 import SetupAddr from './views/login/setupAddr' //创建地址
+import importWallet from './views/login/importWallet' //导入钱包
+
 import Convolution from './views/dapp/convolution' //卷积
 import Exchange from './views/dapp/exchange' //兑换
 import DigMine from './views/dapp/digMine' //挖矿
@@ -43,199 +45,209 @@ import BetaPowerDetail from './views/dapp/betaPowerDetail' //β算力明细
 
 Vue.use(Router)
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/scanning',
-      name: 'scanning',
-      component:scanning
-    },
-    {
-      path: '/trade',
-      name: 'trade',
-      component: Trade
-    },
-    {
-      path: '/tradeDetails',
-      name: 'tradeDetails',
-      component: tradeDetails
-    },
-    {
-      path: '/lastOrder',
-      name: 'lastOrder',
-      component: lastOrder
-    },
-    {
-      path: '/wallet',
-      name: 'wallet',
-      component: Wallet
-    },
-    {
-      path: '/dapp',
-      name: 'dapp',
-      component: Dapp
-    },
-    {
-      path: '/shoukuan',
-      name: 'shoukuan',
-      component: shoukuan
-    },
-    {
-      path: '/zhuanqian',
-      name: 'zhuanqian',
-      component: zhuanqian
-    },
-    {
-      path: '/detais/:id',
-      name: 'detais',
-      component:detais
-    },
-    {
-      path: '/advert',
-      name: 'advert',
-      component: Advert
-    },
-    {
-      path: '/advertDetails',
-      name: 'advertDetails',
-      component: AdvertDetails
-    },
-    
-    {
-      path: '/acceptCoin',
-      name: 'acceptCoin',
-      component:AcceptCoin
-    },
-    {
-      path: '/download',
-      name: 'download',
-      component: Download
-    },
-    {
-      path: '/invite',
-      name: 'invite',
-      component: Invite
-    },
-    {
-      path: '/user',
-      name: 'user',
-      component: User
-    },
-    {
-      path: '/lang',
-      name: 'lang',
-      component: Lang
-    },
-    {
-      path: '/changeSecurePsw',
-      name: 'changeSecurePsw',
-      component: ChangeSecurePsw
-    },
-    {
-      path: '/accountManage',
-      name: 'accountManage',
-      component: AccountManage
-    },
-    {
-      path: '/exportAddr',
-      name: 'exportAddr',
-      component: ExportAddr
-    },
-    {
-      path: '/mnemonicWord',
-      name: 'mnemonicWord',
-      component: MnemonicWord
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/convolution',
-      name: 'convolution',
-      component: Convolution
-    },
-    {
-      path: '/exchange',
-      name: 'exchange',
-      component: Exchange
-    },
-    {
-      path: '/digMine',
-      name: 'digMine',
-      component: DigMine
-    },
-    {
-      path: '/hashGuess',
-      name: 'hashGuess',
-      component: HashGuess
-    },
-    {
-      path: '/sequence',
-      name: 'sequence',
-      component: Sequence
-    },
-    {
-      path: '/tradeCompaign',
-      name: 'tradeCompaign',
-      component: TradeCompaign
-    },{
-      path: '/newbieReward',
-      name: 'newbieReward',
-      component: NewbieReward
-    },{
-      path: '/xPowerCompaign',
-      name: 'xPowerCompaign',
-      component: XPowerCompaign
-    },{
-      path: '/yPowerCompaign',
-      name: 'yPowerCompaign',
-      component: YPowerCompaign
-    },
-    {
-      path: '/alphaPowerDetail',
-      name: 'alphaPowerDetail',
-      component: AlphaPowerDetail
-    },
-    {
-      path: '/betaPowerDetail',
-      name: 'betaPowerDetail',
-      component: BetaPowerDetail
-    },
-    {
-      path: '/addrDetail',
-      name: 'addrDetail',
-      component: AddrDetail
-    },
-    {
-      path: '/removeAddr',
-      name: 'removeAddr',
-      component: RemoveAddr
-    },
-    {
-      path: '/exportSecretKey',
-      name: 'exportSecretKey',
-      component: ExportSecretKey
-    },
-    {
-      path: '/setupAddr',
-      name: 'setupAddr',
-      component: SetupAddr
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: '/',
+            redirect: '/home'
+        },
+        {
+            path: '/home',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/scanning',
+            name: 'scanning',
+            component:scanning
+        },
+        {
+            path: '/importWallet',
+            name: 'importWallet',
+            component:importWallet
+        },
+        {
+            path: '/trade',
+            name: 'trade',
+            component: Trade
+        },
+        {
+            path: '/tradeDetails',
+            name: 'tradeDetails',
+            component: tradeDetails
+        },
+        {
+            path: '/lastOrder',
+            name: 'lastOrder',
+            component: lastOrder
+        },
+        {
+            path: '/wallet',
+            name: 'wallet',
+            component: Wallet
+        },
+        {
+            path: '/dapp',
+            name: 'dapp',
+            component: Dapp
+        },
+        {
+            path: '/shoukuan',
+            name: 'shoukuan',
+            component: shoukuan
+        },
+        {
+            path: '/zhuanqian',
+            name: 'zhuanqian',
+            component: zhuanqian
+        },
+        {
+            path: '/detais/:id',
+            name: 'detais',
+            component:detais
+        },
+        {
+            path: '/advert',
+            name: 'advert',
+            component: Advert
+        },
+        {
+            path: '/advertDetails',
+            name: 'advertDetails',
+            component: AdvertDetails
+        },
+
+        {
+            path: '/acceptCoin',
+            name: 'acceptCoin',
+            component:AcceptCoin
+        },
+        {
+            path: '/download',
+            name: 'download',
+            component: Download
+        },
+        {
+            path: '/invite',
+            name: 'invite',
+            component: Invite
+        },
+        {
+            path: '/user',
+            name: 'user',
+            component: User
+        },
+        {
+            path: '/lang',
+            name: 'lang',
+            component: Lang
+        },
+        {
+            path: '/changeSecurePsw',
+            name: 'changeSecurePsw',
+            component: ChangeSecurePsw
+        },
+        {
+            path: '/accountManage',
+            name: 'accountManage',
+            component: AccountManage
+        },
+        {
+            path: '/exportAddr',
+            name: 'exportAddr',
+            component: ExportAddr
+        },
+        {
+            path: '/mnemonicWord/:mnemonic/:stepType',
+            name: 'mnemonicWord',
+            component: MnemonicWord,
+            props: true
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/convolution',
+            name: 'convolution',
+            component: Convolution
+        },
+        {
+            path: '/exchange',
+            name: 'exchange',
+            component: Exchange
+        },
+        {
+            path: '/digMine',
+            name: 'digMine',
+            component: DigMine
+        },
+        {
+            path: '/hashGuess',
+            name: 'hashGuess',
+            component: HashGuess
+        },
+        {
+            path: '/sequence',
+            name: 'sequence',
+            component: Sequence
+        },
+        {
+            path: '/tradeCompaign',
+            name: 'tradeCompaign',
+            component: TradeCompaign
+        },{
+            path: '/newbieReward',
+            name: 'newbieReward',
+            component: NewbieReward
+        },{
+            path: '/xPowerCompaign',
+            name: 'xPowerCompaign',
+            component: XPowerCompaign
+        },{
+            path: '/yPowerCompaign',
+            name: 'yPowerCompaign',
+            component: YPowerCompaign
+        },
+        {
+            path: '/alphaPowerDetail',
+            name: 'alphaPowerDetail',
+            component: AlphaPowerDetail
+        },
+        {
+            path: '/betaPowerDetail',
+            name: 'betaPowerDetail',
+            component: BetaPowerDetail
+        },
+        {
+            path: '/addrDetail',
+            name: 'addrDetail',
+            component: AddrDetail
+        },
+        {
+            path: '/removeAddr',
+            name: 'removeAddr',
+            component: RemoveAddr
+        },
+        {
+            path: '/exportSecretKey',
+            name: 'exportSecretKey',
+            component: ExportSecretKey
+        },
+        {
+            path: '/setupAddr',
+            name: 'setupAddr',
+            component: SetupAddr
+        },
+        {
+            path: '/about',
+            name: 'about',
+            // route level code-splitting
+            // this generates a separate chunk (about.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+        }
+    ]
 })

@@ -55,12 +55,17 @@
                 return this.routeList.indexOf(this.$route.name) > -1
             }
         },
+        created (){
+            if((this.account.accounts.mnemonic == "" || this.account.accounts.address.length <= 0) && this.$route.name !='login'){
+                this.toRoute('/login');
+            };
+        },
         mounted(){
             this.showBottomNav();
             // console.log(this.account.accounts);
             // this.account.createWallet('123456');
             // this.account.getAccount();
-            // console.log(this.account.accounts);
+            // console.log(this.account.accounts.mnemonic);
         },
         computed: {
             ...mapState(['showNav'])

@@ -4,13 +4,14 @@
          :style="{width: width, height: height}">
         <button :style="{background: bgColor}" class="bor-radio">
             <i :class="icon" v-if="icon"></i>
-            {{text}}
+            {{text}}{{submitState ? '...' : ''}}
         </button>
     </div>
 </template>
 <script>
 export default {
     props: {
+        submitState: false,
         width: String,
         height: String,
         bgColor: String,
@@ -24,6 +25,7 @@ export default {
     },
     methods: {
         comfirm(){
+            if(this.submitState) return;
             this.$emit('comfirm')
         }
     }

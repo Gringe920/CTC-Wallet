@@ -14,7 +14,7 @@
                         text="导入地址"
                         bgColor="#00CCFF"
                         class="export-addr"
-                        @comfirm="$router.push({path: '/exportAddr'})"/>
+                        @comfirm="$router.push({path: '/importWallet'})"/>
                 <div class="tips">
                     <label @click="select">
                         <i :class="{'active': isAllow}"></i>
