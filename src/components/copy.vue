@@ -19,10 +19,11 @@ export default {
     },
     methods: {
         onCopy(){
-            this.$toast.show('复制成功')
+            this.$toast.show(this.$t('copySucceed'))
         },
         onError(err){
-            console.log(err)
+            console.log(err);
+            this.$toast.show(this.$t('复制失败'))
         }
     }
 }

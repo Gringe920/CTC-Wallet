@@ -5,8 +5,8 @@
                 <img src="../../assets/images/my_head@2x.png" alt="">
             </div>
             <div class="info">
-                <div class="name">Parren Ye</div>
-                <div class="uid">UID：0650021300</div>
+                <div class="name">{{$t('title')}}</div>
+                <div class="uid">{{account.getAddress()}}</div>
             </div>
         </div>
         <div class="user-navigation">
@@ -14,11 +14,11 @@
                 <i class="icon my_activation"></i>
                 <p>{{$t('user.index.active')}}</p>
                 <div class="turn-right">
-                    <span>未激活</span>
+                    <span>{{isjihuo && invite.length ? $t(`home.home13`) : isjihuo ? $t(`home.home12`) : $t(`home.home6`)}}</span>
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/invite'})">
+            <div class="user-nav-item" @click="$router.push({path: '/download'})">
                 <i class="icon my_share"></i>
                 <p>分享APP</p>
                 <div class="turn-right">
@@ -40,22 +40,22 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/changeSecurePsw'})">
+<!--            <div class="user-nav-item" @click="$router.push({path: '/changeSecurePsw'})">
                 <i class="icon my_lock"></i>
                 <p>登录密码</p>
                 <div class="turn-right">
                     <i></i>
                 </div>
-            </div>
+            </div>-->
             <div class="user-nav-item">
                 <i class="icon my_l"></i>
                 <p>版本</p>
                 <div class="turn-right">
-                    <i></i>
+                    <span>1.0.0</span>
                 </div>
             </div>
         </div>
-        <r-modal title="激活地址"
+<!--        <r-modal title="激活地址"
              @on-ok="submit"
              btnText="激活"
              :show="isShowModal"
@@ -63,7 +63,7 @@
             <div class="inp-password">
             <input type="text" placeholder="输入激活地址">
             </div>
-        </r-modal>
+        </r-modal>-->
     </div>
 </template>
 <script>

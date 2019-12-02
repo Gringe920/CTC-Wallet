@@ -1,55 +1,100 @@
 <template>
-  <section class="detais">
-      <Header :title="type ==0 ?$t(`wallet.info1`):type==1?$t(`wallet.info2`):$t(`wallet.info3`)" ></Header>
-      <div class="text">{{type ==0 ?$t(`wallet.info4`):type== 1?$t(`wallet.zhuanchu`):$t(`wallet.duhuan`)}}500 PYC</div>
-      <div class="text2">{{type ==0 ?$t(`wallet.info5`):$t(`wallet.info6`)}}</div>
-      <div class="text3">{{type ==0 ?'+':'-'}}500 PYC</div>
-      <div class="text2">{{$t(`wallet.info7`)}}</div>
-      <div class="text3">RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQUPZTUNVCEAUG8HEDXEX7ZWQ</div>
-      <div class="text2">{{$t(`wallet.info8`)}}</div>
-      <div class="text3">2019/01/03 08:00</div>
-  </section>
+    <section class="detais">
+        <Header :title="$t(`wallet.txDetails`)" ></Header>
+        <load v-if="loadState"></load>
+        <section v-else>
+            <div class="text">
+                {{item.address == rcp.address ? '-' : '+'}}
+                {{item.specification && item.specification.source.maxAmount.value}}
+                {{unitCoin(item.specification && item.specification.source.maxAmount.currency)}}
+            </div>
+            <div class="text2">{{$t('type')}}:</div>
+            <div class="text3">
+                {{transactionTypeText(item)}}
+            </div>
+            <div class="text2">{{$t('from')}}:</div>
+            <div class="text3">
+                <r-copy :copyText="item.specification && item.specification.source.address">
+                    {{item.specification && item.specification.source.address}}
+                </r-copy>
+            </div>
+            <div class="text2">{{$t('to')}}:</div>
+            <div class="text3">
+                <r-copy :copyText="item.specification && item.specification.destination.address">
+                    {{item.specification && item.specification.destination.address}}
+                </r-copy>
+            </div>
+            <div class="text2">ID:</div>
+            <div class="text3">
+                <r-copy :copyText="id">
+                    {{id}}
+                </r-copy>
+            </div>
+            <div class="text2">{{$t(`wallet.zhuanqian5`)}}</div>
+            <div class="text3">{{item.outcome && item.outcome.fee}} {{$t('title')}}</div>
+            <div class="text2">{{$t(`Trade.time`)}}</div>
+            <div class="text3">{{item.outcome && item.outcome.timestamp}}</div>
+            <div class="text2">{{$t(`ledgerVersion`)}}</div>
+            <div class="text3">{{item.outcome && item.outcome.ledgerVersion}}</div>
+        </section>
+
+    </section>
 </template>
 <script>
-export default {
-  name: "detais",
-  data(){
-    
-    return{
-        //0 收款 1 转账 2 兑换
-      type:this.$route.params.id,
-    }
-  },
-  mounted(){
-  }
-};
+    export default {
+        name: "detais",
+        props :['id'],
+        data(){
+            return{
+                loadState : true,
+                item : {},
+            }
+        },
+        mounted(){
+        },
+        created (){
+            this.getTX();
+        },
+        methods : {
+            getTX (){
+                this.loadState = true;
+                this.rcp.api.getTransaction(this.id).then(data => {
+                    this.loadState = false;
+                    // console.log(data);
+                    this.item = data;
+                }).catch(e => {
+                    this.loadState = false;
+                })
+            },
+        }
+    };
 </script>
 <style lang="scss" scoped>
-.detais {
-  overflow: hidden;
-  margin-top: 50px;
-  padding: 0 15px;
-  .text2 {
-    font-size: 12px;
-    color: $color1;
-    padding: 10px 0;
-    word-wrap: break-word;
-  }
-  .text {
-    color: $white;
-    font-size: 14px;
-    padding: 15px 0;
-    border-top: 1px solid $border;
-    border-bottom: 1px solid $border;
-    word-wrap: break-word;
-  }
-  .text3 {
-    padding-bottom: 10px;
-    color: $white;
-    font-size: 14px;
-    width: 100%;
-    word-wrap: break-word;
-  }
-}
+    .detais {
+        overflow: hidden;
+        margin-top: 50px;
+        padding: 0 15px;
+        .text2 {
+            font-size: 12px;
+            color: $color1;
+            padding: 10px 0;
+            word-wrap: break-word;
+        }
+        .text {
+            color: $white;
+            font-size: 14px;
+            padding: 15px 0;
+            border-top: 1px solid $border;
+            border-bottom: 1px solid $border;
+            word-wrap: break-word;
+        }
+        .text3 {
+            padding-bottom: 10px;
+            color: $white;
+            font-size: 14px;
+            width: 100%;
+            word-wrap: break-word;
+        }
+    }
 </style>
 

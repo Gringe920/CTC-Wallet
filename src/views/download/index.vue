@@ -1,7 +1,7 @@
 <template>
     <div class="download-container">
         <div class="turn-back">
-            <img src="../../assets/images/home_search_white.png" alt=""/>
+            <img src="../../assets/images/home_search_white.png" @click="$router.go(-1)" alt=""/>
         </div>
         <div class="download-logo">
             <img src="../../assets/images/download_logo.png" alt=""/>

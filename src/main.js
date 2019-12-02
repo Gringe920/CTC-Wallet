@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './store/store'
 import i18n from './i18n/'
 import './assets/css/common.scss'
 import './plugins/components'
 import './plugins/index'
 import Toast from "@/components/toast"
 
-import wallet from "./plugins/wallet";
+import "./plugins/wallet";
+import "./plugins/decimal";
 
 Vue.use(Toast);
 

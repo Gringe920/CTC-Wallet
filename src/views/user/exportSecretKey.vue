@@ -1,20 +1,20 @@
 <template>
   <section>
-      <Header title = "导出私钥" />
+      <Header :title="$t('export') + $t('privateKey')" />
       <div class="container">
           <div class="notice">
               <img src="../../assets/images/private_key_tips@2x.png" alt="">
-              <p>认真抄写 安全保管 切勿泄露自己的私钥</p>
+              <p>{{$t('exportWarn')}}</p>
           </div>
           <div class="secret-key-list">
               <div class="secret-key-box">
                   <div class="stitle">
-                      RCP地址
+                      {{$t('title') + $t('address')}}
                   </div>
                   <div class="s-addr">
-                      RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ
+                      {{address}}
                   </div>
-                  <r-copy copyText="RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ">
+                  <r-copy :copyText="address">
                     <div class="copy-icon">
                         <img src="../../assets/images/copy@2x.png" class="copy-icon-img" alt="">
                     </div>
@@ -22,12 +22,12 @@
               </div>
               <div class="secret-key-box">
                   <div class="stitle">
-                      RCP地址
+                      {{$t('title') + $t('privateKey')}}
                   </div>
                   <div class="s-addr">
-                      RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ
+                      {{seed}}
                   </div>
-                  <r-copy copyText="RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ">
+                  <r-copy :copyText="seed">
                     <div class="copy-icon">
                         <img src="../../assets/images/copy@2x.png" class="copy-icon-img" alt="">
                     </div>
@@ -40,7 +40,7 @@
 
 <script>
 export default {
-
+    props : ['address', 'seed']
 }
 </script>
 

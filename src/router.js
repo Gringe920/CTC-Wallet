@@ -105,7 +105,8 @@ export default new Router({
         {
             path: '/detais/:id',
             name: 'detais',
-            component:detais
+            component:detais,
+            props: true
         },
         {
             path: '/advert',
@@ -117,11 +118,15 @@ export default new Router({
             name: 'advertDetails',
             component: AdvertDetails
         },
-
         {
             path: '/acceptCoin',
+            redirect: '/acceptCoin/0'
+        },
+        {
+            path: '/acceptCoin/:activeIdx',
             name: 'acceptCoin',
-            component:AcceptCoin
+            component:AcceptCoin,
+            props: true
         },
         {
             path: '/download',
@@ -222,9 +227,10 @@ export default new Router({
             component: BetaPowerDetail
         },
         {
-            path: '/addrDetail',
+            path: '/addrDetail/:address',
             name: 'addrDetail',
-            component: AddrDetail
+            component: AddrDetail,
+            props : true,
         },
         {
             path: '/removeAddr',
@@ -232,9 +238,10 @@ export default new Router({
             component: RemoveAddr
         },
         {
-            path: '/exportSecretKey',
+            path: '/exportSecretKey/:address/:seed',
             name: 'exportSecretKey',
-            component: ExportSecretKey
+            component: ExportSecretKey,
+            props : true
         },
         {
             path: '/setupAddr',

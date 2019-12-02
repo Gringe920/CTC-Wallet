@@ -31,12 +31,15 @@
                 </div>
             </router-link>
         </div>
+        <binding v-if="isBinding"></binding>
     </div>
 </template>
 <script>
     import { mapState } from "vuex";
+    import Binding from "./components/binding";
     export default {
         name: "app",
+        components: {Binding},
         data() {
             return {
                 routeList: ['home', 'wallet', 'dapp', 'user']
@@ -53,7 +56,7 @@
             },
             shouldShowBottomNav(){
                 return this.routeList.indexOf(this.$route.name) > -1
-            }
+            },
         },
         created (){
             if((this.account.accounts.mnemonic == "" || this.account.accounts.address.length <= 0) && this.$route.name !='login'){

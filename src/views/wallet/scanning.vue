@@ -1,6 +1,7 @@
 <template>
   <section class="scanning">
-    <Header :title="$t(`wallet.scanning1`)" :righttext='$t(`wallet.scanning2`)'></Header>
+    <!--<Header :title="$t(`wallet.scanning1`)" :righttext='$t(`wallet.scanning2`)'></Header>-->
+    <Header :title="$t(`wallet.scanning1`)"></Header>
     <div class="content"></div>
     <div class="erweim">
       <div class="erbox"  @click="toRoute('scanning')">

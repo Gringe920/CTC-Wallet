@@ -31,6 +31,7 @@ const toast = {
                     toastNode.$mount();
                     document.body.appendChild(toastNode.$el)
                 }
+                toastNode.content = content;
                 toastNode.isShowToast = showToast = true;
                 if (timer) {
                     clearTimeout(timer);

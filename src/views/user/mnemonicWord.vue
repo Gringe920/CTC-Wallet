@@ -3,11 +3,13 @@
       <Header title="备份助记词"/>
       <!-- 第一步 -->
       <div class="content" v-if="stepType == 0">
+
           <!-- tips -->
           <div class="tips">
               <p>请认真按顺序抄写下方{{data.length}}个助记词</p>
               <p>我们将在下一步验证</p>
           </div>
+
           <!-- 助记词列表  -->
           <div class="fill-in-world">
             <div class="fill-item" v-for="item in data">
@@ -118,7 +120,9 @@ export default {
             }
         },
         // 完成
-        done(){
+        async done(){
+            this.accounts.account.backups = true;
+            await this.accounts.save();
             this.$router.push('/');
         }
     }
@@ -144,7 +148,7 @@ export default {
         }
         .fill-in-world{
             display: flex;
-            align-items: start;
+            align-items: flex-start;
             flex-wrap: wrap;
             background-color: $border2;
             border-radius:2px;

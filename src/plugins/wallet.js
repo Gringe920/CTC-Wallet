@@ -1,5 +1,5 @@
 import Vue from 'vue';
-const Wallet= require("rcp-offline-wallet");
+import Wallet from '../store/storeWallet';
 
 function plugin(Vue, wallet) {
 
@@ -12,18 +12,18 @@ function plugin(Vue, wallet) {
         console.error('You have to install wallet');
         return
     }
-    if (!wallet.Account) {
+    if (!wallet.account) {
         console.error('You have to install Account');
         return
     }
-    if (!wallet.RCP) {
+    if (!wallet.rcp) {
         console.error('You have to install RCP');
         return
     }
 
     // Vue.account = wallet.Account;
-    let account = new wallet.Account();
-    account.getAccount();
+    let account = wallet.account;
+    let rcp = wallet.rcp;
 
     Object.defineProperties(Vue.prototype, {
         account: {
@@ -31,9 +31,15 @@ function plugin(Vue, wallet) {
                 return account
             }
         },
+        rcp: {
+            get() {
+                return rcp
+            }
+        },
 
     })
 };
+
 Vue.use(plugin, Wallet);
 
 
