@@ -15,13 +15,25 @@
                     {{item.outcome.ledgerVersion}} {{$t('ledgerVersion')}}
                     <small>({{transactionTypeText(item)}})</small>
                 </div>
-                <div class="center">
-                    <div v-if="activeIdx <= 1">
-                        {{item.address == rcp.address ? '-' : '+'}}{{item.specification.source.maxAmount.value}} {{unitCoin(item.specification.source.maxAmount.currency)}}
+
+                <template v-if="item.type == 'payment'">
+                    <div class="center">
+                        <div>
+                            {{item.address == rcp.address ? '-' : '+'}}{{item.specification.source.maxAmount.value}} {{unitCoin(item.specification.source.maxAmount.currency)}}
+                        </div>
+                        <img src="../../assets/images/triangle@2x.png" alt srcset />
                     </div>
-                    <img src="../../assets/images/triangle@2x.png" alt srcset />
-                </div>
-                <div class="last">{{item.address == rcp.address ? item.specification.destination.address : item.specification.source.address}}</div>
+                    <div class="last">{{item.address == rcp.address ? item.specification.destination.address : item.specification.source.address}}</div>
+                </template>
+                <template v-if="item.type == 'trustline'">
+                    <div class="center">
+                        <div>
+                            {{item.specification.currency}}
+                        </div>
+                        <img src="../../assets/images/triangle@2x.png" alt srcset />
+                    </div>
+                    <div class="last">{{$t('gateway')}} : {{item.specification.counterparty}}</div>
+                </template>
             </div>
         </div>
         <!-- 兑换 -->
@@ -81,14 +93,15 @@
                     binary : true,
                     excludeFailures : true,
                     // initiated : activeIdx == 0 ? false : activeIdx == 1 ? true : null,
-                    // types : ['payment'],
+                    types : ['payment', 'trustline'],
                     limit : 100,
                 }).then(data => {
-                    console.log(data);
+                    // console.log(data);
                     this.list = data;
                     this.loadState = false;
                 }).catch(e => {
                     console.log(e);
+                    this.list = [];
                     this.loadState = false;
                 });
             },

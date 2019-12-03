@@ -1,67 +1,23 @@
 <template>
     <section class="zhuanqian">
-        <Header :title="$t(`wallet.fu`)" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record@2x.png')"></Header>
+        <Header :title="$t(`gateway`)"></Header>
 
-        <div class="cointype">
-            <div class="l">{{unitCoin(coin)}}</div>
-            <div class="r" @click="toclose">
-                {{$t(`wallet.zhuanqian1`)}}
-                <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
+
+        <div class="box2">
+            <div class="text1"> {{$t(`coin`)}}</div>
+            <div class="text2">
+                <input type="text" v-model="coin" :placeholder="$t(`gatewayAddress`)">
             </div>
         </div>
 
         <div class="box2">
-            <div class="text1"> {{$t(`wallet.zhuanqian3`)}}</div>
+            <div class="text1"> {{$t(`gateway`)}}</div>
             <div class="text2">
                 <input type="text" v-model="address" :placeholder="$t(`wallet.zhuanqian9`)">
-                <img @click="$router.push('/scanning')" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
             </div>
         </div>
 
-        <div class="cointype" v-if="unitCoin(coin) != $t(`title`)">
-            <div class="l"><small style="font-size: 12px;text-transform:lowercase;">{{gateway.toLowerCase()}}</small></div>
-            <div class="r" @click="gatewayState = true">
-                {{$t(`gateway`)}}
-                <img src="../../assets/images/triangle@2x.png" alt="" srcset="">
-            </div>
-        </div>
-
-        <div class="box2">
-            <div class="text1"> {{$t(`wallet.zhuanqian2`)}}</div>
-            <div class="text2">
-                <input type="number" v-model="num" :placeholder="$t(`wallet.zhuanqian8`)" class="in2">
-                <div class="r">
-                    <small>{{unitCoin(coin)}}&nbsp;&nbsp;| </small>&nbsp;&nbsp; <span @click="clickAll">{{$t(`wallet.zhuanqian4`)}}</span>
-                </div>
-            </div>
-            <div class="l">* {{`${$t(`wallet.can`)}：${coinBalances} ${unitCoin(coin)}； ${$t(`wallet.zhuanqian5`)}： ${fee} ${$t('title')}`}}</div>
-        </div>
-
-        <div class="btn" @click="submit" > {{$t(`wallet.zhuanqian6`)}}{{submitState ? '...' : ''}}</div>
-
-        <div class="coinchange" v-if="gatewayState" @click="gatewayState = false">
-            <div class="coinbox">
-                <div @click="gateway = item" class="coin" :class="gateway == item ? 'active' : ''" v-for="(item, index) in gatewayData" :key='item'>
-                    <!--<img src="../../assets/images/btc@2x.png" alt="" srcset="">-->
-                    <div>{{item}}</div>
-                </div>
-                <div class="coin cg" >
-                    <div @click.stop="gatewayState = false"> {{$t(`wallet.zhuanqian7`)}}</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="coinchange" v-if="close" @click="toclose">
-            <div class="coinbox">
-                <div @click="clickCoin(item, index)" class="coin" :class="coin == item ? 'active' : ''" v-for="(item, index) in coinVolume" :key='item'>
-                    <!--<img src="../../assets/images/btc@2x.png" alt="" srcset="">-->
-                    <div>{{unitCoin(item)}}</div>
-                </div>
-                <div class="coin cg" >
-                    <div @click.stop="toclose"> {{$t(`wallet.zhuanqian7`)}}</div>
-                </div>
-            </div>
-        </div>
+        <div class="btn" @click="submit" > {{$t(`trust`)}}{{submitState ? '...' : ''}}</div>
 
         <r-modal :title="$t(`wallet.zhuanqian10`)"
                  @on-ok="submitPsw"
@@ -79,14 +35,10 @@
         data() {
             return {
                 close: false,
-                gatewayState: false,
                 isShowPswModal: false,
-                gatewayData : [],
                 coin: '',
-                coinBalances : 0,
                 address : "",
                 gateway : "",
-                num : "",
                 password : "",
                 submitState : false
             };
@@ -94,61 +46,24 @@
         created (){
             if(this.$route.params.coin){
                 this.coin = this.$route.params.coin;
-            }else{
-                this.coin = this.coinVolume[0] || 'XRP';
+            };
+            if(this.$route.params.address){
+                this.address = this.$route.params.address;
             }
 
         },
         watch : {
-            coin (){
-                this.updateBalances();
-            },
-            isjihuo (n, o){
-                this.updateBalances();
-            }
         },
         methods: {
-            updateBalances (){
-                let coinIndex = this.coinVolume.indexOf(this.coin);
-                this.coinBalances = (this.balances[coinIndex] && this.balances[coinIndex].value) || 0;
-
-                if(this.coin != this.unitCoin(this.$t('title'))){
-                    this.gatewayData = [];
-                    this.balances.forEach(item =>{
-                        if(item.currency == this.coin.toUpperCase()){
-                            this.gatewayData.push(item.counterparty);
-                        }
-                    });
-                    this.gateway = this.gatewayData[0] || "";
-                };
-            },
-            clickAll (){
-                if(this.coin == this.unitCoin(this.$t('title'))){
-                    this.num = this.coinBalances > (this.rcp.activeNum || 10) ? this.decimal.sub(this.coinBalances, 10)  : 0;
-                }else{
-                    this.num = this.coinBalances;
-                }
-            },
-            clickCoin (item){
-                this.coin = item;
-            },
             submit(){
-                let {num, address, coin, gateway} = this;
+                let {address, coin} = this;
                 if(this.submitState) return;
                 if(!this.rcp.api.isValidAddress(address)){
                     this.$toast.show(this.$t('wallet.addressError'));
                     return;
                 }
-                if(num <= 0){
-                    this.$toast.show(this.$t('wallet.numError'));
-                    return;
-                }
                 if(coin.length <= 0){
                     this.$toast.show(this.$t('wallet.coinError'));
-                    return;
-                }
-                if(this.unitCoin(coin) != this.$t(`title`) && !this.rcp.api.isValidAddress(gateway)){
-                    this.$toast.show(this.$t('gatewayError'));
                     return;
                 }
                 this.isShowPswModal = true;
@@ -158,21 +73,15 @@
                     this.isShowPswModal = false;
                     this.submitState = true;
                     let seed = await this.account.exportPrivate(this.password);
-                    let {num, address, coin, gateway} = this;
-                    let option = {
-                        address,
-                        value : Number(num),
-                        seed,
-                    };
-                    if(gateway.length > 0){
-                        option.currency = coin;
-                        option.counterparty = gateway;
-                    }
-                    this.rcp.preparePayments(option).then(data => {
+                    let {address, coin} = this;
+                    this.rcp.prepareTrustline({
+                        "currency": coin.toUpperCase(),
+                        "counterparty": address,
+                        "limit": "100000000000",
+                    }, seed).then(data => {
                         this.submitState = false;
                         if(data.engine_result_code == 0){
-                            this.$toast.show(this.$t('wallet.fuSuccess'));
-
+                            this.$toast.show(this.$t('trust') + this.$t('success'));
                         }else{
                             this.$toast.show(data.engine_result_message);
                         }
@@ -181,7 +90,6 @@
                         this.$toast.show(e.message);
                     });
                 }).catch(e => {
-                    console.log(e.message);
                     this.$toast.show(this.$t('passwordError'));
                 });
             },

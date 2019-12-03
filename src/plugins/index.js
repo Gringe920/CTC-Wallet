@@ -1,10 +1,12 @@
 import Vue from "vue";
-import Store from "../store/store";
 
 Vue.mixin({
 
     methods: {
         transactionTypeText (item){
+            if(item.type == 'trustline'){
+                return this.$t('trust') + this.$t('gateway');
+            }
             return this.$t('wallet.fu')
         },
         clickBinding (){

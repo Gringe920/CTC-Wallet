@@ -1,25 +1,78 @@
 const {Account, RCP} = require("rcp-offline-wallet");
 import Store from './store.js';
 
+import axios from '../plugins/axios';
 
 let account = new Account();
 account.getAccount();
 
 let rcp = new RCP({}, account.getAddress());
 
-// rcp.option.server = 'ws://s1.goaladdin.org:7070';
-rcp.option.server = 'ws://47.56.147.245:7070';
 rcp.connected = upData;
-rcp.connect();
-
 rcp.api.on('ledger', ledger => {
     // console.log(JSON.stringify(ledger, null, 2));
     upData(ledger);
 });
 
+let timeOut = 1500;
+
+function getPrice() {
+    axios({
+        url : "/service/price_info",
+    }).then(res => {
+        // console.log(res.data);
+        Store.commit('moneyConvertAll', res.data || {});
+        Store.commit('moneyConvert', (res.data && res.data[Store.state.moneyUnit.toLowerCase() + '_price']) || 1);
+    }).catch(e => {
+        console.log(e);
+        Store.commit('moneyConvertAll', {});
+        Store.commit('moneyConvert', 1);
+    });
+}
+getPrice();
+
+function getBase (){
+    axios({
+        url : "/service/rcp_info",
+        params : {
+        }
+    }).then(res => {
+        // console.log(res);
+        // rcp.option.server = 'ws://s1.goaladdin.org:7070';
+        rcp.option.server = 'ws://47.56.147.245:7070';
+        rcp.connect();
+    }).catch(e => {
+        console.log(e);
+        setTimeout(getBase, timeOut);
+    });
+};
+getBase();
+
+// /service/login_info?address=rLRYTN7ovVayaqk7ksRDLyySw2hZP6L5cy
+function getAddressInfo() {
+    axios({
+        url : "/service/login_info",
+        params : {
+            address : account.getAddress()
+        }
+    }).then(res => {
+        console.log(res);
+        Store.commit('btcDepositAddress', res.data.btcAddress || "");
+        Store.commit('inviteServe', res.data.inviter || "");
+    }).catch(e => {
+        console.log(e);
+        Store.commit('btcDepositAddress', "");
+        Store.commit('inviteServe', "");
+        setTimeout(getAddressInfo, timeOut);
+    });
+}
+getAddressInfo();
 
 function upData(ledger) {
-    if(ledger && ledger.transactionCount <= 0) return;
+    // console.log(ledger && ledger.transactionCount <= 0 && rcp.address == account.getAddress());
+    if(ledger && ledger.transactionCount <= 0 && rcp.address == account.getAddress()) return;
+
+    getPrice();
 
     rcp.address = account.getAddress();
     //
@@ -50,7 +103,9 @@ function upData(ledger) {
         Store.commit('balances', data);
         Store.commit('isjihuo', true);
     }).catch(e => {
-        console.log(e.message);
+        // console.log(e.message);
+        Store.commit('balancesXRP', {});
+        Store.commit('balancesOthers', []);
         Store.commit('isjihuo', false);
         Store.commit('balances', []);
         Store.commit('coinVolume', []);
@@ -86,6 +141,43 @@ function upData(ledger) {
             console.log(e);
         });
     }
+
+    rcp.api.getTransactions(Store.state.adAddress, {
+        binary : true,
+        initiated : true,
+        excludeFailures : true,
+        limit : 100,
+    }).then(data => {
+        let ad = [];
+        // console.log(data);
+        data.forEach(item => {
+            if(item.specification && item.specification.memos){
+                let memos = item.specification.memos[0] || {};
+                if(memos.data){
+                    try {
+                        let d = JSON.parse(memos.data);
+                        d.date = item.outcome.ledgerVersion;
+                        if(d.author){
+
+                        }else{
+                            d.author = item.address;
+                        }
+                        d.id = item.id;
+                        ad.push(d);
+                    }catch (e) {
+
+                    }
+                }
+            }
+        });
+        // console.log(ad);
+        Store.commit('adData', ad);
+    }).catch(e => {
+        console.log(e);
+        Store.commit('adData', []);
+    });
+
+    // rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ
 }
 
 export default  {

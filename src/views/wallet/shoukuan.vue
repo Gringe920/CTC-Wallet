@@ -2,11 +2,15 @@
     <section class="shoukuan">
         <Header :title="$t(`wallet.shoukuan1`)" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record@2x.png')"></Header>
         <div class="content">
-            <div class="erwema">
-                <rQrcode :qrcodeUrl="account.getAddress()"/>
+            <div class="tab-address">
+                <span v-if="coin.toLowerCase() == 'btc'" :class="{active : activeState == 0}" @click="activeState = 0">BTC内网</span>
+                <span v-if="coin.toLowerCase() == 'btc'" :class="{active : activeState == 1}" @click="activeState = 1">BTC外网</span>
             </div>
-            <div class="adderss">{{account.getAddress()}}</div>
-            <r-copy :copyText="account.getAddress()">
+            <div class="erwema">
+                <rQrcode :qrcodeUrl="address"/>
+            </div>
+            <div class="adderss">{{address}}</div>
+            <r-copy :copyText="address">
                 <div class="copy">{{$t(`wallet.shoukuan2`)}}</div>
             </r-copy>
         </div>
@@ -29,15 +33,31 @@
     import { mapState } from "vuex";
     export default {
         name: "shoukuan",
+        props : ['coin'],
         data() {
             return {
+                activeState: 0,
                 showshoukuan: true,
-                address: "RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ"
+                address: ""
             };
         },
-        mounted() {},
+        watch : {
+            activeState (n, o){
+                this.addresUpdate();
+            }
+        },
+        mounted() {
+            this.addresUpdate();
+        },
         computed: {},
         methods: {
+            addresUpdate (){
+                if(this.activeState == 1){
+                    this.address = this.btcDepositAddress || "";
+                }else{
+                    this.address = this.account.getAddress();
+                }
+            },
             toacceptCoin() {
                 this.$router.push({
                     path: "/acceptCoin",
@@ -56,6 +76,21 @@
             bottom: 40px;
             margin: 0 !important;
 
+        }
+    }
+    .tab-address{
+        display: flex;
+        height: 50px;
+        align-items: center;
+        justify-content: center;
+        span{
+            flex: 1;
+            font-size: 16px;
+            color: $color1;
+            &.active{
+                color: $active;
+                cursor: pointer;
+            }
         }
     }
     .shoukuan {
@@ -80,10 +115,9 @@
             text-align: center;
             .erwema {
                 margin:  0 auto;
-                margin-top: 45px;
+                /*margin-top: 45px;*/
                 width: 220px;
                 height: 220px;
-
                 img {
                     width: 220px;
                     height: 220px;

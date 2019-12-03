@@ -13,6 +13,11 @@ export default {
     mounted(){
         this.setQrcode();
     },
+    watch : {
+        qrcodeUrl () {
+            this.setQrcode();
+        }
+    },
     methods: {
         setQrcode(){
             const canvas = document.getElementById('canvas');

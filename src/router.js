@@ -7,6 +7,7 @@ import Advert from './views/user/advert.vue' //公告
 import AdvertDetails from './views/user/advertDetails.vue' //公告详情
 import shoukuan from './views/wallet/shoukuan.vue' //收款
 import zhuanqian from './views/wallet/zhuanqian.vue' //转账
+import gateway from './views/wallet/gateway.vue' //转账
 import detais from './views/wallet/detais.vue' //收款转账详情
 import scanning from './views/wallet/scanning.vue' //扫一扫
 import Dapp from './views/dapp/index.vue' //DAPP首页
@@ -58,6 +59,11 @@ export default new Router({
             component: Home
         },
         {
+            path: '/gateway/:address?/:coin?',
+            name: 'gateway',
+            component: gateway
+        },
+        {
             path: '/scanning',
             name: 'scanning',
             component:scanning
@@ -94,13 +100,18 @@ export default new Router({
         },
         {
             path: '/shoukuan',
-            name: 'shoukuan',
-            component: shoukuan
+            redirect: '/shoukuan/XRP'
         },
         {
-            path: '/zhuanqian',
+            path: '/shoukuan/:coin',
+            name: 'shoukuan',
+            component: shoukuan,
+            props : true
+        },
+        {
+            path: '/zhuanqian/:coin',
             name: 'zhuanqian',
-            component: zhuanqian
+            component: zhuanqian,
         },
         {
             path: '/detais/:id',
@@ -114,9 +125,10 @@ export default new Router({
             component: Advert
         },
         {
-            path: '/advertDetails',
+            path: '/advertDetails/:index',
             name: 'advertDetails',
-            component: AdvertDetails
+            component: AdvertDetails,
+            props : true
         },
         {
             path: '/acceptCoin',

@@ -3,27 +3,40 @@
         <Header :title="$t(`wallet.txDetails`)" ></Header>
         <load v-if="loadState"></load>
         <section v-else>
-            <div class="text">
+            <div class="text" v-if="item.type == 'payment'">
                 {{item.address == rcp.address ? '-' : '+'}}
                 {{item.specification && item.specification.source.maxAmount.value}}
                 {{unitCoin(item.specification && item.specification.source.maxAmount.currency)}}
+            </div>
+            <div class="text" v-if="item.type == 'trustline'">
+                {{item.specification.currency}}
             </div>
             <div class="text2">{{$t('type')}}:</div>
             <div class="text3">
                 {{transactionTypeText(item)}}
             </div>
-            <div class="text2">{{$t('from')}}:</div>
-            <div class="text3">
-                <r-copy :copyText="item.specification && item.specification.source.address">
-                    {{item.specification && item.specification.source.address}}
-                </r-copy>
-            </div>
-            <div class="text2">{{$t('to')}}:</div>
-            <div class="text3">
-                <r-copy :copyText="item.specification && item.specification.destination.address">
-                    {{item.specification && item.specification.destination.address}}
-                </r-copy>
-            </div>
+            <template v-if="item.type == 'payment'">
+                <div class="text2">{{$t('from')}}:</div>
+                <div class="text3" >
+                    <r-copy :copyText="item.specification && item.specification.source.address">
+                        {{item.specification && item.specification.source.address}}
+                    </r-copy>
+                </div>
+                <div class="text2">{{$t('to')}}:</div>
+                <div class="text3">
+                    <r-copy :copyText="item.specification && item.specification.destination.address">
+                        {{item.specification && item.specification.destination.address}}
+                    </r-copy>
+                </div>
+            </template>
+            <template v-if="item.type == 'trustline'">
+                <div class="text2">{{$t('gateway')}}:</div>
+                <div class="text3">
+                    <r-copy :copyText="item.specification.counterparty">
+                        {{item.specification.counterparty}}
+                    </r-copy>
+                </div>
+            </template>
             <div class="text2">ID:</div>
             <div class="text3">
                 <r-copy :copyText="id">
@@ -48,6 +61,13 @@
             return{
                 loadState : true,
                 item : {},
+            }
+        },
+        watch : {
+            connected (n, o){
+                if(n != o){
+                    this.getTX();
+                }
             }
         },
         mounted(){

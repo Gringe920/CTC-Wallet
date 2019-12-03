@@ -1,6 +1,8 @@
 {
   "title":"RCP",
   "gateway":"网关",
+  "coin":"币种",
+  "trust":"信任",
   "gatewayAddress":"网关地址",
   "gatewayError":"网关地址错误",
   "copySucceed":"复制成功",
@@ -25,6 +27,9 @@
   "export" : "导出",
   "delete" : "删除",
   "exportWarn" : "认真抄写 安全保管 切勿泄露自己的私钥",
+  "ad" : "公告",
+  "adDetails" : "公告详情",
+  "author" : "作者",
   "home":{
     "home1":"可用余额",
     "home2":"收款",
@@ -40,7 +45,7 @@
     "home12":"未绑定",
     "home13":"已绑定",
     "home14":"您需要寻找一位伙伴获取邀请码绑定邀请人，才能使用DAPP",
-    "home15":"绑定",
+    "home15":"绑定邀请人",
     "home16":"邀请码",
     "home17":"余额不足 {num}, 不能激活"
   },

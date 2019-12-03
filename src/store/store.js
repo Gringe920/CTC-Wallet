@@ -21,6 +21,10 @@ Vue.mixin({
             'balancesBTC',
             'btcAddress',
             'balancesOthers',
+            'adAddress',
+            'adData',
+            'btcDepositAddress',
+            'inviteServe',
         ])
     },
 });
@@ -29,12 +33,17 @@ Vue.mixin({
 let inviteAddress = 'r3X73sspnDdFfohkEaUHM81uyMtHuupB7W';
 // rfsxcm8AqdhCVz1re3bBn9pvwYtGtaTYEW   snt9XjibLt7TjEPYZW8LfLkHgmdo2
 let btcAddress = 'rfsxcm8AqdhCVz1re3bBn9pvwYtGtaTYEW';
+// rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ   sn884U2pfdWqCRKFsSve7wHx3rMJY
+let adAddress = 'rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ';
 
 export default new Vuex.Store({
     state: {
         inviteAddress : inviteAddress,  // 激活地址
         btcAddress : btcAddress, // BTC 网关地址
+        adAddress : adAddress, // 公告 网关地址
+        btcDepositAddress : "", // BTC 充币地址
         invite : "",
+        inviteServe : "",
         showNav : true,
         isBinding : false,
         connected : false,
@@ -42,13 +51,31 @@ export default new Vuex.Store({
         balances : [],  // 链上全部资产余额
         balancesOthers : [],  // 链上除了XRP BTC 官方网关资产余额
         balancesXRP : {}, // 主链余额
+        balancesXRPTotal : {}, // 主链余额
         balancesBTC : {}, // BTC余额
         moneyUnit : 'CNY', // ¥ 人民币 CNY， $ 美元 USD，₽ 俄罗斯 RUB
         moneyConvert : 1, // 当前当我 换算价格 1 XRP = 1 moneyUnit
+        moneyConvertAll : {}, // 当前当我 换算价格 1 XRP = 1 moneyUnit
         coinVolume : [], // 当前地址货币列表
         fee : 0, // 手续费
+        adData : [],  // 公告数据
     },
     mutations: {
+        inviteServe (state, data) {
+            state.inviteServe = data;
+        },
+        btcDepositAddress (state, data) {
+            state.btcDepositAddress = data;
+        },
+        moneyConvertAll (state, data) {
+            state.moneyConvertAll = data;
+        },
+        adData (state, data) {
+            state.adData = data;
+        },
+        adAddress (state, data) {
+            state.adAddress = data;
+        },
         balancesOthers (state, data) {
             state.balancesOthers = data;
         },
@@ -81,6 +108,7 @@ export default new Vuex.Store({
         },
         moneyUnit (state, data) {
             state.moneyUnit = data;
+            state.moneyConvert = state.moneyConvertAll[state.moneyUnit.toLowerCase() + '_price'] || 1;
         },
         balancesXRP (state, data) {
             state.balancesXRP = data;

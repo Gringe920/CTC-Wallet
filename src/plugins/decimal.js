@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Decimal from 'decimal';
+import Decimal from 'decimal.js';
 
 function plugin(Vue) {
 
@@ -9,7 +9,6 @@ function plugin(Vue) {
     plugin.installed = true;
 
     Vue.Decimal = Decimal;
-
     Object.defineProperties(Vue.prototype, {
         decimal: {
             get(num) {

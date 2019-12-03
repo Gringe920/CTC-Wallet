@@ -5,13 +5,13 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'https://www.goaladdin.org/',
+                target: 'http://47.52.229.139:9001/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {}
             },
             '/service': {
-                target: 'https://www.goaladdin.org/',
+                target: 'http://47.52.229.139:9001/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {}

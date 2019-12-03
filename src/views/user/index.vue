@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="user-navigation">
-            <div class="user-nav-item" @click="activeAddr">
+            <div class="user-nav-item" @click="clickBinding">
                 <i class="icon my_activation"></i>
                 <p>{{$t('user.index.active')}}</p>
                 <div class="turn-right">

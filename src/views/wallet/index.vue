@@ -3,12 +3,13 @@
         <Header :title="$t(`wallet.name`)" :rightEv='toacceptCoin' :leftShow='false' :rightIcon="require('../../assets/images/record@2x.png')" ></Header>
         <div class="walletbanner">
             <div class="w-t">
-                <span>{{$t(`wallet.zichan`)}}</span>
-                <img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye@2x.png" alt="" srcset="" v-if="!hidden">
-                <img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye_off@2x.png" alt="" srcset="" v-else>
+                <span>{{$t(`wallet.zichan`)}} </span>
+                <router-link class="gateway" to="/gateway">信任网关</router-link>
+                <!--<img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye@2x.png" alt="" srcset="" v-if="!hidden">
+                <img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye_off@2x.png" alt="" srcset="" v-else>-->
             </div>
             <div class="w-t2">
-                <span>8900.00</span>&nbsp;{{moneyUnit}}
+                <span>{{(decimal.mul((balancesXRP.value || 0), moneyConvert)).toFixed(2)}}</span>&nbsp;{{moneyUnit}}
             </div>
         </div>
 
@@ -18,17 +19,13 @@
                 <img src="../../assets/images/asset_selection@2x.png" alt="" srcset="" v-else>
                 <span>{{$t(`wallet.hide`)}}</span>
             </div>
-            <div class="h_r" :class="serchnow? 'searchwid':''">
-                <img src="../../assets/images/night_asset_search@2x.png" alt="" srcset="">
-                <input type="text" :placeholder="$t(`wallet.serch`)"  v-model="searchmsg">
-            </div>
         </div>
 
         <div class="money">
             <div class="coin">{{unitCoin(balancesXRP.currency)}}</div>
             <div class="coin2">{{balancesXRP.value || 0}} <span> ≈ 0 <small>{{moneyUnit}}</small></span> </div>
             <div class="coin4">
-                <div class="shou"  @click="toRoute('shoukuan')" >{{$t(`wallet.shou`)}}</div>
+                <div class="shou"  @click="$router.push('/shoukuan/' + $t('title'))" >{{$t(`wallet.shou`)}}</div>
                 <div class="zhuan" @click="tozhuanzang(balancesXRP.currency)">{{$t(`wallet.fu`)}}</div>
             </div>
         </div>
@@ -40,13 +37,13 @@
                 <div>{{$t(`gateway`)}}: {{balancesBTC.counterparty}}</div>
             </div>
             <div class="coin4">
-                <div class="shou"  @click="toRoute('shoukuan')" >{{$t(`wallet.shou`)}}</div>
-                <div class="zhuan" @click="tozhuanzang(balancesBTC.currency)">{{$t(`wallet.fu`)}}</div>
+                <div class="shou"  @click="$router.push('/shoukuan/btc')" >{{$t(`wallet.shou`)}}</div>
+                <div class="zhuan" @click="tozhuanzang('BTC')">{{$t(`wallet.fu`)}}</div>
             </div>
         </div>
 
 
-        <div class="money" v-for="(item,index) in balancesOthers" :key="item.currency" v-if="!(hidden && item.value < 0.1) || (searchmsg != '' && new RegExp(searchmsg).test(item.currency))">
+        <div class="money" v-for="(item,index) in balancesOthers" :key="item.currency" v-if="!(hidden && item.value < 0.1)">
             <div class="coin">{{unitCoin(item.currency)}}</div>
             <div class="coin2">{{item.value || 0}} <span> ≈ 0 <small>{{moneyUnit}}</small></span> </div>
             <div class="coin3" v-if="unitCoin(item.currency) != $t('title')">
@@ -54,7 +51,7 @@
                 <!--<div class="c_l">{{$t(`wallet.nocan`)}}：&nbsp;  {{hidden?'******':item.nocan}} </div>-->
             </div>
             <div class="coin4">
-                <div class="shou"  @click="toRoute('shoukuan')" >{{$t(`wallet.shou`)}}</div>
+                <div class="shou"  @click="$router.push('/shoukuan/' + item.currency)" >{{$t(`wallet.shou`)}}</div>
                 <div class="zhuan" @click="tozhuanzang(item.currency)">{{$t(`wallet.fu`)}}</div>
             </div>
         </div>
@@ -63,40 +60,22 @@
 <script>
     export default {
         name: "wallet",
+        mounted (){
+        },
         data() {
             return {
                 searchmsg: "",
                 serchnow: false,
                 hidden:false,
                 coins: [
-                    {
-                        name: "BTC",
-                        CNY: "250.000",
-                        UST: "0.00000",
-                        can: 0.0,
-                        nocan: 32.421234
-                    },
-                    {
-                        name: "EOS",
-                        CNY: "2.500000",
-                        UST: "0.00000",
-                        can: 0.21320,
-                        nocan: 32.421234
-                    },
-                    {
-                        name: "USDT",
-                        CNY: "2500000",
-                        UST: "250",
-                        can: 10.022,
-                        nocan: 32.421234
-                    },
-                    { name: "EOS", CNY: "250", UST: "250", can: 0.2500, nocan: 32.421234 }
+
                 ]
             };
         },
         watch: {
-
             searchmsg() {
+                console.log(this.searchmsg);
+                console.log(new RegExp(this.searchmsg).test('xxm'));
                 if (this.searchmsg != "") {
                     this.serchnow = true;
                 } else {
@@ -106,12 +85,7 @@
         },
         methods:{
             tozhuanzang(item){
-                this.$router.push({
-                    path: "/zhuanqian",
-                    query: {
-                        coin: item
-                    }
-                });
+                this.$router.push(`/zhuanqian/${item}`);
             },
             hiddenmoney(){
                 this.hidden = !this.hidden
@@ -131,6 +105,9 @@
     };
 </script>
 <style lang="scss" scoped>
+    .gateway{
+        color: $white;
+    }
     .walletall {
         padding: 0 15px;
         min-height: 90vh;

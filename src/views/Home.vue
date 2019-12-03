@@ -33,7 +33,7 @@
         <div class="advert">
             <div class="advert_l" @click="toRoute('advertDetails')">
                 <img src="../assets/images/horn@2x.png" alt="" srcset="">
-                <div>11月25日RCP发布最新上币活动公告</div>
+                <div>{{adData[0] && adData[0].title || '-'}}</div>
             </div>
             <div class="advert_r" @click="toRoute('advert')">{{$t(`home.home5`)}}</div>
         </div>
