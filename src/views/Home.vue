@@ -7,7 +7,7 @@
                 <img  class="imgs" @click="toHidden" src="../assets/images/wallet_asset_eye@2x.png" v-else>
             </div>
             <div class="home-t2">
-                <span>{{hidden ? '******' : (balancesXRP.value || 0)}}</span>&nbsp;{{hidden ?'******': $t('title') }}
+                <span>{{hidden ? '******' : (connected ? (balancesXRP.value || 0) : '-')}}</span>&nbsp;{{hidden ?'******': $t('title') }}
             </div>
         </div>
         <div class="bg"></div>

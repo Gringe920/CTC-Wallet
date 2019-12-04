@@ -20,7 +20,7 @@ function plusReady(callback) {
 };
 
 
-let timeOut = 1500;
+let timeOut = 6000;
 
 function getPrice() {
     axios({
@@ -50,7 +50,7 @@ function getBase (){
         Store.commit('rcp_info', res.data || {});
 
         // rcp_ws
-        rcp.option.server = res.data.rcp_ws || 'ws://47.56.147.245:7070';
+        rcp.option.server = res.data.rcp_ws || 'ws://s1.rcproto.org:6060';
 
         rcp.connect();
         rcp.api.on('ledger', ledger => {

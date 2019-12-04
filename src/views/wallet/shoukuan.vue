@@ -3,8 +3,8 @@
         <Header :title="$t(`wallet.shoukuan1`)" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record@2x.png')"></Header>
         <div class="content">
             <div class="tab-address">
-                <span v-if="coin.toLowerCase() == 'btc'" :class="{active : activeState == 0}" @click="activeState = 0">BTC内网</span>
-                <span v-if="coin.toLowerCase() == 'btc'" :class="{active : activeState == 1}" @click="activeState = 1">BTC外网</span>
+                <span v-if="coin.toLowerCase() == 'btc'" :class="{active : activeState == 0}" @click="activeState = 0">{{$t('title') + $t('chain')}}</span>
+                <span v-if="coin.toLowerCase() == 'btc'" :class="{active : activeState == 1}" @click="activeState = 1">BTC{{$t('chain')}}</span>
             </div>
             <div class="erwema">
                 <rQrcode :qrcodeUrl="address"/>
@@ -44,6 +44,16 @@
         watch : {
             activeState (n, o){
                 this.addresUpdate();
+                if(n == 1){
+                    if(this.isjihuo == false){
+                        this.$toast.show(this.$t('home.home8'));
+                        return;
+                    }
+                    if(this.coin.toUpperCase() == 'BTC' && !this.balancesBTC.counterparty){
+                        this.$store.commit("isTrustBtc", true);
+                        return;
+                    }
+                }
             }
         },
         mounted() {
