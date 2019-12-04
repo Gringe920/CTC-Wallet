@@ -13,7 +13,6 @@
 <script>
     export default {
         name: "binding",
-        props : ['isShowPswModal'],
         data() {
             return {
                 code : "",

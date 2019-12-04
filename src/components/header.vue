@@ -72,6 +72,10 @@
                 }
             },
             totextpath(){
+                if (this.rightEv) {
+                    this.rightEv();
+                    return;
+                }
             },
             reply() {
                 if(this.leftEv()){
@@ -126,6 +130,8 @@
         .text_r{
             position: absolute;
             right: 15px;
+            font-size: 14px;
+            color: $color1;
         }
     }
 </style>

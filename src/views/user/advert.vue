@@ -1,6 +1,7 @@
 <template>
     <section class="advert">
         <Header :title="$t('ad')"></Header>
+        <empty v-if="adData.length <= 0"></empty>
         <div v-for="(item,index) in adData" :key="item.title" class="advertbox" @click="$router.push('/advertDetails/' + index)">
             <div class="text">{{item.title}}</div>
             <div class="time">{{$t('ledgerVersion')}} : {{item.date}}</div>

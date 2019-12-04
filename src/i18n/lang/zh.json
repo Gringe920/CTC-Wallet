@@ -1,7 +1,10 @@
 {
   "title":"RCP",
   "exitAPP":"是否确定退出 RCP ?",
+  "exitWallet":"退出钱包",
+  "exitWalletInfo":"退出RCP钱包将导致地址和私钥丢失，是否已做好备份？",
   "gateway":"网关",
+  "skip":"跳过",
   "coin":"币种",
   "trust":"信任",
   "gatewayAddress":"网关地址",
@@ -47,7 +50,7 @@
     "home5":"更多",
     "home6":"未激活",
     "home7":"已激活",
-    "home8":"您需要寻找一位伙伴转入 10RCP 协助您激活地址，才能使用钱包",
+    "home8":"您需要寻找一位伙伴转入一笔RCP协助您激活地址，才能使用钱包",
     "home9":"您可以畅游RCP，并使用您喜欢的DAPP功能。",
     "home10":"激活地址",
     "home11":"请输入激活地址",
@@ -137,7 +140,8 @@
     "zhuanqian8":"请输入数量",
     "zhuanqian9":"请输入或长按粘贴地址",
     "zhuanqian10":"交易密码",
-    "zhuanqian12":"请输入交易密码"
+    "zhuanqian12":"请输入交易密码",
+    "transactionOneself":"请不要给自己转账"
   },
   "user": {
     "index": {

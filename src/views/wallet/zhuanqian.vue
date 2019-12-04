@@ -43,7 +43,7 @@
             <div class="coinbox">
                 <div @click="gateway = item" class="coin" :class="gateway == item ? 'active' : ''" v-for="(item, index) in gatewayData" :key='item'>
                     <!--<img src="../../assets/images/btc@2x.png" alt="" srcset="">-->
-                    <div>{{item}}</div>
+                    <div style="font-size: 14px;text-transform:lowercase;">{{item}}</div>
                 </div>
                 <div class="coin cg" >
                     <div @click.stop="gatewayState = false"> {{$t(`wallet.zhuanqian7`)}}</div>
@@ -135,6 +135,10 @@
             submit(){
                 let {num, address, coin, gateway} = this;
                 if(this.submitState) return;
+                if(address == this.account.getAddress()){
+                    this.$toast.show(this.$t('wallet.transactionOneself'));
+                    return;
+                }
                 if(!this.rcp.api.isValidAddress(address)){
                     this.$toast.show(this.$t('wallet.addressError'));
                     return;

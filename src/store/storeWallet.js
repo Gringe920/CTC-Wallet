@@ -44,10 +44,19 @@ function getBase (){
     }).then(res => {
         // console.log(res);
         // rcp.option.server = 'ws://s1.goaladdin.org:7070';
+        Store.commit('inviteAddress', res.data.active_address || "");
+        Store.commit('btcAddress', res.data.gateway_address || "");
+        Store.commit('adAddress', res.data.ad_cn_address || "");
+        Store.commit('rcp_info', res.data || {});
         rcp.option.server = 'ws://47.56.147.245:7070';
         rcp.connect();
+        console.log('getBase');
     }).catch(e => {
         console.log(e.message);
+        Store.commit('inviteAddress', "");
+        Store.commit('btcAddress', "");
+        Store.commit('adAddress', "");
+        Store.commit('rcp_info', {});
         setTimeout(getBase, timeOut);
     });
 };
@@ -61,7 +70,7 @@ function getAddressInfo() {
             address : account.getAddress()
         }
     }).then(res => {
-        console.log(res);
+        // console.log(res);
         Store.commit('btcDepositAddress', res.data.btcAddress || "");
         Store.commit('inviteServe', res.data.inviter || "");
     }).catch(e => {
@@ -75,6 +84,8 @@ let account = new Account();
 let rcp = new RCP({}, "");
 
 plusReady(function () {
+    console.log('plusReady');
+
     account.getAccount();
 
     rcp.address = account.getAddress();
@@ -82,15 +93,16 @@ plusReady(function () {
     rcp.connected = upData;
     rcp.api.on('ledger', ledger => {
         // console.log(JSON.stringify(ledger, null, 2));
+        console.log('ledger');
         upData(ledger);
     });
     getPrice();
-    getBase();
     getAddressInfo();
+    getBase();
+    
 });
 
 function upData(ledger) {
-    // console.log(ledger && ledger.transactionCount <= 0 && rcp.address == account.getAddress());
     if(ledger && ledger.transactionCount <= 0 && rcp.address == account.getAddress()) return;
 
     getPrice();
@@ -100,7 +112,7 @@ function upData(ledger) {
     // console.log(rcp.address);
     // console.log(rcp.option);
     Store.commit('connected', true);
-
+    
     rcp.getBalances().then(data => {
         var coinVolume = [];
         var balancesOthers = [];
@@ -123,6 +135,7 @@ function upData(ledger) {
         Store.commit('coinVolume', coinVolume);
         Store.commit('balances', data);
         Store.commit('isjihuo', true);
+        airdrop_address();
     }).catch(e => {
         // console.log(e.message);
         Store.commit('balancesXRP', {});
@@ -132,6 +145,7 @@ function upData(ledger) {
         Store.commit('coinVolume', []);
     });
 
+    
     rcp.api.getFee().then(data => {
         Store.commit('fee', data);
     }).catch(e => {
@@ -139,7 +153,9 @@ function upData(ledger) {
     });
 
 
-    if(Store.state.invite.length <= 0){
+    if(Store.state.invite.length <= 0 && rcp.address && Store.state.inviteAddress){
+        // console.log(rcp.address);
+        // console.log(Store.state.inviteAddress);
         rcp.api.getTransactions(rcp.address, {
             counterparty : Store.state.inviteAddress,
             binary : true,
@@ -159,46 +175,65 @@ function upData(ledger) {
                 Store.commit('invite', "");
             };
         }).catch(e => {
+            console.log(e.message);
+        });
+    }
+    
+    if(Store.state.adAddress){
+        rcp.api.getTransactions(Store.state.adAddress, {
+            binary : true,
+            initiated : true,
+            excludeFailures : true,
+            limit : 100,
+        }).then(data => {
+            let ad = [];
+            // console.log(data);
+            data.forEach(item => {
+                if(item.specification && item.specification.memos){
+                    let memos = item.specification.memos[0] || {};
+                    if(memos.data){
+                        try {
+                            let d = JSON.parse(memos.data);
+                            d.date = item.outcome.ledgerVersion;
+                            if(d.author){
+
+                            }else{
+                                d.author = item.address;
+                            }
+                            d.id = item.id;
+                            ad.push(d);
+                        }catch (e) {
+
+                        }
+                    }
+                }
+            });
+            // console.log(ad);
+            Store.commit('adData', ad);
+        }).catch(e => {
+            console.log(e);
+            Store.commit('adData', []);
+        });
+    }
+    // rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ
+}
+
+
+function airdrop_address() {
+    if(Store.state.rcp_info.airdrop_address){
+        rcp.api.getTransactions(Store.state.rcp_info.airdrop_address, {
+            binary : true,
+            initiated : true,
+            excludeFailures : true,
+            limit : 100,
+        }).then(data => {
+            if(data.length > 0 && !Store.state.balancesBTC.counterparty){
+                Store.commit("isTrustBtc", true);
+            }
+        }).catch(e => {
             console.log(e);
         });
     }
-
-    rcp.api.getTransactions(Store.state.adAddress, {
-        binary : true,
-        initiated : true,
-        excludeFailures : true,
-        limit : 100,
-    }).then(data => {
-        let ad = [];
-        // console.log(data);
-        data.forEach(item => {
-            if(item.specification && item.specification.memos){
-                let memos = item.specification.memos[0] || {};
-                if(memos.data){
-                    try {
-                        let d = JSON.parse(memos.data);
-                        d.date = item.outcome.ledgerVersion;
-                        if(d.author){
-
-                        }else{
-                            d.author = item.address;
-                        }
-                        d.id = item.id;
-                        ad.push(d);
-                    }catch (e) {
-
-                    }
-                }
-            }
-        });
-        // console.log(ad);
-        Store.commit('adData', ad);
-    }).catch(e => {
-        console.log(e);
-        Store.commit('adData', []);
-    });
-
-    // rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ
 }
 
 export default  {

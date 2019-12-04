@@ -6,7 +6,7 @@
         <div class="box2">
             <div class="text1"> {{$t(`coin`)}}</div>
             <div class="text2">
-                <input type="text" v-model="coin" :placeholder="$t(`gatewayAddress`)">
+                <input type="text" v-model="coin" :placeholder="$t(`coin`)">
             </div>
         </div>
 

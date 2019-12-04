@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <Header title="备份助记词"/>
+      <Header title="备份助记词" :righttext="$t('skip')" :rightEv="toHome" />
       <!-- 第一步 -->
       <div class="content" v-if="stepType == 0">
 
@@ -97,6 +97,9 @@ export default {
         // console.log(this.mnemonic);
     },
     methods: {
+        toHome(){
+            this.$router.push('/');
+        },
         delWorld(item, index){
             this.randomData.push(item);
             this.selectData.splice(index, 1);
@@ -120,10 +123,14 @@ export default {
             }
         },
         // 完成
-        async done(){
-            this.accounts.account.backups = true;
-            await this.accounts.save();
-            this.$router.push('/');
+        done(){
+            this.account.accounts.backups = true;
+            this.account.save().then(() => {
+                this.$router.push('/');
+            }).catch(e => {
+                this.$router.push('/');
+            });
+
         }
     }
 }

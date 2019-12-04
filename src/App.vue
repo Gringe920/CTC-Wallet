@@ -32,14 +32,16 @@
             </router-link>
         </div>
         <binding v-if="isBinding"></binding>
+        <trust-btc v-if="isTrustBtc"></trust-btc>
     </div>
 </template>
 <script>
     import { mapState } from "vuex";
     import Binding from "./components/binding";
+    import TrustBtc from "./components/trustBtc";
     export default {
         name: "app",
-        components: {Binding},
+        components: {TrustBtc, Binding},
         data() {
             return {
                 routeList: ['home', 'wallet', 'dapp', 'user']

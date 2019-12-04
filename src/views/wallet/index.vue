@@ -34,7 +34,7 @@
             <div class="coin">BTC</div>
             <div class="coin2">{{balancesBTC.value || 0}} <span> ≈ 0 <small>{{moneyUnit}}</small></span> </div>
             <div class="coin3" v-if="balancesBTC.counterparty">
-                <div>{{$t(`gateway`)}}: {{balancesBTC.counterparty}}</div>
+                <div>{{$t(`gateway`)}}: {{balancesBTC.counterparty || ''}}</div>
             </div>
             <div class="coin4">
                 <div class="shou"  @click="$router.push('/shoukuan/btc')" >{{$t(`wallet.shou`)}}</div>
@@ -85,6 +85,14 @@
         },
         methods:{
             tozhuanzang(item){
+                if(this.isjihuo == false){
+                    this.$toast.show(this.$t('home.home8'));
+                    return;
+                }
+                if(item.toUpperCase() == 'BTC' && !this.balancesBTC.counterparty){
+                    this.$store.commit("isTrustBtc", true);
+                    return;
+                }
                 this.$router.push(`/zhuanqian/${item}`);
             },
             hiddenmoney(){

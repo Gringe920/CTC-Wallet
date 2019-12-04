@@ -31,7 +31,7 @@
         </div>
         <div class="bg"></div>
         <div class="advert">
-            <div class="advert_l" @click="toRoute('advertDetails')">
+            <div class="advert_l" @click="adData[0] ? toRoute('advertDetails') : ''">
                 <img src="../assets/images/horn@2x.png" alt="" srcset="">
                 <div>{{adData[0] && adData[0].title || '-'}}</div>
             </div>
@@ -109,7 +109,7 @@
                 color: $color1;
                 /*font-weight: bold;*/
                 span {
-                    font-size: 38px;
+                    font-size: 34px;
                     color: $white;
                 }
             }

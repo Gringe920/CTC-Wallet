@@ -18,8 +18,12 @@
                 <span>{{$t('export') + $t('privateKey')}}</span>
                 <i></i>
             </div>
-            <div class="detail-row" @click="delAddress">
+            <div class="detail-row" @click="delAddress" v-if="address != account.accounts.address[0]">
                 <span>{{$t('delete') + $t('address')}}</span>
+                <i></i>
+            </div>
+            <div class="detail-row" @click="delWallet" v-if="address == account.accounts.address[0]">
+                <span>{{$t('exitWallet')}}</span>
                 <i></i>
             </div>
         </div>
@@ -38,7 +42,7 @@
          -->
 
         <!-- 安全密码弹窗 -->
-        <r-modal :title="$t(`wallet.zhuanqian10`)"
+        <r-modal :title="index == 4 ? $t('exitWalletInfo') : $t(`wallet.zhuanqian10`)"
                  @on-ok="submitPsw"
                  :show="isShowPswModal"
                  @on-cancel="isShowPswModal = false">
@@ -62,6 +66,10 @@
             }
         },
         methods: {
+            delWallet (){
+                this.index = 4;
+                this.isShowPswModal = true;
+            },
             exportMnemonic (){
                 this.index = 3;
                 this.isShowPswModal = true;
@@ -87,7 +95,7 @@
                 this.account.verifyPassword(this.password).then(async () => {
                     if(this.index == 0){
                         let mnemonic = await this.account.exportMnemonic(this.password);
-                        console.log(mnemonic);
+                        // console.log(mnemonic);
                         this.submitState = false;
                         this.$router.push({name : 'mnemonicWord', params : {
                                 mnemonic,
@@ -96,7 +104,7 @@
                     }
                     if(this.index == 1){
                         let privateKey = await this.account.exportPrivate(this.password, this.address);
-                        console.log(privateKey);
+                        // console.log(privateKey);
                         this.submitState = false;
                         this.$router.push(`/exportSecretKey/${this.address}/${privateKey}`);
                         // $router.push({path: '/exportSecretKey'})
@@ -108,6 +116,18 @@
                     }
                     if(this.index == 3){
 
+                    }
+                    if(this.index == 4){
+                        this.account.accounts.backups = false;
+                        this.account.accounts.mnemonic = "";
+                        this.account.accounts.address = [];
+                        this.account.accounts.privateKey = [];
+                        this.account.accounts.addressIndex = 0;
+                        this.account.save().then(() => {
+                            this.$router.push('/login');
+                        }).catch(e => {
+                            this.$router.push('/login');
+                        });
                     }
                 }).catch(e => {
                     this.submitState = false;

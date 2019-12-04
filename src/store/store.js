@@ -25,6 +25,8 @@ Vue.mixin({
             'adData',
             'btcDepositAddress',
             'inviteServe',
+            'rcp_info',
+            'isTrustBtc',
         ])
     },
 });
@@ -36,8 +38,11 @@ let btcAddress = 'rfsxcm8AqdhCVz1re3bBn9pvwYtGtaTYEW';
 // rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ   sn884U2pfdWqCRKFsSve7wHx3rMJY
 let adAddress = 'rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ';
 
+
+
 export default new Vuex.Store({
     state: {
+        rcp_info : {},  // rcp_info  rcp 系统相关地址
         inviteAddress : inviteAddress,  // 激活地址
         btcAddress : btcAddress, // BTC 网关地址
         adAddress : adAddress, // 公告 网关地址
@@ -46,6 +51,7 @@ export default new Vuex.Store({
         inviteServe : "",
         showNav : true,
         isBinding : false,
+        isTrustBtc : false,
         connected : false,
         isjihuo : false, // 链激活状态
         balances : [],  // 链上全部资产余额
@@ -61,6 +67,12 @@ export default new Vuex.Store({
         adData : [],  // 公告数据
     },
     mutations: {
+        isTrustBtc (state, data) {
+            state.isTrustBtc = data;
+        },
+        rcp_info (state, data) {
+            state.rcp_info = data;
+        },
         inviteServe (state, data) {
             state.inviteServe = data;
         },
