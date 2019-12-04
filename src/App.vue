@@ -84,12 +84,12 @@
                 let self = this;
                 if (window.plus) {
                     setTimeout(function () {
-                        self.updateApp();
+                        // self.updateApp();
                         self.backbutton();
                     }, 0);
                 } else {
                     document.addEventListener("plusready", function () {
-                        self.updateApp();
+                        // self.updateApp();
                         self.backbutton();
                     }, false);
                 }
@@ -216,7 +216,7 @@
         },
         created (){
             this.removeLoad();
-            // this.plusReady();
+            this.plusReady();
         },
         mounted(){
             this.showBottomNav();

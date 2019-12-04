@@ -27,6 +27,8 @@ Vue.mixin({
             'inviteServe',
             'rcp_info',
             'isTrustBtc',
+            'inviteX',
+            'inviteY',
         ])
     },
 });
@@ -48,6 +50,8 @@ export default new Vuex.Store({
         adAddress : adAddress, // 公告 网关地址
         btcDepositAddress : "", // BTC 充币地址
         invite : "",
+        inviteX : "",
+        inviteY : "",
         inviteServe : "",
         showNav : true,
         isBinding : false,
@@ -67,6 +71,12 @@ export default new Vuex.Store({
         adData : [],  // 公告数据
     },
     mutations: {
+        inviteX (state, data) {
+            state.inviteX = data;
+        },
+        inviteY (state, data) {
+            state.inviteY = data;
+        },
         isTrustBtc (state, data) {
             state.isTrustBtc = data;
         },

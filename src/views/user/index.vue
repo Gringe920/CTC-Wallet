@@ -18,6 +18,13 @@
                     <i></i>
                 </div>
             </div>
+            <div class="user-nav-item" @click="$router.push({path: '/invite'})">
+                <i class="icon my_account"></i>
+                <p>{{$t('inviteTitle')}}</p>
+                <div class="turn-right">
+                    <i></i>
+                </div>
+            </div>
             <div class="user-nav-item" @click="$router.push({path: '/download'})">
                 <i class="icon my_share"></i>
                 <p>分享APP</p>

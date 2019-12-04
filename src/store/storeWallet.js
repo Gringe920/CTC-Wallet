@@ -48,8 +48,16 @@ function getBase (){
         Store.commit('btcAddress', res.data.gateway_address || "");
         Store.commit('adAddress', res.data.ad_cn_address || "");
         Store.commit('rcp_info', res.data || {});
-        rcp.option.server = 'ws://47.56.147.245:7070';
+
+        // rcp_ws
+        rcp.option.server = res.data.rcp_ws || 'ws://47.56.147.245:7070';
+
         rcp.connect();
+        rcp.api.on('ledger', ledger => {
+            // console.log(JSON.stringify(ledger, null, 2));
+            console.log('ledger');
+            upData(ledger);
+        });
         console.log('getBase');
     }).catch(e => {
         console.log(e.message);
@@ -73,10 +81,14 @@ function getAddressInfo() {
         // console.log(res);
         Store.commit('btcDepositAddress', res.data.btcAddress || "");
         Store.commit('inviteServe', res.data.inviter || "");
+        Store.commit('inviteX', res.data.inviter_code_x || "");
+        Store.commit('inviteY', res.data.inviter_code_y || "");
     }).catch(e => {
         console.log(e.message);
         Store.commit('btcDepositAddress', "");
         Store.commit('inviteServe', "");
+        Store.commit('inviteX',  "");
+        Store.commit('inviteY', "");
         setTimeout(getAddressInfo, timeOut);
     });
 }
@@ -91,11 +103,7 @@ plusReady(function () {
     rcp.address = account.getAddress();
 
     rcp.connected = upData;
-    rcp.api.on('ledger', ledger => {
-        // console.log(JSON.stringify(ledger, null, 2));
-        console.log('ledger');
-        upData(ledger);
-    });
+
     getPrice();
     getAddressInfo();
     getBase();
@@ -103,7 +111,12 @@ plusReady(function () {
 });
 
 function upData(ledger) {
-    if(ledger && ledger.transactionCount <= 0 && rcp.address == account.getAddress()) return;
+    // console.log(ledger);
+    if(ledger && ledger.transactionCount <= 0) {
+        if( rcp.address == account.getAddress()){
+            return;
+        }
+    };
 
     getPrice();
 

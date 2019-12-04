@@ -12,16 +12,16 @@
                       text="IOS版下载"
                       icon="download_ios"
                       class="d-btn"/>
-            <r-button width="64%" 
+            <r-button width="64%"
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
                       text="安卓版下载"
                       icon="download_android"
                       class="d-btn"/>
-            <r-button width="64%" 
+            <!--<r-button width="64%"
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
                       text="登录WEB版本"
                       icon="download_web"
-                      class="d-btn"/>
+                      class="d-btn"/>-->
         </div>
         <div class="download-qrcode">
             <rQrcode qrcodeUrl="www.baidu.com"/>

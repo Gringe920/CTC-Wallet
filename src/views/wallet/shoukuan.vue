@@ -15,7 +15,7 @@
             </r-copy>
         </div>
         <div class="erweim">
-            <div class="erbox"  @click="toRoute('scanning')">
+            <div class="erbox"  @click="toRoute('/scanning')">
                 <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
                 <img   v-else src="../../assets/images/scan_white_prohibit.png" alt="" srcset="">
                 <div  :class="showshoukuan?'':'coloractive'">{{$t(`wallet.scanning1`)}}</div>
