@@ -24,7 +24,7 @@
                 <img src="../assets/images/activation@2x.png" alt="" srcset="">
                 <div>{{$t(`home.home15`)}}</div>
             </div>
-            <div class="ht_box"   @click="toRoute('zhuanqian')">
+            <div class="ht_box"   @click="$router.push('/zhuanqian/XRP')">
                 <img src="../assets/images/transfer@2x.png" alt="" srcset="">
                 <div>{{$t(`home.home4`)}}</div>
             </div>

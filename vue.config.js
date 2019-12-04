@@ -1,6 +1,12 @@
+let appState = process.argv[4] === 'app';
+process.env.appState = appState;
+global.APP_STATE = appState;
+const path = require('path');
+
 module.exports = {
-    baseUrl: '/',
-    assetsDir: "static",
+    publicPath: appState ? './static/' : '/',
+    outputDir: appState ? 'D:\\rcpApp\\rcpApp\\static' : path.resolve(__dirname, "./dist"),
+    assetsDir: appState ? "./" : "static",
     productionSourceMap: process.env.NODE_ENV === 'production' ? false : true,
     devServer: {
         proxy: {
@@ -26,9 +32,21 @@ module.exports = {
         }
     },
     chainWebpack: config => {
-        config.plugin('html').tap(args => {
-            // args[0].filename = "test.html";
-            return args;
-        });
+        // config.plugin('html').tap(args => {
+        //     // args[0].filename = "test.html";
+        //     return args;
+        // });
+        if (appState) {
+            config.plugin('html').tap(args => {
+                args[0].filename = "D:\\rcpApp\\rcpApp\\index.html";
+                return args;
+            });
+
+            config.plugin('copy').tap(args => {
+                args[0][0].ignore.push('app/*');
+                args[0][0].ignore.push('pdf/*');
+                return args;
+            });
+        }
     }
 }

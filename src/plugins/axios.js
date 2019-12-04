@@ -3,7 +3,7 @@ import Vue from 'vue'
 import vueAxios from 'vue-axios'
 
 var instance = axios.create({
-    baseURL: process.env.NODE_ENV == "development" ? "" : "",
+    baseURL: (/file/gi.test(location.href)) ? 'http://47.52.229.139:9001' : process.env.NODE_ENV == 'development' ? '' : '',
     withCredentials: process.env.NODE_ENV == "development" ? true : false,
     method: "get",
     responseType: "json",

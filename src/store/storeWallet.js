@@ -3,16 +3,22 @@ import Store from './store.js';
 
 import axios from '../plugins/axios';
 
-let account = new Account();
-account.getAccount();
+function plusReady(callback) {
+    if(/offlinewallet/gi.test(navigator.userAgent)){
+        if(window.plus) {
+            setTimeout(function() {
+                callback();
+            }, 0);
+        } else {
+            document.addEventListener("plusready", function() {
+                callback();
+            }, false);
+        }
+    }else{
+        callback();
+    }
+};
 
-let rcp = new RCP({}, account.getAddress());
-
-rcp.connected = upData;
-rcp.api.on('ledger', ledger => {
-    // console.log(JSON.stringify(ledger, null, 2));
-    upData(ledger);
-});
 
 let timeOut = 1500;
 
@@ -24,12 +30,11 @@ function getPrice() {
         Store.commit('moneyConvertAll', res.data || {});
         Store.commit('moneyConvert', (res.data && res.data[Store.state.moneyUnit.toLowerCase() + '_price']) || 1);
     }).catch(e => {
-        console.log(e);
+        console.log(e.message);
         Store.commit('moneyConvertAll', {});
         Store.commit('moneyConvert', 1);
     });
 }
-getPrice();
 
 function getBase (){
     axios({
@@ -42,11 +47,11 @@ function getBase (){
         rcp.option.server = 'ws://47.56.147.245:7070';
         rcp.connect();
     }).catch(e => {
-        console.log(e);
+        console.log(e.message);
         setTimeout(getBase, timeOut);
     });
 };
-getBase();
+
 
 // /service/login_info?address=rLRYTN7ovVayaqk7ksRDLyySw2hZP6L5cy
 function getAddressInfo() {
@@ -60,13 +65,29 @@ function getAddressInfo() {
         Store.commit('btcDepositAddress', res.data.btcAddress || "");
         Store.commit('inviteServe', res.data.inviter || "");
     }).catch(e => {
-        console.log(e);
+        console.log(e.message);
         Store.commit('btcDepositAddress', "");
         Store.commit('inviteServe', "");
         setTimeout(getAddressInfo, timeOut);
     });
 }
-getAddressInfo();
+let account = new Account();
+let rcp = new RCP({}, "");
+
+plusReady(function () {
+    account.getAccount();
+
+    rcp.address = account.getAddress();
+
+    rcp.connected = upData;
+    rcp.api.on('ledger', ledger => {
+        // console.log(JSON.stringify(ledger, null, 2));
+        upData(ledger);
+    });
+    getPrice();
+    getBase();
+    getAddressInfo();
+});
 
 function upData(ledger) {
     // console.log(ledger && ledger.transactionCount <= 0 && rcp.address == account.getAddress());

@@ -1,5 +1,6 @@
 {
   "title":"RCP",
+  "exitAPP":"是否确定退出 RCP ?",
   "gateway":"网关",
   "coin":"币种",
   "trust":"信任",
@@ -30,6 +31,14 @@
   "ad" : "公告",
   "adDetails" : "公告详情",
   "author" : "作者",
+  "confirm" : "确定",
+  "updateApp": {
+    "lang1": "下载更新文件...",
+    "lang2": "下载失败！",
+    "lang3": "正在安装文件...",
+    "lang4": "应用资源更新完成！",
+    "lang5": "安装失败"
+  },
   "home":{
     "home1":"可用余额",
     "home2":"收款",

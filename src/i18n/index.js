@@ -6,8 +6,7 @@ import zhCN from './lang/zh-CN.json'
 import en from './lang/en.json'
 import ru from './lang/ru.json'
 Vue.use(VueI18n);
-
-export default  new VueI18n({
+let  vueI18n =  new VueI18n({
     locale: 'zh',
     messages : {
         zh,
@@ -15,4 +14,6 @@ export default  new VueI18n({
         en,
         ru
     }
-})
+});
+
+export default vueI18n;

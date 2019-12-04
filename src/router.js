@@ -46,8 +46,11 @@ import BetaPowerDetail from './views/dapp/betaPowerDetail' //β算力明细
 
 Vue.use(Router)
 export default new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
+    // mode: 'history',
+    // base: process.env.BASE_URL,
+    mode: (/file/gi.test(location.href)) ? 'hash' : 'history',
+    // base: process.env.BASE_URL,
+    base: '/',
     routes: [
         {
             path: '/',

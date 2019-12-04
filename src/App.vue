@@ -48,20 +48,173 @@
         watch:{
             "$route"(n, o) {
                 this.showBottomNav()
-            }
+            },
+            connected (){
+                this.loginPage();
+            },
         },
         methods: {
+            backbutton (){
+                let self = this;
+                plus.key.addEventListener('backbutton', function (e) {
+                    console.log("backbutton");
+                    let webview = plus.webview.getLaunchWebview();
+                    console.log("webview.id", webview.id);
+                    webview.canBack(function (e) {
+                        console.log(JSON.stringify(e));
+                        if (e.canBack) {
+                            webview.back();
+                        } else {
+                            plus.nativeUI.confirm(self.$t('exitAPP'), function (e) {
+                                if (e.index == 0) {
+                                    plus.runtime.quit();
+                                }
+                                ;
+                            }, self.$t('title'));
+                        };
+                    });
+                });
+            },
+            plusReady () {
+                if(!/offlinewallet/gi.test(navigator.userAgent)){
+                    return false;
+                };
+                let self = this;
+                if (window.plus) {
+                    setTimeout(function () {
+                        self.updateApp();
+                        self.backbutton();
+                    }, 0);
+                } else {
+                    document.addEventListener("plusready", function () {
+                        self.updateApp();
+                        self.backbutton();
+                    }, false);
+                }
+            },
+            updateApp (){
+                let self = this;
+                this.axios({
+                    url : "/service/app_info"
+                })
+                    .then(res => {
+                        let data = res.data;
+                        if(/android/gi.test(navigator.userAgent)){
+                            if(plus.runtime.version != data.app_android_version){
+                                if(/\.apk/gi.test(data.app_android_download)){
+
+                                    plus.nativeUI.confirm(data.app_android_update_desc, function(e){
+                                        var task = plus.downloader.createDownload(data.app_android_download, {}, function ( d, status ) {
+                                            // console.log(d.filename);
+                                            if( status == 200 ){
+                                                plus.runtime.install(d.filename, {
+                                                    force : true
+                                                }, function (widgetInfo) {
+                                                    console.log(widgetInfo);
+                                                }, function (err) {
+                                                    console.log(err.message);
+                                                });
+                                            } else {
+                                                console.log( "Download failed: " + status );
+                                            };
+                                        });
+                                        task.start();
+                                    }, {
+                                        "title": data.app_android_version,
+                                        "buttons":[ self.$t('confirm')  ],
+                                    });
+                                }else{
+                                    self.downloadFile(data.app_android_download);
+                                }
+                            }else{
+                                setTimeout(function () {
+                                    self.updateApp();
+                                }, 8000);
+                            };
+                        }else{
+                            if(plus.runtime.version != data.app_ios_version){
+                                if(/\.plist/gi.test(data.app_ios_download)){
+                                    plus.nativeUI.confirm(data.app_ios_update_desc, function(e){
+                                        plus.runtime.openURL(data.app_ios_download, function (openURLerr) {
+                                            console.log(openURLerr);
+                                            plus.runtime.openWeb(data.app_ios_download, function (err) {
+                                                console.log(err);
+                                            });
+                                        });
+                                    }, {
+                                        "title": data.app_ios_version,
+                                        "buttons":[ self.$t('confirm') ],
+                                    });
+                                }else{
+                                    self.downloadFile(data.app_ios_download);
+                                };
+                            }else{
+                                setTimeout(function () {
+                                    self.updateApp();
+                                }, 8000);
+                            };
+                        };
+                        console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setTimeout(function () {
+                            self.updateApp();
+                        }, 8000);
+                    });
+            },
+            downloadFile (wgtUrl) {
+                let self = this;
+                plus.nativeUI.showWaiting(self.$t('updateApp.lang1'));
+                var task = plus.downloader.createDownload(wgtUrl, {filename: "_doc/update/"}, function (d, status) {
+                    console.log("下载成功：" + d.filename);
+                    if (status == 200) {
+                        self.installWgt(d.filename); // 安装wgt包
+                    } else {
+                        console.log("下载wgt失败！");
+                        plus.nativeUI.alert(self.$t('updateApp.lang2'));
+                    }
+                    ;
+                    plus.nativeUI.closeWaiting();
+                });
+
+                task.start();
+            },
+            installWgt (path) {
+                let self = this;
+                plus.nativeUI.showWaiting(self.$t('updateApp.lang3'));
+                plus.runtime.install(path, {}, function () {
+                    plus.nativeUI.closeWaiting();
+                    plus.nativeUI.alert(self.$t('updateApp.lang4'), function () {
+                        plus.runtime.restart();
+                    });
+                }, function (e) {
+                    plus.nativeUI.closeWaiting();
+                    plus.nativeUI.alert(self.$t('updateApp.lang5') + "[" + e.code + "]：" + e.message);
+                });
+            },
+            removeLoad() {
+                setTimeout(() => {
+                    if (document.querySelector("#app-load")) {
+                        document.querySelector("#app-load").remove();
+                    }
+                }, 500);
+            },
             showBottomNav(){
                 this.$store.commit("showNav", this.shouldShowBottomNav());
             },
             shouldShowBottomNav(){
                 return this.routeList.indexOf(this.$route.name) > -1
             },
+            loginPage (){
+                if((this.account.accounts.mnemonic == "" || this.account.accounts.address.length <= 0) && this.$route.name !='login'){
+                    this.toRoute('/login');
+                };
+            }
         },
         created (){
-            if((this.account.accounts.mnemonic == "" || this.account.accounts.address.length <= 0) && this.$route.name !='login'){
-                this.toRoute('/login');
-            };
+            this.removeLoad();
+            // this.plusReady();
         },
         mounted(){
             this.showBottomNav();
@@ -69,6 +222,7 @@
             // this.account.createWallet('123456');
             // this.account.getAccount();
             // console.log(this.account.accounts.mnemonic);
+
         },
         computed: {
             ...mapState(['showNav'])

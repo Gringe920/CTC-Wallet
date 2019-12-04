@@ -1,17 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>rcp-wallet</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but rcp-wallet doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #app-load{
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 999999;
+            background: #ffffff url("<%= BASE_URL %>./load.png") no-repeat;
+            background-size: auto  100%;
+
+            background-position: center center;
+        }
+        #app-load.show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but rcp-wallet doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="app-load"></div>
+<script>
+    function plusReady(callback) {
+        if(window.plus) {
+            setTimeout(function() {
+                callback();
+            }, 0);
+        } else {
+            document.addEventListener("plusready", function() {
+                callback();
+            }, false);
+        }
+    };
+    console.log(navigator.userAgent);
+    console.log(/offlinewallet/gi.test(navigator.userAgent));
+    if(/offlinewallet/gi.test(navigator.userAgent)){
+        plusReady(function () {
+            if(localStorage.getItem("load")){
+                if(document.querySelector("#app-load")){
+                    document.querySelector("#app-load").classList.remove("show");
+                };
+            }else{
+                localStorage.setItem("load", "true");
+                if(document.querySelector("#app-load")){
+                    document.querySelector("#app-load").classList.add("show");
+                };
+            };
+        });
+    }else{
+        if(document.querySelector("#app-load")){
+            document.querySelector("#app-load").classList.add("show");
+        };
+    }
+</script>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>

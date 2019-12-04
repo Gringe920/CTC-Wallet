@@ -22,11 +22,11 @@
         </div>
 
         <div class="money">
-            <div class="coin">{{unitCoin(balancesXRP.currency)}}</div>
+            <div class="coin">{{unitCoin(balancesXRP.currency || rcp.currency)}}</div>
             <div class="coin2">{{balancesXRP.value || 0}} <span> ≈ 0 <small>{{moneyUnit}}</small></span> </div>
             <div class="coin4">
                 <div class="shou"  @click="$router.push('/shoukuan/' + $t('title'))" >{{$t(`wallet.shou`)}}</div>
-                <div class="zhuan" @click="tozhuanzang(balancesXRP.currency)">{{$t(`wallet.fu`)}}</div>
+                <div class="zhuan" @click="tozhuanzang(rcp.currency)">{{$t(`wallet.fu`)}}</div>
             </div>
         </div>
 
