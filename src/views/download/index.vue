@@ -11,12 +11,12 @@
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
                       :text="'IOS' + $t('download')"
                       icon="download_ios"
-                      class="d-btn"/>
+                      class="d-btn" @comfirm="dispark"/>
             <r-button width="64%"
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
                       :text="'Android' + $t('download')"
                       icon="download_android"
-                      class="d-btn"/>
+                      class="d-btn" @comfirm="downloadApp" />
             <!--<r-button width="64%"
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
                       text="登录WEB版本"
@@ -37,6 +37,14 @@ export default {
         return {
         }
     },
+    methods : {
+        dispark (){
+            this.$toast.show(this.$t('dispark'));
+        },
+        downloadApp (){
+            location.href = 'https://jssxx.oss-cn-shenzhen.aliyuncs.com/rcp/RCP.v.1.0.6.apk';
+        }
+    }
     
     
 }
