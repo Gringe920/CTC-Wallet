@@ -76,7 +76,7 @@ export default {
         text-align: right;
     }
 .download-container{
-    background-image: url('./../../assets/images/download_bj.png');
+    background-image: url('./../../assets/images/download_bj.jpg');
     background-size: 100% 100%;
     width: 100%;
     height: 100%;

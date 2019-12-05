@@ -1,4 +1,5 @@
 const {Account, RCP} = require("rcp-offline-wallet");
+
 import Store from './store.js';
 
 import axios from '../plugins/axios';

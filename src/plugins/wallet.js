@@ -1,4 +1,5 @@
 import Vue from 'vue';
+
 import Wallet from '../store/storeWallet';
 
 function plugin(Vue, wallet) {

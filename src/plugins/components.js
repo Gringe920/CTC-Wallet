@@ -1,7 +1,7 @@
 import Vue from 'vue';
-const header = () => import(/* webpackChunkName: "header" */ '../components/header');
-const button = () => import(/* webpackChunkName: "header" */ '../components/button');
-const qrcode = () => import(/* webpackChunkName: "header" */ '../components/qrcode');
+const header = () => import(/* webpackChunkName: "components" */ '../components/header');
+const button = () => import(/* webpackChunkName: "components" */ '../components/button');
+const qrcode = () => import(/* webpackChunkName: "components" */ '../components/qrcode');
 const empty = () => import(/* webpackChunkName: "components" */ '../components/empty');
 const countdown = () => import(/* webpackChunkName: "components" */ '../components/countdown');
 const rankList = () => import(/* webpackChunkName: "components" */ '../components/rankList');
