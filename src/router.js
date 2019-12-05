@@ -48,9 +48,9 @@ Vue.use(Router)
 export default new Router({
     // mode: 'history',
     // base: process.env.BASE_URL,
-    mode: (/file/gi.test(location.href)) ? 'hash' : 'history',
+    mode: (/file/gi.test(location.href)) ? 'hash' : process.env.NODE_ENV === 'production' ? 'hash' : 'history' ,
     // base: process.env.BASE_URL,
-    base: '/',
+    base: process.env.NODE_ENV === 'production' ? '/dist/' : '/',
     routes: [
         {
             path: '/',

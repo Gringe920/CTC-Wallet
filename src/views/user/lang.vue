@@ -43,7 +43,7 @@ export default {
         }
     },
     created(){
-        const localeOption = window.localStorage.getItem('localeOption')
+        const localeOption = window.localStorage.getItem('localeOption');
         if(localeOption) this.setLangList(JSON.parse(localeOption))
     },
     methods: {

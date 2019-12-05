@@ -3,21 +3,21 @@
     <Header title="导入钱包" />
     <div class="content">
 
-      <div class="psw-step-one">请设置一个安全密码</div>
+      <div class="psw-step-one">{{$t('lang1')}}</div>
       <div class="inp-password">
-        <input type="password" v-model="password" placeholder="请输入密码" />
+        <input type="password" v-model="password" :placeholder="$t('wallet.zhuanqian12')" />
       </div>
 
       <!-- 助记词/私钥 -->
       <div class="inputFwk" :class="{'active': activeIndex == 0}">
-        <div class="input-title">请填写您的助记词</div>
-        <textarea class="input-area" v-model="mnemonic" placeholder="英文单词请按空格分隔单词" />
+        <div class="input-title">{{$t('lang2')}}</div>
+        <textarea class="input-area" v-model="mnemonic" :placeholder="$t('lang3')" />
         <div class="error-msg" v-if="errorMsg">*{{errorMsg}}</div>
       </div>
       <!-- 提交按钮 -->
       <r-button width="87.3%"
                 bgColor="$active"
-                :text="'开始导入' + (submitState ? '...' : '')"
+                :text="$t('lang4') + (submitState ? '...' : '')"
                 class="submit" @comfirm="submit"/>
     </div>
   </div>
@@ -42,12 +42,12 @@
            submit (){
                 let {password, mnemonic} = this;
                 if(password.length <= 0){
-                    this.errorMsg = '密码错误';
+                    this.errorMsg = this.$t('lang5');
                     return;
                 }
 
                 if(mnemonic.length <= 0){
-                    this.errorMsg = '助记词错误';
+                    this.errorMsg = this.$t('lang6');
                     return;
                 }
 

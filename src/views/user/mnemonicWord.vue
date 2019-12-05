@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-      <Header title="备份助记词" :righttext="$t('skip')" :rightEv="toHome" />
+      <Header :title="$t('lang25')" :righttext="$t('skip')" :rightEv="toHome" />
       <!-- 第一步 -->
       <div class="content" v-if="stepType == 0">
 
           <!-- tips -->
           <div class="tips">
-              <p>请认真按顺序抄写下方{{data.length}}个助记词</p>
-              <p>我们将在下一步验证</p>
+              <p>{{$t('lang15')}}</p>
+              <p>{{$t('lang16')}}</p>
           </div>
 
           <!-- 助记词列表  -->
@@ -17,14 +17,14 @@
             </div>
           </div>
           <!-- 提交按钮 -->
-          <r-button width="91%" text="下一步" class="submit" @comfirm="nextStep(1)"/>
+          <r-button width="91%" :text="$t('lang17')" class="submit" @comfirm="nextStep(1)"/>
       </div>
 
       <!-- 下一步 -->
       <div class="content" v-if="stepType == 1">
           <!-- tips -->
           <div class="tips">
-              <p>请将您抄下的12个单词按正确顺序选择至下方</p>
+              <p>{{$t('lang18')}}</p>
           </div>
           <!-- 填写助记词  -->
           <div class="fill-in-world">
@@ -41,7 +41,7 @@
           </div>
           <!-- 提交按钮 -->
           <r-button width="91%"
-                    text="确定"
+                    :text="$t('lang19')"
                     class="submit"
                     @comfirm="comfirm"/>
       </div>
@@ -50,14 +50,14 @@
       <div class="content" v-if="stepType == 2">
           <div class="success-content">
               <img src="../../assets/images/private_key_success@2x.png" alt="">
-              <p class="success-txt">地址助记词备份成功！</p>
+              <p class="success-txt">{{$t('lang20')}}</p>
               <div class="attention">
-                  <p>请妥善保管您的助记词</p>
-                  <p>请勿丢失或泄露给他人</p>
+                  <p>{{$t('lang21')}}</p>
+                  <p>{{$t('lang22')}}</p>
               </div>
           </div>
           <r-button width="91%"
-                    text="完成"
+                    :text="$t('lang23')"
                     class="submit"
                     @comfirm="done"/>
       </div>
@@ -82,7 +82,7 @@ export default {
     watch : {
         selectData (){
             if(this.selectData.length == this.data.length && this.selectData.join('') != this.data.join('')){
-                this.errorMsg = '助记词顺序不正确，请检查';
+                this.errorMsg = this.$t('lang24');
             }else{
                 this.errorMsg = "";
             }
@@ -119,7 +119,7 @@ export default {
             if(this.selectData.join('') == this.data.join('')){
                 this.nextStep(2);
             }else{
-                this.errorMsg = '助记词顺序不正确，请检查';
+                this.errorMsg = this.$t('lang24');
             }
         },
         // 完成

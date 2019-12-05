@@ -6,21 +6,21 @@
         </div>
         <div class="login-btn-group">
                 <r-button width="73%"
-                        text="创建地址"
+                        :text="$t('lang7')"
                         bgColor="$active"
                         class="setup-addr"
                         @comfirm="$router.push({path: '/setupAddr'})"/>
                 <r-button width="73%"
-                        text="导入地址"
+                        :text="$t('lang8')"
                         bgColor="#00CCFF"
                         class="export-addr"
                         @comfirm="$router.push({path: '/importWallet'})"/>
                 <div class="tips">
                     <label @click="select">
                         <i :class="{'active': isAllow}"></i>
-                        我已经仔细阅读并同意
+                        {{$t('lang9')}}
                     </label>
-                    <span>《RCP用户协议》</span>
+                    <span>{{$t('lang10')}}</span>
                 </div>
         </div>
       </div>

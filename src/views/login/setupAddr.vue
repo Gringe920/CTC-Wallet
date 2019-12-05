@@ -1,17 +1,17 @@
 <template>
     <section>
-        <Header title="创建地址" />
+        <Header :title="$t('lang7')" />
         <div class="container">
-            <div class="psw-step-one">{{doubleConfirmed == 0 ? '请设置一个安全密码' : '请再次输入您的安全密码'}}</div>
+            <div class="psw-step-one">{{doubleConfirmed == 0 ? $t('lang1') : $t('lang11')}}</div>
             <div class="inp-password" v-if="doubleConfirmed == 0">
-                <input type="password" v-model="password" placeholder="请输入密码" />
+                <input type="password" v-model="password" :placeholder="$t('lang12')" />
             </div>
             <div class="inp-password" v-if="doubleConfirmed == 1">
-                <input type="password" v-model="restarPassword" placeholder="请输入密码" />
+                <input type="password" v-model="restarPassword" :placeholder="$t('lang12')" />
             </div>
             <div class="err-msg" v-if="errorMsg">*{{errorMsg}}</div>
         </div>
-        <r-button :submitState="submitState" text="确定" width="90%" class="btn-submit" @comfirm="submit"></r-button>
+        <r-button :submitState="submitState" :text="$t('confirm')" width="90%" class="btn-submit" @comfirm="submit"></r-button>
     </section>
 </template>
 
@@ -30,7 +30,7 @@
             submit () {
                 const {doubleConfirmed, password, restarPassword} = this;
                 if(doubleConfirmed == 0 && !password){
-                    this.errorMsg = '密码不能为空'
+                    this.errorMsg = this.$t('lang13');
                     return;
                 }
                 if(doubleConfirmed == 0){
@@ -39,11 +39,11 @@
                 }
 
                 if(doubleConfirmed == 1 && !restarPassword){
-                    this.errorMsg = '密码不能为空';
+                    this.errorMsg = this.$t('lang13');
                     return;
                 }
                 if(password != restarPassword) {
-                    this.errorMsg = '密码不一致';
+                    this.errorMsg = this.$t('lang14');
                     return;
                 }
                 this.submitState = true;

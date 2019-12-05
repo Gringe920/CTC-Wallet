@@ -6,7 +6,7 @@
                 <div class="thenav">
                     <img src="./assets/images/home_press@2x.png" alt="" srcset="" v-if="$route.name=='home'" >
                     <img src="./assets/images/home@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">{{$t('home.home')}}}</span>
+                    <span class="nav-title">{{$t('home.home')}}</span>
                 </div>
             </router-link>
             <a @click="dispark" :class="$route.name=='dapp'?'nav-active':''" >

@@ -9,12 +9,12 @@
         <div class="download-btn">
             <r-button width="64%" 
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
-                      text="IOS版下载"
+                      :text="'IOS' + $t('download')"
                       icon="download_ios"
                       class="d-btn"/>
             <r-button width="64%"
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
-                      text="安卓版下载"
+                      :text="'Android' + $t('download')"
                       icon="download_android"
                       class="d-btn"/>
             <!--<r-button width="64%"
@@ -24,7 +24,7 @@
                       class="d-btn"/>-->
         </div>
         <div class="download-qrcode">
-            <rQrcode qrcodeUrl="www.baidu.com"/>
+            <rQrcode qrcodeUrl="https://www.rcproto.org/dist/index.html#/download"/>
         </div>
     </div>
 </template>
@@ -47,6 +47,8 @@ export default {
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
+    max-width: 750px;
+    margin: 0 auto;
     .turn-back{
         position: absolute;
         left: 0;
