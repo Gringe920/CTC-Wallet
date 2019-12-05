@@ -32,11 +32,13 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/lang'})" v-if="false">
+            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
                 <i class="icon my_a"></i>
                 <p>{{$t('langSet')}}</p>
                 <div class="turn-right">
-                    <span>中文</span>
+                    <span>{{
+                        $i18n.locale == 'en' ? 'English' : $i18n.locale == 'ru' ? 'русский язык' : $i18n.locale == 'zhCN' ? '中文繁体' : '中文简体'
+                        }}</span>
                     <i></i>
                 </div>
             </div>
