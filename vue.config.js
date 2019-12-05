@@ -4,7 +4,7 @@ global.APP_STATE = appState;
 const path = require('path');
 
 module.exports = {
-    publicPath: appState ? './static/' : '/',
+    publicPath: appState ? './static/' : './',
     outputDir: appState ? 'D:\\rcpApp\\rcpApp\\static' : path.resolve(__dirname, "./dist"),
     assetsDir: appState ? "./" : "static",
     productionSourceMap: process.env.NODE_ENV === 'production' ? false : true,

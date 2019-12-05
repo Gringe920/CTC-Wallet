@@ -23,8 +23,8 @@ export default {
             const canvas = document.getElementById('canvas');
             const {qrcodeUrl} = this;
             QRCode.toCanvas(canvas, qrcodeUrl, err => {
-                if(err) console.log(err);
-                console.log('qrcode success')
+                // if(err) console.log(err);
+                // console.log('qrcode success')
             })
         }
     }

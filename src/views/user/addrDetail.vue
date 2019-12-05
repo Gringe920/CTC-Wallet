@@ -42,7 +42,7 @@
          -->
 
         <!-- 安全密码弹窗 -->
-        <r-modal :title="index == 4 ? $t('exitWalletInfo') : $t(`wallet.zhuanqian10`)"
+        <r-modal :title="index == 4 || index == 2 ? $t('exitWalletInfo') : $t(`wallet.zhuanqian10`)"
                  @on-ok="submitPsw"
                  :show="isShowPswModal"
                  @on-cancel="isShowPswModal = false">

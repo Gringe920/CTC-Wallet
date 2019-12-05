@@ -27,22 +27,22 @@
             </div>
             <div class="user-nav-item" @click="$router.push({path: '/download'})">
                 <i class="icon my_share"></i>
-                <p>分享APP</p>
+                <p>{{$t('shareAPP')}}</p>
                 <div class="turn-right">
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
+            <div class="user-nav-item" @click="$router.push({path: '/lang'})" v-if="false">
                 <i class="icon my_a"></i>
-                <p>语言设置</p>
+                <p>{{$t('langSet')}}</p>
                 <div class="turn-right">
-                    <span>中文设置</span>
+                    <span>中文</span>
                     <i></i>
                 </div>
             </div>
             <div class="user-nav-item" @click="$router.push({path: '/accountManage'})">
                 <i class="icon my_account"></i>
-                <p>账户管理</p>
+                <p>{{$t('accountManagement')}}</p>
                 <div class="turn-right">
                     <i></i>
                 </div>
@@ -56,9 +56,9 @@
             </div>-->
             <div class="user-nav-item">
                 <i class="icon my_l"></i>
-                <p>版本</p>
+                <p>{{$t('versions')}}</p>
                 <div class="turn-right">
-                    <span>1.0.0</span>
+                    <span>{{version}}</span>
                 </div>
             </div>
         </div>
@@ -77,7 +77,15 @@
 export default {
     data(){
         return{
-            isShowModal: false
+            isShowModal: false,
+            version: ''
+        }
+    },
+    created (){
+        if(typeof plus == 'object'){
+            this.version = plus.runtime.version;
+        }else{
+            this.version = '1.0.0'
         }
     },
     methods: {

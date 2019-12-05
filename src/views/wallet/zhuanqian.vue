@@ -92,6 +92,10 @@
             };
         },
         created (){
+            if(this.$route.params.toAddress){
+                this.address = this.$route.params.toAddress;
+            }
+
             if(this.$route.params.coin){
                 this.coin = this.$route.params.coin;
             }else{

@@ -6,28 +6,28 @@
                 <div class="thenav">
                     <img src="./assets/images/home_press@2x.png" alt="" srcset="" v-if="$route.name=='home'" >
                     <img src="./assets/images/home@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">首页</span>
+                    <span class="nav-title">{{$t('home.home')}}}</span>
                 </div>
             </router-link>
-            <router-link tag="a" to="/dapp" :class="$route.name=='dapp'?'nav-active':''" >
+            <a @click="dispark" :class="$route.name=='dapp'?'nav-active':''" >
                 <div class="thenav">
                     <img src="./assets/images/dapp_press@2x.png" alt="" srcset="" v-if="$route.name=='dapp'" >
                     <img src="./assets/images/dapp@2x.png" alt="" srcset="" v-else >
                     <span class="nav-title" >DAPP</span>
                 </div>
-            </router-link>
+            </a>
             <router-link tag="a" to="/wallet" :class="$route.name=='wallet'?'nav-active':''" >
                 <div class="thenav">
                     <img src="./assets/images/wallet_press@2x.png" alt="" srcset="" v-if="$route.name=='wallet'" >
                     <img src="./assets/images/wallet@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">钱包</span>
+                    <span class="nav-title">{{$t('wallet.name')}}</span>
                 </div>
             </router-link>
             <router-link tag="a" to="/user" :class="$route.name=='user'?'nav-active':''"  >
                 <div class="thenav">
                     <img src="./assets/images/my_account@2x.png" alt="" srcset="" v-if="$route.name=='user'" >
                     <img src="./assets/images/my@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">我的</span>
+                    <span class="nav-title">{{$t('my')}}</span>
                 </div>
             </router-link>
         </div>
@@ -56,6 +56,9 @@
             },
         },
         methods: {
+            dispark (){
+                this.$toast.show(this.$t('dispark'));
+            },
             backbutton (){
                 let self = this;
                 plus.key.addEventListener('backbutton', function (e) {
@@ -84,12 +87,12 @@
                 let self = this;
                 if (window.plus) {
                     setTimeout(function () {
-                        // self.updateApp();
+                        self.updateApp();
                         self.backbutton();
                     }, 0);
                 } else {
                     document.addEventListener("plusready", function () {
-                        // self.updateApp();
+                        self.updateApp();
                         self.backbutton();
                     }, false);
                 }

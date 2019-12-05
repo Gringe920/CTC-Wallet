@@ -112,7 +112,7 @@ export default new Router({
             props : true
         },
         {
-            path: '/zhuanqian/:coin',
+            path: '/zhuanqian/:coin/:toAddress?',
             name: 'zhuanqian',
             component: zhuanqian,
         },

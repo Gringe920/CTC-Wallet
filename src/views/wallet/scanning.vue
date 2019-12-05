@@ -2,7 +2,8 @@
     <section class="scanning">
         <!--<Header :title="$t(`wallet.scanning1`)" :righttext='$t(`wallet.scanning2`)'></Header>-->
         <Header :title="$t(`wallet.scanning1`)"></Header>
-        <div class="content"></div>
+        <div class="content" id="qr_transfer">
+        </div>
         <div class="erweim">
             <div class="erbox"  @click="toRoute('/scanning')">
                 <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
@@ -22,9 +23,44 @@
         name: "scanning",
         data(){
             return{
-
                 showshoukuan:false
             }
+        },
+        mounted (){
+            setTimeout(() => {
+                this.createBarcode();
+            }, 1000);
+        },
+        beforeDestroy (){
+            // console.log('beforeDestroy');
+            if(this.barcode){
+                console.log('beforeDestroy');
+                this.barcode.cancel();
+                this.barcode.close();
+                this.barcode = null;
+            }
+        },
+        methods : {
+            createBarcode (){
+                // this.$router.push({name:"_transfer", params: {username:'13699864733'}});
+                if(typeof plus == 'object'){
+                    var that = this;
+                    if(!this.barcode){
+                        this.barcode = new plus.barcode.Barcode('qr_transfer');
+                        console.log(this.barcode);
+                        this.barcode.onmarked = function (type, result) {
+                            console.log(result);
+                            that.$router.push(`/zhuanqian/${that.$t('title')}/${result}`);
+                        };
+                        this.barcode.onerror = function(error){
+                            // loaded code
+                            console.log(error);
+                            that.$store.commit('msg', error.message);
+                        }
+                    }
+                    this.barcode.start();
+                }
+            },
         }
     };
 </script>
@@ -44,16 +80,15 @@
         display: flex;
         justify-content: center;
         .content {
-            margin-top: 30%;
-            width: 70vw;
-            max-width: 300px;
-            height: 70vw;
-            max-height: 300px;
+            position: absolute;
+            top: 50px;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
             background: $white;
             background-repeat: no-repeat;
             background-size: 100% 100%;
             opacity: 0.1;
-            position: relative;
         }
         .coloractive{
             color: $white;

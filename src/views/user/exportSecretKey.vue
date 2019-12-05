@@ -5,6 +5,7 @@
           <div class="notice">
               <img src="../../assets/images/private_key_tips@2x.png" alt="">
               <p>{{$t('exportWarn')}}</p>
+              <p>{{$t('exportWarn2')}}</p>
           </div>
           <div class="secret-key-list">
               <div class="secret-key-box">

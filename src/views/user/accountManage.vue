@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <!--<Header
+        <!--
+        <Header
           :title="$t('user.accountTitle')"
           :right-icon="require('../../assets/images/my_edit@2x.png')"
           :right-ev="openEdit"
@@ -11,8 +12,8 @@
           v-if="editMode"
           :left-icon="require('../../assets/images/top_off_white@2x.png')"
           :left-ev="openEdit"
-        />-->
-        <Header :title="$t('user.accountTitle')"/>
+        /> -->
+        <Header :title="$t('user.accountTitle')"  :leftEv="returnUser" />
         <div class="account-list">
             <div class="account-item" v-for="(item, index) in accountsList" :key="index">
                 <i @click="selectAddress(index)" class="choose" :class="{chosen : index == addressIndex}"></i>
@@ -66,6 +67,10 @@
             this.accountsList = this.account.accounts.address;
         },
         methods: {
+            returnUser (){
+                this.$router.push("/user");
+                return true;
+            },
             submitPsw (){
                 if(this.submitState) return;
                 this.isShowPswModal = true;
@@ -84,6 +89,7 @@
                             this.addressIndex = this.account.accounts.addressIndex;
                             this.accountsList = this.account.accounts.address;
                             this.$toast.show(this.$t('create') + this.$t('success'));
+                            this.$router.push(`/exportSecretKey/${address.address}/${address.secret}`);
                         }).catch(e => {
                             console.log(e.message);
                             this.submitState = false;
