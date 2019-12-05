@@ -7,7 +7,7 @@ import en from './lang/en.json'
 import ru from './lang/ru.json'
 Vue.use(VueI18n);
 let  vueI18n =  new VueI18n({
-    locale: 'en',
+    locale: 'zh',
     messages : {
         zh,
         zhCN,

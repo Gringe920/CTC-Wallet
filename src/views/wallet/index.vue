@@ -4,7 +4,7 @@
         <div class="walletbanner">
             <div class="w-t">
                 <span>{{$t(`wallet.zichan`)}} </span>
-                <router-link class="gateway" to="/gateway">信任网关</router-link>
+                <router-link class="gateway" to="/gateway">{{$t('Trust the gateway')}}</router-link>
                 <!--<img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye@2x.png" alt="" srcset="" v-if="!hidden">
                 <img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye_off@2x.png" alt="" srcset="" v-else>-->
             </div>

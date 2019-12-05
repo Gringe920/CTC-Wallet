@@ -6,15 +6,18 @@
         <div class="download-logo">
             <img src="../../assets/images/download_logo.png" alt=""/>
         </div>
+        <section class="browser-download" v-if="state" >
+            {{$t('Please open it in the browser')}} ↑
+        </section>
         <div class="download-btn">
             <r-button width="64%" 
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
-                      :text="'IOS' + $t('download')"
+                      :text="'IOS ' + $t('download')"
                       icon="download_ios"
                       class="d-btn" @comfirm="dispark"/>
             <r-button width="64%"
                       bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
-                      :text="'Android' + $t('download')"
+                      :text="'Android ' + $t('download')"
                       icon="download_android"
                       class="d-btn" @comfirm="downloadApp" />
             <!--<r-button width="64%"
@@ -35,14 +38,23 @@
 export default {
     data(){
         return {
+            state : false
         }
     },
+    created (){
+        this.micromessenger();
+    },
     methods : {
+        micromessenger () {
+            if (/micromessenger/gi.test(navigator.userAgent)) {
+                this.state = true;
+            }
+        },
         dispark (){
             this.$toast.show(this.$t('dispark'));
         },
         downloadApp (){
-            location.href = 'https://jssxx.oss-cn-shenzhen.aliyuncs.com/rcp/RCP.v.1.0.6.apk';
+            location.href = 'http://rcposs.oss-accelerate.aliyuncs.com/app/RCP.v.1.0.7.apk';
         }
     }
     
@@ -50,6 +62,19 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+    .browser-download{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        color: $white;
+        padding-top: 40px;
+        font-size: 20px;
+        padding-right: 10px;
+        text-align: right;
+    }
 .download-container{
     background-image: url('./../../assets/images/download_bj.png');
     background-size: 100% 100%;
