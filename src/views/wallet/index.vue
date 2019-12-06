@@ -114,7 +114,7 @@
 </script>
 <style lang="scss" scoped>
     .gateway{
-        color: $white;
+        color: $btnFontColor;
     }
     .walletall {
         padding: 0 15px;
@@ -128,10 +128,11 @@
             background-size: cover;
             border-radius: 5px;
             padding: 0 20px;
+             color: $btnFontColor;
             .w-t {
                 display: flex;
                 justify-content: space-between;
-                color: $white;
+               
                 padding: 20px 0 20px 0;
                 align-items: center;
                 img {
@@ -141,7 +142,6 @@
             }
             .w-t2 {
                 font-size: 22px;
-                color: $white;
                 text-align: left;
                 span {
                     font-size: 40px;
@@ -193,7 +193,7 @@
         }
         .money {
             height: 100%;
-            background: $bg2;
+            background:$border2;
             margin-bottom: 20px;
             border-radius: 5px;
 
@@ -206,7 +206,7 @@
             .coin2 {
                 padding: 0 15px;
                 font-size: 24px;
-                color: $white;
+                color: $active;
                 margin: 15px 0;
                 span {
                     font-size: 18px;
@@ -226,7 +226,7 @@
             .coin4 {
                 border-top: 1px solid $bg;
                 height: 40px;
-                color: $white;
+                color: $active;
                 font-size: 14px;
                 div {
                     line-height: 40px;

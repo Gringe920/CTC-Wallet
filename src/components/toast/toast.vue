@@ -23,11 +23,10 @@ export default {
   min-width: 200px;
   max-width: 80%;
   line-height: 1.4;
-  background: rgba(23, 27, 41, 1);
+  background: $bg;
   border-radius: 10px;
-  opacity: 0.7;
-  color: $white;
-  padding: 10px 10px;
+  color: $color1;
+  padding: 20px 20px;
   z-index: 999999;
   text-align: center;
 }

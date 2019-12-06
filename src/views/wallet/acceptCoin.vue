@@ -15,7 +15,6 @@
                     {{item.outcome.ledgerVersion}} {{$t('ledgerVersion')}}
                     <small>({{transactionTypeText(item)}})</small>
                 </div>
-
                 <template v-if="item.type == 'payment'">
                     <div class="center">
                         <div>
@@ -47,7 +46,11 @@
             return {
                 //0 收款 1 转账 2 兑换
                 // activeIdx: this.$route.query.type || 0,
-                list : [],
+                list : [
+                    {
+                    id:1,
+                    }
+                ],
                 loadState : true,
                 routerNum : 0,
 

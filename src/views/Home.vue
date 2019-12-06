@@ -3,8 +3,8 @@
         <div class="hometou">
             <div class="home-l">
                 <div class="ke">{{$t(`home.home1`)}}</div>
-                <img  class="imgs" @click="toHidden" src="../assets/images/wallet_asset_eye@2x.png" v-if="!hidden">
-                <img  class="imgs" @click="toHidden" src="../assets/images/wallet_asset_eye@2x.png" v-else>
+                <img  class="imgs" @click="toHidden" src="../assets/images/asset_eye@2x.png" v-if="!hidden">
+                <img  class="imgs" @click="toHidden" src="../assets/images/asset_eye_off@2x.png" v-else>
             </div>
             <div class="home-t2">
                 <span>{{hidden ? '******' : (connected ? (balancesXRP.value || 0) : '-')}}</span>&nbsp;{{hidden ?'******': $t('title') }}
@@ -13,7 +13,7 @@
         <div class="bg"></div>
         <div class="home-type">
             <div class="ht_box" @click="toRoute('shoukuan')">
-                <img src="../assets/images/receivables.png" alt="" srcset="">
+                <img src="../assets/images/receivables@2x.png" alt="" srcset="">
                 <div>{{$t(`home.home2`)}}</div>
             </div>
             <div class="ht_box" @click="$router.push('/acceptCoin')" v-if="invite">
@@ -45,15 +45,6 @@
                 <div class="last">{{isjihuo && invite.length ? $t(`home.home9`) : isjihuo ? $t(`home.home14`) : $t(`home.home8`)}}</div>
             </div>
         </div>
-
-<!--        <r-modal :title="$t(`home.home10`)"
-                 @on-ok="submitPsw"
-                 :show="isShowPswModal"
-                 @on-cancel="isShowPswModal = false">
-            <div class="inp-password">
-                <input type="password" :placeholder="$t(`home.home11`)">
-            </div>
-        </r-modal>-->
     </div>
 </template>
 
@@ -108,10 +99,9 @@
                 margin: 0 15px 0 30px;
                 font-size: 18px;
                 color: $color1;
-                /*font-weight: bold;*/
                 span {
                     font-size: 34px;
-                    color: $white;
+                    color: $active;
                 }
             }
         }
@@ -125,7 +115,7 @@
             background-image: linear-gradient(
                             90deg,
                             rgba(0, 194, 143, 0) 0%,
-                            rgba(0, 194, 143, 3) 100%
+                            rgba(0,255,0,1) 100%
             );
         }
         .home-type {
@@ -135,12 +125,12 @@
             display: flex;
             height: 125px;
             border-radius: 0 0 0 50px;
-            background: linear-gradient(
-                            235deg,
-                            rgba(31, 35, 50, 1) 0%,
-                            rgba(50, 54, 69, 1) 100%
-            );
-            // background: url("../assets/images/home_bj_2@2x.png");
+            // background: linear-gradient(
+            //                 235deg,
+            //                 rgba(31, 35, 50, 1) 0%,
+            //                 rgba(50, 54, 69, 1) 100%
+            // );
+            background: url("../assets/images/home_bj_2@2x.png");
             justify-content: space-around;
             background-repeat: no-repeat;
             background-size: cover;
@@ -165,11 +155,11 @@
             margin: 20px 15px;
             border-radius: 24px;
             border: 1px solid $border2;
-            background: rgba(50, 54, 69, 1);
+            background: $border2;
             height: 50px;
             padding: 0 15px;
             .advert_l {
-                color: $white;
+                color: $active;
                 display: flex;
                 align-items: center;
                 width: 84%;
@@ -215,7 +205,7 @@
                 .t {
                     font-size: 16px;
                     font-weight: bold;
-                    color: $white;
+                    color: $active;
                     margin-bottom: 10px;
                 }
                 .last {

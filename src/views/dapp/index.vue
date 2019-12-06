@@ -128,7 +128,7 @@ export default {
     padding-top: 20px;
     background-repeat: no-repeat;
     background-size: cover;
-    color: $white;
+    color: $active;
     text-align: center;
     font-weight: bold;
   }
@@ -136,11 +136,11 @@ export default {
     height: 5px;
     margin: 0 15px;
     border-radius:10px 10px 0px 0px;
-    background-image: linear-gradient(270deg,rgba(0,194,143,0) 0%,rgba(0,194,143,1) 100%);  
+    background-image: linear-gradient(270deg,rgba(0,194,143,0) 0%, rgba(0,255,0,1) 100%);  
   }
   .content{
     margin: 0 15px;
-    background: $bg5;
+    background: $border2;
     padding:0 15px;
     border-radius: 8px;
     // border: 10px solid linear-gradient(rgba(0,194,143,0),rgba(0,194,143,1));
@@ -164,7 +164,7 @@ export default {
           justify-content: center;
           .t{
             font-size: 14px;
-            color: $white;
+            color: $active;
           }
           .l{
             // margin-top: 7px;
@@ -184,7 +184,7 @@ export default {
     }
     .text1{
       padding: 15px 0 10px 0;
-      color: $white;
+      color: $active;
       font-size: 14px;
     }
     .text2{
