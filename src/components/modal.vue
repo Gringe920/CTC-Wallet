@@ -64,6 +64,7 @@
             .modal-header{
                 text-align: center;
                 padding: 30px 0;
+                color: $active;
             }
             .modal-footer{
                 display: flex;
@@ -85,7 +86,7 @@
                     color: $active;
                 }
                 .comfirm{
-                    color: $white;
+                    color: $btnFontColor;
                     background-color: $active;
                 }
             }

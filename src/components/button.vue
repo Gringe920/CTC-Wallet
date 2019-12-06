@@ -1,6 +1,6 @@
 <template>
   <div class="btn-container" @click="comfirm" :style="{width: width, height: height}">
-    <button :style="{background: bgColor}" class="bor-radio">
+    <button :style="{background: bgColor, color: btnFontColor}" class="bor-radio">
       <i :class="icon" v-if="icon"></i>
       {{text}}{{submitState ? '...' : ''}}
     </button>
@@ -14,7 +14,8 @@ export default {
     height: String,
     bgColor: String,
     text: String,
-    icon: String
+    icon: String,
+    btnFontColor: String
   },
   data() {
     return {};

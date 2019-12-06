@@ -1,27 +1,27 @@
 <template>
     <div class="download-container">
         <div class="turn-back">
-            <img src="../../assets/images/home_search_white.png" @click="$router.go(-1)" alt=""/>
+            <img src="../../assets/images/home_search_white@2x.png" @click="$router.go(-1)" alt=""/>
         </div>
         <div class="download-logo">
-            <img src="../../assets/images/download_logo.png" alt=""/>
+            <img src="../../assets/images/download_logo@2x.png" alt=""/>
         </div>
         <section class="browser-download" v-if="state" >
             {{$t('Please open it in the browser')}} ↑
         </section>
         <div class="download-btn">
             <r-button width="64%" 
-                      bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
+                      bgColor="$active"
                       :text="'IOS ' + $t('download')"
                       icon="download_ios"
                       class="d-btn" @comfirm="dispark"/>
             <r-button width="64%"
-                      bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
+                      bgColor="$active"
                       :text="'Android ' + $t('download')"
                       icon="download_android"
                       class="d-btn" @comfirm="downloadApp" />
             <!--<r-button width="64%"
-                      bgColor="linear-gradient(90deg,rgba(0,194,143,1) 0%, rgba(0,204,255,1) 100%)"
+                      bgColor="$active"
                       text="登录WEB版本"
                       icon="download_web"
                       class="d-btn"/>-->
@@ -76,7 +76,7 @@ export default {
         text-align: right;
     }
 .download-container{
-    background-image: url('./../../assets/images/download_bj.jpg');
+    background-image: url('./../../assets/images/download_bj@2x.png');
     background-size: 100% 100%;
     width: 100%;
     height: 100%;

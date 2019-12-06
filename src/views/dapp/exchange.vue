@@ -86,7 +86,7 @@ export default {
     padding-top: 70px;
     margin: 0 15px;
     .ex-content{
-      background: #2b2e3d;
+      background: $border2;
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -111,7 +111,7 @@ export default {
           color: #687D9C;
         }
         span.r-value{
-          color: $white;
+          color: $active;
         }
       }
       .transfer{
@@ -129,12 +129,12 @@ export default {
       }
     }
     .ex-coin{
-      background: #2b2e3d;
+      background: $border2;
       margin-top: 15px;
       padding: 15px;
       .count-name{
         font-size: 12px;
-        color: $white;
+        color: $active;
         margin-bottom: 12px;
       }
       .inp-coin-count{
@@ -148,7 +148,7 @@ export default {
           background-color: transparent;
           border: 0;
           line-height: 14px;
-          color: $white;
+          color: $active;
           &::placeholder{
             color: $color1;
           }
@@ -165,7 +165,7 @@ export default {
             color: $color1;
           }
           span.c-all{
-            color: $white;
+            color: $active;
           }
         }
         

@@ -34,7 +34,7 @@ export default {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    color: $white;
+    color: $active;
   }
 }
 </style>

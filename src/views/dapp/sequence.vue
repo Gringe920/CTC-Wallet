@@ -47,7 +47,7 @@ export default {};
       left: 41px;
       font-weight: 600;
       font-size: 26px;
-      color: #e5e6ff;
+      color: $active;
     }
   }
   .content {
@@ -80,7 +80,7 @@ export default {};
 
     .sequence-num {
       font-family: DINAlternate-Bold, DINAlternate;
-      color: $white;
+      color: $active;
       font-size: 26px;
       font-weight: bold;
     }
@@ -88,7 +88,7 @@ export default {};
     .sequence-consume {
       font-size: 14px;
       .title {
-        color: $white;
+        color: $active;
         margin-bottom: 15px;
       }
       .input-area {
@@ -96,16 +96,17 @@ export default {};
         border-radius: 5px;
         overflow: hidden;
         padding: 12px 12px;
+        color: $active;
         .num-input {
           float: left;
           background: transparent;
           outline: none;
           border: none;
-          color: $white;
+          color: $active;
           width: 85%;
         }
         .unit {
-          color: $white;
+          color: $active;
           float: right;
         }
       }

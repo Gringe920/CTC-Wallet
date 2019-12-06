@@ -91,14 +91,15 @@ export default {
     justify-content: flex-start;
 
     .block {
-      background-color: $bg;
+      background-color: $black;
       text-align: center;
       padding: 5px 10px;
       margin-right: 10px;
       max-width: 46px;
-
+      border:1px solid #628d626e;
+      border-radius:4px;
       .val {
-        color: $white;
+        color: $active;
         font-size: 22px;
         font-weight: bold;
         font-family:DINAlternate-Bold,DINAlternate;

@@ -74,7 +74,7 @@
       .psw-step-one{
         padding: 0 20px;
         font-size: 14px;
-        color: $color1;
+        color: $active;
         margin-bottom: 12px;
       }
       .inp-password{
@@ -135,7 +135,7 @@
         width: 100%;
         padding: 20px;
         font-size: 14px;
-        color: white;
+        color: $active;
         overflow: hidden;
       }
       &.active {

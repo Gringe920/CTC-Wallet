@@ -5,15 +5,16 @@
             <img src="../../assets/images/qr_logo@2x.png" alt="">
         </div>
         <div class="login-btn-group">
-                <r-button width="73%"
+                <r-button 
                         :text="$t('lang7')"
                         bgColor="$active"
                         class="setup-addr"
                         @comfirm="$router.push({path: '/setupAddr'})"/>
-                <r-button width="73%"
+                <r-button 
                         :text="$t('lang8')"
-                        bgColor="#00CCFF"
+                        bgColor="#212521"
                         class="export-addr"
+                        btnFontColor="#00FF00"
                         @comfirm="$router.push({path: '/importWallet'})"/>
                 <div class="tips">
                     <label @click="select">

@@ -63,7 +63,7 @@ export default {
         .percent{
             .c-title{
                 font-size: 12px;
-                color:$white;
+                color:$active;
                 margin-bottom: 33px;
                 i{
                     display: inline-block;
@@ -77,7 +77,7 @@ export default {
             }
             .count{
                 font-size: 24px;
-                color: $white;
+                color: $active;
                 margin-bottom: 5px;
             }
         }
@@ -94,7 +94,7 @@ export default {
                     padding: 15px 0;
                 }
                 .value{
-                    color: $white;
+                    color: $active;
                     &.green{
                         color: $active;
                     }
@@ -109,7 +109,7 @@ export default {
                 margin-bottom: 15px;
                 p.p-tit{
                     font-size: 14px;
-                    color: $white;
+                    color: $active;
                 }
                 .tips{
                     span{

@@ -146,7 +146,7 @@
                 width: 100%;
                 padding: 20px;
                 font-size: 14px;
-                color: white;
+                color: $active;
                 overflow: hidden;
             }
             &.active {

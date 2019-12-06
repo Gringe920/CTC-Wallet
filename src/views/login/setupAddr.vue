@@ -81,7 +81,7 @@
         margin: 0 15px;
         .psw-step-one{
              font-size: 14px;
-             color: $white;
+             color: $active;
              margin-bottom: 12px;
          }
         .inp-password{

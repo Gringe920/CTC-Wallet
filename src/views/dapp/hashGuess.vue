@@ -60,7 +60,7 @@ export default {};
       transform: translateY(-50%);
       left: 41px;
       font-size: 26px;
-      color: #e5e6ff;
+      color: $active;
 
       .title-en {
         letter-spacing: 15px;
@@ -95,7 +95,7 @@ export default {};
     }
 
     .jackpot-detail {
-      color: $white;
+      color: $active;
       font-weight: bold;
       overflow: hidden;
       .jackpot-num {
@@ -150,7 +150,7 @@ export default {};
     .guess-num {
       font-size: 14px;
       .title {
-        color: $white;
+        color: $active;
         margin-bottom: 15px;
       }
       .input-area {
@@ -158,16 +158,17 @@ export default {};
         border-radius: 5px;
         overflow: hidden;
         padding: 12px 12px;
+        color: $active;
         .num-input {
           float: left;
           background: transparent;
           outline: none;
           border: none;
-          color: $white;
+          color: $active;
           width: 85%;
         }
         .unit {
-          color: $white;
+          color: $active;
           float: right;
         }
       }

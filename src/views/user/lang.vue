@@ -94,7 +94,7 @@ export default {
         }
         p{
             font-size: 14px;
-            color: $white;
+            color: $active;
         }
         i.select{
             width: 14px;

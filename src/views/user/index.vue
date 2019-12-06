@@ -102,8 +102,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container{
-    background-image: url('../../assets/images/my_bj@2x.png');
-    background-size: 100% 100%;
     min-height: 100vh;
     .userinfo{
         display: flex;
@@ -121,7 +119,7 @@ export default {
         .info{
             .name{
                 font-size: 20px;
-                color: $white;
+                color: $active;
                 margin-bottom: 10px;
             }
             .uid{
@@ -133,13 +131,14 @@ export default {
     .user-navigation{
         padding: 0 15px;
         margin: 0 15px;
-        background-color: $bg;
+        background-color: $border2;
         border-radius: 10px;
         .user-nav-item{
             display: flex;
             align-items: center;
             padding: 15px 0;
             position: relative;
+            
             i.icon{
                 display: inline-block;
                 width: 31px;
@@ -167,7 +166,7 @@ export default {
             }
             p{
                 font-size: 14px;
-                color: $white;
+                color: $active;
             }
             .turn-right{
                 position: absolute;

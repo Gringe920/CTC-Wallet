@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .rank-list {
-  color: $white;
+  color: $active;
   .title {
     font-size: 14px;
     margin-bottom: 21px;
@@ -62,6 +62,8 @@ export default {
       .address {
         font-size: 14px;
         font-weight: 500;
+        color: $active;
+        margin-bottom: 4px;
       }
       .power {
         font-size: 12px;

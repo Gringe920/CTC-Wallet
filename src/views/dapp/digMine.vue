@@ -157,7 +157,7 @@ export default {
       }
       .power-item-value {
         float: right;
-
+        color: $active;
         .power-item-arrow {
           margin-left: 6px;
           width: 7px;
@@ -188,7 +188,7 @@ export default {
       }
       .subtitle {
         font-size: 12px;
-        color: white;
+        color: $active;
       }
     }
 
@@ -232,10 +232,12 @@ export default {
         .state {
           font-size: 29px;
           font-weight: bold;
+          margin-bottom: 10px;
         }
         .statement {
           font-size: 16px;
           font-weight: bold;
+          margin-bottom: 15px;
         }
         .to-activate {
           position: absolute;
@@ -244,7 +246,7 @@ export default {
           padding: 6px 12px;
           background-color: $white;
           font-size: 14px;
-          color: $active;
+          color: #00C28F;
           border-radius: 17px;
         }
       }
@@ -259,6 +261,7 @@ export default {
         margin: 18px 0;
         font-size: 24px;
         font-weight: bold;
+        color: $active;
       }
     }
 
@@ -286,11 +289,7 @@ export default {
             height: 50px;
             width: 16px;
             border-radius: 100px 100px 0 0;
-            background: linear-gradient(
-              180deg,
-              rgba(0, 194, 143, 1) 0%,
-              rgba(0, 194, 143, 0) 100%
-            );
+            background: linear-gradient(180deg,rgba(0,255,0,1) 0%,rgba(0,255,0,0) 100%);
           }
         }
 
