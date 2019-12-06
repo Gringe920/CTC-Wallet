@@ -56,7 +56,7 @@ export default {
       width: 100%;
     }
     .title {
-      color: #e5e6ff;
+      color: $active;
       font-size: 26px;
       font-weight: 600;
       position: absolute;
