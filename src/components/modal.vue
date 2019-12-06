@@ -52,7 +52,7 @@
         background: rgba(0,0,0,.5);
         z-index: 10;
         .modal-container{
-            background:rgba(31,35,50,1);
+            background: $border2;
             width: 92%;
             top: 50%;
             left: 50%;
@@ -92,9 +92,9 @@
             }
         }
         .inp-password{
-            background:rgba(50,54,69,1);
+            background:$black;
             border-radius:6px;
-            border:1px solid rgba(87,94,121,1);
+            border:1px solid $color1;
             margin: 0 15px;
             input{
                 border: 0;
@@ -102,7 +102,7 @@
                 outline: none;
                 font-size: 14px;
                 padding: 12px;
-                color: $white;
+                color: $active;
                 background-color: transparent;
                 width: 100%;
                 &::placeholder{

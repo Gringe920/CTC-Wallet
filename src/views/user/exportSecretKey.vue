@@ -69,7 +69,7 @@ export default {
             padding: 15px;
             position: relative;
             margin-bottom: 15px;
-            color: $white;
+            color: $active;
             .stitle{
                 font-size: 14px;
                 padding-bottom: 10px;

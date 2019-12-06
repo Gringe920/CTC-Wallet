@@ -25,13 +25,13 @@ export default {};
 
   .password {
     font-size: 12px;
-    color: white;
+    color: $active;
     margin-bottom: 15px;
   }
 
   .psw-input {
       font-size: 14px;
-      color: white;
+      color: $active;
       outline: none;
       border: none;
       background: none;

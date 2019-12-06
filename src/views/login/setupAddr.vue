@@ -95,7 +95,7 @@
                 outline: none;
                 width: 100%;
                 background-color: transparent;
-                color: $white;
+                color: $active;
             }
         }
         .err-msg{

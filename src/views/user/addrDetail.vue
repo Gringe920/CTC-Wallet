@@ -150,7 +150,7 @@
             padding-top: 70px;
             .detail-row{
                 font-size: 14px;
-                color: $white;
+                color: $active;
                 padding: 15px 0;
                 display: flex;
                 justify-content: space-between;

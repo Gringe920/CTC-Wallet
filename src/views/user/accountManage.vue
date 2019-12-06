@@ -131,8 +131,8 @@
 <style lang="scss" scoped>
     .container {
         i.choose {
-            width: 26px;
-            height: 26px;
+            width: 13px;
+            height: 13px;
             border: 1px solid $white;
             display: inline-block;
             vertical-align: middle;
@@ -162,7 +162,7 @@
                 }
                 .name {
                     font-size: 14px;
-                    color: $white;
+                    color: $active;
                 }
                 .address {
                     color: $color1;

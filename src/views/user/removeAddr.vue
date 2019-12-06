@@ -32,13 +32,13 @@ export default {
     .inp-textarea{
         padding: 15px;
         
-        background-color: rgba(50,54,69,1);
+        background-color: #141714;
         border-radius: 2px;
         textarea{
             background-color: transparent;
             border: none;
             appearance: none;
-            color: $white;
+            color: $active;
             height: 124px;
             width: 100%;
             outline: none;

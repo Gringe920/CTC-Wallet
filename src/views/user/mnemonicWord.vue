@@ -150,7 +150,7 @@ export default {
         }
         .tips{
             font-size: 14px;
-            color: $white;
+            color: $active;
             margin-bottom: 22px;
         }
         .fill-in-world{
@@ -166,7 +166,7 @@ export default {
             .fill-item{
                 width: 33%;
                 font-size: 14px;
-                color: $white;
+                color: $active;
                 padding: 15px 0;
             }
         }
@@ -188,7 +188,7 @@ export default {
             margin-top: 30px;
             .word-item{
                 background-color: $border2;
-                color: $white;
+                color: $active;
                 font-size: 14px;
                 text-align: center;
                 padding: 6px 0;

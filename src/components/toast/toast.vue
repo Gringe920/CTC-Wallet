@@ -26,7 +26,7 @@ export default {
   background: $bg;
   border-radius: 10px;
   color: $color1;
-  padding: 20px 20px;
+  padding: 10px 20px;
   z-index: 999999;
   text-align: center;
 }
