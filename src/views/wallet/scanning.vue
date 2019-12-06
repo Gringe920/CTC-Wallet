@@ -6,8 +6,8 @@
         </div>
         <div class="erweim">
             <div class="erbox"  @click="toRoute('/scanning')">
-                <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x(2).png" alt="" srcset="">
-                <img   v-else src="../../assets/images/scan_white_prohibit.png" alt="" srcset="">
+                <img v-if="!showshoukuan" src="../../assets/images/add_scan_white@2x.png" alt="" srcset="">
+                <img   v-else src="../../assets/images/scan_white_prohibit@2x.png" alt="" srcset="">
                 <div :class="showshoukuan?'':'coloractive'">{{$t(`wallet.scanning1`)}}</div>
             </div>
             <div class="erbox" @click="toRoute('/shoukuan')">
@@ -72,7 +72,7 @@
     }
 
     .scanning {
-        background: rgba(0, 0, 0, 0.01);
+        background: $bg;
         padding-top: 50px;
         width: 100vw;
         height: 100vh;
@@ -91,7 +91,7 @@
             opacity: 0.1;
         }
         .coloractive{
-            color: $white;
+            color: $active;
         }
         .erweim {
             position: absolute;

@@ -105,11 +105,7 @@
         top: 0;
         left: 0;
         width: 100vw;
-        background: $bg;
         color: $active;
-        // display: flex;
-        // justify-content: space-between;
-        // align-items: center;
         text-align: center;
         span {
             line-height: 50px;

@@ -3,7 +3,6 @@
         <canvas id="canvas"></canvas>
     </div>
 </template>
-
 <script>
 import QRCode from 'qrcode'
 export default {
