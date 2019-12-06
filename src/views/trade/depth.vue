@@ -56,7 +56,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     font-size: 10px;
-    color: $color3;
+    color: $color1;
     margin-bottom: 10px;
   }
   .all {
@@ -65,7 +65,7 @@ export default {
   }
   .yue {
     margin: 7px 0;
-    color: $color3;
+    color: $color1;
     font-size: 10px;
   }
   .addbox{

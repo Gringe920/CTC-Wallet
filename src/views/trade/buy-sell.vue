@@ -61,19 +61,19 @@ export default {
       line-height: 35px;
       text-align: center;
       color: $color1;
-      background: $nav-bg;
+      background: $border2;
     
     }
     .buy {
-      color: $white;
-      background-color: $nav-bg;
+      color: $black;
+      background-color: $border2;
       background-image: url("../../assets/images/buy_bj_press@2x.png");
       background-repeat: no-repeat;
       background-size: 100% 100%;
     }
     .sell {
-      color: $white;
-       background-color: $nav-bg;
+      color: $black;
+       background-color:$border2;
       background-image: url('../../assets/images/sell_bj_press@2x.png');
       background-repeat: no-repeat;
       background-size: 100% 100%;
@@ -89,12 +89,12 @@ export default {
     margin: 15px 0 10px 0;
     div {
       font-size: 14px;
-      color: $color3;
+      color: $color1;
     }
     input {
       height: 100%;
       background: none;
-      color: $white;
+      color: $color1;
       border: none;
       width: 70%;
       text-align: right;
@@ -104,7 +104,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: $color3;
+    color: $color1;
     font-size: 10px;
   }
   .changnum {
@@ -122,7 +122,7 @@ export default {
       font-size: 10px;
       height: 26px;
       line-height: 26px;
-      background: $nav-bg;
+      background:$border2;
       border-radius: 4px;
       text-align: center;
     }
@@ -131,13 +131,13 @@ export default {
     font-size: 14px;
     margin-top: 55px;
     span {
-      color: $white;
+      color: $active;
     }
   }
   .btn2 {
     margin-top: 15px;
     background: $active;
-    color: $white;
+    color: $black;
     text-align: center;
     height: 32px;
     line-height: 32px;

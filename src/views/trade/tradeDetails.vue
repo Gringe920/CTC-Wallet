@@ -76,18 +76,18 @@ export default {
         margin-bottom: 10px;
       }
       .text2 {
-        color: $color3;
+        color: $color1;
         font-size: 14px;
       }
     }
     .toubox_r {
       div {
         font-size: 12px;
-        color: $white;
+        color: $active;
         margin-top: 10px;
         span:nth-child(1) {
           padding-right: 20px;
-          color: $color3;
+          color: $color1;
         }
       }
     }
@@ -101,7 +101,7 @@ export default {
       height: 50px;
       line-height: 45px;
       font-size: 14px;
-      color: $color3;
+      color: $color1;
       text-align: center;
     }
   }
@@ -114,10 +114,10 @@ export default {
       align-items: center;
       font-size: 14px;
       span:nth-child(1) {
-        color: $color3;
+        color: $color1;
       }
         span:nth-child(2) {
-        color: $white;
+        color: $active;
       }
     }
   }
@@ -134,7 +134,7 @@ export default {
     div {
       width: 48%;
       border-radius: 6px;
-      color: $white;
+      color: $black;
       height: 44px;
       line-height: 44px;
       text-align: center;

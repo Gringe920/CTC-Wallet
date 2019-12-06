@@ -88,7 +88,7 @@ export default {
       }
       span {
         margin-left: 5px;
-        color: $white;
+        color: $active;
       }
       .fudong {
         text-align: center;
@@ -114,17 +114,14 @@ export default {
     position: absolute;
     width: 100vw;
     min-height: 100%;
-    // height: calc(100vh-100px);
     height: 100%;
     background: $bg4;
     .nav {
-      // padding: 0 15px;
-      color: $color3;
+      color: $color1;
       height: 42px;
       background: $nav-bg;
       font-size: 14px;
-      // display: flex;
-      // justify-content: space-between;
+
       div {
         display: inline-block;
         line-height: 42px;

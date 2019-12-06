@@ -50,7 +50,7 @@ export default {
 <style lang="scss" scoped>
 .entrust {
   margin-top: 20px;
-  border-top: 5px solid $nav-bg;
+  border-top: 5px solid $black;
   padding: 0 15px;
   .nav {
     padding: 15px 0;
@@ -59,7 +59,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     .nav-l {
-      color: $white;
+      color: $active;
       font-size: 16px;
     }
     .nav-r {
@@ -70,7 +70,7 @@ export default {
         height: 14px;
         margin-right: 5px;
       }
-      color: $color3;
+      color: $color1;
       font-size: 14px;
     }
   }
@@ -90,11 +90,11 @@ export default {
             color: $active;
           }
           .coin {
-            color: $white;
+            color: $active;
             padding-left: 5px;
           }
           .time {
-            color: $color3;
+            color: $color1;
             font-size: 12px;
             padding-left: 5px;
           }
@@ -122,11 +122,11 @@ export default {
           width: 33%;
           font-size: 12px;
           .text1 {
-            color: $color3;
+            color: $color1;
             padding-bottom: 5px;
           }
           .tet2 {
-            color: $white;
+            color: $active;
           }
         }
       }

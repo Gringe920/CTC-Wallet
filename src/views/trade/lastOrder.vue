@@ -59,17 +59,17 @@
           color: $active;
         }
         .coin {
-          color: $white;
+          color: $color1;
           padding-left: 5px;
         }
         .time {
-          color: $color3;
+          color: $color1;
           font-size: 12px;
           padding-left: 5px;
         }
       }
       .t_r {
-        color: $white;
+        color: $active;
         font-size: 12px;
       }
     }
@@ -88,11 +88,11 @@
         width: 33%;
         font-size: 12px;
         .text1 {
-          color: $color3;
+          color: $color1;
           padding-bottom: 5px;
         }
         .tet2 {
-          color: $white;
+          color: $active;
         }
       }
     }
