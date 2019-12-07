@@ -134,6 +134,9 @@
             background: $border2;
             padding: 15px;
             border-radius: 4px;
+            .text1{
+                color: $active;
+            }
             .l {
                 color: $color1;
                 padding-top: 15px;
