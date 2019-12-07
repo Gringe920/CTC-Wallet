@@ -82,7 +82,7 @@
                     background-color: transparent;
                 }
                 .cancel{
-                    border:1px solid rgba(0,194,143,1);
+                    border:1px solid $active;
                     color: $active;
                 }
                 .comfirm{

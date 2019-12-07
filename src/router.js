@@ -10,7 +10,6 @@ const gateway = () => import(/* webpackChunkName: "wallet" */ './views/wallet/ga
 const detais = () => import(/* webpackChunkName: "wallet" */ './views/wallet/detais.vue');
 const scanning = () => import(/* webpackChunkName: "wallet" */ './views/wallet/scanning.vue');
 
-
 // import Trade from './views/trade/index.vue' //交易中心
 const Trade = () => import(/* webpackChunkName: "trade" */ './views/trade/index.vue');
 // import lastOrder from './views/trade/lastOrder' //交易中心历史记录
@@ -141,6 +140,7 @@ export default new Router({
             component: shoukuan,
             props : true
         },
+    
         {
             path: '/zhuanqian/:coin/:toAddress?',
             name: 'zhuanqian',

@@ -7,13 +7,18 @@
 article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
-
+input{
+  color:$active;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  　　color: $color1;
+}
 img {
   border: none;
 }
 a {
   text-decoration: none;
-  color: #00FF00;
+  color: $active;
 }
 
 a:link, a:visited {
@@ -56,10 +61,10 @@ body, html, #app {
   color: $active !important;
 }
 .buybg{
-  background: #00FF00 !important;
+  background:$down !important;
 }
 .sellbg{
-  background:#FF615D !important;
+  background:$up !important;
 
 }
 .btn { //公共按钮 ，浮动在底部  
@@ -71,9 +76,9 @@ body, html, #app {
  display: block;
  line-height: 44px;
  text-align: center;
- background: rgba(0, 194, 143, 1);
+ background: $active;
  border-radius: 22px;
- color: $white;
+ color: $black;
  height: 44px;
 }
 .btn-submit{

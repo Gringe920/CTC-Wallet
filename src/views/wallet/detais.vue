@@ -90,7 +90,7 @@
     };
 </script>
 <style lang="scss" scoped>
-    .detais {
+     .detais {
         overflow: hidden;
         margin-top: 50px;
         padding: 0 15px;
@@ -101,7 +101,7 @@
             word-wrap: break-word;
         }
         .text {
-            color: $white;
+            color: $active;
             font-size: 14px;
             padding: 15px 0;
             border-top: 1px solid $border;
@@ -110,7 +110,7 @@
         }
         .text3 {
             padding-bottom: 10px;
-            color: $white;
+            color: $active;
             font-size: 14px;
             width: 100%;
             word-wrap: break-word;

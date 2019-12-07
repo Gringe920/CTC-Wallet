@@ -2,7 +2,6 @@
     <section class="zhuanqian">
         <Header :title="$t(`gateway`)"></Header>
 
-
         <div class="box2">
             <div class="text1"> {{$t(`coin`)}}</div>
             <div class="text2">
@@ -114,11 +113,11 @@
             margin-bottom: 15px;
             border-radius: 4px;
             display: flex;
-            color: $white;
+            color: $color1;
             justify-content: space-between;
             padding: 15px;
             align-items: center;
-            background: $bg2;
+            background: $border2;
             .r {
                 color: $color1;
                 font-size: 13px;
@@ -130,9 +129,9 @@
         }
         .box2 {
             margin-bottom: 15px;
-            color: $white;
+            color: $color1;
             font-size: 14px;
-            background: $bg2;
+            background: $border2;
             padding: 15px;
             border-radius: 4px;
             .l {
@@ -160,7 +159,6 @@
                     height: 100%;
                     border: none;
                     min-width: 90%;
-                    color: $white;
                     background: none;
                 }
                 .in2 {

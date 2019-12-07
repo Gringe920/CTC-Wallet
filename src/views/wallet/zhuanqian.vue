@@ -92,16 +92,15 @@
             };
         },
         created (){
-            if(this.$route.params.toAddress){
-                this.address = this.$route.params.toAddress;
-            }
-
-            if(this.$route.params.coin){
-                this.coin = this.$route.params.coin;
-            }else{
-                this.coin = this.coinVolume[0] || 'XRP';
-            }
-
+            console.log('zhuanqian')
+            // if(this.$route.params.toAddress){
+            //     this.address = this.$route.params.toAddress;
+            // }
+            // if(this.$route.params.coin){
+            //     this.coin = this.$route.params.coin;
+            // }else{
+            //     this.coin = this.coinVolume[0] || 'XRP';
+            // }
         },
         watch : {
             coin (){
@@ -206,7 +205,7 @@
     };
 </script>
 <style lang="scss" scoped>
-    .zhuanqian {
+     .zhuanqian {
         text-transform: uppercase;
         margin-top: 65px;
         padding: 0 15px;
@@ -214,11 +213,11 @@
             margin-bottom: 15px;
             border-radius: 4px;
             display: flex;
-            color: $white;
+            color: $active;
             justify-content: space-between;
             padding: 15px;
             align-items: center;
-            background: $bg2;
+            background: $border2;
             .r {
                 color: $color1;
                 font-size: 13px;
@@ -230,9 +229,9 @@
         }
         .box2 {
             margin-bottom: 15px;
-            color: $white;
+            color: $active;
             font-size: 14px;
-            background: $bg2;
+            background: $border2;
             padding: 15px;
             border-radius: 4px;
             .l {
@@ -260,7 +259,6 @@
                     height: 100%;
                     border: none;
                     min-width: 90%;
-                    color: $white;
                     background: none;
                 }
                 .in2 {
@@ -281,23 +279,23 @@
             .coinbox {
                 position: absolute;
                 bottom: 0;
-                background: $bg;
+                background:$border2;
                 width: 100%;
                 .cg {
+                    color: $active !important;
                     border-top: 10px solid $nav-bg;
                 }
                 .coin {
                     width: 100%;
                     text-align: center;
-
-                    height: 48px;
                     color: $color1;
+                    height: 48px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    border-bottom: 1px solid $nav-bg;
+                    border-bottom: 1px solid $black;
                     &.active {
-                        color: $white;
+                        color: $active;
                     }
                     img {
                         width: 20px;

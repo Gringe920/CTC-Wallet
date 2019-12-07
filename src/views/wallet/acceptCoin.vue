@@ -114,7 +114,6 @@
 
 <style lang="scss" scoped>
     // xm
-
     .acceptCoin {
         margin-bottom: 60px;
         .acceptCoin_type {
@@ -161,9 +160,9 @@
                     align-items: center;
                     font-size: 14px;
                     font-weight: 500;
-                    color: $white;
+                    color: $active;
                     small{
-                        color: $color1;
+                        color: $active;
                     }
                     img {
                         width: 8px;

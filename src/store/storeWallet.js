@@ -189,7 +189,7 @@ function upData(ledger) {
                 Store.commit('invite', "");
             };
         }).catch(e => {
-            console.log(e.message);
+            console.log(e.message,'1');
         });
     }
     
