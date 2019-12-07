@@ -10,8 +10,9 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 input{
   color:$active;
 }
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-  　　color: $color1;
+
+input::placeholder{
+  color: $color1 ;
 }
 img {
   border: none;
