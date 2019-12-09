@@ -46,6 +46,7 @@ function getBase (){
         // console.log(res);
         // rcp.option.server = 'ws://s1.goaladdin.org:7070';
         Store.commit('inviteAddress', res.data.active_address || "");
+        Store.commit('invite', res.data.active_address || "");
         Store.commit('btcAddress', res.data.gateway_address || "");
         Store.commit('adAddress', res.data.ad_cn_address || "");
         Store.commit('rcp_info', res.data || {});
@@ -63,6 +64,7 @@ function getBase (){
     }).catch(e => {
         console.log(e.message);
         Store.commit('inviteAddress', "");
+        Store.commit('invite', "");
         Store.commit('btcAddress', "");
         Store.commit('adAddress', "");
         Store.commit('rcp_info', {});
@@ -120,6 +122,7 @@ function upData(ledger) {
     };
 
     getPrice();
+    getAddressInfo();
 
     rcp.address = account.getAddress();
     //

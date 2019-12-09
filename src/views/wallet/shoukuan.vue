@@ -7,10 +7,10 @@
                 <span v-if="coin.toLowerCase() == 'btc'" :class="{active : activeState == 1}" @click="activeState = 1">BTC{{$t('chain')}}</span>
             </div>
             <div class="erwema">
-                <rQrcode :qrcodeUrl="address"/>
+                <rQrcode v-if="address.length" :qrcodeUrl="address"/>
             </div>
             <div class="adderss">{{address}}</div>
-            <r-copy :copyText="address">
+            <r-copy v-if="address.length" :copyText="address">
                 <div class="copy">{{$t(`wallet.shoukuan2`)}}</div>
             </r-copy>
         </div>

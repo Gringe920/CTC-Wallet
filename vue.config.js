@@ -18,7 +18,7 @@ var optimization = {
 if(process.env.NODE_ENV === 'production'){
     console.log('=================production=====================');
 }else{
-    plugins.push(new BundleAnalyzerPlugin());
+    // plugins.push(new BundleAnalyzerPlugin());
 }
 module.exports = {
     configureWebpack: {

@@ -27,7 +27,7 @@
                       class="d-btn"/>-->
         </div>
         <div class="download-qrcode">
-            <rQrcode qrcodeUrl="https://www.rcproto.org/dist/index.html#/download"/>
+            <rQrcode :qrcodeUrl="axios.defaults.baseURL +  '/dist/index.html#/download'"/>
         </div>
     </div>
 </template>
@@ -38,13 +38,25 @@
 export default {
     data(){
         return {
-            state : false
+            state : false,
+            android : "",
         }
     },
     created (){
         this.micromessenger();
+        this.getUrl();
     },
     methods : {
+        getUrl (){
+            this.axios({
+                url : "/service/app_info"
+            }).then(res => {
+                console.log(res.data);
+                this.android = res.data.app_android_download;
+            }).catch(e => {
+                console.log(e);
+            })
+        },
         micromessenger () {
             if (/micromessenger/gi.test(navigator.userAgent)) {
                 this.state = true;
@@ -54,7 +66,7 @@ export default {
             this.$toast.show(this.$t('dispark'));
         },
         downloadApp (){
-            location.href = 'http://rcposs.oss-accelerate.aliyuncs.com/app/RCP.v.1.0.7.apk';
+            location.href = this.android || 'http://rcposs.oss-accelerate.aliyuncs.com/app/RCP.v.1.0.7.apk';
         }
     }
     

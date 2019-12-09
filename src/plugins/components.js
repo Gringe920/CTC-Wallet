@@ -1,5 +1,6 @@
 import Vue from 'vue';
-const header = () => import(/* webpackChunkName: "components" */ '../components/header');
+import header from '../components/header'
+// const header = () => import(/* webpackChunkName: "components" */ '../components/header');
 const button = () => import(/* webpackChunkName: "components" */ '../components/button');
 const qrcode = () => import(/* webpackChunkName: "components" */ '../components/qrcode');
 const empty = () => import(/* webpackChunkName: "components" */ '../components/empty');

@@ -212,6 +212,9 @@
                 return this.routeList.indexOf(this.$route.name) > -1
             },
             loginPage (){
+                if((this.account.accounts.address.length <= 0) && this.$route.name !='login'){
+                    this.toRoute('/login');
+                };
                 // if((this.account.accounts.mnemonic == "" || this.account.accounts.address.length <= 0) && this.$route.name !='login'){
                 //     this.toRoute('/login');
                 // };
