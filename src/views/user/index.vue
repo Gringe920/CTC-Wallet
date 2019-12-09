@@ -2,7 +2,7 @@
     <div class="container">
         <div class="userinfo">
             <div class="avatar">
-                <img src="../../assets/images/my_head@2x.png" alt="">
+                <img src="../../assets/images/notice_head_portrait@2x.png" alt="">
             </div>
             <div class="info">
                 <div class="name">{{$t('title')}}</div>
