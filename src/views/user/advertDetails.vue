@@ -9,8 +9,7 @@
                 <div class="time">{{$t('ledgerVersion')}} : {{item.date}}</div>
             </div>
         </div>
-        <div class="content">
-            {{item.info}}
+        <div class="content" v-html="item.info">
         </div>
     </section>
 </template>

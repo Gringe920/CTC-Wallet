@@ -46,7 +46,6 @@ function getBase (){
         // console.log(res);
         // rcp.option.server = 'ws://s1.goaladdin.org:7070';
         Store.commit('inviteAddress', res.data.active_address || "");
-        Store.commit('invite', res.data.active_address || "");
         Store.commit('btcAddress', res.data.gateway_address || "");
         Store.commit('adAddress', res.data.ad_cn_address || "");
         Store.commit('rcp_info', res.data || {});
@@ -64,7 +63,6 @@ function getBase (){
     }).catch(e => {
         console.log(e.message);
         Store.commit('inviteAddress', "");
-        Store.commit('invite', "");
         Store.commit('btcAddress', "");
         Store.commit('adAddress', "");
         Store.commit('rcp_info', {});
@@ -84,12 +82,14 @@ function getAddressInfo() {
         // console.log(res);
         Store.commit('btcDepositAddress', res.data.btcAddress || "");
         Store.commit('inviteServe', res.data.inviter || "");
+        Store.commit('invite', res.data.inviter || "");
         Store.commit('inviteX', res.data.inviter_code_x || "");
         Store.commit('inviteY', res.data.inviter_code_y || "");
     }).catch(e => {
         console.log(e.message);
         Store.commit('btcDepositAddress', "");
         Store.commit('inviteServe', "");
+        Store.commit('invite', "");
         Store.commit('inviteX',  "");
         Store.commit('inviteY', "");
         setTimeout(getAddressInfo, timeOut);
@@ -115,6 +115,7 @@ plusReady(function () {
 
 function upData(ledger) {
     // console.log(ledger);
+    getAddressInfo();
     if(ledger && ledger.transactionCount <= 0) {
         if( rcp.address == account.getAddress()){
             return;
@@ -122,7 +123,6 @@ function upData(ledger) {
     };
 
     getPrice();
-    getAddressInfo();
 
     rcp.address = account.getAddress();
     //

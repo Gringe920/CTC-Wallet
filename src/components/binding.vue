@@ -26,10 +26,9 @@
             cancel (){
                 this.$store.commit("isBinding", false);
             },
-            submitPsw (){
-                let {password, code} = this;
+            codeVerify (){
                 if(this.submitState) return;
-
+                let {password, code} = this;
                 if(this.balancesXRP.value < this.rcp.activeNum){
                     this.$toast.show(this.$t('home.home17', {num : this.rcp.activeNum}));
                     return;
@@ -39,6 +38,22 @@
                     this.$toast.show(this.$t('home.home16') + this.$t('error'));
                     return;
                 }
+
+                this.axios({
+                    url : ' /service/invite_code_valid',
+                    params : {
+                        invite_code : this.code
+                    }
+                }).then(data => {
+                    this.submitPsw();
+                }).catch(e => {
+                    this.$toast.show(this.$t('home.home16') + this.$t('error'));
+                })
+            },
+            submitPsw (){
+                let {password, code} = this;
+                if(this.submitState) return;
+
                 this.submitState = true;
                 console.log(this.balancesXRP.value > (this.rcp.activeNum + this.fee));
                 console.log(this.balancesXRP.value, this.rcp.activeNum, this.fee);

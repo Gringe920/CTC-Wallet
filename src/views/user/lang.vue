@@ -54,6 +54,13 @@ export default {
             console.log(this.$i18n)
         },
         setLangList(option){
+            if(option.name == 'zh' || option.name == 'zhCN'){
+                this.$store.commit('adAddress', this.rcp_info.ad_cn_address);
+            }else if(option.name == 'en'){
+                this.$store.commit('adAddress', this.rcp_info.ad_en_address);
+            }else{
+                this.$store.commit('adAddress', this.rcp_info.ad_ru_address);
+            }
             this.langList = this.langList.map(item => {
                 item.isSelect = false
                 if(item.name == option.name)  item.isSelect = true
