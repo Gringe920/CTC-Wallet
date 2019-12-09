@@ -40,7 +40,7 @@
                 }
 
                 this.axios({
-                    url : ' /service/invite_code_valid',
+                    url : '/service/invite_code_valid',
                     params : {
                         invite_code : this.code
                     }
