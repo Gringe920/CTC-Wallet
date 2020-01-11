@@ -35,7 +35,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
+            <div class="user-nav-item" @click="$router.push({path: '/setTradePsw'})">
                 <i class="icon my_lock"></i>
                 <p>交易密码</p>
                 <div class="turn-right">
@@ -52,7 +52,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
+            <div class="user-nav-item" @click="$router.push({path: '/about'})">
                 <i class="icon my_about"></i>
                 <p>关于我们</p>
                 <div class="turn-right">

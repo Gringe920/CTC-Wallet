@@ -29,6 +29,7 @@ const User = () => import(/* webpackChunkName: "user" */ './views/user/index.vue
 const Info = () => import(/* webpackChunkName: "user" */ './views/user/info.vue');
 const Lang = () => import(/* webpackChunkName: "user" */ './views/user/lang.vue');
 const nickname = () => import(/* webpackChunkName: "user" */ './views/user/nickname.vue');
+const about = () => import(/* webpackChunkName: "user" */ './views/user/about.vue');
 
 // // import AccountManage from './views/user/accountManage' //账号管理
 // const AccountManage = () => import(/* webpackChunkName: "user" */ './views/user/accountManage.vue');
@@ -39,6 +40,9 @@ const nickname = () => import(/* webpackChunkName: "user" */ './views/user/nickn
 // // import ChangeSecurePsw from './views/user/changeSecurePsw' //修改安全密码
 const changePsw = () => import(/* webpackChunkName: "user" */ './views/user/changePsw.vue');
 const changeTelephone = () => import(/* webpackChunkName: "user" */ './views/user/changeTelephone.vue');
+const changeTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/changeTradePsw.vue');
+const setTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/setTradePsw.vue');
+
 // // import AddrDetail from './views/user/addrDetail' //地址详情
 // const AddrDetail = () => import(/* webpackChunkName: "user" */ './views/user/addrDetail.vue');
 // // import RemoveAddr from './views/user/removeAddr' //移除地址
@@ -122,7 +126,20 @@ export default new Router({
             name: 'changeTelephone',
             component: changeTelephone
         },
-        
-        
+        {
+            path: '/about',
+            name: 'about',
+            component: about
+        },
+        {
+            path: '/changeTradePsw',
+            name: 'changeTradePsw',
+            component: changeTradePsw
+        },
+        {
+            path: '/setTradePsw',
+            name: 'setTradePsw',
+            component: setTradePsw
+        },
     ]
 })
