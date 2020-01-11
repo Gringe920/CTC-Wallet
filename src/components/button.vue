@@ -56,10 +56,10 @@ export default {
     width: 100%;
     border: 0;
     font-size: 16px;
-    background-color: $active;
+    background-color: $btnDefalutBg;
     font-weight: 500;
     &.bor-radio {
-      border-radius: 32px;
+      border-radius: 6px;
     }
   }
 }
