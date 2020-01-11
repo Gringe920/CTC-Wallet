@@ -2,14 +2,16 @@
     <div class="container">
         <Header title="语言设置"/>
         <div class="lang-list">
-            <div class="lang-item" 
-                 @click="selectLang(item)"
-                 v-for="(item, index) in langList"
-                 :key="index">
-                <i class="icon" :class="item.icon"></i>
-                <p>{{item.name}}</p>
-                <i class="select selection" v-show="item.isSelect"></i>
-                <span class="line"></span>
+            <div class="lang-container">
+                <div class="lang-item" 
+                    @click="selectLang(item)"
+                    v-for="(item, index) in langList"
+                    :key="index">
+                    <i class="icon" :class="item.icon"></i>
+                    <p>{{item.name}}</p>
+                    <i class="select selection" v-show="item.isSelect"></i>
+                    <span class="line"></span>
+                </div>
             </div>
         </div>
     </div>
@@ -75,10 +77,13 @@ export default {
     .lang-list{
         margin-top: 50px;
     }
+    .lang-container{
+        margin: 0 15px;
+    }
     .lang-item{
         display: flex;
         align-items: center;
-        padding: 14px 15px;
+        padding: 14px 0;
         position: relative;
         .icon{
             width: 20px;
@@ -114,7 +119,7 @@ export default {
         }
         span.line{
             height:1px;
-            background:$border;
+            background:#e5e5e5;
             position: absolute;
             bottom: 0;
             display: inline-block;

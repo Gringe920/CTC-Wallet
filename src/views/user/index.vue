@@ -2,39 +2,49 @@
     <div class="container">
         <div class="userinfo">
             <div class="avatar">
-                <img src="../../assets/images/notice_head_portrait@2x.png" alt="">
+                <img src="../../assets/images/china@2x.png" alt="">
             </div>
             <div class="info">
                 <div class="name">{{$t('title')}}</div>
-                <div class="uid">{{account.getAddress()}}</div>
+                <div class="uid">UID 80006744</div>
+            </div>
+            <div class="turn-right">
+                <i></i>
             </div>
         </div>
         <div class="user-navigation">
             <div class="user-nav-item" @click="clickBinding">
-                <i class="icon my_activation"></i>
-                <p>{{$t('user.index.active')}}</p>
+                <i class="icon my_receivables"></i>
+                <p>收款方式</p>
                 <div class="turn-right">
                     <span>{{isjihuo && invite.length ? $t(`home.home13`) : isjihuo ? $t(`home.home12`) : $t(`home.home6`)}}</span>
                     <i></i>
                 </div>
             </div>
             <div class="user-nav-item" @click="$router.push({path: '/invite'})">
-                <i class="icon my_account"></i>
-                <p>{{$t('inviteTitle')}}</p>
+                <i class="icon my_extract"></i>
+                <p>提币地址</p>
                 <div class="turn-right">
                     <i></i>
                 </div>
             </div>
             <div class="user-nav-item" @click="$router.push({path: '/download'})">
-                <i class="icon my_share"></i>
-                <p>{{$t('shareAPP')}}</p>
+                <i class="icon my_identity"></i>
+                <p>身份认证</p>
                 <div class="turn-right">
                     <i></i>
                 </div>
             </div>
             <div class="user-nav-item" @click="$router.push({path: '/lang'})">
-                <i class="icon my_a"></i>
-                <p>{{$t('langSet')}}</p>
+                <i class="icon my_lock"></i>
+                <p>交易密码</p>
+                <div class="turn-right">
+                    <i></i>
+                </div>
+            </div>
+            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
+                <i class="icon my_language"></i>
+                <p>多语言</p>
                 <div class="turn-right">
                     <span>{{
                         $i18n.locale == 'en' ? 'English' : $i18n.locale == 'ru' ? 'русский язык' : $i18n.locale == 'zhCN' ? '中文繁体' : '中文简体'
@@ -42,75 +52,54 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/accountManage'})">
-                <i class="icon my_account"></i>
-                <p>{{$t('accountManagement')}}</p>
+            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
+                <i class="icon my_about"></i>
+                <p>关于我们</p>
                 <div class="turn-right">
                     <i></i>
-                </div>
-            </div>
-<!--            <div class="user-nav-item" @click="$router.push({path: '/changeSecurePsw'})">
-                <i class="icon my_lock"></i>
-                <p>登录密码</p>
-                <div class="turn-right">
-                    <i></i>
-                </div>
-            </div>-->
-            <div class="user-nav-item">
-                <i class="icon my_l"></i>
-                <p>{{$t('versions')}}</p>
-                <div class="turn-right">
-                    <span>{{version}}</span>
                 </div>
             </div>
         </div>
-<!--        <r-modal title="激活地址"
-             @on-ok="submit"
-             btnText="激活"
-             :show="isShowModal"
-             @on-cancel="isShowModal = false">
-            <div class="inp-password">
-            <input type="text" placeholder="输入激活地址">
-            </div>
-        </r-modal>-->
     </div>
 </template>
 <script>
 export default {
     data(){
-        return{
-            isShowModal: false,
-            version: ''
-        }
+        return{}
     },
     created (){
-        if(typeof plus == 'object'){
-            this.version = plus.runtime.version;
-        }else{
-            this.version = '1.0.0'
-        }
     },
     methods: {
-        activeAddr(){
-            this.isShowModal = true;
-        },
-        submit(){
-            console.log('----')
-        }
     }
 }
 </script>
 <style lang="scss" scoped>
 .container{
     min-height: 100vh;
+    .turn-right{
+                    position: absolute;
+                    right: 0;
+                    span{
+                        font-size: 12px;
+                        color: $color1
+                    }
+                    i{
+                        display: inline-block;
+                        width: 10px;
+                        background-size: 100% 100%;
+                        background-image: url('../../assets/images/next_black@2x.png');
+                        height: 10px;
+                        margin-left: 7px;
+                    }
+                }
     .userinfo{
         display: flex;
         align-items: center;
-        padding: 40px 30px;
-
+        margin: 40px 30px;
+        position: relative;
         .avatar{
-            width: 16%;
-            margin-right: 20px;
+            width: 9.6%;
+            margin-right: 15px;
             img{
                 width: 100%;
             }
@@ -118,9 +107,8 @@ export default {
         }
         .info{
             .name{
-                font-size: 20px;
+                font-size: 19px;
                 color: $active;
-                margin-bottom: 10px;
             }
             .uid{
                 font-size: 12px;
@@ -131,8 +119,6 @@ export default {
     .user-navigation{
         padding: 0 15px;
         margin: 0 15px;
-        background-color: $border2;
-        border-radius: 10px;
         .user-nav-item{
             display: flex;
             align-items: center;
@@ -141,49 +127,34 @@ export default {
             
             i.icon{
                 display: inline-block;
-                width: 31px;
-                height: 31px;
+                width: 18px;
+                height: 18px;
                 background-size: 100% 100%;
-                margin-right: 7px;
+                margin-right: 24px;
             }
-            .my_activation{
-                background-image: url('../../assets/images/my_activation@2x.png');
+            .my_receivables{
+                background-image: url('../../assets/images/my_receivables@2x.png');
             }
-            .my_share{
-                background-image: url('../../assets/images/my_share@2x.png');
+            .my_extract{
+                background-image: url('../../assets/images/my_extract@2x.png');
             }
-            .my_a{
-                background-image: url('../../assets/images/my_a@2x.png');
+            .my_identity{
+                background-image: url('../../assets/images/my_identity@2x.png');
             }
             .my_lock{
                 background-image: url('../../assets/images/my_lock@2x.png');
             }
-            .my_l{
-                background-image: url('../../assets/images/my_l@2x.png');
+            .my_language{
+                background-image: url('../../assets/images/my_language@2x.png');
             }
-            .my_account{
-                background-image: url('../../assets/images/my_account@2x.png');
+            .my_about{
+                background-image: url('../../assets/images/my_about@2x.png');
             }
             p{
                 font-size: 14px;
                 color: $active;
             }
-            .turn-right{
-                position: absolute;
-                right: 0;
-                span{
-                    font-size: 12px;
-                    color: $color1
-                }
-                i{
-                    display: inline-block;
-                    width: 7px;
-                    background-size: 100% 100%;
-                    background-image: url('../../assets/images/triangle@2x.png');
-                    height: 7px;
-                    margin-left: 7px;
-                }
-            }
+            
         }
     }
 }

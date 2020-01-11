@@ -40,15 +40,15 @@ export default {
     vertical-align: middle;
     margin-right: 5px;
   }
-  i.download_ios {
-    background-image: url("../assets/images/download_ios@2x.png");
-  }
-  i.download_android {
-    background-image: url("../assets/images/download_android@2x.png");
-  }
-  i.download_web {
-    background-image: url("../assets/images/download_web@2x.png");
-  }
+  // i.download_ios {
+  //   background-image: url("../assets/images/download_ios@2x.png");
+  // }
+  // i.download_android {
+  //   background-image: url("../assets/images/download_android@2x.png");
+  // }
+  // i.download_web {
+  //   background-image: url("../assets/images/download_web@2x.png");
+  // }
   button {
     height: 46px;
     color: $btnFontColor;

@@ -298,7 +298,7 @@ export default {
           text-align: center;
           i.no-data-logo {
             margin: 0 auto;
-            background-image: url("../../assets/images/blank_page@2x.png");
+            // background-image: url("../../assets/images/blank_page@2x.png");
             background-size: 100% 100%;
             display: inline-block;
             border: 1px dashed $color1;

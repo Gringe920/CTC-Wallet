@@ -3,48 +3,48 @@
         <div class="hometou">
             <div class="home-l">
                 <div class="ke">{{$t(`home.home1`)}}</div>
-                <img  class="imgs" @click="toHidden" src="../assets/images/asset_eye@2x.png" v-if="!hidden">
-                <img  class="imgs" @click="toHidden" src="../assets/images/asset_eye_off@2x.png" v-else>
+                <!-- <img  class="imgs" @click="toHidden" src="../assets/images/asset_eye@2x.png" v-if="!hidden">
+                <img  class="imgs" @click="toHidden" src="../assets/images/asset_eye_off@2x.png" v-else> -->
             </div>
-            <div class="home-t2">
+            <!-- <div class="home-t2">
                 <span>{{hidden ? '******' : (connected ? (balancesXRP.value || 0) : '-')}}</span>&nbsp;{{hidden ?'******': $t('title') }}
-            </div>
+            </div> -->
         </div>
         <div class="bg"></div>
         <div class="home-type">
-            <div class="ht_box" @click="toRoute('shoukuan')">
+            <!-- <div class="ht_box" @click="toRoute('shoukuan')">
                 <img src="../assets/images/receivables@2x.png" alt="" srcset="">
-                <div>{{$t(`home.home2`)}}</div>
+                <div>交易</div>
             </div>
             <div class="ht_box" @click="$router.push('/acceptCoin')" v-if="invite">
                 <img src="../assets/images/activation@2x.png" alt="" srcset="">
-                <div>{{$t(`wallet.jilu`)}} </div>
+                <div>订单 </div>
             </div>
             <div class="ht_box" @click="clickBinding" v-else>
                 <img src="../assets/images/activation@2x.png" alt="" srcset="">
-                <div>{{$t(`home.home15`)}}</div>
+                <div>资产</div>
             </div>
             <div class="ht_box"   @click="$router.push('/zhuanqian/XRP')">
                 <img src="../assets/images/transfer@2x.png" alt="" srcset="">
-                <div>{{$t(`home.home4`)}}</div>
-            </div>
+                <div>我的</div>
+            </div> -->
         </div>
-        <div class="bg"></div>
-        <div class="advert">
+        <!-- <div class="bg"></div> -->
+        <!-- <div class="advert">
             <div class="advert_l" @click="adData[0] ? toRoute('advertDetails') : ''">
                 <img src="../assets/images/horn@2x.png" alt="" srcset="">
                 <div>{{adData[0] && adData[0].title || '-'}}</div>
             </div>
             <div class="advert_r" @click="toRoute('advert')">{{$t(`home.home5`)}}</div>
-        </div>
-        <div class="jiuo" @click="clickBinding">
+        </div> -->
+        <!-- <div class="jiuo" @click="clickBinding">
             <img src="../assets/images/not_active@2x.png" alt="" srcset="" v-if="!isjihuo || !invite.length">
             <img src="../assets/images/phine_active@2x.png" alt="" srcset="" v-else>
             <div class="jiho_r">
                 <div class="t">{{isjihuo && invite.length ? $t(`home.home13`) : isjihuo ? $t(`home.home12`) : $t(`home.home6`)}}</div>
                 <div class="last">{{isjihuo && invite.length ? $t(`home.home9`) : isjihuo ? $t(`home.home14`) : $t(`home.home8`)}}</div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -80,7 +80,7 @@
         .hometou {
             height: 200px;
             width: 100%;
-            background: url("../assets/images/home_bj_1@2x.png");
+            // background: url("../assets/images/home_bj_1@2x.png");
             background-repeat: no-repeat;
             background-size: 100% 100%;
             .home-l {
@@ -130,7 +130,7 @@
             //                 rgba(31, 35, 50, 1) 0%,
             //                 rgba(50, 54, 69, 1) 100%
             // );
-            background: url("../assets/images/home_bj_2@2x.png");
+            // background: url("../assets/images/home_bj_2@2x.png");
             justify-content: space-around;
             background-repeat: no-repeat;
             background-size: cover;

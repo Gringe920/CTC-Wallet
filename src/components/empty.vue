@@ -1,7 +1,7 @@
 <template>
   <section class="empty">
     <div class="imgbox">
-         <img src="../assets/images/blank_page@2x.png" alt="" srcset="">
+         <!-- <img src="../assets/images/blank_page@2x.png" alt="" srcset=""> -->
     </div>
     <div class="text">暂无数据</div>
   </section>

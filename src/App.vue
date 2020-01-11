@@ -4,30 +4,30 @@
         <div v-if="showNav" class="bg navall" >
             <router-link tag="a"   to="/home"   :class="($route.name=='empty'||$route.name=='home')?'nav-active':''">
                 <div class="thenav">
-                    <img src="./assets/images/home_press@2x.png" alt="" srcset="" v-if="$route.name=='home'" >
-                    <img src="./assets/images/home@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">{{$t('home.home')}}</span>
+                    <img src="./assets/images/home_transaction_press@2x.png" alt="" srcset="" v-if="$route.name=='home'" >
+                    <img src="./assets/images/home_transaction@2x.png" alt="" srcset="" v-else >
+                    <span class="nav-title">交易</span>
                 </div>
             </router-link>
             <a @click="dispark" :class="$route.name=='dapp'?'nav-active':''" >
                 <div class="thenav">
-                    <img src="./assets/images/dapp_press@2x.png" alt="" srcset="" v-if="$route.name=='dapp'" >
-                    <img src="./assets/images/dapp@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title" >DAPP</span>
+                    <img src="./assets/images/home_order_press@2x.png" alt="" srcset="" v-if="$route.name=='dapp'" >
+                    <img src="./assets/images/home_order@2x.png" alt="" srcset="" v-else >
+                    <span class="nav-title" >订单</span>
                 </div>
             </a>
             <router-link tag="a" to="/wallet" :class="$route.name=='wallet'?'nav-active':''" >
                 <div class="thenav">
-                    <img src="./assets/images/wallet_press@2x.png" alt="" srcset="" v-if="$route.name=='wallet'" >
-                    <img src="./assets/images/wallet@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">{{$t('wallet.name')}}</span>
+                    <img src="./assets/images/home_wallet_press@2x.png" alt="" srcset="" v-if="$route.name=='wallet'" >
+                    <img src="./assets/images/home_wallet@2x.png" alt="" srcset="" v-else >
+                    <span class="nav-title">资产</span>
                 </div>
             </router-link>
             <router-link tag="a" to="/user" :class="$route.name=='user'?'nav-active':''"  >
                 <div class="thenav">
-                    <img src="./assets/images/my_account@2x.png" alt="" srcset="" v-if="$route.name=='user'" >
-                    <img src="./assets/images/my@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">{{$t('my')}}</span>
+                    <img src="./assets/images/home_my_press@2x.png" alt="" srcset="" v-if="$route.name=='user'" >
+                    <img src="./assets/images/home_my@2x.png" alt="" srcset="" v-else >
+                    <span class="nav-title">我的</span>
                 </div>
             </router-link>
         </div>
@@ -51,9 +51,9 @@
             "$route"(n, o) {
                 this.showBottomNav()
             },
-            connected (){
-                this.loginPage();
-            },
+            // connected (){
+            //     this.loginPage();
+            // },
         },
         methods: {
             dispark (){
@@ -250,7 +250,7 @@
         -moz-osx-font-smoothing: grayscale;
         background:$bg;
         .navall {
-            background: $black;
+            background: $white;
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -259,6 +259,7 @@
             height: 48px;
             bottom: 0;
             left: 0;
+            box-shadow:0px 2px 14px 0px rgba(30,49,107,0.1);
             .nav-active {
                 color:  $active;
                 span {
@@ -270,8 +271,9 @@
                 flex-direction: column;
                 align-items: center;
                 img {
-                    width: 25px;
-                    height: 25px;
+                    width: 20px;
+                    height: 20px;
+                    margin-bottom: 2px;
                 }
                 span {
                     font-size: 10px;
