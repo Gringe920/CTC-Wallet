@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="userinfo">
+        <div class="userinfo" @click="$router.push({path: '/info'})">
             <div class="avatar">
                 <img src="../../assets/images/china@2x.png" alt="">
             </div>

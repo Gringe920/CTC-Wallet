@@ -1,12 +1,17 @@
 <template>
   <div class="container">
-    <Header title="修改安全密码" />
+    <Header title="修改手机号" />
     <div class="content">
-      <div class="password">原安全密码</div>
-      <input class="psw-input" type="text" placeholder="请输入原安全密码" />
+        <div class="box">
+            <div class="password">原手机验证码</div>
+            <input class="psw-input" type="text" placeholder="请输入短信验证码" />
+            <span class="verify-code">获取验证码</span>
+            <div class="divider"></div>
+        </div>
+      
+      <div class="password">新手机号码</div>
+      <input class="psw-input" type="text" placeholder="请输入新手机号码" />
       <div class="divider"></div>
-      <div class="password">新安全密码</div>
-      <input class="psw-input" type="text" placeholder="请输入新安全密码" />
     </div>
     <div class="error-msg" v-if="false">*原安全密码不正确</div>
     <r-button text="确定" width="90%" class="comfirm"/>
@@ -19,9 +24,7 @@ export default {};
 
 <style lang="scss" scoped>
 .content {
-  background-color: $border2;
   margin: 70px 15px 0px;
-  padding: 15px;
 
   .password {
     font-size: 12px;
@@ -41,8 +44,13 @@ export default {};
   .divider {
       width: 100%;
       height: 1px;
-      background-color: $bg;
+      background-color: #e2e2e2;
       margin: 15px 0;
+  }
+  .verify-code{
+      font-size: 14px;
+      position: absolute;
+      right: 15px;
   }
 }
 .error-msg{

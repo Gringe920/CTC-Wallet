@@ -26,7 +26,10 @@ import Home from './views/Home.vue'
 // // import AdvertDetails from './views/user/advertDetails.vue' //公告详情
 // const AdvertDetails = () => import(/* webpackChunkName: "user" */ './views/user/advertDetails.vue');
 const User = () => import(/* webpackChunkName: "user" */ './views/user/index.vue');
+const Info = () => import(/* webpackChunkName: "user" */ './views/user/info.vue');
 const Lang = () => import(/* webpackChunkName: "user" */ './views/user/lang.vue');
+const nickname = () => import(/* webpackChunkName: "user" */ './views/user/nickname.vue');
+
 // // import AccountManage from './views/user/accountManage' //账号管理
 // const AccountManage = () => import(/* webpackChunkName: "user" */ './views/user/accountManage.vue');
 // // import ExportAddr from './views/user/exportAddr' //导出地址
@@ -34,7 +37,8 @@ const Lang = () => import(/* webpackChunkName: "user" */ './views/user/lang.vue'
 // // import MnemonicWord from './views/user/mnemonicWord' //备份助记词
 // const MnemonicWord = () => import(/* webpackChunkName: "user" */ './views/user/mnemonicWord.vue');
 // // import ChangeSecurePsw from './views/user/changeSecurePsw' //修改安全密码
-// const ChangeSecurePsw = () => import(/* webpackChunkName: "user" */ './views/user/changeSecurePsw.vue');
+const changePsw = () => import(/* webpackChunkName: "user" */ './views/user/changePsw.vue');
+const changeTelephone = () => import(/* webpackChunkName: "user" */ './views/user/changeTelephone.vue');
 // // import AddrDetail from './views/user/addrDetail' //地址详情
 // const AddrDetail = () => import(/* webpackChunkName: "user" */ './views/user/addrDetail.vue');
 // // import RemoveAddr from './views/user/removeAddr' //移除地址
@@ -94,9 +98,31 @@ export default new Router({
             component: User
         },
         {
+            path: '/info',
+            name: 'info',
+            component: Info
+        },
+        {
+            path: '/nickname',
+            name: 'nickname',
+            component: nickname
+        },
+        {
             path: '/lang',
             name: 'lang',
             component: Lang
         },
+        {
+            path: '/changePsw',
+            name: 'changePsw',
+            component: changePsw
+        },
+        {
+            path: '/changeTelephone',
+            name: 'changeTelephone',
+            component: changeTelephone
+        },
+        
+        
     ]
 })
