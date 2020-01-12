@@ -43,6 +43,12 @@ const changeTelephone = () => import(/* webpackChunkName: "user" */ './views/use
 const changeTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/changeTradePsw.vue');
 const setTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/setTradePsw.vue');
 const certification = () => import(/* webpackChunkName: "user" */ './views/user/certification.vue');
+const uploadCertification = () => import(/* webpackChunkName: "user" */ './views/user/uploadCertification.vue');
+const selectWithdrawAddr = () => import(/* webpackChunkName: "user" */ './views/user/selectWithdrawAddr.vue');
+const addWithdrawAddr = () => import(/* webpackChunkName: "user" */ './views/user/addWithdrawAddr.vue');
+const payway = () => import(/* webpackChunkName: "user" */ './views/payway/index.vue');
+
+
 // // import AddrDetail from './views/user/addrDetail' //地址详情
 // const AddrDetail = () => import(/* webpackChunkName: "user" */ './views/user/addrDetail.vue');
 // // import RemoveAddr from './views/user/removeAddr' //移除地址
@@ -145,6 +151,26 @@ export default new Router({
             path: '/certification',
             name: 'certification',
             component: certification
+        },
+        {
+            path: '/uploadCertification',
+            name: 'uploadCertification',
+            component: uploadCertification
+        },
+        {
+            path: '/selectWithdrawAddr',
+            name: 'selectWithdrawAddr',
+            component: selectWithdrawAddr
+        },
+        {
+            path: '/addWithdrawAddr',
+            name: 'addWithdrawAddr',
+            component: addWithdrawAddr
+        },
+        {
+            path: '/payway',
+            name: 'payway',
+            component: payway
         },
     ]
 })

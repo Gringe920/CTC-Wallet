@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  margin: 70px 15px 0px;
+  padding: 50px 15px 0px;
   .inp-box{
       display: flex;
       justify-content: space-between;
