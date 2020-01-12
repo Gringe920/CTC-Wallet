@@ -28,7 +28,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/download'})">
+            <div class="user-nav-item" @click="$router.push({path: '/certification'})">
                 <i class="icon my_identity"></i>
                 <p>身份认证</p>
                 <div class="turn-right">

@@ -42,7 +42,7 @@ const changePsw = () => import(/* webpackChunkName: "user" */ './views/user/chan
 const changeTelephone = () => import(/* webpackChunkName: "user" */ './views/user/changeTelephone.vue');
 const changeTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/changeTradePsw.vue');
 const setTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/setTradePsw.vue');
-
+const certification = () => import(/* webpackChunkName: "user" */ './views/user/certification.vue');
 // // import AddrDetail from './views/user/addrDetail' //地址详情
 // const AddrDetail = () => import(/* webpackChunkName: "user" */ './views/user/addrDetail.vue');
 // // import RemoveAddr from './views/user/removeAddr' //移除地址
@@ -140,6 +140,11 @@ export default new Router({
             path: '/setTradePsw',
             name: 'setTradePsw',
             component: setTradePsw
+        },
+        {
+            path: '/certification',
+            name: 'certification',
+            component: certification
         },
     ]
 })
