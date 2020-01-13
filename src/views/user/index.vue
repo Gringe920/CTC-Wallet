@@ -21,7 +21,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/invite'})">
+            <div class="user-nav-item" @click="$router.push({path: '/addWithdrawAddr'})">
                 <i class="icon my_extract"></i>
                 <p>提币地址</p>
                 <div class="turn-right">

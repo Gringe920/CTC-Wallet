@@ -15,7 +15,7 @@
                   <div class="p-num">13823240890</div>
               </div>
               <div class="select-radio">
-                  <img src="" alt="">
+                  <r-switch v-model="isWechat"/>
               </div>
           </div>
           <div class="line"></div>
@@ -28,7 +28,7 @@
                   <div class="p-num">13823240890</div>
               </div>
               <div class="select-radio">
-                  <img src="" alt="">
+                  <r-switch v-model="isAlipay"/>
               </div>
           </div>
           <div class="line"></div>
@@ -41,7 +41,7 @@
                   <div class="p-num">13823240890</div>
               </div>
               <div class="select-radio">
-                  <img src="" alt="">
+                  <r-switch v-model="isBank"/>
               </div>
           </div>
           <div class="line"></div>
@@ -52,7 +52,18 @@
 
 <script>
 export default {
-
+    data(){
+        return{
+            isWechat: false,
+            isAlipay: false,
+            isBank: false
+        }
+    },
+    watch: {
+        isWechat(val){
+            console.log(val)
+        }
+    }
 }
 </script>
 
@@ -72,6 +83,7 @@ section{
         display: flex;
         align-items: center;
         padding: 15px 0;
+        position: relative;
         .pay-logo{
             width: 34px;
             margin-right: 10px;
@@ -87,6 +99,13 @@ section{
                 color: #97A2AF;
                 font-size: 12px;
             }
+        }
+        .select-radio{
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
         }
     }
 }

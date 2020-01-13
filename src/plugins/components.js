@@ -10,6 +10,7 @@ const powerDetail = () => import(/* webpackChunkName: "components" */ '../compon
 const modal = () => import(/* webpackChunkName: "components" */ '../components/modal');
 const copy = () => import(/* webpackChunkName: "components" */ '../components/copy');
 const load = () => import(/* webpackChunkName: "components" */ '../components/load');
+const rSwitch = () => import(/* webpackChunkName: "components" */ '../components/switch');
 
 Vue.component('Header', header);
 Vue.component('rButton', button);
@@ -21,3 +22,4 @@ Vue.component('PowerDetail', powerDetail);
 Vue.component('rModal', modal);
 Vue.component('rCopy', copy);
 Vue.component('load', load);
+Vue.component('rSwitch', rSwitch);

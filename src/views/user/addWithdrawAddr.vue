@@ -3,7 +3,7 @@
       <Header title="添加提币地址"/>
       <div class="container">
           <div  class="info-list">
-          <div class="info-item" @click="$router.push({path: '/nickname'})">
+          <div class="info-item">
                   <span class="i-k">币种</span>
                       <div class="turn-right">
                           <span>请选择币种</span>
@@ -19,11 +19,10 @@
                       </div>
                   <div class="line"></div>
               </div>
-              <div class="info-item" @click="$router.push({path: '/nickname'})">
+              <div class="info-item">
                   <span class="i-k">标签</span>
                       <div class="turn-right">
                           <span>用于表示这个地址自定义名称</span>
-                            <i></i>
                       </div>
                   <div class="line"></div>
               </div>
