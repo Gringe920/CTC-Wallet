@@ -70,6 +70,7 @@ const Lang = () => import(/* webpackChunkName: "user" */ './views/user/lang.vue'
 // const AlphaPowerDetail = () => import(/* webpackChunkName: "dapp" */ './views/dapp/alphaPowerDetail.vue');
 // // import BetaPowerDetail from './views/dapp/betaPowerDetail' //β算力明细
 // const BetaPowerDetail = () => import(/* webpackChunkName: "dapp" */ './views/dapp/betaPowerDetail.vue');
+const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
 
 Vue.use(Router)
 export default new Router({
@@ -81,12 +82,12 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/home'
+            redirect: '/ctc'
         },
         {
-            path: '/home',
-            name: 'home',
-            component: Home
+            path: '/ctc',
+            name: 'ctc',
+            component: Ctc
         },
         {
             path: '/user',

@@ -2,9 +2,9 @@
     <div id="app">
         <router-view/>
         <div v-if="showNav" class="bg navall" >
-            <router-link tag="a"   to="/home"   :class="($route.name=='empty'||$route.name=='home')?'nav-active':''">
+            <router-link tag="a"   to="/ctc"   :class="($route.name=='empty'||$route.name=='home')?'nav-active':''">
                 <div class="thenav">
-                    <img src="./assets/images/home_transaction_press@2x.png" alt="" srcset="" v-if="$route.name=='home'" >
+                    <img src="./assets/images/home_transaction_press@2x.png" alt="" srcset="" v-if="$route.name=='ctc'" >
                     <img src="./assets/images/home_transaction@2x.png" alt="" srcset="" v-else >
                     <span class="nav-title">交易</span>
                 </div>
@@ -44,7 +44,7 @@
         components: {TrustBtc, Binding},
         data() {
             return {
-                routeList: ['home', 'wallet', 'dapp', 'user']
+                routeList: ['ctc', 'wallet', 'dapp', 'user']
             };
         },
         watch:{

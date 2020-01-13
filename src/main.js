@@ -9,12 +9,10 @@ import './assets/css/common.scss'
 import './plugins/components'
 import './plugins/index'
 import Toast from "@/components/toast"
-
 // import "./plugins/wallet";
 // import "./plugins/decimal";
 
 Vue.use(Toast);
-
 Vue.config.productionTip = false;
 new Vue({
     router,

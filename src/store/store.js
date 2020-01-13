@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import { mapState } from 'vuex'
 
 Vue.use(Vuex);
-
 Vue.mixin({
     computed : {
         ...mapState([
@@ -69,8 +68,12 @@ export default new Vuex.Store({
         coinVolume : [], // 当前地址货币列表
         fee : 0, // 手续费
         adData : [],  // 公告数据
+        buySellShow:false,
     },
     mutations: {
+        buySellShow (state, data) {
+            state.buySellShow = data;
+        },
         inviteX (state, data) {
             state.inviteX = data;
         },

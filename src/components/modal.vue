@@ -52,19 +52,23 @@
         background: rgba(0,0,0,.5);
         z-index: 10;
         .modal-container{
-            background: $border2;
+            background: $white;
             width: 92%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border-radius:16px 16px 0px 0px;
+            border-radius:7px;
             padding: 0 0 15px;
             position: absolute;
             color:$white;
             .modal-header{
                 text-align: center;
                 padding: 30px 0;
-                color: $active;
+                color: $color2;
+            }
+            .modal-content{
+                color: $color1;
+                text-align: center;
             }
             .modal-footer{
                 display: flex;
@@ -72,7 +76,6 @@
                 align-items: center;
                 padding: 25px 15px 15px;
                 button{
-                    border-radius:44px;
                     font-size: 16px;
                     text-align: center;
                     appearance: none;
@@ -82,8 +85,8 @@
                     background-color: transparent;
                 }
                 .cancel{
-                    border:1px solid $active;
-                    color: $active;
+                    border:1px solid $color1;
+                    color: $color1;
                 }
                 .comfirm{
                     color: $btnFontColor;
