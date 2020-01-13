@@ -8,7 +8,7 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
   display: block;
 }
 input{
-
+  border: 0;
   color:$color2;
 }
 
@@ -75,7 +75,7 @@ body, html, #app {
   display: block;
   line-height: 44px;
   text-align: center;
-  background: $active;
+  background: $fontActive;
   color: $white;
   height: 44px;
   

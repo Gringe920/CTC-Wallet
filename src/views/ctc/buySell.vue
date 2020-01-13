@@ -91,7 +91,7 @@ export default {
       }
       .r2 {
         font-family: 14px;
-        color: $active;
+        color: $fontActive;
       }
       .img2 {
         width: 15px;
@@ -143,7 +143,7 @@ export default {
         width: 20%;
         text-align: center;
         font-size: 14px;
-        color: $active;
+        color: $fontActive;
       }
     }
   }

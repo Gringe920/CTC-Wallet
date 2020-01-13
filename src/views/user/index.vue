@@ -75,7 +75,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container{
-    min-height: 100vh;
+    height: 100%;
+    background-color: #fff;
     .turn-right{
                     position: absolute;
                     right: 0;
@@ -95,8 +96,9 @@ export default {
     .userinfo{
         display: flex;
         align-items: center;
-        margin: 40px 30px;
+        padding: 40px 0;
         position: relative;
+        margin: 0 30px;
         .avatar{
             width: 9.6%;
             margin-right: 15px;

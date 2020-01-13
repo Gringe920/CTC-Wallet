@@ -47,7 +47,8 @@ export default {
 <style lang="scss" scoped>
 .container{
     height: 100%;
-    margin-top: 50px;
+    padding-top: 50px;
+    
     .info-container{
         margin: 0 15px;
         .info-list{
