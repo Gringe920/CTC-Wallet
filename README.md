@@ -1,4 +1,4 @@
-# rcp-wallet
+# ctc-wallet
 
 ## Project setup
 ```

@@ -35,7 +35,7 @@
             <div>数量 169888.26 USDT</div>
             <div>限额 199.00-20000.00 CNY</div>
           </div>
-          <div  @click="bugSellShow = !bugSellShow" class="right" >
+          <div  @click="buySellShow = !buySellShow" class="right" >
             购买
           </div>
         </div>
@@ -81,7 +81,7 @@ export default {
       this.isShowModal = false;
     },
     showActivatedModal() {
-      this.isShowModal = true;
+      this.isShowModal = true;   
     }
   }
 };

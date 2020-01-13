@@ -1,6 +1,6 @@
 <template>
     <section class="header" :style="`background:${color}`">
-        <img  v-if="leftShow && !leftIcon"  @click="reply" src="../assets/images/home_search_white@2x.png" alt="" class="icon_l">
+        <img  v-if="leftShow && !leftIcon"  @click="reply" src="../assets/images/return_black@2x.png" alt="" class="icon_l">
         <img  v-if="leftShow && leftIcon"  @click="reply" :src="leftIcon" alt="" class="icon_l">
         <span>{{title}}</span>
         <span   @click="totextpath"  v-if="righttext" class="text_r" >{{righttext}}</span>
@@ -107,13 +107,14 @@
         width: 100vw;
         color: $active;
         text-align: center;
+        border-bottom: 1px solid #f2f2f2;
         span {
             line-height: 50px;
             
         }
         img {
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             margin-top: 13px;
         }
         .icon_l {

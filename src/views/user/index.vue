@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="userinfo">
+        <div class="userinfo" @click="$router.push({path: '/info'})">
             <div class="avatar">
                 <img src="../../assets/images/china@2x.png" alt="">
             </div>
@@ -28,14 +28,14 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/download'})">
+            <div class="user-nav-item" @click="$router.push({path: '/certification'})">
                 <i class="icon my_identity"></i>
                 <p>身份认证</p>
                 <div class="turn-right">
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
+            <div class="user-nav-item" @click="$router.push({path: '/setTradePsw'})">
                 <i class="icon my_lock"></i>
                 <p>交易密码</p>
                 <div class="turn-right">
@@ -52,7 +52,7 @@
                     <i></i>
                 </div>
             </div>
-            <div class="user-nav-item" @click="$router.push({path: '/lang'})">
+            <div class="user-nav-item" @click="$router.push({path: '/about'})">
                 <i class="icon my_about"></i>
                 <p>关于我们</p>
                 <div class="turn-right">

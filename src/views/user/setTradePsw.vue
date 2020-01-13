@@ -1,12 +1,13 @@
 <template>
   <div class="container">
-    <Header title="修改安全密码" />
+    <Header title="设置交易密码" />
     <div class="content">
-      <div class="password">原安全密码</div>
-      <input class="psw-input" type="text" placeholder="请输入原安全密码" />
+      <div class="password">交易密码</div>
+      <input class="psw-input" type="text" placeholder="请输入交易密码" />
       <div class="divider"></div>
-      <div class="password">新安全密码</div>
-      <input class="psw-input" type="text" placeholder="请输入新安全密码" />
+      <div class="password">确定密码</div>
+      <input class="psw-input" type="text" placeholder="再次确定交易密码" />
+      <div class="divider"></div>
     </div>
     <div class="error-msg" v-if="false">*原安全密码不正确</div>
     <r-button text="确定" width="90%" class="comfirm"/>
@@ -19,9 +20,7 @@ export default {};
 
 <style lang="scss" scoped>
 .content {
-  background-color: $border2;
   margin: 70px 15px 0px;
-  padding: 15px;
 
   .password {
     font-size: 12px;
@@ -41,7 +40,7 @@ export default {};
   .divider {
       width: 100%;
       height: 1px;
-      background-color: $bg;
+      background-color: #e2e2e2;
       margin: 15px 0;
   }
 }
