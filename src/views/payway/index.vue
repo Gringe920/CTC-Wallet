@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="line"></div>
-      <r-button text="添加收款方式" width="90%" class="btn-submit" @click="$router.push({path: '/selectPayway'})"/>
+      <r-button text="添加收款方式" width="90%" class="btn-submit" @comfirm="$router.push({path: '/selectPayway'})"/>
     </div>
   </section>
 </template>

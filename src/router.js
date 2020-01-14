@@ -17,6 +17,11 @@ const selectWithdrawAddr = () => import(/* webpackChunkName: "user" */ './views/
 const addWithdrawAddr = () => import(/* webpackChunkName: "user" */ './views/user/addWithdrawAddr.vue');
 const payway = () => import(/* webpackChunkName: "user" */ './views/payway/index.vue');
 const selectPayway = () => import(/* webpackChunkName: "user" */ './views/payway/selectPayway.vue');
+const addBank = () => import(/* webpackChunkName: "user" */ './views/payway/addBank.vue');
+const searchBank = () => import(/* webpackChunkName: "user" */ './views/payway/searchBank.vue');
+const addWechat = () => import(/* webpackChunkName: "user" */ './views/payway/addWechat.vue');
+const addAlipay = () => import(/* webpackChunkName: "user" */ './views/payway/addAlipay.vue');
+
 
 const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
 
@@ -111,6 +116,26 @@ export default new Router({
             path: '/selectPayway',
             name: 'selectPayway',
             component: selectPayway
+        },
+        {
+            path: '/addBank',
+            name: 'addBank',
+            component: addBank
+        },
+        {
+            path: '/searchBank',
+            name: 'searchBank',
+            component: searchBank
+        },
+        {
+            path: '/addWechat',
+            name: 'addWechat',
+            component: addWechat
+        },
+        {
+            path: '/addAlipay',
+            name: 'addAlipay',
+            component: addAlipay
         },
     ]
 })

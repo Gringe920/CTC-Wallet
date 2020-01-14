@@ -4,7 +4,7 @@
     <div class="container">
       <div class="tips">*请至少添加一种支付方式</div>
       <div class="line"></div>
-      <div class="pay-box">
+      <div class="pay-box"  @click="$router.push({path: '/addWechat'})">
         <div class="pay-logo">
           <img src="../../assets/images/set_wechat@2x.png" alt />
         </div>
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="line"></div>
-      <div class="pay-box">
+      <div class="pay-box" @click="$router.push({path: '/addBank'})">
         <div class="pay-logo">
           <img src="../../assets/images/set_card@2x.png" alt />
         </div>
@@ -38,7 +38,7 @@
           <div class="p-tit">工商银行卡</div>
         </div>
         <div class="turn-right">
-          <span class="blue">已添加</span>
+          <span class="blue">未添加</span>
           <i></i>
         </div>
       </div>

@@ -26,7 +26,7 @@
           </div>
           <div class="line"></div>
         </div>
-        <div class="info-item" @click="$router.push({path: '/changeSecurePsw'})">
+        <div class="info-item" @click="$router.push({path: '/changePsw'})">
           <span class="i-k">修改登录密码</span>
           <div class="turn-right">
             <i></i>
