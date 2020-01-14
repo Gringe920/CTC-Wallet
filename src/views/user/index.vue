@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="user-navigation">
-      <div class="user-nav-item" @click="clickBinding">
+      <div class="user-nav-item" @click="$router.push({path: '/payway'})">
         <i class="icon my_receivables"></i>
         <p>收款方式</p>
         <div class="turn-right">
