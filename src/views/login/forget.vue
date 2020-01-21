@@ -2,17 +2,18 @@
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
-      <span @click="$router.push({path: '/phoneRegist'})">注册</span>
     </div>
     <div class="container">
-      <div class="l-tit">用户登录</div>
+      <div class="l-tit">登录密码</div>
       <div class="l-info-box">
-        <input placeholder="手机或邮箱" type="number" v-model="account" class="account"/>
+        <input placeholder="请输入密码" type="number" v-model="account" class="account"/>
         <div class="line"></div>
-        <input placeholder="密码" type="password"/>
+        <div class="code-box">
+          <input placeholder="请输入验证码" type="password" />
+          <span>发送验证码</span>
+        </div>
         <div class="line"></div>
-        <r-button text="立即登录" class="btn-login"/>
-        <span class="forget">忘记密码？</span>
+        <r-button text="下一步" class="btn-login"/>
       </div>
     </div>
   </section>
@@ -73,6 +74,16 @@ section {
       margin-bottom: 10px;
     }
     .l-info-box {
+      .code-box{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        span{
+          color: #1771ED;
+          font-size: 14px;
+          text-align: right;
+        }
+      }
       input {
         padding: 15px 0;
       }

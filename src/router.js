@@ -22,6 +22,12 @@ const searchBank = () => import(/* webpackChunkName: "user" */ './views/payway/s
 const addWechat = () => import(/* webpackChunkName: "user" */ './views/payway/addWechat.vue');
 const addAlipay = () => import(/* webpackChunkName: "user" */ './views/payway/addAlipay.vue');
 
+const login = () => import(/* webpackChunkName: "user" */ './views/login/index.vue');
+const phoneRegist = () => import(/* webpackChunkName: "user" */ './views/login/phoneRegist.vue');
+const emailRegist = () => import(/* webpackChunkName: "user" */ './views/login/emailRegist.vue');
+const searchArea = () => import(/* webpackChunkName: "user" */ './views/login/searchArea.vue');
+const forget = () => import(/* webpackChunkName: "user" */ './views/login/forget.vue');
+
 
 const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
 
@@ -136,6 +142,31 @@ export default new Router({
             path: '/addAlipay',
             name: 'addAlipay',
             component: addAlipay
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: login
+        },
+        {
+            path: '/phoneRegist',
+            name: 'phoneRegist',
+            component: phoneRegist
+        },
+        {
+            path: '/emailRegist',
+            name: 'emailRegist',
+            component: emailRegist
+        },
+        {
+            path: '/searchArea',
+            name: 'searchArea',
+            component: searchArea
+        },
+        {
+            path: '/forget',
+            name: 'forget',
+            component: forget
         },
     ]
 })

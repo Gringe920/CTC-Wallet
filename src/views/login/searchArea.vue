@@ -3,13 +3,13 @@
     <div class="search-header">
       <div class="search-inp">
         <i></i>
-        <input type="text" placeholder="搜索银行名称"/>
+        <input type="text" placeholder="请选择国家或地区"/>
       </div>
       <span class="cancel" @click="$router.go(-1)">取消</span>
     </div>
     <div class="line"></div>
     <div class="bank-list">
-      <div class="bank-item">招商银行</div>
+      <div class="bank-item"><span>阿富汗</span><span class="code">+93</span></div>
     </div>
   </section>
 </template>
@@ -55,6 +55,12 @@ export default {
   .bank-item{
     padding: 15px;
     font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span.code{
+      color: #97A2AF;
+    }
   }
 }
 </style>
