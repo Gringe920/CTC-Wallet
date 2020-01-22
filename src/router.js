@@ -166,7 +166,7 @@ export default new Router({
             path: '/searchArea',
             name: 'searchArea',
             component: searchArea
-        },
+        },git
         {
             path: '/forget',
             name: 'forget',
