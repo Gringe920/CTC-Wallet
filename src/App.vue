@@ -9,13 +9,13 @@
                     <span class="nav-title">交易</span>
                 </div>
             </router-link>
-            <a @click="dispark" :class="$route.name=='dapp'?'nav-active':''" >
+            <router-link tag="a" to="/order" :class="$route.name=='order'?'nav-active':''" >
                 <div class="thenav">
                     <img src="./assets/images/home_order_press@2x.png" alt="" srcset="" v-if="$route.name=='dapp'" >
                     <img src="./assets/images/home_order@2x.png" alt="" srcset="" v-else >
                     <span class="nav-title" >订单</span>
                 </div>
-            </a>
+            </router-link>
             <router-link tag="a" to="/wallet" :class="$route.name=='wallet'?'nav-active':''" >
                 <div class="thenav">
                     <img src="./assets/images/home_wallet_press@2x.png" alt="" srcset="" v-if="$route.name=='wallet'" >

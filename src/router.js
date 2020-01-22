@@ -28,6 +28,8 @@ const emailRegist = () => import(/* webpackChunkName: "user" */ './views/login/e
 const searchArea = () => import(/* webpackChunkName: "user" */ './views/login/searchArea.vue');
 const forget = () => import(/* webpackChunkName: "user" */ './views/login/forget.vue');
 
+const order = () => import(/* webpackChunkName: "user" */ './views/order/index.vue');
+
 
 const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
 
@@ -167,6 +169,11 @@ export default new Router({
             path: '/forget',
             name: 'forget',
             component: forget
+        },
+        {
+            path: '/order',
+            name: 'order',
+            component: order
         },
     ]
 })
