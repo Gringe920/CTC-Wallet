@@ -29,6 +29,8 @@ const searchArea = () => import(/* webpackChunkName: "user" */ './views/login/se
 const forget = () => import(/* webpackChunkName: "user" */ './views/login/forget.vue');
 
 const order = () => import(/* webpackChunkName: "user" */ './views/order/index.vue');
+const publish = () => import(/* webpackChunkName: "user" */ './views/order/publish.vue');
+const result = () => import(/* webpackChunkName: "user" */ './views/order/result.vue');
 
 
 const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
@@ -174,6 +176,16 @@ export default new Router({
             path: '/order',
             name: 'order',
             component: order
+        },
+        {
+            path: '/publish',
+            name: 'publish',
+            component: publish
+        },
+        {
+            path: '/result',
+            name: 'result',
+            component: result
         },
     ]
 })
