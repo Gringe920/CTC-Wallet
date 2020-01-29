@@ -91,6 +91,7 @@ export default {
   position: relative;
   height: auto;
   min-height: 100%;
+  background-color: #F7F9FC;
   .header {
     background: $bg;
     z-index: 10;
@@ -117,8 +118,8 @@ export default {
         font-size: 12px;
       }
       .tradeactive {
-        color: $active;
-        border: 1px solid $active;
+        color: $fontActive;
+        border: 1px solid $fontActive;
       }
     }
     .icon_l {
@@ -134,7 +135,7 @@ export default {
     }
     .text_r {
       font-size: 14px;
-      color: $active;
+      color: $fontActive;
     }
   }
   .buyall {
@@ -179,7 +180,7 @@ export default {
         padding: 10px 0;
         .left {
           font-size: 18px;
-          color: $active;
+          color: $fontActive;
         }
         .right {
           img {
@@ -204,7 +205,7 @@ export default {
         .right {
           width: 60px;
           height: 25px;
-          background: $active;
+          background: $fontActive;
           color: $white;
           font-size: 14px;
           line-height: 25px;
@@ -235,7 +236,7 @@ export default {
         }
       }
       .coinsactive {
-        color: $active;
+        color: $fontActive;
         font-size: 14px;
       }
     }

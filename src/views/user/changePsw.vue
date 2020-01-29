@@ -13,7 +13,7 @@
       <div class="divider"></div>
     </div>
     <div class="error-msg" v-if="false">*原安全密码不正确</div>
-    <r-button text="确定" width="90%" class="comfirm"/>
+    <r-button text="确定" width="90%" class="comfirm" />
   </div>
 </template>
 
@@ -32,30 +32,30 @@ export default {};
   }
 
   .psw-input {
-      font-size: 14px;
-      color: $active;
-      outline: none;
-      border: none;
-      background: none;
-      width: 100%;
+    font-size: 14px;
+    color: $active;
+    outline: none;
+    border: none;
+    background: none;
+    width: 100%;
   }
 
   .divider {
-      width: 100%;
-      height: 1px;
-      background-color: #e2e2e2;
-      margin: 15px 0;
+    width: 100%;
+    height: 1px;
+    background-color: #e2e2e2;
+    margin: 15px 0;
   }
 }
-.error-msg{
-    color: $up;
-    font-size: 12px;
-    padding:12px 0 0 15px;
+.error-msg {
+  color: $up;
+  font-size: 12px;
+  padding: 12px 0 0 15px;
 }
-.comfirm{
-    position: absolute;
-    bottom: 20px;
-    transform: translateX(-50%);
-    left: 50%;
+.comfirm {
+  position: absolute;
+  bottom: 20px;
+  transform: translateX(-50%);
+  left: 50%;
 }
 </style>
