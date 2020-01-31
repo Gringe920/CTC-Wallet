@@ -43,6 +43,9 @@
 </script>
 
 <style lang="scss" scoped>
+.active-content{
+    padding: 0 15px;
+}
     .modal-bg{
         position: fixed;
         top: 0;
@@ -56,6 +59,7 @@
             width: 92%;
             top: 50%;
             left: 50%;
+   
             transform: translate(-50%, -50%);
             border-radius:7px;
             padding: 0 0 15px;
@@ -90,7 +94,7 @@
                 }
                 .comfirm{
                     color: $btnFontColor;
-                    background-color: $active;
+                    background-color: $btnDefalutBg;
                 }
             }
         }

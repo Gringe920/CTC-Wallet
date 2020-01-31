@@ -11,7 +11,7 @@
             </router-link>
             <router-link tag="a" to="/order" :class="$route.name=='order'?'nav-active':''" >
                 <div class="thenav">
-                    <img src="./assets/images/home_order_press@2x.png" alt="" srcset="" v-if="$route.name=='dapp'" >
+                    <img src="./assets/images/home_order_press@2x.png" alt="" srcset="" v-if="$route.name=='order'" >
                     <img src="./assets/images/home_order@2x.png" alt="" srcset="" v-else >
                     <span class="nav-title" >订单</span>
                 </div>
@@ -44,7 +44,7 @@
         components: {TrustBtc, Binding},
         data() {
             return {
-                routeList: ['ctc', 'wallet', 'dapp', 'user']
+                routeList: ['ctc', 'wallet', 'dapp', 'user','order']
             };
         },
         watch:{

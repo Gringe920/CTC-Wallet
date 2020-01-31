@@ -35,7 +35,7 @@
             <div>数量 169888.26 USDT</div>
             <div>限额 199.00-20000.00 CNY</div>
           </div>
-          <div  @click="buySellShow = !buySellShow" class="right" >
+          <div  @click="changebuySellShow" class="right" >
             购买
           </div>
         </div>
@@ -62,26 +62,33 @@
   </section>
 </template>
 <script>
-import buySell from './buySell.vue'
-
+import { mapState } from "vuex";
+import buySell from "./buySell.vue";
 export default {
   name: "ctc",
   data() {
     return {
       isShowModal: false,
-      buySellShow:false,
       changcoinshow: false
     };
-  }, 
+  },
+  computed: {
+    ...mapState(["buySellShow"])
+  },
   components: {
-    buySell,
+    buySell
   },
   methods: {
+    changebuySellShow(){
+
+      this.$store.commit('buySellShow',true);
+      console.log(this.buySellShow)
+    },
     submitActive() {
       this.isShowModal = false;
     },
     showActivatedModal() {
-      this.isShowModal = true;   
+      this.isShowModal = true;
     }
   }
 };
@@ -91,7 +98,7 @@ export default {
   position: relative;
   height: auto;
   min-height: 100%;
-  background-color: #F7F9FC;
+  background-color: #f7f9fc;
   .header {
     background: $bg;
     z-index: 10;
@@ -216,7 +223,7 @@ export default {
   }
   .changcoin {
     width: 100%;
-    position: absolute;
+    position: fixed;
     min-height: 100%;
     height: 100%;
     top: 50px;

@@ -68,7 +68,9 @@ export default new Vuex.Store({
         coinVolume : [], // 当前地址货币列表
         fee : 0, // 手续费
         adData : [],  // 公告数据
-        buySellShow:false,
+        // 首页start
+        buySellShow: false,
+        //首页ens
     },
     mutations: {
         buySellShow (state, data) {

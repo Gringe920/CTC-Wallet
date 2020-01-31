@@ -98,7 +98,6 @@
 </script>
 <style lang="scss" scoped>
     .header {
-        background: $bg;
         z-index: 10;
         height: 50px;
         position: fixed;
@@ -108,6 +107,7 @@
         color: $active;
         text-align: center;
         border-bottom: 1px solid #f2f2f2;
+        background: $bg;
         span {
             line-height: 50px;
             

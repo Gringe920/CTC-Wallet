@@ -31,9 +31,11 @@ const forget = () => import(/* webpackChunkName: "user" */ './views/login/forget
 const order = () => import(/* webpackChunkName: "user" */ './views/order/index.vue');
 const publish = () => import(/* webpackChunkName: "user" */ './views/order/publish.vue');
 const result = () => import(/* webpackChunkName: "user" */ './views/order/result.vue');
-
-
+//交易模块页面
+const wallet = () => import(/* webpackChunkName: "ctc" */ './views/wallet/index.vue');
+//交易模块页面
 const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
+const Orderstatus = () => import(/* webpackChunkName: "ctc" */ './views/ctc/Orderstatus.vue');
 
 Vue.use(Router)
 export default new Router({
@@ -46,6 +48,16 @@ export default new Router({
         {
             path: '/',
             redirect: '/ctc'
+        },
+        {
+            path: '/wallet',
+            name: 'wallet',
+            component: wallet
+        },
+        {
+            path: '/Orderstatus',
+            name: 'Orderstatus',
+            component: Orderstatus
         },
         {
             path: '/ctc',
@@ -166,7 +178,7 @@ export default new Router({
             path: '/searchArea',
             name: 'searchArea',
             component: searchArea
-        },git
+        },
         {
             path: '/forget',
             name: 'forget',

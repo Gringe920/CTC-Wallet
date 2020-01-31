@@ -1,18 +1,16 @@
 <template>
     <section class="walletall">
-        <Header :title="$t(`wallet.name`)" :rightEv='toacceptCoin' :leftShow='false' :rightIcon="require('../../assets/images/record@2x.png')" ></Header>
+        <Header :title="$t(`wallet.name`)" :rightEv='toacceptCoin' :leftShow='false' :rightIcon="require('../../assets/images/record_black@2x.png')" ></Header>
         <div class="walletbanner">
             <div class="w-t">
                 <span>{{$t(`wallet.zichan`)}} </span>
                 <router-link class="gateway" to="/gateway">{{$t('Trust the gateway')}}</router-link>
-                <!--<img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye@2x.png" alt="" srcset="" v-if="!hidden">
-                <img  @click="hiddenmoney" src="../../assets/images/wallet_asset_eye_off@2x.png" alt="" srcset="" v-else>-->
             </div>
             <div class="w-t2">
-                <span>{{(decimal.mul((balancesXRP.value || 0), moneyConvert)).toFixed(2)}}</span>&nbsp;{{moneyUnit}}
+                <span>8900</span>&nbsp;CNY
+                <!-- <span>{{(decimal.mul((balancesXRP.value || 0), moneyConvert)).toFixed(2)}}</span>&nbsp;{{moneyUnit}} -->
             </div>
         </div>
-
         <div class="hiddenmoney">
             <div class="h_l" @click="hiddenmoney">
                 <img src="../../assets/images/night_asset_unchecked@2x.png" alt="" srcset="" v-if="!hidden">
@@ -30,7 +28,7 @@
             </div>
         </div>
 
-        <div class="money">
+        <!-- <div class="money">
             <div class="coin">BTC</div>
             <div class="coin2">{{balancesBTC.value || 0}} <span> ≈ 0 <small>{{moneyUnit}}</small></span> </div>
             <div class="coin3" v-if="balancesBTC.counterparty">
@@ -40,21 +38,20 @@
                 <div class="shou"  @click="$router.push('/shoukuan/btc')" >{{$t(`wallet.shou`)}}</div>
                 <div class="zhuan" @click="tozhuanzang('BTC')">{{$t(`wallet.fu`)}}</div>
             </div>
-        </div>
+        </div> -->
 
 
-        <div class="money" v-for="(item,index) in balancesOthers" :key="item.currency" v-if="!(hidden && item.value < 0.1)">
+        <!-- <div class="money" v-for="(item,index) in balancesOthers" :key="item.currency" v-if="!(hidden && item.value < 0.1)">
             <div class="coin">{{unitCoin(item.currency)}}</div>
             <div class="coin2">{{item.value || 0}} <span> ≈ 0 <small>{{moneyUnit}}</small></span> </div>
             <div class="coin3" v-if="unitCoin(item.currency) != $t('title')">
                 <div>{{$t(`gateway`)}}: {{item.counterparty || ''}}</div>
-                <!--<div class="c_l">{{$t(`wallet.nocan`)}}：&nbsp;  {{hidden?'******':item.nocan}} </div>-->
             </div>
             <div class="coin4">
                 <div class="shou"  @click="$router.push('/shoukuan/' + item.currency)" >{{$t(`wallet.shou`)}}</div>
                 <div class="zhuan" @click="tozhuanzang(item.currency)">{{$t(`wallet.fu`)}}</div>
             </div>
-        </div>
+        </div> -->
     </section>
 </template>
 <script>

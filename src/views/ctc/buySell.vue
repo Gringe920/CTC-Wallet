@@ -1,9 +1,9 @@
 <template>
   <section class="buySellbox" >
-    <div class="infos">
+    <div class="infos" v-if="show == 1">
       <div class="top top2">
         <div class="l ">购买</div>
-        <img class="img2" src="" alt="" srcset="">
+        <img class="img2" @click="changebuySellShow" src="../../assets/images/top_off_black@2x.png" alt="" srcset="">
       </div>
       <div class="top">
         <div class="l2">单笔限额</div>
@@ -35,18 +35,42 @@
          </div>
          <div class="right"> <span>全部</span></div>
        </div>
-       <div class="btn"> 出售</div>
+       <div class="btn" @click="order"> 出售</div>
+    </div>
+    <div class="pasword" v-if="show == 2">
+      <div class="top">
+        <div class="l ">请输入交易密码</div>
+        <img class="img2" @click="changebuySellShow" src="../../assets/images/top_off_black@2x.png" alt="" srcset="">
+      </div>
+      <div class="inp">
+        <input type="password" placeholder="输入交易密码">
+      </div>
+        <div class="inp">
+        <input type="password" placeholder="输入交易密码">
+        <div class="code">获取验证码</div>
+      </div>
+       <div class="btn"> 确定</div>
     </div>
   </section>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "buySellbox",
-  props: {
-    show: {
-      // 背景色
-      type: String,
-      default: false
+  data() {
+    return {
+      show:1,
+    };
+  },
+  computed: {
+    ...mapState(["buySellShow"])
+  },
+  methods: {
+    order(){
+      this.show = 2;
+    },
+    changebuySellShow() {
+      this.$store.commit("buySellShow", false);
     }
   }
 };
@@ -54,18 +78,67 @@ export default {
 <style lang="scss" scoped>
 .buySellbox {
   width: 100vw;
-  position: absolute;
   height: 100%;
   z-index: 100;
-  top: 50px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   background: rgba(0, 0, 0, 0.5);
+  .pasword {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: $white;
+    padding: 25px 15px;
+    border-radius: 16px 16px 0px 0px;
+    .top {
+      position: relative;
+      margin-bottom: 25px;
+      .l {
+        text-align: center;
+      }
+      .img2 {
+        position: absolute;
+        right: 0;
+        top: 0px;
+        width: 15px;
+        height: 15px;
+        margin-left: 10px;
+      }
+    }
+    .inp {
+      display: flex;
+      padding: 0 5px;
+      font-size: 12px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      height: 44px;
+      input {
+        min-width: 70%;
+        line-height: 44px;
+      }
+
+      .code {
+        // display: flex;
+        // align-items: center;
+        // .shu {
+        //   width: 2px;
+        //   height: 30px;
+        //   background: $color1;
+        // }
+        line-height: 44px;
+      }
+    }
+  }
   .infos {
+    border-radius: 16px 16px 0px 0px;
+    position: fixed;
+    bottom: 0px;
     width: 100%;
     background: $white;
     padding: 20px 15px;
