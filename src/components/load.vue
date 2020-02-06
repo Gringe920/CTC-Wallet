@@ -27,8 +27,8 @@
         height:0;
         border-left: 18px solid transparent;
         border-right: 18px solid transparent;
-        border-bottom: 18px solid $active;
-        border-top: 18px solid $primary;
+        border-bottom: 18px solid $fontActive;
+        border-top: 18px solid $color1;
         -webkit-animation: loader5 3s ease-in-out infinite alternate;
         animation: loader5 3s ease-in-out infinite alternate;
     }

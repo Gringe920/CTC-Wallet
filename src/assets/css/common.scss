@@ -70,7 +70,7 @@ body, html, #app {
 
 }
 .btn { //公共按钮 ，浮动在底部  
-    width: 100%;
+  width: 100%;
   bottom: 20px;
   display: block;
   line-height: 44px;
@@ -78,6 +78,8 @@ body, html, #app {
   background: $fontActive;
   color: $white;
   height: 44px;
+  z-index: 10;
+
   
 }
 .btn-submit{

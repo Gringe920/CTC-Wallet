@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="order-list">
+    <div class="order-list"  @click="toRoute('Orderstatus')">
       <div class="box unpublish">
         <div class="box-h">
           <div class="coin">

@@ -1,11 +1,13 @@
 <template>
   <section class="Orderstatus">
-    <Header title="购买USDT"></Header>
+    <Header title="购买USDT" ></Header>
     <div class="status">
-      <div class="line"></div>
+      <div class="line1"></div>
+      <div class="line2"></div>
+        <div class="line3"></div>
       <div>
         <div>
-               <img src="../../assets/images/details_selected@2x.png" alt="" srcset="">
+        <img src="../../assets/images/details_selected@2x.png" alt="" srcset="">
         <span class="spanactive">下单</span>
         </div>
       </div>
@@ -81,29 +83,51 @@
     </div>
     <div class="last">
       <div class="div1">
-        <div>
+      <div @click="toRoute('chat')">
         <img v-if='false' src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
         <img  src="../../assets/images/details_news@2x.png" alt="" srcset="">
-        <span>聊天</span>
+        <span :class="isPhoneModal?'fontactive':''">聊天</span>
       </div>
-      <div>
-        <img v-if='false' src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
-        <img  src="../../assets/images/details_iphone@2x.png" alt="" srcset="">
-        <span>联系对方</span>
+      <div @click="submitPhoneActive(true)">
+        <img v-if='isPhoneModal' src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
+        <img v-else  src="../../assets/images/details_iphone@2x.png" alt="" srcset="">
+        <span :class="isPhoneModal?'fontactive':''">联系对方</span>
       </div>
-      <div>
-        <img v-if='false' src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
-        <img  src="../../assets/images/details_order_cancel@2x.png" alt="" srcset="">
-        <span>取消订单</span>
+      <div @click="submitorderActive(true)" >
+        <img v-if='isdeleteorderModal' src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
+        <img v-else src="../../assets/images/details_order_cancel@2x.png" alt="" srcset="">
+        <span :class="isdeleteorderModal?'fontactive':''">取消订单</span>
+      </div>
+      <div  @click="submitshsuActive(true)" v-if="false">
+        <img v-if='isshensuModal' src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
+        <img v-else  src="../../assets/images/details_complaint@2x.png" alt="" srcset="">
+        <span :class="isshensuModal ?'fontactive':''">申诉</span>
       </div>
       </div>
-  
       <div class="submit">待付款</div>
         <r-modal title="确认付款"
              @on-ok="submitActive"
              :show="isShowModal"
              @on-cancel="isShowModal = false">
         <p class="active-content">请确认您已向对方付款，恶意点击将直接冻结账户。</p>
+    </r-modal>
+    <r-modal title='确定拨号'
+             @on-ok="submitPhoneActive(false)"
+             :show="isPhoneModal"
+             @on-cancel="isPhoneModal = false">
+        <p class="active-content">13823240888</p>
+    </r-modal>
+    <r-modal title='申诉'
+             @on-ok="submitshsuActive(false)"
+             :show="isshensuModal"
+             @on-cancel="isshensuModal = false">
+             <textarea class="textarea" name="" id=""  placeholder="请填写申诉内容"></textarea>
+    </r-modal>
+    <r-modal title='确认取消订单'
+             @on-ok="submitorderActive(false)"
+             :show="isdeleteorderModal"
+             @on-cancel="isdeleteorderModal = false">
+            <p class="active-content">确认取消该订单?</p>
     </r-modal>
     </div>
   </section>
@@ -113,17 +137,40 @@ export default {
   name: "Orderstatus",
   data() {
     return {
-        isShowModal:true,
+      isShowModal: false,
+      isPhoneModal: false,
+      isshensuModal: false,
+      isdeleteorderModal:false,
     };
   },
   methods: {
     submitActive() {
       this.isShowModal = false;
+    },
+    submitorderActive(data) {
+      this.isdeleteorderModal = data;
+    },
+    submitshsuActive(data) {
+      this.isshensuModal = data;
+    },
+    submitPhoneActive(data) {
+      this.isPhoneModal = data;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
+.fontactive{
+  color: $fontActive;
+}
+.textarea {
+  background: rgba(233, 233, 233, 0.5);
+  border-radius: 6px;
+  width: 90%;
+  padding: 10px;
+  min-height: 150px;
+  border: 1px solid rgba(233, 233, 233, 1);
+}
 .Orderstatus {
   padding-top: 50px;
   .status {
@@ -131,11 +178,27 @@ export default {
     justify-content: space-between;
     position: relative;
     margin: 10px 25px;
-    .line {
+    .line1 {
       position: absolute;
-      width: 90%;
+      width: 30%;
       top: 14px;
-      left: 10px;
+      left: 15px;
+      height: 1px;
+      border: 1px dashed $color4;
+    }
+      .line2 {
+      position: absolute;
+      width: 30%;
+      top: 14px;
+      left: 35%;
+      height: 1px;
+      border: 1px dashed $color4;
+    }
+      .line3 {
+      position: absolute;
+      width: 30%;
+      top: 14px;
+      left: 66%;
       height: 1px;
       border: 1px dashed $color4;
     }
@@ -222,7 +285,7 @@ export default {
       min-width: 50%;
       padding-right: 10px;
       display: flex;
-      justify-content: space-between;
+      justify-content:space-around;
       div {
         display: flex;
         flex-direction: column;

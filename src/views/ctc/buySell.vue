@@ -2,7 +2,7 @@
   <section class="buySellbox" >
     <div class="infos" v-if="show == 1">
       <div class="top top2">
-        <div class="l ">购买</div>
+        <div class="l ">{{buyType == 'buy'?'购买':"出售"}}USDT</div>
         <img class="img2" @click="changebuySellShow" src="../../assets/images/top_off_black@2x.png" alt="" srcset="">
       </div>
       <div class="top">
@@ -21,21 +21,21 @@
             <img src="../../assets/images/otc_alipay@2x.png" alt="" srcset="">
           </div>
       </div>
-       <div class="n">余额：8000.00 USDT &nbsp;去划转</div>
+       <div class="n" v-if="buyType != 'buy'">余额：8000.00 USDT &nbsp;去划转</div>
        <div class="inpbox">
          <div class="left">
            <div class="inp bt br">
-             <input type="text" placeholder="最大可卖出20000.00">
+             <input type="text" :placeholder="buyType == 'buy'?'最大可买入18000.00':'最大可卖出20000.00'">
              <span>CNY</span>
            </div>
             <div class="inp br">
-             <input type="text" placeholder="最大可卖出169888.26">
+             <input type="text" :placeholder="buyType == 'buy'?'最大可买入169888.26':'最大可卖出169888.26'">
              <span>USdt</span>
            </div>
          </div>
          <div class="right"> <span>全部</span></div>
        </div>
-       <div class="btn" @click="order"> 出售</div>
+       <div class="btn" @click="order"> {{buyType == 'buy'?'购买':"出售"}}</div>
     </div>
     <div class="pasword" v-if="show == 2">
       <div class="top">
@@ -63,7 +63,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["buySellShow"])
+    ...mapState(["buySellShow",'buyType'])
   },
   methods: {
     order(){
@@ -124,14 +124,9 @@ export default {
       }
 
       .code {
-        // display: flex;
-        // align-items: center;
-        // .shu {
-        //   width: 2px;
-        //   height: 30px;
-        //   background: $color1;
-        // }
         line-height: 44px;
+        padding-left: 10px;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
       }
     }
   }

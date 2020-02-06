@@ -31,11 +31,18 @@ const forget = () => import(/* webpackChunkName: "user" */ './views/login/forget
 const order = () => import(/* webpackChunkName: "user" */ './views/order/index.vue');
 const publish = () => import(/* webpackChunkName: "user" */ './views/order/publish.vue');
 const result = () => import(/* webpackChunkName: "user" */ './views/order/result.vue');
-//交易模块页面
+//资产页面
 const wallet = () => import(/* webpackChunkName: "ctc" */ './views/wallet/index.vue');
+const address = () => import(/* webpackChunkName: "ctc" */ './views/wallet/address.vue');
+const zhuanqian = () => import(/* webpackChunkName: "ctc" */ './views/wallet/zhuanqian.vue');//
+const addAdress = () => import(/* webpackChunkName: "ctc" */ './views/wallet/addAdress.vue');//
+
+const acceptCoin = () => import(/* webpackChunkName: "ctc" */ './views/wallet/acceptCoin.vue');//
+
 //交易模块页面
 const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
 const Orderstatus = () => import(/* webpackChunkName: "ctc" */ './views/ctc/Orderstatus.vue');
+const chat = () => import(/* webpackChunkName: "ctc" */ './views/ctc/chat.vue');
 
 Vue.use(Router)
 export default new Router({
@@ -50,9 +57,34 @@ export default new Router({
             redirect: '/ctc'
         },
         {
+            path: '/acceptCoin',
+            name: 'acceptCoin',
+            component: acceptCoin
+        },
+        {
+            path: '/address',
+            name: 'address',
+            component: address
+        },
+        {
+            path: '/addAdress',
+            name: 'addAdress',
+            component: addAdress
+        },
+        {
             path: '/wallet',
             name: 'wallet',
             component: wallet
+        },
+        {
+            path: '/zhuanqian',
+            name: 'zhuanqian',
+            component: zhuanqian
+        },
+        {
+            path: '/chat',
+            name: 'chat',
+            component: chat
         },
         {
             path: '/Orderstatus',

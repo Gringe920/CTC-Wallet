@@ -6,12 +6,12 @@
             <img  v-else  src="../../assets/images/triangle_upper@2x.png" alt="" srcset="">
         </div>
         <div class="center">
-            <div class="tradeactive">购买</div>
-            <div class="sell">出售</div>
+            <div class="sell" :class=" buyType == 'buy'?'tradeactive':''" @click="goBuyType('buy')">购买</div>
+            <div class="sell" :class=" buyType == 'sell'?'tradeactive':''"  @click="goBuyType('sell')">出售</div>
         </div>
-        <span  class="text_r" >发布</span>
+        <span  class="text_r">发布</span>
     </div>
-    <div class="buyall">
+    <div class="buyall" v-if="buyType == 'buy'">
       <div class="buymsg" v-for="item in 7 " :key="item">
         <div class="top">
           <div class="left">
@@ -37,6 +37,36 @@
           </div>
           <div  @click="changebuySellShow" class="right" >
             购买
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buyall" v-else>
+      <div class="buymsg" v-for="item in 7 " :key="item">
+        <div class="top">
+          <div class="left">
+            <img src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
+            <span>云淡风轻</span>
+          </div>
+          <div class="right">
+            月销售量：30
+          </div>
+        </div>
+        <div class="center">
+          <div class="left">6.98 &nbsp;CNY</div>
+          <div class="right">
+            <img src="../../assets/images/otc_bank_card@2x.png" alt="" srcset="">
+            <img src="../../assets/images/otc_wechat@2x.png" alt="" srcset="">
+            <img src="../../assets/images/otc_alipay@2x.png" alt="" srcset="">
+          </div>
+        </div>
+        <div class="last">
+          <div class="left">
+            <div>数量 169888.26 USDT</div>
+            <div>限额 199.00-20000.00 CNY</div>
+          </div>
+          <div  @click="changebuySellShow" class="right2" >
+            出售
           </div>
         </div>
       </div>
@@ -73,7 +103,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["buySellShow"])
+    ...mapState(["buySellShow",'buyType'])
   },
   components: {
     buySell
@@ -83,6 +113,9 @@ export default {
 
       this.$store.commit('buySellShow',true);
       console.log(this.buySellShow)
+    },
+    goBuyType(data){
+     this.$store.commit('buyType',data);
     },
     submitActive() {
       this.isShowModal = false;
@@ -115,14 +148,14 @@ export default {
     padding: 0 15px;
     .center {
       display: flex;
+      
       div {
         width: 60px;
-        height: 30px;
         text-align: center;
         line-height: 30px;
         border: 1px solid $border;
         color: $color1;
-        font-size: 12px;
+        font-size: 14px;
       }
       .tradeactive {
         color: $fontActive;
@@ -213,6 +246,15 @@ export default {
           width: 60px;
           height: 25px;
           background: $fontActive;
+          color: $white;
+          font-size: 14px;
+          line-height: 25px;
+          text-align: center;
+        }
+            .right2 {
+          width: 60px;
+          height: 25px;
+          background: #8F9CAD;
           color: $white;
           font-size: 14px;
           line-height: 25px;

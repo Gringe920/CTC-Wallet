@@ -38,9 +38,6 @@ let inviteAddress = 'r3X73sspnDdFfohkEaUHM81uyMtHuupB7W';
 let btcAddress = 'rfsxcm8AqdhCVz1re3bBn9pvwYtGtaTYEW';
 // rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ   sn884U2pfdWqCRKFsSve7wHx3rMJY
 let adAddress = 'rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ';
-
-
-
 export default new Vuex.Store({
     state: {
         rcp_info : {},  // rcp_info  rcp 系统相关地址
@@ -70,9 +67,13 @@ export default new Vuex.Store({
         adData : [],  // 公告数据
         // 首页start
         buySellShow: false,
+        buyType:'buy',
         //首页ens
     },
     mutations: {
+        buyType (state, data) {
+            state.buyType = data;
+        },
         buySellShow (state, data) {
             state.buySellShow = data;
         },

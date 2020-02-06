@@ -1,41 +1,39 @@
 <template>
     <section class="acceptCoin">
         <Header :title="$t(`wallet.jilu`)" :leftEv="leftEv"></Header>
-        <!--<div class="acceptCoin_type">-->
-            <!--<div    :class="0 == activeIdx ? 'divactive' : '' "  @click="changetype(0)">{{$t(`wallet.shou`)}}</div>-->
-            <!--<div   :class="1 == activeIdx ? 'divactive' : '' "  @click="changetype(1)">{{$t(`wallet.fu`)}}</div>-->
-            <!--<div    :class="2 == activeIdx ? 'divactive' : '' " @click="changetype(2)">{{$t(`wallet.duihuan`)}}</div>-->
-        <!--</div>-->
-        <!-- 收款 -->
+        <div class="acceptCoin_type">
+            <div    :class="0 == activeIdx ? 'divactive' : '' "  @click="changetype(0)">提币</div>
+            <div   :class="1 == activeIdx ? 'divactive' : '' "  @click="changetype(1)">充币</div>
+        </div>
+        <!-- 提币 -->
         <div class="zhuaninfo">
             <load v-if="loadState"></load>
             <div class="zhuan" v-for="item in list" :key="item.id" @click="$router.push('/detais/'+ item.id)">
                 <div class="top">
-                    <img src="../../assets/images/night_record_time@2x.png" alt srcset />
-                    {{item.outcome.ledgerVersion}} {{$t('ledgerVersion')}}
-                    <small>({{transactionTypeText(item)}})</small>
+                    <!-- <img src="../../assets/images/night_record_time@2x.png" alt srcset /> -->
+                    2019/09/01
                 </div>
                 <template v-if="item.type == 'payment'">
                     <div class="center">
                         <div>
-                            {{item.address == rcp.address ? '-' : '+'}}{{item.specification.source.maxAmount.value}} {{unitCoin(item.specification.source.maxAmount.currency)}}
+                            提币:&nbsp;6700&nbsp; RCp
                         </div>
-                        <img src="../../assets/images/triangle@2x.png" alt srcset />
+                        <img src="../../assets/images/next_black@2x.png" alt srcset />
                     </div>
-                    <div class="last">{{item.address == rcp.address ? item.specification.destination.address : item.specification.source.address}}</div>
+                    <div class="last">01/03 &nbsp;23:20</div>
                 </template>
                 <template v-if="item.type == 'trustline'">
                     <div class="center">
                         <div>
                             {{item.specification.currency}}
                         </div>
-                        <img src="../../assets/images/triangle@2x.png" alt srcset />
+                        <img src="../../assets/images/next_black@2x.png" alt srcset />
                     </div>
                     <div class="last">{{$t('gateway')}} : {{item.specification.counterparty}}</div>
                 </template>
             </div>
         </div>
-        <!-- 兑换 -->
+        <!-- 充币 -->
     </section>
 </template>
 <script>
@@ -44,31 +42,25 @@
         props : ['activeIdx'],
         data() {
             return {
-                //0 收款 1 转账 2 兑换
-                // activeIdx: this.$route.query.type || 0,
+                //0 提币 1 充币 
+                activeIdx: this.$route.query.type || 0,
                 list : [
                     {
                     id:1,
+                    type:'payment'
+                    },
+                       {
+                    id:1,
+                    type:'payment'
                     }
                 ],
-                loadState : true,
+                loadState : false,
                 routerNum : 0,
-
             };
         },
         watch : {
-            activeIdx (){
-                this.routerNum ++;
-                this.getPayment();
-            },
-            connected (n, o){
-                if(n != o){
-                    this.getPayment();
-                }
-            }
         },
         created (){
-            this.getPayment();
         },
         methods: {
             leftEv (){
@@ -84,30 +76,7 @@
                     this.$router.push({name : this.$route.name, params : {activeIdx}});
                 }
             },
-            getPayment (){
-                if(!this.connected){
-                    return;
-                }
-                let activeIdx = this.activeIdx;
-                this.loadState = true;
-                this.list = [];
-                this.rcp.api.getTransactions(this.rcp.address, {
-                    // counterparty : 'rL6ypidEnws5krUzb7Xo4EwJTwrr2zebfm',
-                    binary : true,
-                    excludeFailures : true,
-                    // initiated : activeIdx == 0 ? false : activeIdx == 1 ? true : null,
-                    types : ['payment', 'trustline'],
-                    limit : 100,
-                }).then(data => {
-                    // console.log(data);
-                    this.list = data;
-                    this.loadState = false;
-                }).catch(e => {
-                    console.log(e);
-                    this.list = [];
-                    this.loadState = false;
-                });
-            },
+    
         }
     };
 </script>
@@ -115,31 +84,32 @@
 <style lang="scss" scoped>
     // xm
     .acceptCoin {
+        text-transform: uppercase;
         margin-bottom: 60px;
         .acceptCoin_type {
             display: flex;
             margin-top: 50px;
+            background:#F9F9F9;
             justify-content: space-around;
             align-items: center;
-            background: $nav-bg;
             height: 35px;
             color: $color1;
             font-size: 14px;
             .divactive {
                 height: 100%;
                 line-height: 35px;
-                color: $active;
-                border-bottom: 1px solid $active;
+                color: $fontActive;
+                border-bottom: 1px solid $fontActive;
             }
             div:hover {
-                color: $active;
+                color: $fontActive;
                 line-height: 35px;
-                border-bottom: 1px solid $active;
+                border-bottom: 1px solid $fontActive;
             }
         }
         .zhuaninfo {
-            margin-top :50px;
-            border-top: solid 1px $border;
+        padding: 0 15px;
+            
             .zhuan {
                 color: $color1;
                 padding: 15px;
@@ -165,8 +135,8 @@
                         color: $active;
                     }
                     img {
-                        width: 8px;
-                        height: 8px;
+                        width: 14px;
+                        height: 14px;
                     }
                 }
             }
