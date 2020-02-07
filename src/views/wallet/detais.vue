@@ -1,6 +1,6 @@
 <template>
     <section class="detais">
-        <Header :title="$t(`wallet.txDetails`)" ></Header>
+        <Header title="提币详情" ></Header>
         <load v-if="loadState"></load>
         <section v-else>
             <div class="text" v-if="item.type == 'payment'">
@@ -59,33 +59,20 @@
         props :['id'],
         data(){
             return{
-                loadState : true,
-                item : {},
+                loadState : false,
+                item : {
+                    type:'payment',
+                },
             }
         },
         watch : {
-            connected (n, o){
-                if(n != o){
-                    this.getTX();
-                }
-            }
         },
         mounted(){
         },
         created (){
-            this.getTX();
         },
         methods : {
-            getTX (){
-                this.loadState = true;
-                this.rcp.api.getTransaction(this.id).then(data => {
-                    this.loadState = false;
-                    // console.log(data);
-                    this.item = data;
-                }).catch(e => {
-                    this.loadState = false;
-                })
-            },
+
         }
     };
 </script>

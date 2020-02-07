@@ -8,7 +8,7 @@
         <!-- 提币 -->
         <div class="zhuaninfo">
             <load v-if="loadState"></load>
-            <div class="zhuan" v-for="item in list" :key="item.id" @click="$router.push('/detais/'+ item.id)">
+            <div class="zhuan" v-for="item in list" :key="item.id" @click="$router.push('/detais')">
                 <div class="top">
                     <!-- <img src="../../assets/images/night_record_time@2x.png" alt srcset /> -->
                     2019/09/01
