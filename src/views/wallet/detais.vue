@@ -3,105 +3,66 @@
         <Header title="提币详情" ></Header>
         <load v-if="loadState"></load>
         <section v-else>
-            <div class="text" v-if="item.type == 'payment'">
-                {{item.address == rcp.address ? '-' : '+'}}
-                {{item.specification && item.specification.source.maxAmount.value}}
-                {{unitCoin(item.specification && item.specification.source.maxAmount.currency)}}
-            </div>
-            <div class="text" v-if="item.type == 'trustline'">
-                {{item.specification.currency}}
-            </div>
-            <div class="text2">{{$t('type')}}:</div>
+            <div class="t4">提币&nbsp;200&nbsp;RCP</div>
+            <div class="text2">支出</div>
             <div class="text3">
-                {{transactionTypeText(item)}}
+                -500 RCP，余额：8600.0000 RCP
             </div>
-            <template v-if="item.type == 'payment'">
-                <div class="text2">{{$t('from')}}:</div>
+               <div class="text2">转出地址</div>
                 <div class="text3" >
-                    <r-copy :copyText="item.specification && item.specification.source.address">
-                        {{item.specification && item.specification.source.address}}
-                    </r-copy>
+                   RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ
                 </div>
-                <div class="text2">{{$t('to')}}:</div>
-                <div class="text3">
-                    <r-copy :copyText="item.specification && item.specification.destination.address">
-                        {{item.specification && item.specification.destination.address}}
-                    </r-copy>
-                </div>
-            </template>
-            <template v-if="item.type == 'trustline'">
-                <div class="text2">{{$t('gateway')}}:</div>
-                <div class="text3">
-                    <r-copy :copyText="item.specification.counterparty">
-                        {{item.specification.counterparty}}
-                    </r-copy>
-                </div>
-            </template>
-            <div class="text2">ID:</div>
-            <div class="text3">
-                <r-copy :copyText="id">
-                    {{id}}
-                </r-copy>
-            </div>
-            <div class="text2">{{$t(`wallet.zhuanqian5`)}}</div>
-            <div class="text3">{{item.outcome && item.outcome.fee}} {{$t('title')}}</div>
-            <div class="text2">{{$t(`Trade.time`)}}</div>
-            <div class="text3">{{item.outcome && item.outcome.timestamp}}</div>
-            <div class="text2">{{$t(`ledgerVersion`)}}</div>
-            <div class="text3">{{item.outcome && item.outcome.ledgerVersion}}</div>
+           <div class="text2">创建时间</div>
+            <div class="text3">2019/01/03 08:00</div>
         </section>
-
     </section>
 </template>
 <script>
-    export default {
-        name: "detais",
-        props :['id'],
-        data(){
-            return{
-                loadState : false,
-                item : {
-                    type:'payment',
-                },
-            }
-        },
-        watch : {
-        },
-        mounted(){
-        },
-        created (){
-        },
-        methods : {
-
-        }
+export default {
+  name: "detais",
+  data() {
+    return {
+      loadState: false,
+      item: {
+        type: "payment"
+      }
     };
+  },
+  watch: {},
+  mounted() {},
+  created() {},
+  methods: {}
+};
 </script>
 <style lang="scss" scoped>
-     .detais {
-        overflow: hidden;
-        margin-top: 50px;
-        padding: 0 15px;
-        .text2 {
-            font-size: 12px;
-            color: $color1;
-            padding: 10px 0;
-            word-wrap: break-word;
-        }
-        .text {
-            color: $active;
-            font-size: 14px;
-            padding: 15px 0;
-            border-top: 1px solid $border;
-            border-bottom: 1px solid $border;
-            word-wrap: break-word;
-        }
-        .text3 {
-            padding-bottom: 10px;
-            color: $active;
-            font-size: 14px;
-            width: 100%;
-            word-wrap: break-word;
-        }
-    }
+.detais {
+  overflow: hidden;
+  padding: 50px 15px 0 15px;
+  
+  .text2 {
+    font-size: 12px;
+    color: $color1;
+    padding: 10px 0;
+    word-wrap: break-word;
+  }
+  .t4{
+      padding: 15px 0;
+  }
+  .text {
+    color: $active;
+    font-size: 14px;
+    padding: 15px 0;
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+    word-wrap: break-word;
+  }
+  .text3 {
+    padding-bottom: 10px;
+    color: $active;
+    font-size: 14px;
+    width: 100%;
+    word-wrap: break-word;
+  }
+}
 </style>
 

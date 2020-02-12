@@ -59,7 +59,7 @@ export default {
     background-color: $btnDefalutBg;
     font-weight: 500;
     &.bor-radio {
-      border-radius: 6px;
+      border-radius: 3px;
     }
   }
 }

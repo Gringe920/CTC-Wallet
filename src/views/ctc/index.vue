@@ -81,7 +81,7 @@
       </div>
     </div>
     <!-- 设置支付方式提醒 -->
-      <r-modal title="设置支付方式"
+    <r-modal title="设置支付方式"
              @on-ok="submitActive"
              :show="isShowModal"
              @on-cancel="isShowModal = false">
@@ -103,19 +103,17 @@ export default {
     };
   },
   computed: {
-    ...mapState(["buySellShow",'buyType'])
+    ...mapState(["buySellShow", "buyType"])
   },
   components: {
     buySell
   },
   methods: {
-    changebuySellShow(){
-
-      this.$store.commit('buySellShow',true);
-      console.log(this.buySellShow)
+    changebuySellShow() {
+      this.$store.commit("buySellShow", true);
     },
-    goBuyType(data){
-     this.$store.commit('buyType',data);
+    goBuyType(data) {
+      this.$store.commit("buyType", data);
     },
     submitActive() {
       this.isShowModal = false;
@@ -148,7 +146,6 @@ export default {
     padding: 0 15px;
     .center {
       display: flex;
-      
       div {
         width: 60px;
         text-align: center;
@@ -251,10 +248,10 @@ export default {
           line-height: 25px;
           text-align: center;
         }
-            .right2 {
+        .right2 {
           width: 60px;
           height: 25px;
-          background: #8F9CAD;
+          background: #8f9cad;
           color: $white;
           font-size: 14px;
           line-height: 25px;

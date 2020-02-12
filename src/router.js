@@ -37,7 +37,7 @@ const address = () => import(/* webpackChunkName: "ctc" */ './views/wallet/addre
 const zhuanqian = () => import(/* webpackChunkName: "ctc" */ './views/wallet/zhuanqian.vue');//
 const addAdress = () => import(/* webpackChunkName: "ctc" */ './views/wallet/addAdress.vue');//
 const acceptCoin = () => import(/* webpackChunkName: "ctc" */ './views/wallet/acceptCoin.vue');//
-
+const reCharge = () => import(/* webpackChunkName: "ctc" */ './views/wallet/reCharge.vue');//
 const detais = () => import(/* webpackChunkName: "ctc" */ './views/wallet/detais.vue');//
 
 //交易模块页面
@@ -61,6 +61,11 @@ export default new Router({
             path: '/detais',
             name: 'detais',
             component: detais
+        },
+        {
+            path: '/reCharge',
+            name: 'reCharge',
+            component: reCharge
         },
         {
             path: '/acceptCoin',

@@ -8,7 +8,6 @@
             </div>
             <div class="w-t2">
                 <span>8900</span>&nbsp;CNY
-                <!-- <span>{{(decimal.mul((balancesXRP.value || 0), moneyConvert)).toFixed(2)}}</span>&nbsp;{{moneyUnit}} -->
             </div>
         </div>
        <div class="hiddenmoney">
@@ -27,7 +26,7 @@
                 <div class="c_l">冻结：{{hidden ? '******':'0.89987'}}</div>
             </div>
             <div class="coin4">
-                <div class="shou"  @click="$router.push('/shoukuan/' + $t('title'))" >充币</div>
+                <div class="shou"  @click="$router.push('/reCharge')">充币</div>
                 <div class="zhuan" @click="tozhuanzang(rcp.currency)">提币</div>
             </div>
         </div>
