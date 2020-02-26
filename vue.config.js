@@ -32,13 +32,13 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://api.rcproto.org/',
+                target: 'http://47.240.110.55:9200/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {}
             },
             '/service': {
-                target: 'http://api.rcproto.org/',
+                target: 'http://47.240.110.55:9200/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {}

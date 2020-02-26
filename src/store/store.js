@@ -68,9 +68,13 @@ export default new Vuex.Store({
         // 首页start
         buySellShow: false,
         buyType:'buy',
+        type:'phone',
         //首页ens
     },
     mutations: {
+        type (state, data) {
+            state.type = data;
+        },
         buyType (state, data) {
             state.buyType = data;
         },

@@ -9,24 +9,55 @@
       <div class="l-info-box">
         <input placeholder="手机或邮箱" type="number" v-model="account" class="account"/>
         <div class="line"></div>
-        <input placeholder="密码" type="password"/>
+        <input placeholder="密码" type="password" v-model="password"/>
         <div class="line"></div>
+        <div @click="submit">
         <r-button text="立即登录" class="btn-login"/>
+        </div>
         <span class="forget">忘记密码？</span>
       </div>
     </div>
   </section>
 </template>
-
 <script>
 export default {
   data() {
     return {
       isAllow: true,
-      account: ''
+      account: "15111487619",
+      submitstatus: false,
+      password: "xiemei199621"
     };
   },
   methods: {
+    submit() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/login",
+        params: {
+          verify: "",
+          phone: self.account,
+          mail: "xiemei1996@163.com",
+          password: self.password,
+          district: "+86"
+        }
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("登陆成功!");
+          console.log(res);
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          if (err.message == "no data") {
+            this.$toast.show("登陆失败,不存在该用户!");
+          } else {
+            this.$toast.show("登陆失败,请稍后再试!");
+          }
+        });
+    },
     reply() {
       if (this.leftEv()) {
         return;
@@ -40,8 +71,9 @@ export default {
     }
   },
   watch: {
-    account(val){
-      if(val){}
+    account(val) {
+      if (val) {
+      }
     }
   }
 };
@@ -76,12 +108,12 @@ section {
       input {
         padding: 15px 0;
       }
-      .btn-login{
-        margin:30px 0;
+      .btn-login {
+        margin: 30px 0;
       }
-      .forget{
+      .forget {
         font-size: 14px;
-        color: #1771ED;
+        color: #1771ed;
       }
     }
   }

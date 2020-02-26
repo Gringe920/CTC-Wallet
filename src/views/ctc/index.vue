@@ -1,5 +1,6 @@
 <template>
   <section class="ctc">
+     
     <div class="header">
         <div class="icon_l" @click="changcoinshow = !changcoinshow">USDT
           <img v-if="!changcoinshow"  src="../../assets/images/triangle_lower@2x.png" alt="" srcset="">
@@ -108,7 +109,31 @@ export default {
   components: {
     buySell
   },
+  mounted() {
+    this.initData();
+  },
   methods: {
+    initData() {
+      let self = this;
+      console.log("initdata----------");
+      this.axios({
+        url: "/service/login",
+        params: {
+          phone: "15111487619",
+          mail: "xiemei1996@163.com",
+          pwd: "123456",
+          district: "+86"
+        }
+      })
+        .then(res => {
+          console.log("initdata1----------");
+          console.log(res);
+        })
+        .catch(err => {
+          console.log("initdata2----------");
+          console.log(err);
+        });
+    },
     changebuySellShow() {
       this.$store.commit("buySellShow", true);
     },

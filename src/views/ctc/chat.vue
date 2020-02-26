@@ -26,7 +26,6 @@
          <input type="text" placeholder="在此输入你的对话">
          <img src="../../assets/images/chat_picture@2x.png" alt="" srcset="">
        </div>
-  
   </section>
 </template>
 <script>
@@ -35,14 +34,16 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    
+  }
 };
 </script>
 <style lang="scss" scoped>
 .chat {
   padding-top: 50px;
   .order {
-   margin: 15px;
+    margin: 15px;
     margin-top: 15px;
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.03);
@@ -82,16 +83,16 @@ export default {
     font-size: 14px;
     margin-top: 15px;
     margin-bottom: 20px;
-    .dae{
+    .dae {
       padding-bottom: 5px;
     }
     .status {
       display: inline;
-      background: rgba(216,216,216,0.2);
+      background: rgba(216, 216, 216, 0.2);
       padding: 2px 5px;
     }
   }
-  .btnsub{
+  .btnsub {
     position: fixed;
     bottom: 0px;
     width: 100%;
@@ -100,14 +101,14 @@ export default {
     justify-content: space-between;
     padding: 0 15px;
     align-items: center;
-     box-shadow:0px 2px 14px 0px rgba(30,49,107,0.1);
-     img{
-       width:22px;
-       height: 22px;
-     }
-     input{
-       min-width: 80%;
-     }
+    box-shadow: 0px 2px 14px 0px rgba(30, 49, 107, 0.1);
+    img {
+      width: 22px;
+      height: 22px;
+    }
+    input {
+      min-width: 80%;
+    }
   }
 }
 </style>

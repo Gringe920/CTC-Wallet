@@ -12,6 +12,7 @@
     "core-js": "^2.6.5",
     "decimal": "0.0.2",
     "decimal.js": "^10.2.0",
+    "pdfjs-dist": "^2.2.228",
     "qrcode": "^1.4.4",
     "rcp-offline-wallet": "^1.0.19",
     "vue": "^2.6.10",

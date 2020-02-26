@@ -1,16 +1,14 @@
 import axios from "axios";
 import Vue from 'vue'
 import vueAxios from 'vue-axios'
-
 var instance = axios.create({
-    baseURL: (/file/gi.test(location.href)) ? 'http://api.rcproto.org' : process.env.NODE_ENV == 'development' ? '' : '',
+    baseURL: (/file/gi.test(location.href)) ? 'http://api.goaladdin.org' : process.env.NODE_ENV == 'development' ? '' : 'https://api.goaladdin.org',
     withCredentials: process.env.NODE_ENV == "development" ? true : false,
     method: "get",
     responseType: "json",
     timeout: 10000,
     headers: {}
 });
-
 instance.defaults.headers.post["Content-Type"] = "application/json; charset=UTF-8";
 instance.interceptors.request.use(function (config) {
     // console.log(config.url);
@@ -44,6 +42,9 @@ instance.interceptors.response.use(
                 code: -1
             });
         }
+        
+        
+        return Promise.reject([ ])
 
         return Promise.reject({
             message: error.message,
