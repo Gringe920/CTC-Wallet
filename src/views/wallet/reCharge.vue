@@ -11,7 +11,35 @@
 <script>
 export default {
   name: "",
+  data() {
+    return {
+      submitstatus:false
+    };
+    
+  },
+  mounted() {
+    this.create_address();
+  },
   methods: {
+    create_address() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/create_address",
+        params: {
+          symbol: 'usdt'
+        }
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("获取充币地址成功");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$toast.show({ msg: err.message || "获取充币地址失败，请重试" });
+        });
+    },
     toacceptCoin() {
       this.$router.push({
         path: "/acceptCoin",
@@ -24,26 +52,26 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.reCharge{
+.reCharge {
   padding: 50px 15px 0 15px;
-  .title{
+  .title {
     color: $color1;
     font-size: 14px;
-      margin-bottom: 10px;
+    margin-bottom: 10px;
   }
-  .address{
-    background:#F7F9FC;
-    border-radius:3px;
+  .address {
+    background: #f7f9fc;
+    border-radius: 3px;
     color: $active;
     font-size: 14px;
     padding: 10px;
     margin-bottom: 20px;
   }
-  .infos{
+  .infos {
     color: $color1;
-     font-size: 14px;
+    font-size: 14px;
   }
-  .bnt2{
+  .bnt2 {
     position: fixed;
     bottom: 20px;
   }

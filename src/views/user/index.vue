@@ -67,10 +67,34 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      submitstatus: false
+    };
   },
-  created() {},
-  methods: {}
+  created() {
+    this.getLoginInfo();
+  },
+  methods: {
+    getLoginInfo() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/user_info",
+        params: {}
+      })
+        .then(res => {
+          self.submitstatus = false;
+          localStorage.setItem("user_info", res.data || {});
+          this.$toast.show("用户信息获取成功!");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$router.push("login");
+          this.$toast.show({ msg: err.message || "用户信息获取失败，请重试" });
+        });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

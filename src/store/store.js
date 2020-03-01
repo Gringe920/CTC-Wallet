@@ -6,6 +6,7 @@ Vue.use(Vuex);
 Vue.mixin({
     computed : {
         ...mapState([
+        
             'connected',
             'isjihuo',
             'balances',
@@ -40,6 +41,7 @@ let btcAddress = 'rfsxcm8AqdhCVz1re3bBn9pvwYtGtaTYEW';
 let adAddress = 'rabp6QeFztgCXvjtrz7MuENAbSGxSMH5WQ';
 export default new Vuex.Store({
     state: {
+        user: {},//用户信息
         rcp_info : {},  // rcp_info  rcp 系统相关地址
         inviteAddress : inviteAddress,  // 激活地址
         btcAddress : btcAddress, // BTC 网关地址
@@ -72,6 +74,9 @@ export default new Vuex.Store({
         //首页ens
     },
     mutations: {
+        user(state, val) {
+            state.user = val;
+        },
         type (state, data) {
             state.type = data;
         },

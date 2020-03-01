@@ -1,18 +1,49 @@
 <template>
   <section>
-    <Header title="昵称" />
+    <Header title="设置昵称" />
     <div class="container">
       <div class="content">
-        <input class="nickname" type="text" />
+        <input class="nickname" v-model="nickname" placeholder="请输入昵称" type="text" />
         <div class="line"></div>
       </div>
+      <div class="" @click="submit">
       <r-button text="确定" width="90%" class="comfirm" />
+
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      nickname: "我不爱冰阔落",
+      submitstatus: false
+    };
+  },
+  methods: {
+    submit() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/reset_nickname",
+        params: {
+          nickname: self.nickname,
+        }
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("设置昵称成功");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$toast.show({ msg: err.message || "昵称设置失败，请重试" });
+        });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

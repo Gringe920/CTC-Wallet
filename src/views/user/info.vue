@@ -33,16 +33,54 @@
           </div>
           <div class="line"></div>
         </div>
+        <div  @click="logout()"   > 
+          <r-button text="登出" width="90%" class="comfirm"/>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      submitstatus: false
+    };
+  },
+  methods: {
+    logout() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/logout",
+        params: {
+        }
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("登出成功!");
+          console.log(res);
+          this.$router.push("ctc");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+            this.$toast.show({ msg: err.message || "登出出失败，请重试" });
+      
+        });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
+.comfirm {
+  position: absolute;
+  bottom: 20px;
+  transform: translateX(-50%);
+  left: 50%;
+}
 .container {
   height: 100%;
   padding-top: 50px;

@@ -3,22 +3,55 @@
     <Header title="修改登录密码" />
     <div class="content">
       <div class="password">原登录密码</div>
-      <input class="psw-input" type="text" placeholder="请输入原登录密码" />
+      <input class="psw-input" v-model='oldpwd' type="text" placeholder="请输入原登录密码" />
       <div class="divider"></div>
       <div class="password">新登录密码</div>
-      <input class="psw-input" type="text" placeholder="请输入新登录密码" />
+      <input class="psw-input" v-model="newpwd" type="text" placeholder="请输入新登录密码" />
       <div class="divider"></div>
       <div class="password">再确定密码</div>
-      <input class="psw-input" type="text" placeholder="再次确定新登录密码" />
+      <input class="psw-input" v-model="reNewpwd" type="text" placeholder="再次确定新登录密码" />
       <div class="divider"></div>
     </div>
     <div class="error-msg" v-if="false">*原安全密码不正确</div>
+    <div @click="submit">
     <r-button text="确定" width="90%" class="comfirm" />
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+   data() {
+    return {
+      oldpwd: "xiemei123456",
+      newpwd: "xiemei1234567",
+      reNewpwd:'xiemei1234567',
+      submitstatus: false
+    };
+  },
+  methods: {
+    submit() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/resetpwd",
+        params: {
+          oldpwd: self.oldpwd,
+          newpwd:self.newpwd,
+        }
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("重置密码成功");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$toast.show({ msg: err.message || "重置密码密码失败，请重试" });
+        });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

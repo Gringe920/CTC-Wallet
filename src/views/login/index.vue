@@ -26,8 +26,10 @@ export default {
       isAllow: true,
       account: "15111487619",
       submitstatus: false,
-      password: "xiemei199621"
+      password: "xiemei123456"
     };
+  },
+  created(){
   },
   methods: {
     submit() {
@@ -37,26 +39,40 @@ export default {
       this.axios({
         url: "/service/login",
         params: {
-          verify: "",
           phone: self.account,
-          mail: "xiemei1996@163.com",
-          password: self.password,
+          pwd: self.password,
           district: "+86"
         }
       })
         .then(res => {
           self.submitstatus = false;
           this.$toast.show("登陆成功!");
-          console.log(res);
+            this.getLoginInfo();
         })
         .catch(err => {
           self.submitstatus = false;
-          if (err.message == "no data") {
-            this.$toast.show("登陆失败,不存在该用户!");
-          } else {
-            this.$toast.show("登陆失败,请稍后再试!");
-          }
+            this.$toast.show({msg: err.message || '登录失败，请重试'});
         });
+    },
+    getLoginInfo(){
+       var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/user_info",
+        params: {
+        }
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("用户信息获取成功!");
+           this.$router.push('ctc')
+        })
+        .catch(err => {
+          self.submitstatus = false;
+            this.$toast.show({msg: err.message || '用户信息获取失败，请重试'});
+        });
+
     },
     reply() {
       if (this.leftEv()) {

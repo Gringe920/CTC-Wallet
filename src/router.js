@@ -44,7 +44,6 @@ const detais = () => import(/* webpackChunkName: "ctc" */ './views/wallet/detais
 const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
 const Orderstatus = () => import(/* webpackChunkName: "ctc" */ './views/ctc/Orderstatus.vue');
 const chat = () => import(/* webpackChunkName: "ctc" */ './views/ctc/chat.vue');
-const pdf = () => import(/* webpackChunkName: "ctc" */ './views/ctc/pdf.vue');
 
 Vue.use(Router)
 export default new Router({
@@ -57,11 +56,6 @@ export default new Router({
         {
             path: '/',
             redirect: '/ctc'
-        },
-        {
-            path: '/pdf',
-            name: 'pdf',
-            component: pdf
         },
         {
             path: '/detais',

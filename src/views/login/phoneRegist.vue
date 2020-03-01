@@ -12,8 +12,8 @@
           <span class="area-code">+86</span>
           <input placeholder="请输入手机" type="number" v-model="account" class="account"/>
         </div>
-          <div class="line" v-show="!next && type=='email'"></div>
-           <div class="code-box2" v-show="!next && type=='email'">
+        <div class="line" v-show="!next && type=='email'"></div>
+        <div class="code-box2" v-show="!next && type=='email'">
           <input placeholder="请输入邮箱地址" type="text"  v-model="mail"/>
         </div>
         <div class="line" v-show="next"></div>
@@ -54,8 +54,8 @@ export default {
     return {
       isAllow: true,
       account: "15111487619",
-      mail: "xiemei1996@163.com",
-      code: "",
+      mail: " ",
+      code: " ",
       password: "xiemei123456",
       rePassword: "xiemei123456",
       time: 60,
@@ -70,9 +70,7 @@ export default {
   computed: {
     ...mapState(["type"])
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     toyi() {
       this.checked = !this.checked;
@@ -97,7 +95,6 @@ export default {
         console.log("1");
         self.time = self.time - 1;
       }, 1000);
-
       if (this.codeStatus) return;
       this.codeStatus = true;
       console.log(this.codeStatus, "-----------codeStatus");
@@ -143,7 +140,7 @@ export default {
         url: "/service/register",
         params: {
           phone: self.account,
-          mail: "xiemei1996@163.com",
+          mail: self.mail,
           pwd: self.password,
           verify: self.code,
           district: "+86"
@@ -152,7 +149,7 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show("注册成功");
-          console.log(res);
+          this.$router.push('login')
         })
         .catch(err => {
           self.submitstatus = false;
