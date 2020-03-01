@@ -5,15 +5,15 @@
         <section v-else>
             <div class="t4">提币&nbsp;200&nbsp;RCP</div>
             <div class="text2">支出</div>
-            <div class="text3">
-                -500 RCP，余额：8600.0000 RCP
+            <div class="text3 text4">
+                -{{detials.amount.$numberDecimal?detials.amount.$numberDecimal:''}} {{detials.symbol?detials.symbol:''}}，余额：8600.0000 {{detials.symbol}}
             </div>
                <div class="text2">转出地址</div>
                 <div class="text3" >
-                   RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ
+                    {{detials.from ?detials.from:'暂无地址'}}
                 </div>
            <div class="text2">创建时间</div>
-            <div class="text3">2019/01/03 08:00</div>
+            <div class="text3">{{detials.time?detials.time:''}}</div>
         </section>
     </section>
 </template>
@@ -25,11 +25,17 @@ export default {
       loadState: false,
       item: {
         type: "payment"
-      }
+      },
+      detials:{}
     };
   },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.detials =this.$route.query.detials || {}
+      console.log(this.detials)
+      console.log(this.$route.query.detials)
+    console.log(this.detials['amount'])
+  },
   created() {},
   methods: {}
 };
@@ -62,6 +68,9 @@ export default {
     font-size: 14px;
     width: 100%;
     word-wrap: break-word;
+  }
+  .text4{
+    text-transform: uppercase;
   }
 }
 </style>

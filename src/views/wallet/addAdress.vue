@@ -22,12 +22,11 @@
             </div>
         </div>
         <div class="yue">*请填写对应平台的提币地址，否则提币无法到账，由此造成的损失，本平台改不负责</div>
-        
-         <div class="btn" @click="submit" > {{$t(`wallet.zhuanqian6`)}}{{submitState ? '...' : ''}}</div>
+              <r-button :tocomfirm='submit' text="确定" width="90%" class="comfirm" />
 
        <div class="coinchange" v-if="close" @click="toclose">
             <div class="coinbox">
-                <div @click="clickCoin(item, index)" class="coin" :class="coin == item ? 'active' : ''" v-for="(item, index) in coinVolume2" :key='item'>
+                <div @click="clickCoin(item, index)" class="coin" :class="coin == item ? 'active' : ''" v-for="(item, index) in coin_list" :key='item'>
                     <div>{{item}}</div>
                 </div>
                 <div class="coin cg" >
@@ -38,28 +37,57 @@
   </section>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "addAdress",
   data() {
     return {
-      coinVolume2: ["RCP", "USDT", "ETH"],
       close: false,
-      submitState:false,
+      submitState: false,
       num: "",
-      label: "",
-      address: "",
+      label: "我才不是标签",
+      address: "RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ",
       canCoin: 8768,
-      coin: "",
-      clickAll: ""
+      liststatus: false,
+      coin: "ald",
+      clickAll: "",
+      code:'123456',
     };
   },
   created() {},
+  computed: {
+    ...mapState(["user", "coin_list", "assets_detail"])
+  },
   methods: {
+    submit() {
+      console.log("1111111");
+      var self = this;
+      if (this.liststatus) return;
+      self.liststatus = true;
+      var symbol = this.$route.params.coin || "";
+      this.axios({
+        url: "/service/create_withdraw_address",
+        params: {
+          symbol: self.coin,
+          address: self.address,
+          code: self.code,
+          name: self.label
+        }
+      })
+        .then(res => {
+          self.liststatus = false;
+          this.$router.push('address')
+          this.$toast.show("添加提币地址成功!");
+        })
+        .catch(err => {
+          self.liststatus = false;
+          this.$toast.show({ msg: err.message || "v添加提币地址失败，请重试" });
+        });
+    },
     toclose() {
       this.close = !this.close;
     },
     toacceptCoin() {},
-    submit() {},
     clickCoin(item, index) {
       this.coin = item;
     }

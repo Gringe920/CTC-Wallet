@@ -35,7 +35,36 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      dealPwd: "xiemei123456",
+      redealPwd: "xiemei123456",
+      submitstatus: false
+    };
+  },
+  methods: {
+    submit() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/create_withdraw_address",
+        params: {
+          dealPwd: self.dealPwd,
+        }
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("设置交易密码成功");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$toast.show({ msg: err.message || "设置交易密码失败，请重试" });
+        });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

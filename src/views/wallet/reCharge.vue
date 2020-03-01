@@ -2,7 +2,7 @@
   <section class="reCharge">
     <Header title="充币 RCP " :rightEv='toacceptCoin'  :rightIcon="require('../../assets/images/record_black@2x.png')" >充币 RCP</Header>
     <img src="" alt="" srcset="">
-    <div class="title">充币地址</div>
+    <div class="title" @click="create_address()"> 充币地址</div>
     <div class="address">RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ</div>
     <div class="infos">*该地址只接受PYC（支付链），其他币转至该地址造成的损失，本平台概不负责</div>
     <r-button text="复制充币地址" width="90%" class="btn-submit" @comfirm="$router.push({path: '/selectPayway'})"/>
@@ -22,13 +22,16 @@ export default {
   },
   methods: {
     create_address() {
-      var self = this;
+      var self = this
+      console.log(this.$route.params.coin,'-------symbol')
       if (this.submitstatus) return;
       self.submitstatus = true;
+      var symbol =  this.$route.params.coin || '';
+      
       this.axios({
         url: "/service/create_address",
         params: {
-          symbol: 'usdt'
+          symbol:symbol 
         }
       })
         .then(res => {

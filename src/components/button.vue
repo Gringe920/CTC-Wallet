@@ -15,7 +15,13 @@ export default {
     bgColor: String,
     text: String,
     icon: String,
-    btnFontColor: String
+    btnFontColor: String,
+    tocomfirm: {
+      type: Function,
+      default: () => {
+        return null;
+      }
+    }
   },
   data() {
     return {};
@@ -23,7 +29,11 @@ export default {
   methods: {
     comfirm() {
       if (this.submitState) return;
-      this.$emit("comfirm");
+      if (this.tocomfirm) {
+        this.tocomfirm();
+        return;
+      }
+      // this.$emit("comfirm");
     }
   }
 };

@@ -9,7 +9,7 @@
       <div class="l-info-box">
         <input placeholder="手机或邮箱" type="number" v-model="account" class="account"/>
         <div class="line"></div>
-        <input placeholder="密码" type="password" v-model="password"/>
+        <input placeholder="密码" type="text" v-model="password"/>
         <div class="line"></div>
         <div @click="submit">
         <r-button text="立即登录" class="btn-login"/>
@@ -26,7 +26,7 @@ export default {
       isAllow: true,
       account: "15111487619",
       submitstatus: false,
-      password: "xiemei123456"
+      password: "xiemei1234567"
     };
   },
   created(){

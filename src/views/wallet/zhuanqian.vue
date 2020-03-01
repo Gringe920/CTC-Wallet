@@ -28,11 +28,12 @@
             </div>
         </div>
         <div class="yue">*提币手续费5RCP;最低提币数量100RCP，请输入正确的提币地址，地址出错币丢失。</div>
-        <div class="btn" @click="submit" > {{$t(`wallet.zhuanqian6`)}}{{submitState ? '...' : ''}}</div>
-
+    <div @click="submit">
+    <r-button text="确定" width="90%" class="comfirm" />
+    </div>
         <div class="coinchange" v-if="close" @click="toclose">
             <div class="coinbox">
-                <div @click="clickCoin(item, index)" class="coin" :class="coin == item ? 'active' : ''" v-for="(item, index) in coinVolume3" :key='item'>
+                <div @click="clickCoin(item, index)" class="coin" :class="coin == item ? 'active' : ''" v-for="(item, index) in coin_list" :key='item'>
                     <div>{{item}}</div>
                 </div>
                 <div class="coin cg" >
@@ -53,6 +54,7 @@
         <input type="password" v-model="code" placeholder="输入交易密码">
         <div class="code">获取验证码</div>
       </div>
+    
        <div class="btn"> 确定</div>
     </div>
         </div>
@@ -60,6 +62,7 @@
     </section>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "zhuanqian",
   data() {
@@ -67,29 +70,61 @@ export default {
       showPsw: true,
       password: "",
       close: false,
-      code:'',
-      isShowPswModal: true,
+      code: "",
+      isShowPswModal: false,
       num: "",
-      address: "",
+      address: "RKWPDQTXW3FUPZTU111NVCEAUG8HEDXEX7ZWQ",
+      liststatus: false,
       submitState: false,
       canCoin: 8768,
-      coin: "",
+      coin: this.$route.params.coin || "",
       clickAll: "",
       coinVolume3: ["RCP", "USDT", "ETH"]
     };
   },
-  created() {},
+  computed: {
+    ...mapState(["user", "withdraw_address_list", "coin_list"])
+  },
+  created() {
+    this.withdrawlist();
+  },
   methods: {
+    withdrawlist() {
+      console.log("1111111");
+      var self = this;
+      if (this.liststatus) return;
+      self.liststatus = true;
+      var symbol = this.coin;
+      this.axios({
+        url: "/service/withdraw_address_list",
+        params: {
+          symbol: symbol
+        }
+      })
+        .then(res => {
+          self.liststatus = false;
+          this.$store.commit("withdraw_address_list", res.data || {});
+          this.$toast.show("获取币种成功!");
+        })
+        .catch(err => {
+          self.liststatus = false;
+          this.$store.commit("withdraw_address_listl", {});
+          this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
+        });
+    },
     toclose() {
       this.close = !this.close;
     },
-    changebuySellShow(){
-this.showPsw = false;
+    changebuySellShow() {
+      this.showPsw = false;
     },
     toacceptCoin() {},
-    submit() {this.showPsw = true;},
+    submit() {
+      this.showPsw = true;
+    },
     clickCoin(item, index) {
       this.coin = item;
+      this.withdrawlist()
     }
   }
 };
@@ -102,7 +137,7 @@ this.showPsw = false;
   //  padding: 0 15px;
   min-height: 100%;
   padding-top: 55px;
-  .pswBox{
+  .pswBox {
     width: 100vw;
     height: 100%;
     z-index: 1000;
@@ -113,49 +148,49 @@ this.showPsw = false;
     align-items: flex-end;
     justify-content: flex-end;
     background: rgba(0, 0, 0, 0.5);
-      .pasword {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    background: $white;
-    padding: 25px 15px;
-    border-radius: 16px 16px 0px 0px;
-    .top {
-      position: relative;
-      margin-bottom: 25px;
-      .l {
-        text-align: center;
+    .pasword {
+      position: fixed;
+      bottom: 0px;
+      width: 100%;
+      background: $white;
+      padding: 25px 15px;
+      border-radius: 16px 16px 0px 0px;
+      .top {
+        position: relative;
+        margin-bottom: 25px;
+        .l {
+          text-align: center;
+        }
+        .img2 {
+          position: absolute;
+          right: 0;
+          top: 0px;
+          width: 15px;
+          height: 15px;
+          margin-left: 10px;
+        }
       }
-      .img2 {
-        position: absolute;
-        right: 0;
-        top: 0px;
-        width: 15px;
-        height: 15px;
-        margin-left: 10px;
-      }
-    }
-    .inp {
-      display: flex;
-      padding: 0 5px;
-      font-size: 12px;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      height: 44px;
-      input {
-        min-width: 70%;
-        line-height: 44px;
-      }
+      .inp {
+        display: flex;
+        padding: 0 5px;
+        font-size: 12px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        height: 44px;
+        input {
+          min-width: 70%;
+          line-height: 44px;
+        }
 
-      .code {
-        line-height: 44px;
-        padding-left: 10px;
-        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        .code {
+          line-height: 44px;
+          padding-left: 10px;
+          border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
       }
     }
-  }
   }
 
   .btn2 {

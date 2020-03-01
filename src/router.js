@@ -63,7 +63,7 @@ export default new Router({
             component: detais
         },
         {
-            path: '/reCharge',
+            path: '/reCharge/:coin',
             name: 'reCharge',
             component: reCharge
         },
@@ -88,7 +88,7 @@ export default new Router({
             component: wallet
         },
         {
-            path: '/zhuanqian',
+            path: '/zhuanqian/:coin',
             name: 'zhuanqian',
             component: zhuanqian
         },

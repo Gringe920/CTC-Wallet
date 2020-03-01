@@ -6,9 +6,8 @@
         <input class="nickname" v-model="nickname" placeholder="请输入昵称" type="text" />
         <div class="line"></div>
       </div>
-      <div class="" @click="submit">
-      <r-button text="确定" width="90%" class="comfirm" />
-
+      <div class="">
+      <r-button :tocomfirm='submit' text="确定" width="90%" class="comfirm" />
       </div>
     </div>
   </section>
@@ -24,6 +23,7 @@ export default {
   },
   methods: {
     submit() {
+      console.log('xm')
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;

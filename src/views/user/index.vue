@@ -5,8 +5,9 @@
         <img src="../../assets/images/china@2x.png" alt />
       </div>
       <div class="info">
-        <div class="name">{{$t('title')}}</div>
-        <div class="uid">UID 80006744</div>
+        <div class="name" v-if="!user.uid" @click="toRoute('login')">请先登陆</div>
+        <div class="name" v-if="user.uid">{{user.username || '我是谁'}}</div>
+        <div class="uid" v-if="user.uid">UID: {{user.uid}}</div>
       </div>
       <div class="turn-right">
         <i></i>
@@ -21,7 +22,7 @@
           <i></i>
         </div>
       </div>
-      <div class="user-nav-item" @click="$router.push({path: '/addWithdrawAddr'})">
+      <div class="user-nav-item" @click="$router.push({path: '/address'})">
         <i class="icon my_extract"></i>
         <p>提币地址</p>
         <div class="turn-right">
@@ -35,10 +36,19 @@
           <i></i>
         </div>
       </div>
-      <div class="user-nav-item" @click="$router.push({path: '/setTradePsw'})">
+      <div v-if='user.deal_pwd_state == 0' class="user-nav-item" @click="$router.push({path: '/setTradePsw'})">
         <i class="icon my_lock"></i>
         <p>交易密码</p>
         <div class="turn-right">
+          <span>未设置</span>
+          <i></i>
+        </div>
+      </div>
+      <div class="user-nav-item" @click="$router.push({path: '/changeTradePsw'})">
+        <i class="icon my_lock"></i>
+        <p>交易密码</p>
+        <div class="turn-right">
+          <span>已设置</span>
           <i></i>
         </div>
       </div>
@@ -65,6 +75,7 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -73,6 +84,9 @@ export default {
   },
   created() {
     this.getLoginInfo();
+  },
+   computed: {
+    ...mapState(['user'])
   },
   methods: {
     getLoginInfo() {
@@ -85,12 +99,14 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
+            this.$store.commit("user", res.data || {});
           localStorage.setItem("user_info", res.data || {});
           this.$toast.show("用户信息获取成功!");
         })
         .catch(err => {
           self.submitstatus = false;
           this.$router.push("login");
+          this.$store.commit("user", {});
           this.$toast.show({ msg: err.message || "用户信息获取失败，请重试" });
         });
     }
@@ -104,6 +120,7 @@ export default {
   .turn-right {
     position: absolute;
     right: 0;
+
     span {
       font-size: 12px;
       color: $color1;

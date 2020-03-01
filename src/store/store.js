@@ -72,8 +72,20 @@ export default new Vuex.Store({
         buyType:'buy',
         type:'phone',
         //首页ens
+        coin_list:[],
+        assets_detail:{},
+        withdraw_address_list:{}
     },
     mutations: {
+        withdraw_address_list(state, val) {
+            state.withdraw_address_list = val;
+        },
+        assets_detail(state, val) {
+            state.assets_detail = val;
+        },
+        coin_list(state, val) {
+            state.coin_list = val;
+        },
         user(state, val) {
             state.user = val;
         },

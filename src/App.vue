@@ -36,252 +36,345 @@
     </div>
 </template>
 <script>
-    import { mapState } from "vuex";
-    import Binding from "./components/binding";
-    import TrustBtc from "./components/trustBtc";
-    export default {
-        name: "app",
-        components: {TrustBtc, Binding},
-        data() {
-            return {
-                routeList: ['ctc', 'wallet', 'dapp', 'user','order']
-            };
-        },
-        watch:{
-            "$route"(n, o) {
-                this.showBottomNav()
-            },
-            // connected (){
-            //     this.loginPage();
-            // },
-        },
-        methods: {
-            dispark (){
-                this.$toast.show(this.$t('dispark'));
-            },
-            backbutton (){
-                let self = this;
-                plus.key.addEventListener('backbutton', function (e) {
-                    console.log("backbutton");
-                    let webview = plus.webview.getLaunchWebview();
-                    console.log("webview.id", webview.id);
-                    webview.canBack(function (e) {
-                        console.log(JSON.stringify(e));
-                        if (e.canBack) {
-                            webview.back();
-                        } else {
-                            plus.nativeUI.confirm(self.$t('exitAPP'), function (e) {
-                                if (e.index == 0) {
-                                    plus.runtime.quit();
-                                }
-                                ;
-                            }, self.$t('title'));
-                        };
-                    });
-                });
-            },
-            plusReady () {
-                if(!/offlinewallet/gi.test(navigator.userAgent)){
-                    return false;
-                };
-                let self = this;
-                if (window.plus) {
-                    setTimeout(function () {
-                        self.updateApp();
-                        self.backbutton();
-                    }, 0);
-                } else {
-                    document.addEventListener("plusready", function () {
-                        self.updateApp();
-                        self.backbutton();
-                    }, false);
-                }
-            },
-            updateApp (){
-                let self = this;
-                this.axios({
-                    url : "/service/app_info"
-                })
-                    .then(res => {
-                        let data = res.data;
-                        if(/android/gi.test(navigator.userAgent)){
-                            if(plus.runtime.version != data.app_android_version){
-                                if(/\.apk/gi.test(data.app_android_download)){
-
-                                    plus.nativeUI.confirm(data.app_android_update_desc, function(e){
-                                        var task = plus.downloader.createDownload(data.app_android_download, {}, function ( d, status ) {
-                                            // console.log(d.filename);
-                                            if( status == 200 ){
-                                                plus.runtime.install(d.filename, {
-                                                    force : true
-                                                }, function (widgetInfo) {
-                                                    console.log(widgetInfo);
-                                                }, function (err) {
-                                                    console.log(err.message);
-                                                });
-                                            } else {
-                                                console.log( "Download failed: " + status );
-                                            };
-                                        });
-                                        task.start();
-                                    }, {
-                                        "title": data.app_android_version,
-                                        "buttons":[ self.$t('confirm')  ],
-                                    });
-                                }else{
-                                    self.downloadFile(data.app_android_download);
-                                }
-                            }else{
-                                setTimeout(function () {
-                                    self.updateApp();
-                                }, 8000);
-                            };
-                        }else{
-                            if(plus.runtime.version != data.app_ios_version){
-                                if(/\.plist/gi.test(data.app_ios_download)){
-                                    plus.nativeUI.confirm(data.app_ios_update_desc, function(e){
-                                        plus.runtime.openURL(data.app_ios_download, function (openURLerr) {
-                                            console.log(openURLerr);
-                                            plus.runtime.openWeb(data.app_ios_download, function (err) {
-                                                console.log(err);
-                                            });
-                                        });
-                                    }, {
-                                        "title": data.app_ios_version,
-                                        "buttons":[ self.$t('confirm') ],
-                                    });
-                                }else{
-                                    self.downloadFile(data.app_ios_download);
-                                };
-                            }else{
-                                setTimeout(function () {
-                                    self.updateApp();
-                                }, 8000);
-                            };
-                        };
-                        console.log(res);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        setTimeout(function () {
-                            self.updateApp();
-                        }, 8000);
-                    });
-            },
-            downloadFile (wgtUrl) {
-                let self = this;
-                plus.nativeUI.showWaiting(self.$t('updateApp.lang1'));
-                var task = plus.downloader.createDownload(wgtUrl, {filename: "_doc/update/"}, function (d, status) {
-                    console.log("下载成功：" + d.filename);
-                    if (status == 200) {
-                        self.installWgt(d.filename); // 安装wgt包
-                    } else {
-                        console.log("下载wgt失败！");
-                        plus.nativeUI.alert(self.$t('updateApp.lang2'));
-                    }
-                    ;
-                    plus.nativeUI.closeWaiting();
-                });
-
-                task.start();
-            },
-            installWgt (path) {
-                let self = this;
-                plus.nativeUI.showWaiting(self.$t('updateApp.lang3'));
-                plus.runtime.install(path, {}, function () {
-                    plus.nativeUI.closeWaiting();
-                    plus.nativeUI.alert(self.$t('updateApp.lang4'), function () {
-                        plus.runtime.restart();
-                    });
-                }, function (e) {
-                    plus.nativeUI.closeWaiting();
-                    plus.nativeUI.alert(self.$t('updateApp.lang5') + "[" + e.code + "]：" + e.message);
-                });
-            },
-            removeLoad() {
-                setTimeout(() => {
-                    if (document.querySelector("#app-load")) {
-                        document.querySelector("#app-load").remove();
-                    }
-                }, 500);
-            },
-            showBottomNav(){
-                this.$store.commit("showNav", this.shouldShowBottomNav());
-            },
-            shouldShowBottomNav(){
-                return this.routeList.indexOf(this.$route.name) > -1
-            },
-            loginPage (){
-                if((this.account.accounts.address.length <= 0) && this.$route.name !='login'){
-                    this.toRoute('/login');
-                };
-                // if((this.account.accounts.mnemonic == "" || this.account.accounts.address.length <= 0) && this.$route.name !='login'){
-                //     this.toRoute('/login');
-                // };
-            }
-        },
-        created (){
-            this.removeLoad();
-            this.plusReady();
-        },
-        mounted(){
-            this.showBottomNav();
-            // console.log(this.account.accounts);
-            // this.account.createWallet('123456');
-            // this.account.getAccount();
-            // console.log(this.account.accounts.mnemonic);
-
-        },
-        computed: {
-            ...mapState(['showNav'])
-        },
+import { mapState } from "vuex";
+import Binding from "./components/binding";
+import TrustBtc from "./components/trustBtc";
+export default {
+  name: "app",
+  components: { TrustBtc, Binding },
+  data() {
+    return {
+    userState: false,
+      routeList: ["ctc", "wallet", "dapp", "user", "order"],
+      submitstatus:false,
     };
+  },
+  watch: {
+    $route(n, o) {
+      this.showBottomNav();
+    }
+    // connected (){
+    //     this.loginPage();
+    // },
+  },
+
+  created() {
+    this.removeLoad();
+    this.plusReady();
+  },
+  mounted() {
+    this.showBottomNav();
+    // console.log(this.account.accounts);
+    // this.account.createWallet('123456');
+    // this.account.getAccount();
+    // console.log(this.account.accounts.mnemonic);
+  },
+  computed: {
+    ...mapState(["showNav",'user','coin_list'])
+  },
+    methods: {
+       getcoin_list() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/coin_list",
+        params: {}
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$store.commit("coin_list", res.data || {});
+          this.$toast.show("获取币种成功!");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$store.commit("coin_list", {});
+          this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
+        });
+    },
+    getUser() {
+      console.log("app.vue getUser");
+      var self = this;
+      this.axios({
+        url: '/service/user_info'
+      })
+        .then(res => {
+          var data = res.data || {};
+          this.$store.commit("user", res.data);
+          this.userState = true;
+          this.removeLoad();
+          this.loginCheck();
+          if (data.uid) {
+            // this.$router.push({ name: "login"});
+            return;
+          }
+          // self.$nextTick(() => {
+          //   if (self.timeP == 1 && parseInt(self.user.logins) < 4) {
+          //     // let $toast = self.$refs.toast;
+          //     // $toast.dialog = true;
+          //     this.$store.commit("timeP", 2);
+          //   }
+          // });
+        })
+        .catch(err => {
+          this.userState = true;
+          this.$store.commit("user", {});
+          this.removeLoad();
+          this.loginCheck();
+        });
+    },
+    dispark() {
+      this.$toast.show(this.$t("dispark"));
+    },
+    backbutton() {
+      let self = this;
+      plus.key.addEventListener("backbutton", function(e) {
+        console.log("backbutton");
+        let webview = plus.webview.getLaunchWebview();
+        console.log("webview.id", webview.id);
+        webview.canBack(function(e) {
+          console.log(JSON.stringify(e));
+          if (e.canBack) {
+            webview.back();
+          } else {
+            plus.nativeUI.confirm(
+              self.$t("exitAPP"),
+              function(e) {
+                if (e.index == 0) {
+                  plus.runtime.quit();
+                }
+              },
+              self.$t("title")
+            );
+          }
+        });
+      });
+    },
+    plusReady() {
+      if (!/offlinewallet/gi.test(navigator.userAgent)) {
+        return false;
+      }
+      let self = this;
+      if (window.plus) {
+        setTimeout(function() {
+          self.updateApp();
+          self.backbutton();
+        }, 0);
+      } else {
+        document.addEventListener(
+          "plusready",
+          function() {
+            self.updateApp();
+            self.backbutton();
+          },
+          false
+        );
+      }
+    },
+    updateApp() {
+      let self = this;
+      this.axios({
+        url: "/service/app_info"
+      })
+        .then(res => {
+          let data = res.data;
+          if (/android/gi.test(navigator.userAgent)) {
+            if (plus.runtime.version != data.app_android_version) {
+              if (/\.apk/gi.test(data.app_android_download)) {
+                plus.nativeUI.confirm(
+                  data.app_android_update_desc,
+                  function(e) {
+                    var task = plus.downloader.createDownload(
+                      data.app_android_download,
+                      {},
+                      function(d, status) {
+                        // console.log(d.filename);
+                        if (status == 200) {
+                          plus.runtime.install(
+                            d.filename,
+                            {
+                              force: true
+                            },
+                            function(widgetInfo) {
+                              console.log(widgetInfo);
+                            },
+                            function(err) {
+                              console.log(err.message);
+                            }
+                          );
+                        } else {
+                          console.log("Download failed: " + status);
+                        }
+                      }
+                    );
+                    task.start();
+                  },
+                  {
+                    title: data.app_android_version,
+                    buttons: [self.$t("confirm")]
+                  }
+                );
+              } else {
+                self.downloadFile(data.app_android_download);
+              }
+            } else {
+              setTimeout(function() {
+                self.updateApp();
+              }, 8000);
+            }
+          } else {
+            if (plus.runtime.version != data.app_ios_version) {
+              if (/\.plist/gi.test(data.app_ios_download)) {
+                plus.nativeUI.confirm(
+                  data.app_ios_update_desc,
+                  function(e) {
+                    plus.runtime.openURL(data.app_ios_download, function(
+                      openURLerr
+                    ) {
+                      console.log(openURLerr);
+                      plus.runtime.openWeb(data.app_ios_download, function(
+                        err
+                      ) {
+                        console.log(err);
+                      });
+                    });
+                  },
+                  {
+                    title: data.app_ios_version,
+                    buttons: [self.$t("confirm")]
+                  }
+                );
+              } else {
+                self.downloadFile(data.app_ios_download);
+              }
+            } else {
+              setTimeout(function() {
+                self.updateApp();
+              }, 8000);
+            }
+          }
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+          setTimeout(function() {
+            self.updateApp();
+          }, 8000);
+        });
+    },
+    downloadFile(wgtUrl) {
+      let self = this;
+      plus.nativeUI.showWaiting(self.$t("updateApp.lang1"));
+      var task = plus.downloader.createDownload(
+        wgtUrl,
+        { filename: "_doc/update/" },
+        function(d, status) {
+          console.log("下载成功：" + d.filename);
+          if (status == 200) {
+            self.installWgt(d.filename); // 安装wgt包
+          } else {
+            console.log("下载wgt失败！");
+            plus.nativeUI.alert(self.$t("updateApp.lang2"));
+          }
+          plus.nativeUI.closeWaiting();
+        }
+      );
+
+      task.start();
+    },
+    installWgt(path) {
+      let self = this;
+      plus.nativeUI.showWaiting(self.$t("updateApp.lang3"));
+      plus.runtime.install(
+        path,
+        {},
+        function() {
+          plus.nativeUI.closeWaiting();
+          plus.nativeUI.alert(self.$t("updateApp.lang4"), function() {
+            plus.runtime.restart();
+          });
+        },
+        function(e) {
+          plus.nativeUI.closeWaiting();
+          plus.nativeUI.alert(
+            self.$t("updateApp.lang5") + "[" + e.code + "]：" + e.message
+          );
+        }
+      );
+    },
+    removeLoad() {
+      setTimeout(() => {
+        if (document.querySelector("#app-load")) {
+          document.querySelector("#app-load").remove();
+        }
+      }, 500);
+    },
+    showBottomNav() {
+      this.$store.commit("showNav", this.shouldShowBottomNav());
+    },
+    shouldShowBottomNav() {
+      return this.routeList.indexOf(this.$route.name) > -1;
+    },
+    loginPage() {
+      if (
+        this.account.accounts.address.length <= 0 &&
+        this.$route.name != "login"
+      ) {
+        this.toRoute("/login");
+      }
+      // if((this.account.accounts.mnemonic == "" || this.account.accounts.address.length <= 0) && this.$route.name !='login'){
+      //     this.toRoute('/login');
+      // };
+    }
+  },
+};
 </script>
 
 <style lang="scss">
-    body,html{
-        padding: 0;
-        margin: 0;
-        background: $bg;
+body,
+html {
+  padding: 0;
+  margin: 0;
+  background: $bg;
+}
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: $bg;
+  .navall {
+    background: $white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    height: 48px;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0px 2px 14px 0px rgba(30, 49, 107, 0.1);
+    .nav-active {
+      color: $active;
+      span {
+        color: $active !important;
+      }
     }
-    #app {
-        font-family: "Avenir", Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        background:$bg;
-        .navall {
-            background: $white;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            position: fixed;
-            width: 100vw;
-            height: 48px;
-            bottom: 0;
-            left: 0;
-            box-shadow:0px 2px 14px 0px rgba(30,49,107,0.1);
-            .nav-active {
-                color:  $active;
-                span {
-                    color:$active !important;
-                }
-            }
-            .thenav {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                img {
-                    width: 20px;
-                    height: 20px;
-                    margin-bottom: 2px;
-                }
-                span {
-                    font-size: 10px;
-                    font-weight: 400;
-                    color: $primary;
-                }
-            }
-        }
+    .thenav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        width: 20px;
+        height: 20px;
+        margin-bottom: 2px;
+      }
+      span {
+        font-size: 10px;
+        font-weight: 400;
+        color: $primary;
+      }
     }
-    // xm 2019/11/19
+  }
+}
+// xm 2019/11/19
 </style>

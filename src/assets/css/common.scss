@@ -41,7 +41,12 @@ table {
 ul, li {
   list-style-type: none;
 }
-
+  .comfirm {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 html {
   overflow-y: auto;
 }
