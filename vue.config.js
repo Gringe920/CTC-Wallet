@@ -43,6 +43,13 @@ module.exports = {
                 changeOrigin: true,
                 pathRewrite: {}
             },
+            '/c2c': {
+                target: 'http://47.240.110.55:9200/',
+                secure: false,
+                changeOrigin: true,
+                pathRewrite: {}
+            },
+            
         }
     },
     css: {

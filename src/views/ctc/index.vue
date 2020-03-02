@@ -10,10 +10,10 @@
             <div class="sell" :class=" buyType == 'buy'?'tradeactive':''" @click="goBuyType('buy')">购买</div>
             <div class="sell" :class=" buyType == 'sell'?'tradeactive':''"  @click="goBuyType('sell')">出售</div>
         </div>
-        <span  class="text_r">发布</span>
+        <span  class="text_r"  @click="toRoute('publish')">发布</span>
     </div>
     <div class="buyall" v-if="buyType == 'buy'">
-      <div class="buymsg" v-for="item in 7 " :key="item">
+      <div class="buymsg" v-for="item in PendList " :key="item" v-if="item.type ==1">
         <div class="top">
           <div class="left">
             <img src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
@@ -24,17 +24,17 @@
           </div>
         </div>
         <div class="center">
-          <div class="left">6.98 &nbsp;CNY</div>
+          <div class="left">{{item.price}} &nbsp;CNY</div>
           <div class="right">
-            <img src="../../assets/images/otc_bank_card@2x.png" alt="" srcset="">
-            <img src="../../assets/images/otc_wechat@2x.png" alt="" srcset="">
-            <img src="../../assets/images/otc_alipay@2x.png" alt="" srcset="">
+            <img  v-if="item.paytype_bank ==1" src="../../assets/images/otc_bank_card@2x.png" alt="" srcset="">
+            <img v-if="item.paytype_wxk ==1"  src="../../assets/images/otc_wechat@2x.png" alt="" srcset="">
+            <img v-if="item.paytype_alipay ==1"  src="../../assets/images/otc_alipay@2x.png" alt="" srcset="">
           </div>
         </div>
         <div class="last">
           <div class="left">
-            <div>数量 169888.26 USDT</div>
-            <div>限额 199.00-20000.00 CNY</div>
+              <div>数量 {{item.amount.$numberDecimal}} USDT</div>
+            <div>限额 {{item.minmum}}-{{item.maxmum}}CNY</div>
           </div>
           <div  @click="changebuySellShow" class="right" >
             购买
@@ -42,8 +42,8 @@
         </div>
       </div>
     </div>
-    <div class="buyall" v-else>
-      <div class="buymsg" v-for="item in 7 " :key="item">
+      <div class="buyall" v-else>
+      <div class="buymsg" v-for="item in PendList " :key="item" v-if="item.type ==2">
         <div class="top">
           <div class="left">
             <img src="../../assets/images/details_3_selected@2x.png" alt="" srcset="">
@@ -54,19 +54,19 @@
           </div>
         </div>
         <div class="center">
-          <div class="left">6.98 &nbsp;CNY</div>
+          <div class="left">{{item.price}} &nbsp;CNY</div>
           <div class="right">
-            <img src="../../assets/images/otc_bank_card@2x.png" alt="" srcset="">
-            <img src="../../assets/images/otc_wechat@2x.png" alt="" srcset="">
-            <img src="../../assets/images/otc_alipay@2x.png" alt="" srcset="">
+            <img  v-if="item.paytype_bank ==1" src="../../assets/images/otc_bank_card@2x.png" alt="" srcset="">
+            <img v-if="item.paytype_wx ==1"  src="../../assets/images/otc_wechat@2x.png" alt="" srcset="">
+            <img v-if="item.paytype_alipay ==1"  src="../../assets/images/otc_alipay@2x.png" alt="" srcset="">
           </div>
         </div>
         <div class="last">
           <div class="left">
-            <div>数量 169888.26 USDT</div>
-            <div>限额 199.00-20000.00 CNY</div>
+            <div>数量 {{item.amount.$numberDecimal}} USDT</div>
+            <div>限额 {{item.minmum}}-{{item.maxmum}}CNY</div>
           </div>
-          <div  @click="changebuySellShow" class="right2" >
+          <div  @click="changebuySellShow" class="right" >
             出售
           </div>
         </div>
@@ -100,19 +100,44 @@ export default {
   data() {
     return {
       isShowModal: false,
-      changcoinshow: false
+      changcoinshow: false,
+      submitStatus: false
     };
   },
   computed: {
-    ...mapState(["buySellShow", "buyType"])
+    ...mapState(["buySellShow", "buyType", "PendList"])
   },
   components: {
     buySell
   },
   mounted() {
     this.initData();
+    this.getPendList();
   },
   methods: {
+    getPendList() {
+      var self = this;
+      if (this.submitStatus) return;
+      self.submitStatus = true;
+      this.axios({
+        url: "/c2c/getPendList",
+        params: {
+          symbol: "usdt"
+        }
+      })
+        .then(res => {
+          self.submitStatus = false;
+          this.$store.commit("PendList", res.data || {});
+          this.$toast.show("挂单列表获取成功!");
+        })
+        .catch(err => {
+          self.submitStatus = false;
+          this.$store.commit("UserPendList", {});
+          this.$toast.show({
+            msg: err.message || "挂单列表获取失败，请重试"
+          });
+        });
+    },
     initData() {
       let self = this;
       console.log("initdata----------");

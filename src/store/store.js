@@ -74,9 +74,17 @@ export default new Vuex.Store({
         //首页ens
         coin_list:[],
         assets_detail:{},
-        withdraw_address_list:{}
+        withdraw_address_list:{},
+        UserPendList:{},
+        PendList:{},
     },
     mutations: {
+        UserPendList(state, val) {
+            state.UserPendList = val;
+        },
+        PendList(state, val) {
+            state.PendList = val;
+        },
         withdraw_address_list(state, val) {
             state.withdraw_address_list = val;
         },

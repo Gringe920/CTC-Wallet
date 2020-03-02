@@ -44,14 +44,18 @@ export default {
   components: { TrustBtc, Binding },
   data() {
     return {
-    userState: false,
+      userState: false,
       routeList: ["ctc", "wallet", "dapp", "user", "order"],
-      submitstatus:false,
+      submitstatus: false,
+      loginCheckTimer: undefined
     };
   },
   watch: {
     $route(n, o) {
       this.showBottomNav();
+    },
+    "$route.name"(n, o) {
+      this.getUser();
     }
     // connected (){
     //     this.loginPage();
@@ -70,10 +74,10 @@ export default {
     // console.log(this.account.accounts.mnemonic);
   },
   computed: {
-    ...mapState(["showNav",'user','coin_list'])
+    ...mapState(["showNav", "user", "coin_list"])
   },
-    methods: {
-       getcoin_list() {
+  methods: {
+    getcoin_list() {
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
@@ -96,7 +100,7 @@ export default {
       console.log("app.vue getUser");
       var self = this;
       this.axios({
-        url: '/service/user_info'
+        url: "/service/user_info"
       })
         .then(res => {
           var data = res.data || {};
@@ -122,6 +126,18 @@ export default {
           this.removeLoad();
           this.loginCheck();
         });
+    },
+    loginCheck() {
+      if (this.userState && this.$route.name != "ctc" && !!!this.user.uid) {
+        // this.$router.push("/login?origin=" + this.$route.name);
+      }
+      if (this.loginCheckTimer) {
+        clearTimeout(this.loginCheckTimer);
+        this.loginCheckTimer = undefined;
+      }
+      this.loginCheckTimer = setTimeout(() => {
+        // this.getMyAeWallet();
+      }, 5000);
     },
     dispark() {
       this.$toast.show(this.$t("dispark"));
@@ -326,7 +342,7 @@ export default {
       //     this.toRoute('/login');
       // };
     }
-  },
+  }
 };
 </script>
 

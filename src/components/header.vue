@@ -54,7 +54,7 @@
             rightIcon: {
                 // 右侧图标地址
                 type: String,
-                default: "../assets/images/home_search_white.png"
+                default: ""
             },
             rightEv: {
                 // 右侧event
