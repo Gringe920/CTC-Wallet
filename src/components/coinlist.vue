@@ -21,24 +21,23 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {
-        
-    };
+    return {};
   },
-  props: ['coin', 'visible'],
+  props: ["coin", "visible"],
   computed: {
     ...mapState(["coin_list"])
   },
   methods: {
-      onItemSelect(item, idx) {
-          this.$emit('onItemSelect', item, idx);
-      }
+    onItemSelect(item, idx) {
+      this.$emit("onItemSelect", item, idx);
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .changcoin {
+  z-index: 100;
   width: 100%;
   position: fixed;
   min-height: 100%;

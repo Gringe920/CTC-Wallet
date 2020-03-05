@@ -3,8 +3,11 @@
     <div class="header">
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
       发布订单 {{symbol}}
-      <i></i>
+      <i @click="coinlistVisible = !coinlistVisible"></i>
     </div>
+    <coinlist :coin="symbol" 
+              v-if="coinlistVisible"
+              @onItemSelect="onCoinSelect" />
     <div class="content">
       <div class="tag">
         <div class="tagli" @click="activeIndex = 1" :class="{'active': activeIndex == 1}">购买</div>
@@ -82,6 +85,7 @@
 
 <script>
 import { mapState } from "vuex";
+import coinlist from '../../components/coinlist.vue'
 export default {
   data() {
     return {
@@ -99,29 +103,24 @@ export default {
       pwd:'xiemei123456',
       code:'22',
       VerifyCodeStatus:false,
+
+      coinlistVisible: false,
     };
   },
   mounted() {
-    if (this.coin_list) {
-      return;
-    }
-    this.axios({
-        url: "/service/coin_list",
-        params: {}
-      })
-        .then(res => {
-          this.$store.commit("coin_list", res.data || {});
-          this.$toast.show("获取币种成功!");
-        })
-        .catch(err => {
-          this.$store.commit("coin_list", {});
-          this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
-        });
+    
+  },
+  components: {
+    coinlist
   },
   computed: {
     ...mapState(["user", "coin_list", "assets_detail"])
   },
   methods: {
+    onCoinSelect(coin) {
+      this.symbol = coin;
+      this.coinlistVisible = false;
+    },
     getVerifyCode(){
        var self = this;
       if (this.VerifyCodeStatus) return;
