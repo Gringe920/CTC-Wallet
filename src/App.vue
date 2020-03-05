@@ -65,6 +65,7 @@ export default {
   created() {
     this.removeLoad();
     this.plusReady();
+    this.getcoin_list();
   },
   mounted() {
     this.showBottomNav();

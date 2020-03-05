@@ -101,6 +101,23 @@ export default {
       VerifyCodeStatus:false,
     };
   },
+  mounted() {
+    if (this.coin_list) {
+      return;
+    }
+    this.axios({
+        url: "/service/coin_list",
+        params: {}
+      })
+        .then(res => {
+          this.$store.commit("coin_list", res.data || {});
+          this.$toast.show("获取币种成功!");
+        })
+        .catch(err => {
+          this.$store.commit("coin_list", {});
+          this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
+        });
+  },
   computed: {
     ...mapState(["user", "coin_list", "assets_detail"])
   },
