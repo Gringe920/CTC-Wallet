@@ -1,6 +1,6 @@
 <template>
   <section class="buySellbox">
-    <div class="infos" v-if="show == 1">
+    <div class="infos" v-if="orderType == 1">
       <div class="top top2">
         <div class="l">{{buyType == 'buy'?'购买':"出售"}}USDT</div>
         <img
@@ -56,9 +56,14 @@
           <span>全部</span>
         </div>
       </div>
-      <div class="btn" @click="order">{{buyType == 'buy'?'购买':"出售"}}</div>
+      <div class="btn" @click="order(item)">{{buyType == 'buy'?'购买':"出售"}}</div>
     </div>
-    <tradedialog v-if="show == 2" @onClose="changebuySellShow" />
+    <tradedialog
+      v-if="orderType == 2"
+      :countdown="10"
+      @onClose="changebuySellShow"
+      @onConfirm="continueOrder"
+    />
   </section>
 </template>
 <script>
@@ -69,7 +74,8 @@ export default {
   props: ["item"],
   data() {
     return {
-      show: 1
+      orderType: 1,
+      currentItem: null
     };
   },
   computed: {
@@ -79,11 +85,38 @@ export default {
     tradedialog
   },
   methods: {
-    order() {
-      this.show = 2;
+    order(item) {
+      this.orderType = 2;
+      this.currentItem = item;
     },
     changebuySellShow() {
       this.$store.commit("buySellShow", false);
+    },
+    continueOrder(password, verifyCode) {
+      this.axios({
+        url: "/c2c/order",
+        params: {
+          uid: this.user.uid,
+          pend_id: this.currentItem._id,
+          type: 1,
+          amount: 101, //TODO change this param
+          pwd: password,
+          code: verifyCode
+        }
+      })
+        .then(res => {
+          //TODO jump to order-to-pay page
+          this.$router.push({
+            path: "/result"
+          });
+          this.$store.commit('order_detail', res.data);
+        })
+        .catch(err => {
+          // this.$toast.show({
+          //   msg: err.message || "操作失败"
+          // });
+          console.log("failed, but still jump to order-to-pay page");
+        });
     }
   }
 };

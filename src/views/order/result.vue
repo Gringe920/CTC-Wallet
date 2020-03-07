@@ -2,7 +2,49 @@
   <section>
     <Header title="出售USDT" />
     <div class="container">
-      <div class="order-status">
+      <!-- <div class="order-progress">
+        <div class="order-status order-status-1">
+          <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+          <p class="order-name">下单</p>
+        </div>
+        <div class="order-status order-status-2">
+            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+            <p class="order-name">{{pendingPay}}</p>
+        </div>
+        <div class="order-status order-status-3">
+            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+            <p class="order-name">{{verifyPay}}</p>
+        </div>
+        <div class="order-status order-status-4">
+            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+            <p class="order-name">放币</p>
+      </div>-->
+      <div class="order-progress">
+        <div class="order-status">
+          <div class="order-status-1">
+            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+          </div>
+          <div class="line"></div>
+          <div class="order-status-2">
+            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+          </div>
+          <div class="line"></div>
+          <div class="order-status-3">
+            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+          </div>
+          <div class="line"></div>
+          <div class="order-status-4">
+            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+          </div>
+        </div>
+        <div class="order-status-text">
+          <div class="sta-txx">下单</div>
+          <div class="sta-txx">{{pendingPay}}</div>
+          <div class="sta-txx">{{verifyPay}}</div>
+          <div class="sta-txx">放币</div>
+        </div>
+      </div>
+      <div class="order-result">
         <p class="status-text">申诉中 金额6890 CNY</p>
         <p class="reason">申诉理由：我已付款，商家未确认。</p>
         <p class="deal">处理方式：等待处理</p>
@@ -17,11 +59,11 @@
         </div>
         <div class="d-row">
           <span>商家</span>
-          <span class="d-v">风清云淡</span>
+          <span class="d-v">{{sellerName}}</span>
         </div>
         <div class="d-row">
           <span>数量</span>
-          <span class="d-v">1000</span>
+          <span class="d-v">{{order_detail.amount.$numberDecimal}}</span>
         </div>
         <div class="d-row">
           <span>价格</span>
@@ -30,7 +72,7 @@
         <div class="d-row">
           <span>备注码(付款时填写备注码）</span>
           <span class="d-v">
-            368888
+            {{order_detail.code}}
             <i class="copy"></i>
           </span>
         </div>
@@ -44,17 +86,29 @@
         <br />
       </div>
       <div class="r-bottom">
-        <div>
+        <div class="bottom-btn">
           <p>
             <img src="../../assets/images/details_news@2x.png" />
           </p>
           <p>聊天</p>
         </div>
-        <div>
+        <div class="bottom-btn">
           <p>
             <img src="../../assets/images/details_iphone@2x.png" />
           </p>
-          <p>聊天</p>
+          <p>联系对方</p>
+        </div>
+        <!-- 如果是出售，则是申诉；如果是买入，则是取消订单 -->
+        <div class="bottom-btn">
+          <p>
+            <img
+              :src='require(order_detail.pend_type == 2 ? "../../assets/images/details_complaint@2x.png":"../../assets/images/details_order_cancel@2x.png")'
+            />
+          </p>
+          <p>{{order_detail.pend_type == 2 ? '申诉':'取消订单'}}</p>
+        </div>
+        <div class="confirm-btn" @click="confirm">
+          <p>{{order_detail.pend_type == 2 ? '对方已付款': '我已付款'}}</p>
         </div>
       </div>
     </div>
@@ -62,17 +116,87 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      pendingPay: "待对方汇款",
+      verifyPay: "核实汇款",
+      sellerName: ""
+    };
+  },
+  mounted() {
+    let uid = 0;
+    if (this.order_detail.pend_type == 1) {
+      // type 1, uid = buyer
+      uid = this.order_detail.buyer;
+    } else if (this.order_detail.pend_type == 2) {
+      // type 2, uid = seller
+      uid = this.order_detail.seller;
+    }
+    this.getSellerName(uid);
+  },
+  computed: {
+    ...mapState(["order_detail"])
+  },
+  methods: {
+    getSellerName(uid) {
+      this.axios({
+        url: "/service/getNickName",
+        params: {
+          uid
+        }
+      })
+        .then(res => {
+          this.sellerName = res.data;
+        })
+        .catch(err =>
+          this.$toast.show({
+            msg: err.message || "获取商家名失败"
+          })
+        );
+    },
+    confirm() {
+      console.log('as')
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 section {
   height: 100%;
 }
-.container{
+.container {
   padding-top: 50px;
 }
-.order-status {
+.order-progress {
+  padding: 15px 38px;
+  border-bottom: 10px solid #f9f8fd;
+  .order-status {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .order-status-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+  }
+  .progress-icon {
+    width: 24px;
+    height: 24px;
+  }
+  .line {
+    width: 20%;
+    height: 1px;
+    border: 1px dashed #1771ed;
+    margin-top: -6px;
+  }
+}
+.order-result {
   font-size: 14px;
   padding: 15px;
   color: #97a2af;
@@ -114,6 +238,7 @@ section {
   color: #97a2af;
   border-top: 10px solid #f9f8fd;
   line-height: 2;
+  padding-bottom: 70px;
 }
 .r-bottom {
   box-shadow: 0px 2px 14px 0px rgba(30, 49, 107, 0.1);
@@ -126,6 +251,20 @@ section {
   font-size: 10px;
   color: #97a2af;
   align-items: center;
+  background-color: #fff;
+  .bottom-btn {
+    text-align: center;
+  }
+  .confirm-btn {
+    width: 186px;
+    height: 44px;
+    text-align: center;
+    line-height: 44px;
+    font-size: 16px;
+    background-color: #1771ED;
+    border-radius: 3px;
+    color: white;
+  }
   img {
     width: 20px;
     height: 20px;

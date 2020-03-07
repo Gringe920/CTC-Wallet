@@ -5,10 +5,10 @@
       <img class="img2" @click="onClose" src="../assets/images/top_off_black@2x.png" alt srcset />
     </div>
     <div class="inp">
-      <input type="password" placeholder="输入交易密码" />
+      <input type="password" v-model="password" placeholder="输入交易密码" />
     </div>
     <div class="inp">
-      <input type="password" placeholder="输入短信验证码" />
+      <input type="password" v-model="verifyCode" placeholder="输入短信验证码" />
       <div class="code" @click="getVerifyCode">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</div>
     </div>
     <div class="btn" @click="onConfirm">确定</div>
@@ -21,7 +21,9 @@ export default {
     return {
       timer: null,
       isTiktok: false,
-      remainedTime: this.countdown
+      remainedTime: this.countdown,
+      verifyCode: "",
+      password: ""
     };
   },
   computed: {},
@@ -44,7 +46,7 @@ export default {
           this.startCountdown();
           this.$toast.show("获取C2C操作验证码成功!");
         })
-        .catch(_ => {
+        .catch(err => {
           this.$toast.show({
             msg: err.message || "获取C2C操作验证码失败，请重试"
           });
@@ -64,7 +66,7 @@ export default {
       }, 1000);
     },
     onConfirm() {
-      this.$emit("onConfirm");
+      this.$emit("onConfirm", this.password, this.verifyCode);
     },
     onClose() {
       this.$emit("onClose");
