@@ -165,7 +165,6 @@ export default {
     },
     initData() {
       let self = this;
-      console.log("initdata----------");
       this.axios({
         url: "/service/login",
         params: {
@@ -176,11 +175,9 @@ export default {
         }
       })
         .then(res => {
-          console.log("initdata1----------");
           console.log(res);
         })
         .catch(err => {
-          console.log("initdata2----------");
           console.log(err);
         });
     },
