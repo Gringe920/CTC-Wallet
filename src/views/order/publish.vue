@@ -2,8 +2,9 @@
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
-      发布订单 {{symbol}}
-      <i @click="coinlistVisible = !coinlistVisible"></i>
+      发布订单
+      <span @click="coinlistVisible = !coinlistVisible"> {{symbol}}
+      <i ></i></span>
     </div>
     <coinlist :coin="symbol" 
               v-if="coinlistVisible"
@@ -17,7 +18,7 @@
       <div class="buy-box" >
         <div class="p-content bor-bottom">
           <div class="p-row tips">
-            <span>余额：5000 USDT</span>
+            <span>余额：{{user.asset[symbol].$numberDecimal}} {{symbol.toUpperCase()}}</span>
             <span>参考价：¥6.79</span>
           </div>
           <div class="line"></div>
@@ -33,7 +34,7 @@
             <span class="tit">数量</span>
             <div class="inp">
               <input type="number" placeholder="卖出数量，不低于20000" v-model="amount" />
-              <span>USDT</span>
+              <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>
         </div>

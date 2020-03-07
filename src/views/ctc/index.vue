@@ -31,7 +31,7 @@
       <div
         class="buymsg"
         v-for="item in PendList"
-        :key="item"
+        :key="item.uid"
         v-if="item.type == 1"
       >
         <div class="top">
@@ -85,7 +85,7 @@
       <div
         class="buymsg"
         v-for="item in PendList"
-        :key="item"
+        :key="item.uid"
         v-if="item.type == 2"
       >
         <div class="top">
@@ -95,7 +95,7 @@
               alt=""
               srcset=""
             />
-            <span>云淡风轻</span>
+            <span>{{ item.nickname }}</span>
           </div>
           <div class="right">
             月销售量：30
@@ -127,9 +127,9 @@
         <div class="last">
           <div class="left">
             <div>数量 {{ item.amount.$numberDecimal }} USDT</div>
-            <div>限额 {{ item.minmum }}-{{ item.maxmum }}CNY</div>
+            <div>限额 {{ item.minmum }}-{{ item.maxmum }} CNY</div>
           </div>
-          <div @click="changebuySellShow" class="right">
+          <div @click="changebuySellShow(item)" class="right">
             出售
           </div>
         </div>
@@ -147,7 +147,7 @@
       <p class="active-content">您尚未设置支付方式，请先去设置。</p>
     </r-modal>
     <!-- 购买出售弹窗 -->
-    <buySell v-if="buySellShow"></buySell>
+    <buySell v-if="buySellShow" :item="bugSellItem"></buySell>
   </section>
 </template>
 <script>
@@ -163,7 +163,8 @@ export default {
       submitStatus: false,
       coin: "usdt",
       buyList: [],
-      sellList: []
+      sellList: [],
+      bugSellItem: {}
     };
   },
   computed: {
@@ -195,8 +196,8 @@ export default {
       })
         .then(res => {
           self.submitStatus = false;
-          if(data.error_code == 0){
-            this.$store.commit("PendList", res.data || {});
+          if(res.error_code == 0){
+            this.$store.commit("PendList", res.data.list || {});
           }
           
           this.$toast.show("挂单列表获取成功!");
@@ -211,7 +212,6 @@ export default {
     },
     initData() {
       let self = this;
-      console.log("initdata----------");
       this.axios({
         url: "/service/login",
         params: {
@@ -230,7 +230,8 @@ export default {
           console.log(err);
         });
     },
-    changebuySellShow() {
+    changebuySellShow(item) {
+      this.bugSellItem = item;
       this.$store.commit("buySellShow", true);
     },
     goBuyType(data) {
