@@ -95,35 +95,44 @@
           </p>
           <p>聊天</p>
         </div>
-        <div class="bottom-btn" v-if="!isOrderClosed()">
+        <div class="bottom-btn" v-if="!isOrderClosed()" @click="callDialogShow = true">
           <p>
             <img src="../../assets/images/details_iphone@2x.png" />
           </p>
           <p>联系对方</p>
         </div>
         <!-- 如果是出售，则是申诉；如果是买入，则是取消订单 -->
-        <div class="bottom-btn" v-if="!isOrderClosed()">
+        <div class="bottom-btn" v-if="!isOrderClosed()" @click=" isSeller ? (complainDialogShow = true) : (cancelDialogShow = true)">
           <p>
             <img
-              :src='require(order_detail.pend_type == 2 ? "../../assets/images/details_complaint@2x.png":"../../assets/images/details_order_cancel@2x.png")'
+              :src='require(isSeller() ? "../../assets/images/details_complaint@2x.png":"../../assets/images/details_order_cancel@2x.png")'
             />
           </p>
-          <p>{{order_detail.pend_type == 2 ? '申诉':'取消订单'}}</p>
+          <p>{{ isSeller() ? '申诉':'取消订单'}}</p>
         </div>
         <div class="confirm-btn" @click="payDialogShow = true">
-          <p>{{order_detail.pend_type == 2 ? '对方已付款': '我已付款'}}</p>
+          <p>{{ isSeller() ? '对方已付款': '我已付款'}}</p>
         </div>
       </div>
       <Dialog
         title="确定付款"
         :show="payDialogShow"
         @on-cancel="payDialogShow = false"
-        @on-ok="confirm"
-      >
-         <p class="pay-dialog-slot">请务必登录网上银行或者第三方支付账号确定收到该笔款项</p>
+        @on-ok="confirm">
+         <p class="pay-dialog-slot">{{ isSeller() ? '请务必登录网上银行或者第三方支付账号确定收到该笔款项' : '请确认您已向对方付款，恶意点击将直接冻结账户'}}</p>
       </Dialog>
-      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false" />
-      <Dialog />
+      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false">
+        <p class="call-dialog-slot">xxxxxxx</p>
+      </Dialog>
+      <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false">
+        <div class="complain-dialog-slot" >
+          <textarea placeholder="请填写申诉内容" v-model="complainContent" />
+          <span> {{ complainContent.length }} / 300 </span>
+        </div>
+      </Dialog>
+      <Dialog title="取消订单" :show="cancelDialogShow" @on-cancel="cancelDialogShow = false">
+        <p class="cancel-dialog-slot">如果您已经向对方付款，请千万不要取消订单，取消规则：当日取消累计3笔订单，将会限制24小时内买入卖出功能。</p>
+      </Dialog>
     </div>
   </section>
 </template>
@@ -146,6 +155,9 @@ export default {
       position: 1,
       payDialogShow: false,
       callDialogShow: false,
+      complainDialogShow: false,
+      cancelDialogShow: false,
+      complainContent: ''
     };
   },
   mounted() {
@@ -164,6 +176,9 @@ export default {
     ...mapState(["order_detail"])
   },
   methods: {
+    isSeller() {
+      return this.order_detail.pend_type == 2;
+    },
     updatePosition() {
         this.position = POSITION_MAP[this.order_detail.pend_type]
     },
@@ -302,6 +317,33 @@ section {
 .pay-dialog-slot {
   margin: 0 20px;
   text-align: left;
+}
+.call-dialog-slot {
+  margin: 0 20px;
+}
+.cancel-dialog-slot {
+  margin: 0 20px;
+  text-align: left;
+}
+.complain-dialog-slot {
+  position: relative;
+  margin: 0 20px;
+  textarea {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+    height: 150px;
+    background-color: #E9E9E9;
+    border-radius:3px;
+    outline: none;
+    border:1px solid rgba(233,233,233,1);
+  }
+  span {
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+    bottom: 10px;
+  }
 }
 .attention {
   font-size: 14px;
