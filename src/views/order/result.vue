@@ -26,18 +26,18 @@
           </div>
           <div class="line"></div>
           <div class="order-status-2">
-            <img class="progress-icon" 
-            :src='position > 1 ? require("../../assets/images/details_selected@2x.png"): require("../../assets/images/details_2_selected@2x.png")' />
+            <img
+              class="progress-icon"
+              :src='position > 1 ? require("../../assets/images/details_selected@2x.png"): require("../../assets/images/details_2_selected@2x.png")'
+            />
           </div>
           <div :class='position >= 2 ? "line" : "line-default"'></div>
           <div class="order-status-3">
-            <img class="progress-icon" 
-            :src="require(`../../assets/images/${getPosition2Img()}`)" />
+            <img class="progress-icon" :src='require(`../../assets/images/${getPosition2Img()}`)' />
           </div>
           <div :class='position >= 3 ? "line" : "line-default"'></div>
           <div class="order-status-4">
-            <img class="progress-icon"
-            :src="require(`../../assets/images/${getPosition3Img()}`)" />
+            <img class="progress-icon" :src="require(`../../assets/images/${getPosition3Img()}`)" />
           </div>
         </div>
         <div class="order-status-text">
@@ -110,16 +110,27 @@
           </p>
           <p>{{order_detail.pend_type == 2 ? '申诉':'取消订单'}}</p>
         </div>
-        <div class="confirm-btn" @click="confirm">
+        <div class="confirm-btn" @click="payDialogShow = true">
           <p>{{order_detail.pend_type == 2 ? '对方已付款': '我已付款'}}</p>
         </div>
       </div>
+      <Dialog
+        title="确定付款"
+        :show="payDialogShow"
+        @on-cancel="payDialogShow = false"
+        @on-ok="confirm"
+      >
+         <p class="pay-dialog-slot">请务必登录网上银行或者第三方支付账号确定收到该笔款项</p>
+      </Dialog>
+      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false" />
+      <Dialog />
     </div>
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Dialog from '../../components/modal.vue'
 const POSITION_MAP = {
   0: 1,
   1: 3,
@@ -133,6 +144,8 @@ export default {
       verifyPay: "核实汇款",
       sellerName: "",
       position: 1,
+      payDialogShow: false,
+      callDialogShow: false,
     };
   },
   mounted() {
@@ -203,32 +216,12 @@ export default {
             msg: err.message || "操作失败"
           });
       })
-      // console.log('as')
-//       uri:/c2c/pay
-// mothod: GET
-// input:
-//     order_id: string 对应order_id
-//     pay_type: number 付款方式（1，银行卡 2，微信 3，支付宝）
-// return:
-//     更新后的订单信息
-//     {
-//         symbol: pendRecord.symbol,
-//         pend_id: pendId,
-//         pend_type: pendType,
-//         amount: decimalAmount,
-//         code: tools.random(10000001, 99999999),
-//         status: C2COrderModel.STATUS_WAIT_PAY,
-//         transfer_name: ctx.args.transfer_name,
-//         transfer_bank: ctx.args.transfer_bank,
-//         transfer_subbank: ctx.args.transfer_subbank,
-//         transfer_account: ctx.args.transfer_account,
-//         seller: sellerId,
-//         buyer: buyerId,
-//         time: Date.now(),
-//     }
     }
+  },
+  components: {
+    Dialog,
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -266,7 +259,7 @@ section {
   .line-default {
     width: 20%;
     height: 1px;
-    border: 1px dashed #CCD0D3;
+    border: 1px dashed #ccd0d3;
     margin-top: -6px;
   }
 }
@@ -306,6 +299,10 @@ section {
     }
   }
 }
+.pay-dialog-slot {
+  margin: 0 20px;
+  text-align: left;
+}
 .attention {
   font-size: 14px;
   padding: 15px;
@@ -335,7 +332,7 @@ section {
     text-align: center;
     line-height: 44px;
     font-size: 16px;
-    background-color: #1771ED;
+    background-color: #1771ed;
     border-radius: 3px;
     color: white;
   }
