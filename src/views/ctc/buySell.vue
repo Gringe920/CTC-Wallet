@@ -88,6 +88,7 @@ export default {
     order(item) {
       this.orderType = 2;
       this.currentItem = item;
+      console.log('order')
     },
     changebuySellShow() {
       this.$store.commit("buySellShow", false);

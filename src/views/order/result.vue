@@ -26,15 +26,18 @@
           </div>
           <div class="line"></div>
           <div class="order-status-2">
-            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+            <img class="progress-icon" 
+            :src='position > 1 ? require("../../assets/images/details_selected@2x.png"): require("../../assets/images/details_2_selected@2x.png")' />
           </div>
-          <div class="line"></div>
+          <div :class='position >= 2 ? "line" : "line-default"'></div>
           <div class="order-status-3">
-            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+            <img class="progress-icon" 
+            :src="require(`../../assets/images/${getPosition2Img()}`)" />
           </div>
-          <div class="line"></div>
+          <div :class='position >= 3 ? "line" : "line-default"'></div>
           <div class="order-status-4">
-            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
+            <img class="progress-icon"
+            :src="require(`../../assets/images/${getPosition3Img()}`)" />
           </div>
         </div>
         <div class="order-status-text">
@@ -77,7 +80,7 @@
           </span>
         </div>
       </div>
-      <div class="attetion">
+      <div class="attention">
         1、您的汇款将直接进入卖方账户，交易过程中卖方出售的数字资产由平台托管保护；
         <br />2、转账时“转账备注/附言”必需填写转账备注；
         <br />3、“支付完成后”请务必点击【我已付款】，避免超时订单自动取消造成您的财产损失；
@@ -86,20 +89,20 @@
         <br />
       </div>
       <div class="r-bottom">
-        <div class="bottom-btn">
+        <div class="bottom-btn" v-if="!isOrderClosed()">
           <p>
             <img src="../../assets/images/details_news@2x.png" />
           </p>
           <p>聊天</p>
         </div>
-        <div class="bottom-btn">
+        <div class="bottom-btn" v-if="!isOrderClosed()">
           <p>
             <img src="../../assets/images/details_iphone@2x.png" />
           </p>
           <p>联系对方</p>
         </div>
         <!-- 如果是出售，则是申诉；如果是买入，则是取消订单 -->
-        <div class="bottom-btn">
+        <div class="bottom-btn" v-if="!isOrderClosed()">
           <p>
             <img
               :src='require(order_detail.pend_type == 2 ? "../../assets/images/details_complaint@2x.png":"../../assets/images/details_order_cancel@2x.png")'
@@ -117,12 +120,19 @@
 
 <script>
 import { mapState } from "vuex";
+const POSITION_MAP = {
+  0: 1,
+  1: 3,
+  3: 2,
+  2: 1, // cancelled
+}
 export default {
   data() {
     return {
       pendingPay: "待对方汇款",
       verifyPay: "核实汇款",
-      sellerName: ""
+      sellerName: "",
+      position: 1,
     };
   },
   mounted() {
@@ -135,11 +145,31 @@ export default {
       uid = this.order_detail.seller;
     }
     this.getSellerName(uid);
+    this.updatePosition()
   },
   computed: {
     ...mapState(["order_detail"])
   },
   methods: {
+    updatePosition() {
+        this.position = POSITION_MAP[this.order_detail.pend_type]
+    },
+    getPosition2Img() {
+      if (this.position > 2) {
+        return 'details_selected@2x.png';
+      } else if (this.position < 2) {
+        return 'details_3_unchecked@2x.png';
+      } else {
+        return 'details_3_selected@2x.png';
+      }
+    },
+    getPosition3Img() {
+      if (this.position >= 3) {
+        return 'details_selected@2x.png';
+      } else {
+        return 'details_4_unchecked@2x.png';
+      }
+    },
     getSellerName(uid) {
       this.axios({
         url: "/service/getNickName",
@@ -156,8 +186,46 @@ export default {
           })
         );
     },
+    isOrderClosed() {
+      return this.order_detail.pend_type == 1;
+    },
     confirm() {
-      console.log('as')
+      this.axios({
+        url: '/c2c/pay',
+        params: {
+          order_id: '',
+          pay_type: '',
+        }
+      }).then(res => {
+        //TODO refresh order_detail
+      }).catch(err => {
+        this.$toast.show({
+            msg: err.message || "操作失败"
+          });
+      })
+      // console.log('as')
+//       uri:/c2c/pay
+// mothod: GET
+// input:
+//     order_id: string 对应order_id
+//     pay_type: number 付款方式（1，银行卡 2，微信 3，支付宝）
+// return:
+//     更新后的订单信息
+//     {
+//         symbol: pendRecord.symbol,
+//         pend_id: pendId,
+//         pend_type: pendType,
+//         amount: decimalAmount,
+//         code: tools.random(10000001, 99999999),
+//         status: C2COrderModel.STATUS_WAIT_PAY,
+//         transfer_name: ctx.args.transfer_name,
+//         transfer_bank: ctx.args.transfer_bank,
+//         transfer_subbank: ctx.args.transfer_subbank,
+//         transfer_account: ctx.args.transfer_account,
+//         seller: sellerId,
+//         buyer: buyerId,
+//         time: Date.now(),
+//     }
     }
   }
 };
@@ -193,6 +261,12 @@ section {
     width: 20%;
     height: 1px;
     border: 1px dashed #1771ed;
+    margin-top: -6px;
+  }
+  .line-default {
+    width: 20%;
+    height: 1px;
+    border: 1px dashed #CCD0D3;
     margin-top: -6px;
   }
 }
@@ -232,7 +306,7 @@ section {
     }
   }
 }
-.attetion {
+.attention {
   font-size: 14px;
   padding: 15px;
   color: #97a2af;
