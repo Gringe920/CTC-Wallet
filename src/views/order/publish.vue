@@ -2,9 +2,13 @@
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
-      发布订单 {{symbol}}
-      <i></i>
+      发布订单
+      <span @click="coinlistVisible = !coinlistVisible"> {{symbol}}
+      <i ></i></span>
     </div>
+    <coinlist :coin="symbol" 
+              v-if="coinlistVisible"
+              @onItemSelect="onCoinSelect" />
     <div class="content">
       <div class="tag">
         <div class="tagli" @click="activeIndex = 1" :class="{'active': activeIndex == 1}">购买</div>
@@ -14,7 +18,7 @@
       <div class="buy-box" >
         <div class="p-content bor-bottom">
           <div class="p-row tips">
-            <span>余额：5000 USDT</span>
+            <span>余额：{{user.asset[symbol].$numberDecimal}} {{symbol.toUpperCase()}}</span>
             <span>参考价：¥6.79</span>
           </div>
           <div class="line"></div>
@@ -30,7 +34,7 @@
             <span class="tit">数量</span>
             <div class="inp">
               <input type="number" placeholder="卖出数量，不低于20000" v-model="amount" />
-              <span>USDT</span>
+              <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>
         </div>
@@ -82,6 +86,7 @@
 
 <script>
 import { mapState } from "vuex";
+import coinlist from "../../components/coinlist.vue";
 export default {
   data() {
     return {
@@ -96,24 +101,32 @@ export default {
       paytype_alipay: 1, // 是否支持支付宝
       minnum: 100, // 支持的最小交易数量
       maxnum: 10000, // 支持的最大交易数量
-      pwd:'xiemei123456',
-      code:'22',
-      VerifyCodeStatus:false,
+      pwd: "xiemei123456",
+      code: "22",
+      VerifyCodeStatus: false,
+
+      coinlistVisible: false
     };
+  },
+  mounted() {},
+  components: {
+    coinlist
   },
   computed: {
     ...mapState(["user", "coin_list", "assets_detail"])
   },
   methods: {
-    getVerifyCode(){
-       var self = this;
+    onCoinSelect(coin) {
+      this.symbol = coin;
+      this.coinlistVisible = false;
+    },
+    getVerifyCode() {
+      var self = this;
       if (this.VerifyCodeStatus) return;
       self.VerifyCodeStatus = true;
-   this.axios({
+      this.axios({
         url: "/c2c/getVerifyCode",
-        params: {
-         
-        }
+        params: {}
       })
         .then(res => {
           self.VerifyCodeStatus = false;
@@ -121,14 +134,22 @@ export default {
         })
         .catch(err => {
           self.VerifyCodeStatus = false;
-          this.$toast.show({ msg: err.message || "获取C2C操作验证码失败，请重试" });
+          this.$toast.show({
+            msg: err.message || "获取C2C操作验证码失败，请重试"
+          });
         });
     },
     submit() {
       var self = this;
       if (this.submitStatus) return;
       self.submitStatus = true;
-      console.log(typeof self.price,typeof self.type,typeof self.code,  typeof self.paytype_bank,'self.price')
+      console.log(
+        typeof self.price,
+        typeof self.type,
+        typeof self.code,
+        typeof self.paytype_bank,
+        "self.price"
+      );
       this.axios({
         url: "/c2c/pend",
         params: {
@@ -141,8 +162,8 @@ export default {
           paytype_alipay: self.paytype_alipay,
           minnum: self.minnum,
           maxnum: self.maxnum,
-          pwd:self.pwd,
-          code:self.code,
+          pwd: self.pwd,
+          code: self.code
         }
       })
         .then(res => {

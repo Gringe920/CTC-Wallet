@@ -1,13 +1,19 @@
 <template>
-  <section class="buySellbox" >
+  <section class="buySellbox">
     <div class="infos" v-if="show == 1">
       <div class="top top2">
-        <div class="l ">{{buyType == 'buy'?'购买':"出售"}}USDT</div>
-        <img class="img2" @click="changebuySellShow" src="../../assets/images/top_off_black@2x.png" alt="" srcset="">
+        <div class="l">{{buyType == 'buy'?'购买':"出售"}}USDT</div>
+        <img
+          class="img2"
+          @click="changebuySellShow"
+          src="../../assets/images/top_off_black@2x.png"
+          alt
+          srcset
+        />
       </div>
       <div class="top">
         <div class="l2">单笔限额</div>
-        <div class="r">¥199.00 - ¥20000.00</div>
+        <div class="r">¥{{ item.minmum }} - ¥{{ item.maxmum }}</div>
       </div>
       <div class="top">
         <div class="l2">委托价格</div>
@@ -15,58 +21,65 @@
       </div>
       <div class="top">
         <div class="l2">付款方式</div>
-          <div class="right">
-            <img src="../../assets/images/otc_bank_card@2x.png" alt="" srcset="">
-            <img src="../../assets/images/otc_wechat@2x.png" alt="" srcset="">
-            <img src="../../assets/images/otc_alipay@2x.png" alt="" srcset="">
+        <div class="right">
+          <img
+            v-if="item.paytype_bank == 1"
+            src="../../assets/images/otc_bank_card@2x.png"
+            alt
+            srcset
+          />
+          <img v-if="item.paytype_wx == 1" src="../../assets/images/otc_wechat@2x.png" alt srcset />
+          <img
+            v-if="item.paytype_alipay == 1"
+            src="../../assets/images/otc_alipay@2x.png"
+            alt
+            srcset
+          />
+        </div>
+      </div>
+      <div class="n" v-if="buyType != 'buy'">
+        余额：{{ user.asset['usdt'].$numberDecimal}} USDT &nbsp;
+        <span class="transfer">去划转</span>
+      </div>
+      <div class="inpbox">
+        <div class="left">
+          <div class="inp bt br">
+            <input type="text" :placeholder="buyType == 'buy'?'最大可买入18000.00':'最大可卖出20000.00'" />
+            <span>CNY</span>
           </div>
+          <div class="inp br">
+            <input type="text" :placeholder="buyType == 'buy'?'最大可买入169888.26':'最大可卖出169888.26'" />
+            <span>USdt</span>
+          </div>
+        </div>
+        <div class="right">
+          <span>全部</span>
+        </div>
       </div>
-       <div class="n" v-if="buyType != 'buy'">余额：8000.00 USDT &nbsp;去划转</div>
-       <div class="inpbox">
-         <div class="left">
-           <div class="inp bt br">
-             <input type="text" :placeholder="buyType == 'buy'?'最大可买入18000.00':'最大可卖出20000.00'">
-             <span>CNY</span>
-           </div>
-            <div class="inp br">
-             <input type="text" :placeholder="buyType == 'buy'?'最大可买入169888.26':'最大可卖出169888.26'">
-             <span>USdt</span>
-           </div>
-         </div>
-         <div class="right"> <span>全部</span></div>
-       </div>
-       <div class="btn" @click="order"> {{buyType == 'buy'?'购买':"出售"}}</div>
+      <div class="btn" @click="order">{{buyType == 'buy'?'购买':"出售"}}</div>
     </div>
-    <div class="pasword" v-if="show == 2">
-      <div class="top">
-        <div class="l ">请输入交易密码</div>
-        <img class="img2" @click="changebuySellShow" src="../../assets/images/top_off_black@2x.png" alt="" srcset="">
-      </div>
-      <div class="inp">
-        <input type="password" placeholder="输入交易密码">
-      </div>
-        <div class="inp">
-        <input type="password" placeholder="输入交易密码">
-        <div class="code">获取验证码</div>
-      </div>
-       <div class="btn"> 确定</div>
-    </div>
+    <tradedialog v-if="show == 2" @onClose="changebuySellShow" />
   </section>
 </template>
 <script>
 import { mapState } from "vuex";
+import tradedialog from "../../components/tradedialog.vue";
 export default {
   name: "buySellbox",
+  props: ["item"],
   data() {
     return {
-      show:1,
+      show: 1
     };
   },
   computed: {
-    ...mapState(["buySellShow",'buyType'])
+    ...mapState(["buySellShow", "buyType", "user"])
+  },
+  components: {
+    tradedialog
   },
   methods: {
-    order(){
+    order() {
       this.show = 2;
     },
     changebuySellShow() {
@@ -87,49 +100,6 @@ export default {
   align-items: flex-end;
   justify-content: flex-end;
   background: rgba(0, 0, 0, 0.5);
-  .pasword {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    background: $white;
-    padding: 25px 15px;
-    border-radius: 16px 16px 0px 0px;
-    .top {
-      position: relative;
-      margin-bottom: 25px;
-      .l {
-        text-align: center;
-      }
-      .img2 {
-        position: absolute;
-        right: 0;
-        top: 0px;
-        width: 15px;
-        height: 15px;
-        margin-left: 10px;
-      }
-    }
-    .inp {
-      display: flex;
-      padding: 0 5px;
-      font-size: 12px;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      height: 44px;
-      input {
-        min-width: 70%;
-        line-height: 44px;
-      }
-
-      .code {
-        line-height: 44px;
-        padding-left: 10px;
-        border-left: 1px solid rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
   .infos {
     border-radius: 16px 16px 0px 0px;
     position: fixed;
@@ -173,6 +143,9 @@ export default {
       margin-top: 20px;
       font-size: 14px;
       color: $color1;
+      .transfer {
+        text-decoration: underline;
+      }
     }
     .inpbox {
       margin-bottom: 25px;
