@@ -9,7 +9,7 @@
             </div>
             <div class="modal-footer">
                 <button class="cancel" @click="hideModal">取消</button>
-                <button class="comfirm" @click="submit">{{btnText}}</button>
+                <button class="ok" @click="submit">{{btnText}}</button>
             </div>
         </div>
     </div>
@@ -66,6 +66,7 @@
             position: absolute;
             color:$white;
             .modal-header{
+                font-weight: bold;
                 text-align: center;
                 padding: 30px 0;
                 color: $color2;
@@ -76,7 +77,7 @@
             }
             .modal-footer{
                 display: flex;
-                justify-content: space-between;
+                justify-content: space-around;
                 align-items: center;
                 padding: 25px 15px 15px;
                 button{
@@ -90,9 +91,11 @@
                 }
                 .cancel{
                     border:1px solid $color1;
+                    border-radius: 3px;
                     color: $color1;
                 }
-                .comfirm{
+                .ok{
+                    border-radius: 3px;
                     color: $btnFontColor;
                     background-color: $btnDefalutBg;
                 }

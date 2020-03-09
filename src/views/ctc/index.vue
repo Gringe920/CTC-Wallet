@@ -176,7 +176,7 @@ export default {
     coinlist
   },
   mounted() { 
-    this.initData();
+    // this.initData();
     this.getPendList();
   },
   methods: {

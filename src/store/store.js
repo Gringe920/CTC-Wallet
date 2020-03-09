@@ -77,6 +77,7 @@ export default new Vuex.Store({
         withdraw_address_list:{},
         UserPendList:{},
         PendList:{},
+        order_detail:{}
     },
     mutations: {
         UserPendList(state, val) {
@@ -178,6 +179,9 @@ export default new Vuex.Store({
         },
         showNav (state, data) {
             state.showNav = data;
+        },
+        order_detail(state, val) {
+            state.order_detail = val;
         },
 
     },
