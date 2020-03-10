@@ -95,7 +95,7 @@ export default {
       symbol: "usdt",
       amount: 30,
       price: 100,
-      type: 2, //（1：购买 2：出售）
+      type: 1, //（1：购买 2：出售）
       paytype_bank: 1, // 是否支持银行卡（0：不支持，1：支持）
       paytype_wx: 1, // 是否支持微信
       paytype_alipay: 1, // 是否支持支付宝

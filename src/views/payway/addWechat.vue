@@ -1,4 +1,5 @@
 <template>
+import { emitKeypressEvents } from 'readline';
   <section>
    <Header title="添加微信" />
     <div class="container">
@@ -13,9 +14,8 @@
         <div class="upload-box">
           点击上传
             <input  value type="file" @change="upload($event)">
-          <!-- 上传成功，点击替换 -->
         </div>
-        <div class="upload-img"></div>
+        <div class="upload-img">{{erweima}}</div>
       </div>
       <div @click="getVerifyCode">获取验证码</div>
       <r-button
@@ -39,22 +39,23 @@ export default {
       account: "15111487619",
       name: "xm",
       file: "1",
-      VerifyCodeStatus:false,
-      fileData:{},
+      erweima:'',
+      VerifyCodeStatus: false,
       getStateError: 2,
-      path:'nameAuth',
-         fileData: {
+      path: "nameAuth",
+      fileData: {
         state: -1
-      },
+      }
     };
   },
   methods: {
-       upload(e) {
+    upload(e) {
       var file = e.target.files[0];
+      console.log()
       if (!/\.jpg$|\.png$|\.gif$|\.jpeg$|\.webp$/.test(file.name)) {
         this.fileData = {
           state: this.getStateError,
-          message:  "请上传jpg、jpeg、png、gif、webp格式图片"
+          message: "请上传jpg、jpeg、png、gif、webp格式图片"
         };
         // this.$emit("input", this.fileData);
         return;
@@ -68,20 +69,25 @@ export default {
       //   return;
       // }
       let formData = new FormData();
-      console.log(formData ,'formData =========')
+      console.log(formData, "formData =========");
+      console.log(file,'------file')
       formData.append("file", file, file.name);
       formData.append("path", this.path);
-      if (process.env.NODE_ENV == "development") {
-        formData.append("cookie", document.cookie);
-      }
+            console.log(formData, "formData =========");
+      // if (process.env.NODE_ENV == "development") {
+      //   formData.append("cookie", document.cookie);
+      // }
       var fileVal = e.target.value;
+      // console.log(e.target)
+      console.log(fileVal)
+
       this.fileData = {
         state: this.getStateStart,
-        message: '上传图片中...',
         progress: 0,
         file: fileVal
       };
-      console.log(fileData,'fileData')
+      // console.log(fileData, "fileData");
+
       // this.$emit("input", this.fileData);
       // var self = this;
       // this.axios({
@@ -102,7 +108,7 @@ export default {
       //   },
       //   data: formData
       // })
-      //   .then(res => {  
+      //   .then(res => {
       //     this.$store.commit("msg", this.lang.uploadFile1);
       //     console.log(res);
       //     e.target.value = "";
@@ -113,7 +119,7 @@ export default {
       //       message: this.lang.uploadFile1,
       //       file: fileVal
       //     };
-          
+
       //     this.$emit("input", this.fileData);
       //   })
       //   .catch(err => {
@@ -127,7 +133,7 @@ export default {
       //     this.$store.commit("msg", this.lang.uploadFile2);
       //   });
     },
-       getVerifyCode() {
+    getVerifyCode() {
       var self = this;
       if (this.VerifyCodeStatus) return;
       self.VerifyCodeStatus = true;
@@ -151,18 +157,20 @@ export default {
       // if(){
       //   return false;
       // }
-
       if (this.submitstatus) return;
       self.submitstatus = true;
       this.axios({
         url: "/service/addWechat",
-        method:'post',
+        method: "post",
+        header:{
+            'Content-Type': 'multipart/form-data'
+        },
         params: {
           pwd: self.pwd,
           code: self.code,
           account: self.account,
           name: self.name,
-          file: self.file
+          file: self.fileData
         }
       })
         .then(res => {
