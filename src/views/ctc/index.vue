@@ -41,7 +41,7 @@
               alt=""
               srcset=""
             />
-            <span>云淡风轻</span>
+            <span>{{ item.nickname }}</span>
           </div>
           <div class="right">
             月销售量：30
@@ -72,10 +72,10 @@
         </div>
         <div class="last">
           <div class="left">
-            <div>数量 {{ item.amount.$numberDecimal }} USDT</div>
+            <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
             <div>限额 {{ item.minmum }}-{{ item.maxmum }}CNY</div>
           </div>
-          <div @click="changebuySellShow" class="right">
+          <div @click="changebuySellShow(item)" class="right">
             购买
           </div>
         </div>
@@ -126,7 +126,7 @@
         </div>
         <div class="last">
           <div class="left">
-            <div>数量 {{ item.amount.$numberDecimal }} USDT</div>
+            <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
             <div>限额 {{ item.minmum }}-{{ item.maxmum }} CNY</div>
           </div>
           <div @click="changebuySellShow(item)" class="right">
@@ -147,7 +147,7 @@
       <p class="active-content">您尚未设置支付方式，请先去设置。</p>
     </r-modal>
     <!-- 购买出售弹窗 -->
-    <buySell v-if="buySellShow" :item="bugSellItem"></buySell>
+    <buySell v-if="buySellShow" :item="bugSellItem" :coin="coin"></buySell>
   </section>
 </template>
 <script>

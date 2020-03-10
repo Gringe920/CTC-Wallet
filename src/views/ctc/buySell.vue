@@ -1,8 +1,9 @@
 <template>
   <section class="buySellbox">
     <div class="infos" v-if="orderType == 1">
+      
       <div class="top top2">
-        <div class="l">{{buyType == 'buy'?'购买':"出售"}}USDT</div>
+        <div class="l">{{buyType == 'buy'?'购买':"出售"}} {{ coin.toUpperCase() }} </div>
         <img
           class="img2"
           @click="changebuySellShow"
@@ -17,7 +18,7 @@
       </div>
       <div class="top">
         <div class="l2">委托价格</div>
-        <div class="r2">6.89CNY</div>
+        <div class="r2">{{ item.price }}CNY</div>
       </div>
       <div class="top">
         <div class="l2">付款方式</div>
@@ -38,21 +39,21 @@
         </div>
       </div>
       <div class="n" v-if="buyType != 'buy'">
-        余额：{{ user.asset['usdt'].$numberDecimal}} USDT &nbsp;
+        余额：{{ user.asset[coin] ? user.asset[coin].$numberDecimal : 0}} {{ coin.toUpperCase() }} &nbsp;
         <span class="transfer">去划转</span>
       </div>
       <div class="inpbox">
         <div class="left">
           <div class="inp bt br">
-            <input type="text" :placeholder="buyType == 'buy'?'最大可买入18000.00':'最大可卖出20000.00'" />
+            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${user.asset[coin] ? user.asset[coin].$numberDecimal * item.price : 0}`" v-model="priceRmb"/>
             <span>CNY</span>
           </div>
           <div class="inp br">
-            <input type="text" :placeholder="buyType == 'buy'?'最大可买入169888.26':'最大可卖出169888.26'" />
-            <span>USdt</span>
+            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${user.asset[coin] ? user.asset[coin].$numberDecimal : 0}`" v-model="amount"/>
+            <span>{{ coin.toUpperCase() }}</span>
           </div>
         </div>
-        <div class="right">
+        <div class="right" @click="allIn">
           <span>全部</span>
         </div>
       </div>
@@ -71,36 +72,72 @@ import { mapState } from "vuex";
 import tradedialog from "../../components/tradedialog.vue";
 export default {
   name: "buySellbox",
-  props: ["item"],
+  props: ["item", 'coin'],
   data() {
     return {
       orderType: 1,
-      currentItem: null
+      currentItem: null,
+      amount: null,
+      priceRmb: null,
+      changeFrom: null,
     };
   },
   computed: {
-    ...mapState(["buySellShow", "buyType", "user"])
+    ...mapState(["buySellShow", "buyType", "user"]),
   },
   components: {
     tradedialog
   },
+  watch: {
+    amount(val){
+      if (this.changeFrom == 'priceRmb') {
+        this.changeFrom = null;
+        return;
+      }
+      this.changeFrom = 'amount';
+      this.priceRmb = val * this.item.price;
+    },
+    priceRmb(val) {
+      if (this.changeFrom == 'amount') {
+        this.changeFrom = null;
+        return;
+      }
+      this.changeFrom = 'priceRmb';
+      this.amount = val / this.item.price;
+    }
+  },
   methods: {
+    allIn() {
+      this.amount = this.user.asset[this.coin] ? this.user.asset[this.coin].$numberDecimal : 0
+    },
     order(item) {
+      if(!this.amount){
+        this.$toast.show("请输入币种数量");
+        return;
+      }
+      if(this.amount < this.item.minmum){
+        this.$toast.show("输入币种数量少于最低限额");
+        return;
+      }
+      if(this.amount > this.item.maxmum){
+        this.$toast.show("输入币种数量大于最高限额");
+        return;
+      }
       this.orderType = 2;
       this.currentItem = item;
-      console.log('order')
     },
     changebuySellShow() {
       this.$store.commit("buySellShow", false);
     },
     continueOrder(password, verifyCode) {
+      const { amount } = this;
       this.axios({
         url: "/c2c/order",
         params: {
           uid: this.user.uid,
           pend_id: this.currentItem._id,
-          type: 1,
-          amount: 101, //TODO change this param
+          type: this.buyType == 'buy' ? 2 : 1,
+          amount,
           pwd: password,
           code: verifyCode
         }
