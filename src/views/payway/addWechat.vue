@@ -135,6 +135,7 @@ export default {
     },
     getVerifyCode() {
       var self = this;
+      var demo;
       if (this.VerifyCodeStatus) return;
       self.VerifyCodeStatus = true;
       this.axios({
