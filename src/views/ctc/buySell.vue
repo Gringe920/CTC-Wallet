@@ -1,7 +1,6 @@
 <template>
   <section class="buySellbox">
     <div class="infos" v-if="orderType == 1">
-      
       <div class="top top2">
         <div class="l">{{buyType == 'buy'?'购买':"出售"}} {{ coin.toUpperCase() }} </div>
         <img
@@ -136,7 +135,7 @@ export default {
         params: {
           uid: this.user.uid,
           pend_id: this.currentItem._id,
-          type: this.buyType == 'buy' ? 2 : 1,
+        type: this.buyType == 'debuy' ? 1 : 2,
           amount,
           pwd: password,
           code: verifyCode
@@ -145,13 +144,12 @@ export default {
         .then(res => {
           //TODO jump to order-to-pay page
           this.$router.push({
-            path: "/result"
+            path: this.buyType == 'buy'? '/buyResult' : "/sellResult"
           });
           this.$store.commit('order_detail', res.data);
         })
         .catch(err => {
           this.$toast.show(err.message || "操作失败");
-          console.log("failed, but still jump to order-to-pay page");
         });
     }
   }

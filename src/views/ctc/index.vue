@@ -32,7 +32,7 @@
         class="buymsg"
         v-for="item in PendList"
         :key="item.uid"
-        v-if="item.type == 1"
+        v-if="item.type == 2"
       >
         <div class="top">
           <div class="left">
@@ -86,7 +86,7 @@
         class="buymsg"
         v-for="item in PendList"
         :key="item.uid"
-        v-if="item.type == 2"
+        v-if="item.type == 1"
       >
         <div class="top">
           <div class="left">
@@ -240,6 +240,10 @@ export default {
       //   this.isShowModal = true;
       //   return
       // }
+      if(item.amount.$numberDecimal < item.minmum){
+        this.$toast.show("该币种剩余的数量小于最小限额");
+        return;
+      }
       this.bugSellItem = item;
       this.$store.commit("buySellShow", true);
     },
