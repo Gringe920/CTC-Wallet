@@ -1,0 +1,95 @@
+<template>
+  <div class="container">
+    <Header title="修改交易密码" />
+    <div class="content">
+      <div class="password">原交易密码</div>
+      <input class="psw-input" v-model="oldpwd" type="text" placeholder="请输入原交易密码" />
+      <div class="divider"></div>
+      <div class="password">新交易密码</div>
+      <input class="psw-input" type="text" v-model="newpwd" placeholder="请输入新交易密码" />
+      <div class="divider"></div>
+      <div class="password">再确定密码</div>
+      <input class="psw-input" v-model="reNewpwd" type="text" placeholder="再次确定交易密码" />
+      <div class="divider"></div>
+    </div>
+    <div class="error-msg" v-if="false">*原安全密码不正确</div>
+    <div @click="submit">
+    <r-button text="确定" width="90%" class="comfirm" />
+
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+       oldpwd: "xiemei123456",
+      newpwd: "xiemei1234567",
+       reNewpwd: "xiemei1234567",
+      submitstatus: false
+    };
+  },
+  methods: {
+    submit() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/reset_deal_pwd",
+        params: {
+           oldpwd: self.oldpwd,
+           newpwd:self.newpwd,
+        }
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("修改交易密码成功");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$toast.show({ msg: err.message || "修改交易密码失败，请重试" });
+        });
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.content {
+  margin: 70px 15px 0px;
+
+  .password {
+    font-size: 12px;
+    color: $active;
+    margin-bottom: 15px;
+  }
+
+  .psw-input {
+    font-size: 14px;
+    color: $active;
+    outline: none;
+    border: none;
+    background: none;
+    width: 100%;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background-color: #e2e2e2;
+    margin: 15px 0;
+  }
+}
+.error-msg {
+  color: $up;
+  font-size: 12px;
+  padding: 12px 0 0 15px;
+}
+.comfirm {
+  position: absolute;
+  bottom: 20px;
+  transform: translateX(-50%);
+  left: 50%;
+}
+</style>
