@@ -66,7 +66,7 @@
         </div>
         <div class="d-row">
           <span>数量</span>
-          <span class="d-v">{{order_detail.amount.$numberDecimal}}</span>
+          <!-- <span class="d-v">{{order_detail.amount.$numberDecimal}}</span> -->
         </div>
         <div class="d-row">
           <span>价格</span>

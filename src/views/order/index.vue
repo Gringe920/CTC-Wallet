@@ -6,21 +6,21 @@
     </div>
     <div class="nav-tag">
       <ul class="nav-li">
-        <li :class="{'active': navIndex == 0}" @click="changeNavIndex(0)">我发布的</li>
-        <li :class="{'active': navIndex == 1}" @click="changeNavIndex(1)">未完成</li>
-        <li :class="{'active': navIndex == 2}" @click="changeNavIndex(2)">已完成</li>
-        <li :class="{'active': navIndex == 3}" @click="changeNavIndex(3)">已取消</li>
+        <li :class="{'active': navIndex == 3}" @click="changeNavIndex(3)">我发布的</li>
+        <li :class="{'active': navIndex == 0}" @click="changeNavIndex(0)">未完成</li>
+        <li :class="{'active': navIndex == 1}" @click="changeNavIndex(1)">已完成</li>
+        <li :class="{'active': navIndex == 2}" @click="changeNavIndex(2)">已取消</li>
         <li :class="{'active': navIndex == 4}" @click="changeNavIndex(4)">已申诉</li>
       </ul>
     </div>
     <div class="order-listbox">
     <!-- 0我发布 -->
-    <div class="order-list" v-if="navIndex == 0" v-for="item in UserPendList" :key="item">
+    <div class="order-list" v-if="navIndex == 3" v-for="item in UserPendList" :key="item._id">  
       <div class="box published">
         <div class="box-h">
           <div class="coin">
             <span class="icon" :class="item.type==1?'':'sell'" >{{item.type==1?'买':'卖'}}</span>
-            <span>{{item.symbol}}</span>
+            <span>{{item.symbol.toUpperCase()}}</span>
           </div>
           <div class="kill-order" @click="pend_cancel(item._id)">撤单</div>
         </div>
@@ -32,7 +32,7 @@
           </div>
           <div class="c-item">
             <p class="i-t">委托数量</p>
-            <p>{{item.amount.$numberDecimal}}</p>
+            <p>{{item.amount && item.amount.$numberDecimal}}</p>
           </div>
           <div class="c-item">
             <p class="i-t">已成交数量</p>
@@ -42,14 +42,16 @@
       </div>
     </div>
     <!-- 1未完成 -->
-    <div class="order-list" v-if="navIndex == 1" @click="toRoute('Orderstatus')">
-      <div class="box unfinish">
+    <div class="order-list" v-if="navIndex != 3" @click="getOrderList(navIndex)">
+      <div class="box unfinish" v-for="(item, index) in orderList" :key="index">
         <div class="box-h">
           <div class="coin">
-            <span class="icon">买</span>
-            <span>USDT</span>
+            <span class="icon" :class="item.type==1?'':'sell'" >{{item.type==1?'买':'卖'}}</span>
+            <span>{{item.symbol.toUpperCase()}}</span>
           </div>
-          <div class="h-tips">待打款</div>
+          <div class="h-tips" v-if="navIndex == 0">待打款</div>
+          <div class="h-tips" v-if="navIndex == 1">已完成</div>
+          <div class="h-tips" v-if="navIndex == 2">{{item.type==1 ? '' : '对方'}}已取消</div>
         </div>
         <div class="line"></div>
         <div class="box-c-h">
@@ -60,61 +62,10 @@
             商家信息：风轻云淡
           </div>
           <div class="c-row">
-            转账备注：368888
+            转账备注：{{item.code}}
           </div>
           <div class="c-row">
-            创建时间：2019/02/01 08:30:00
-          </div>
-        </div>
-      </div>
-      <div class="box unfinish">
-        <div class="box-h">
-          <div class="coin">
-            <span class="icon sell">卖</span>
-            <span>USDT</span>
-          </div>
-          <div class="h-tips red">待打款</div>
-        </div>
-        <div class="line"></div>
-        <div class="box-c-h">
-          <div class="c-row order-money">
-            交易金额：6890 CNY
-          </div>
-          <div class="c-row">
-            商家信息：风轻云淡
-          </div>
-          <div class="c-row">
-            转账备注：368888
-          </div>
-          <div class="c-row">
-            创建时间：2019/02/01 08:30:00
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 已完成 -->
-    <div class="order-list" v-if="navIndex == 2">
-      <div class="box finished">
-        <div class="box-h">
-          <div class="coin">
-            <span class="icon">买</span>
-            <span>USDT</span>
-          </div>
-          <div class="h-tips">已完成</div>
-        </div>
-        <div class="line"></div>
-        <div class="box-c-h">
-          <div class="c-row order-money">
-            交易金额：6890 CNY
-          </div>
-          <div class="c-row">
-            商家信息：风轻云淡
-          </div>
-          <div class="c-row">
-            转账备注：368888
-          </div>
-          <div class="c-row">
-            创建时间：2019/02/01 08:30:00
+            创建时间：{{item.time}}
           </div>
         </div>
       </div>
@@ -129,9 +80,10 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      navIndex: 0, // 0我发布  1未完成  2已完成 3已取消 4已申诉
+      navIndex: 3, // 3我发布  0未完成  1已完成 2已取消 4已申诉
       submitStatus: false,
-      pend_cancelstatus: false
+      pend_cancelstatus: false,
+      orderList: [],
     };
   },
   mounted() {
@@ -141,6 +93,25 @@ export default {
     ...mapState(["user", "UserPendList"])
   },
   methods: {
+    getOrderList(status){
+      this.axios({
+        url: "/c2c/getOrderList",
+        params: {
+          status
+        }
+      })
+        .then(res => {
+          if(res.error_code === 0){
+            this.orderList = res.data;
+          }
+          
+        })
+        .catch(err => {
+          this.$toast.show({
+            msg: err.message || "请重试"
+          });
+        });
+    },
     pend_cancel(id) {
       var self = this;
       if (this.pend_cancelstatus) return;
@@ -173,7 +144,7 @@ export default {
       })
         .then(res => {
           self.submitStatus = false;
-          this.$store.commit("UserPendList", res.data || {});
+          this.$store.commit("UserPendList", res.data.list || {});
           this.$toast.show("挂单列表获取成功!");
         })
         .catch(err => {
@@ -181,10 +152,13 @@ export default {
           this.$store.commit("UserPendList", {});
           this.$toast.show({
             msg: err.message || "挂单列表获取失败，请重试"
-          });
+          }); 
         });
     },
     changeNavIndex(idx) {
+      if(idx != 3){
+        this.getOrderList(idx);
+      }
       this.navIndex = idx;
     }
   }

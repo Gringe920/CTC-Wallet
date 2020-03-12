@@ -43,8 +43,8 @@
             />
             <span>{{ item.nickname }}</span>
           </div>
-          <div class="right">
-            月销售量：30
+          <div class="right" v-if="item.deals">
+            月销售量：{{item.deals}}
           </div>
         </div>
         <div class="center">
@@ -97,8 +97,8 @@
             />
             <span>{{ item.nickname }}</span>
           </div>
-          <div class="right">
-            月销售量：30
+          <div class="right" v-if="item.deals">
+            月销售量：{{ item.deals }}
           </div>
         </div>
         <div class="center">
@@ -168,7 +168,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["buySellShow", "buyType", "PendList", "coin_list"])
+    ...mapState(["buySellShow", "buyType", "PendList", "coin_list", 'user'])
   },
   components: {
     buySell,
@@ -177,6 +177,7 @@ export default {
   mounted() { 
     // this.initData();
     this.getPendList();
+    this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
   },
   methods: {
     selectCoin(coin) {
@@ -231,6 +232,10 @@ export default {
         });
     },
     changebuySellShow(item) {
+      if(this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state === 0) {
+        this.isShowModal = true;
+        return
+      }
       this.bugSellItem = item;
       this.$store.commit("buySellShow", true);
     },
@@ -238,6 +243,9 @@ export default {
       this.$store.commit("buyType", data);
     },
     submitActive() {
+      this.$router.push({
+          path: "/payway"
+      });
       this.isShowModal = false;
     },
     showActivatedModal() {
