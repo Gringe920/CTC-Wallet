@@ -11,21 +11,21 @@
               @onItemSelect="onCoinSelect" />
     <div class="content">
       <div class="tag">
-        <div class="tagli" @click="activeIndex = 1" :class="{'active': activeIndex == 1}">购买</div>
-        <div class="tagli" @click="activeIndex = 2" :class="{'active': activeIndex == 2}">出售</div>
+        <div class="tagli" @click="handleActive(1)" :class="{'active': activeIndex == 1}">购买</div>
+        <div class="tagli" @click="handleActive(2)" :class="{'active': activeIndex == 2}">出售</div>
       </div>
       <div class="line"></div>
       <div class="buy-box" >
         <div class="p-content bor-bottom">
           <div class="p-row tips">
-            <span>余额：{{user.asset[symbol].$numberDecimal}} {{symbol.toUpperCase()}}</span>
+            <span>余额：{{user.basicInfo.asset[symbol] ? user.basicInfo.asset[symbol].$numberDecimal : 0}} {{symbol.toUpperCase()}}</span>
             <span>参考价：¥6.79</span>
           </div>
           <div class="line"></div>
           <div class="p-row">
             <span class="tit">价格</span>
             <div class="inp">
-              <input type="number" placeholder="卖出价格，不低于0.995，不高于1" v-model="price" />
+              <input type="number" :placeholder="`${activeIndex == 2 ?'卖出': '买入'}价格，不低于0.995，不高于1`" v-model="price" />
               <span>CNY</span>
             </div>
           </div>
@@ -33,7 +33,7 @@
           <div class="p-row">
             <span class="tit">数量</span>
             <div class="inp">
-              <input type="number" placeholder="卖出数量，不低于20000" v-model="amount" />
+              <input type="number" :placeholder="`${activeIndex == 2 ?'卖出': '买入'}数量，不低于20000`" v-model="amount" />
               <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>
@@ -58,121 +58,117 @@
               <span>CNY</span>
             </div>
           </div>
-          <div class="line"></div>
-            <div class="p-row">
-            <span class="tit">交易密码</span>
-            <div class="inp">
-              <input placeholder="请输入价格" v-model="pwd" />
-              <span>CNY</span>
-            </div>
-          </div>
-          <div class="line"></div>
-            <div class="p-row">
-            <span class="tit">code</span>
-            <div class="inp">
-              <input placeholder="请输入价格" v-model="code" />
-              <span>CNY</span>
-            </div>
-          </div>
+         
+          
           <div class="line"></div>
           <div class="in-tips">交易总额：0.00 CNY</div>
         </div>
       </div>
-      <div @click="getVerifyCode">获取验证码</div>
-      <r-button text="确定" width="90%" class="btn-submit" :tocomfirm='submit' />
+      <tradedialog
+        v-if="VerifyCodeStatus"
+        @onClose="changebuySellShow"
+        @onConfirm="submit"
+      />
+      <r-button text="发布" width="90%" class="btn-submit" :tocomfirm='commitButton' />
     </div>
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import coinlist from "../../components/coinlist.vue";
+import coinlist from '../../components/coinlist.vue'
+import tradedialog from "../../components/tradedialog.vue";
 export default {
   data() {
     return {
       activeIndex: 1,
       submitStatus: false,
       symbol: "usdt",
-      amount: 30,
-      price: 100,
-      type: 1, //（1：购买 2：出售）
+      amount: null,
+      price: null,
+      type: 2, //（1：购买 2：出售）
       paytype_bank: 1, // 是否支持银行卡（0：不支持，1：支持）
       paytype_wx: 1, // 是否支持微信
       paytype_alipay: 1, // 是否支持支付宝
-      minnum: 100, // 支持的最小交易数量
-      maxnum: 10000, // 支持的最大交易数量
-      pwd: "xiemei123456",
-      code: "22",
-      VerifyCodeStatus: false,
-
-      coinlistVisible: false
+      minnum: null, // 支持的最小交易数量
+      maxnum: null, // 支持的最大交易数量
+      VerifyCodeStatus:false,
+      coinlistVisible: false,
     };
   },
   mounted() {},
   components: {
-    coinlist
+    coinlist,
+    tradedialog
   },
   computed: {
     ...mapState(["user", "coin_list", "assets_detail"])
   },
   methods: {
+    handleActive(idx){
+      this.amount = this.price = this.minnum = this.maxnum = null;
+      this.activeIndex = idx;
+    },
+    commitButton(){
+      const {amount, price, minnum, maxnum, activeIndex } = this;
+      const toTxt = activeIndex == 2 ? '出售': '购买';
+      if(!price){
+        this.$toast.show(`请输入${toTxt}价格`);
+        return;
+      }
+      if(!amount){
+        this.$toast.show(`请输入${toTxt}数量`);
+        return;
+      }
+      if(!maxnum){
+        this.$toast.show(`请输入${toTxt}最高成交额`);
+        return;
+      }
+      if(!minnum){
+        this.$toast.show(`请输入${toTxt}最低成交额`);
+        return;
+      }
+      if(minnum > maxnum){
+        this.$toast.show(`最低成交额不可大于最高成交额`);
+        return;
+      }
+      this.VerifyCodeStatus = true;
+    },
+    changebuySellShow() {
+      this.VerifyCodeStatus = false;
+      this.$store.commit("buySellShow", false);
+    },
     onCoinSelect(coin) {
       this.symbol = coin;
       this.coinlistVisible = false;
     },
-    getVerifyCode() {
-      var self = this;
-      if (this.VerifyCodeStatus) return;
-      self.VerifyCodeStatus = true;
-      this.axios({
-        url: "/c2c/getVerifyCode",
-        params: {}
-      })
-        .then(res => {
-          self.VerifyCodeStatus = false;
-          this.$toast.show("获取C2C操作验证码成功!");
-        })
-        .catch(err => {
-          self.VerifyCodeStatus = false;
-          this.$toast.show({
-            msg: err.message || "获取C2C操作验证码失败，请重试"
-          });
-        });
-    },
-    submit() {
-      var self = this;
+    submit(pwd, code) {
       if (this.submitStatus) return;
-      self.submitStatus = true;
-      console.log(
-        typeof self.price,
-        typeof self.type,
-        typeof self.code,
-        typeof self.paytype_bank,
-        "self.price"
-      );
+      this.submitStatus = true;
+      const {symbol, amount, price, type, paytype_bank, paytype_wx, paytype_alipay, minnum, maxnum} = this;
       this.axios({
         url: "/c2c/pend",
         params: {
-          symbol: self.symbol,
-          amount: self.amount,
-          price: self.price,
-          type: self.type,
-          paytype_bank: self.paytype_bank,
-          paytype_wx: self.paytype_wx,
-          paytype_alipay: self.paytype_alipay,
-          minnum: self.minnum,
-          maxnum: self.maxnum,
-          pwd: self.pwd,
-          code: self.code
+          symbol,
+          amount,
+          price,
+          type,
+          paytype_bank,
+          paytype_wx,
+          paytype_alipay,
+          minnum,
+          maxnum,
+          pwd,
+          code,
         }
       })
         .then(res => {
-          self.submitStatus = false;
+          this.submitStatus = false;
           this.$toast.show("挂单成功!");
         })
         .catch(err => {
-          self.submitStatus = false;
-          this.$toast.show({ msg: err.message || "挂单失败，请重试" });
+          this.submitStatus = false;
+          this.$toast.show( err.message || "挂单失败，请重试" );
         });
     },
     reply() {
@@ -252,8 +248,11 @@ section {
           padding: 0 0 10px;
         }
         .inp {
+          width: 74%;
+          text-align: right;
           input {
             text-align: right;
+            width: 80%;
           }
           span {
             color: #333;

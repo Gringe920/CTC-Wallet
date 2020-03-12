@@ -1,4 +1,6 @@
 <template>
+<section>
+  <div class="modal-wrap"></div>
   <div class="pasword">
     <div class="top">
       <div class="l">请输入交易密码</div>
@@ -8,11 +10,13 @@
       <input type="password" v-model="password" placeholder="输入交易密码" />
     </div>
     <div class="inp">
-      <input type="password" v-model="verifyCode" placeholder="输入短信验证码" />
+      <input type="number" v-model="verifyCode" placeholder="输入短信验证码" />
       <div class="code" @click="getVerifyCode">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</div>
     </div>
     <div class="btn" @click="onConfirm">确定</div>
   </div>
+</section>
+  
 </template>
 
 <script>
@@ -76,6 +80,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modal-wrap{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .pasword {
   position: fixed;
   bottom: 0px;
@@ -83,6 +94,7 @@ export default {
   background: $white;
   padding: 25px 15px;
   border-radius: 16px 16px 0px 0px;
+  z-index: 100;
   .top {
     position: relative;
     margin-bottom: 25px;
