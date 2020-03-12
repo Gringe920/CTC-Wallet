@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+section{
+    width: 100%;
+}
 .modal-wrap{
   position: fixed;
   width: 100%;

@@ -174,8 +174,7 @@ export default {
     buySell,
     coinlist
   },
-  mounted() { 
-    // this.initData();
+  mounted() {
     this.getPendList();
     this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
   },
@@ -211,31 +210,11 @@ export default {
           });
         });
     },
-    initData() {
-      let self = this;
-      this.axios({
-        url: "/service/login",
-        params: {
-          phone: "15111487619",
-          mail: "xiemei1996@163.com",
-          pwd: "123456",
-          district: "+86"
-        }
-      })
-        .then(res => {
-          console.log("initdata1----------");
-          console.log(res);
-        })
-        .catch(err => {
-          console.log("initdata2----------");
-          console.log(err);
-        });
-    },
     changebuySellShow(item) {
-      if(this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state === 0) {
-        this.isShowModal = true;
-        return
-      }
+      // if(this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state === 0) {
+      //   this.isShowModal = true;
+      //   return
+      // }
       this.bugSellItem = item;
       this.$store.commit("buySellShow", true);
     },
