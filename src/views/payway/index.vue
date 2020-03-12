@@ -1,9 +1,15 @@
 <template>
   <section>
-    <Header title="收款方式" />
+    <Header title="收款方式"  />
     <div class="container">
+      <div class="empty">
+        <img src="../../assets/images/blank_page_book@2x.png" alt="" srcset="">
+        <div>暂无收款方式</div>
+      </div>
+      <div v-if="false">
       <div class="tips">*请至少添加一种支付方式</div>
-      <div class="line"></div>
+        
+        <div class="line"></div>
       <div class="pay-box">
         <div class="pay-logo">
           <img src="../../assets/images/set_wechat@2x.png" alt />
@@ -43,7 +49,9 @@
         </div>
       </div>
       <div class="line"></div>
-      <r-button text="添加收款方式" width="90%" class="btn-submit" @comfirm="$router.push({path: '/selectPayway'})"/>
+
+      </div>
+      <r-button text="添加收款方式" width="90%" class="btn-submit" :tocomfirm="addpay()"/>
     </div>
   </section>
 </template>
@@ -61,7 +69,15 @@ export default {
     isWechat(val) {
       console.log(val);
     }
+
+  },
+  methods:{
+    addpay(){
+        this.$router.push({path: '/selectPayway'})
+
+    }
   }
+
 };
 </script>
 
@@ -72,6 +88,24 @@ section {
 .container {
   padding: 50px 15px 0;
   height: 100%;
+
+
+  .empty{
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    div{
+      margin-top: 10px;
+      color: $color1;
+    }
+    img{
+      width: 80px;
+      height: 8opx;
+    }
+
+  }
   .tips {
     color: #97a2af;
     font-size: 12px;
