@@ -96,9 +96,7 @@ export default {
       coinlistVisible: false,
     };
   },
-  mounted() {
-    
-  },
+  mounted() {},
   components: {
     coinlist,
     tradedialog
@@ -144,7 +142,6 @@ export default {
       this.symbol = coin;
       this.coinlistVisible = false;
     },
-    
     submit(pwd, code) {
       if (this.submitStatus) return;
       this.submitStatus = true;

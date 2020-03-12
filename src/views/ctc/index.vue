@@ -161,6 +161,7 @@ export default {
       isShowModal: false,
       changcoinshow: false,
       submitStatus: false,
+      symbol: "usdt",
       coin: "usdt",
       buyList: [],
       sellList: [],
@@ -179,6 +180,30 @@ export default {
     this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
   },
   methods: {
+    order(uid,pend_id) {
+      var self = this;
+      if (this.orderStatus) return;
+      self.orderStatus = true;
+      this.axios({
+        url: "/c2c/order",
+        params: {
+          symbol: this.symbol,
+          uid: uid,
+          pend_id: pend_id,
+          type: type
+        }
+      })
+        .then(res => {
+          self.orderStatus = false;
+          this.$toast.show("下单成功!");
+        })
+        .catch(err => {
+          self.orderStatus = false;
+          this.$toast.show({
+            msg: err.message || "下单失败，请重试"
+          });
+        });
+    },
     selectCoin(coin) {
       this.coin = coin;
       this.changcoinshow = false;
