@@ -1,7 +1,7 @@
 <template>
   <section class="empty">
     <div class="imgbox">
-         <!-- <img src="../assets/images/blank_page@2x.png" alt="" srcset=""> -->
+         <img src="../assets/images/blank_page_book@2x.png" />
     </div>
     <div class="text">暂无数据</div>
   </section>
@@ -32,7 +32,6 @@ export default {
     margin-bottom: 10px;
     img {
       width: 100%;
-      height: 100%;
     }
   }
 }
