@@ -166,6 +166,7 @@ export default {
         .then(res => {
           this.submitStatus = false;
           this.$toast.show("挂单成功!");
+          this.$router.go(-1);
         })
         .catch(err => {
           this.submitStatus = false;

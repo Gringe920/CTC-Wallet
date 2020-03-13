@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header title="出售USDT" />
+    <Header :title="`${isSeller() ? '购买' : '出售'}${order_detail.symbol.toUpperCase()}`" />
     <div class="container">
       <!-- <div class="order-progress">
         <div class="order-status order-status-1">
@@ -28,7 +28,7 @@
           <div class="order-status-2">
             <img
               class="progress-icon"
-              :src='position > 1 ? require("../../assets/images/details_selected@2x.png"): require("../../assets/images/details_2_selected@2x.png")'
+              :src='order_detail.status === 3 ? require("../../assets/images/details_2_selected@2x.png") : require("../../assets/images/details_2_selected@2x.png")'
             />
           </div>
           <div :class='position >= 2 ? "line" : "line-default"'></div>
@@ -47,26 +47,34 @@
           <div class="sta-txx">放币</div>
         </div>
       </div>
-      <div class="order-result">
-        <p class="status-text">申诉中 金额6890 CNY</p>
+      <div class="order-result" v-if="order_detail.status == 0 && !isSeller()">
+        <p class="status-text">待付款 金额 {{ order_detail.price }}CNY</p>
+        <p class="reason">请在30:00内汇款给商家</p>
+      </div>
+      <div class="order-result" v-if="order_detail.status == 0 && isSeller()">
+        <p class="status-text">对方付款 金额 {{ order_detail.price }}CNY</p>
+        <p class="reason">等待对方30:00内汇款</p>
+      </div>
+      <!-- <div class="order-result" v-if="order_detail.status == 0">
+        <p class="status-text">待对方付款金额 6890 CNY</p>
         <p class="reason">申诉理由：我已付款，商家未确认。</p>
         <p class="deal">处理方式：等待处理</p>
-      </div>
+      </div> -->
       <div class="order-detail">
         <div class="d-row">
           <span>订单号</span>
           <span class="d-v">
-            2342837482847482582857
+            {{order_detail._id}}
             <i class="copy"></i>
           </span>
         </div>
         <div class="d-row">
           <span>商家</span>
-          <span class="d-v">{{sellerName}}</span>
+          <span class="d-v">{{}}</span>
         </div>
         <div class="d-row">
           <span>数量</span>
-          <!-- <span class="d-v">{{order_detail.amount.$numberDecimal}}</span> -->
+          <span class="d-v">{{order_detail.amount.$numberDecimal}}</span>
         </div>
         <div class="d-row">
           <span>价格</span>
@@ -89,12 +97,12 @@
         <br />
       </div>
       <div class="r-bottom">
-        <div class="bottom-btn" v-if="!isOrderClosed()">
+        <!-- <div class="bottom-btn" v-if="!isOrderClosed()">
           <p>
             <img src="../../assets/images/details_news@2x.png" />
           </p>
           <p>聊天</p>
-        </div>
+        </div> -->
         <div class="bottom-btn" v-if="!isOrderClosed()" @click="callDialogShow = true">
           <p>
             <img src="../../assets/images/details_iphone@2x.png" />
@@ -102,13 +110,19 @@
           <p>联系对方</p>
         </div>
         <!-- 如果是出售，则是申诉；如果是买入，则是取消订单 -->
-        <div class="bottom-btn" v-if="!isOrderClosed()" @click=" isSeller ? (complainDialogShow = true) : (cancelDialogShow = true)">
+        <div class="bottom-btn" v-if="isSeller() && order_detail.status == 3" @click="complainDialogShow = true">
           <p>
-            <img
-              :src='require(isSeller() ? "../../assets/images/details_complaint@2x.png":"../../assets/images/details_order_cancel@2x.png")'
+            <img src="../../assets/images/details_complaint@2x.png"
             />
           </p>
-          <p>{{ isSeller() ? '申诉':'取消订单'}}</p>
+          <p>申诉</p>
+        </div>
+        <div class="bottom-btn" v-if="!isSeller()" @click="cancelDialogShow = true">
+          <p>
+            <img src= "../../assets/images/details_order_cancel@2x.png"
+            />
+          </p>
+          <p>取消订单</p>
         </div>
         <div class="confirm-btn" @click="payDialogShow = true">
           <p>{{ isSeller() ? '对方已付款': '我已付款'}}</p>
@@ -124,7 +138,7 @@
       <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false">
         <p class="call-dialog-slot">xxxxxxx</p>
       </Dialog>
-      <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false">
+      <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false" @on-ok="appeal">
         <div class="complain-dialog-slot" >
           <textarea placeholder="请填写申诉内容" v-model="complainContent" />
           <span> {{ complainContent.length }} / 300 </span>
@@ -161,21 +175,28 @@ export default {
     };
   },
   mounted() {
-    let uid = 0;
-    if (this.order_detail.pend_type == 1) {
-      // type 1, uid = buyer
-      uid = this.order_detail.buyer;
-    } else if (this.order_detail.pend_type == 2) {
-      // type 2, uid = seller
-      uid = this.order_detail.seller;
-    }
-    this.getSellerName(uid);
+    
     this.updatePosition()
   },
   computed: {
     ...mapState(["order_detail"])
   },
   methods: {
+    appeal(){
+      this.axios({
+        url: "/c2c/appeal",
+        params: {
+          order_id: this.order_detail._id,
+          content: this.complainContent
+        }
+      })
+        .then(res => {
+          this.complainDialogShow = false;
+        })
+        .catch(err =>
+          this.$toast.show(err.message || "申诉失败")
+        );
+    },
     isSeller() {
       return this.order_detail.pend_type == 2;
     },
@@ -198,22 +219,22 @@ export default {
         return 'details_4_unchecked@2x.png';
       }
     },
-    getSellerName(uid) {
-      this.axios({
-        url: "/service/getNickName",
-        params: {
-          uid
-        }
-      })
-        .then(res => {
-          this.sellerName = res.data;
-        })
-        .catch(err =>
-          this.$toast.show({
-            msg: err.message || "获取商家名失败"
-          })
-        );
-    },
+    // getSellerName(uid) {
+    //   this.axios({
+    //     url: "/service/getNickName",
+    //     params: {
+    //       uid
+    //     }
+    //   })
+    //     .then(res => {
+    //       this.sellerName = res.data;
+    //     })
+    //     .catch(err =>
+    //       this.$toast.show({
+    //         msg: err.message || "获取商家名失败"
+    //       })
+    //     );
+    // },
     isOrderClosed() {
       return this.order_detail.pend_type == 1;
     },
@@ -221,7 +242,7 @@ export default {
       this.axios({
         url: '/c2c/pay',
         params: {
-          order_id: '',
+          order_id: this.order_detail._id,
           pay_type: '',
         }
       }).then(res => {

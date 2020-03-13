@@ -1,7 +1,6 @@
 <template>
   <section class="buySellbox">
     <div class="infos" v-if="orderType == 1">
-      
       <div class="top top2">
         <div class="l">{{buyType == 'buy'?'购买':"出售"}} {{ coin.toUpperCase() }} </div>
         <img
@@ -39,17 +38,17 @@
         </div>
       </div>
       <div class="n" v-if="buyType != 'buy'">
-        余额：{{ user.asset[coin] ? user.asset[coin].$numberDecimal : 0}} {{ coin.toUpperCase() }} &nbsp;
+        余额：{{ user.basicInfo.asset[coin] ? user.basicInfo.asset[coin].$numberDecimal : 0}} {{ coin.toUpperCase() }} &nbsp;
         <span class="transfer">去划转</span>
       </div>
       <div class="inpbox">
         <div class="left">
           <div class="inp bt br">
-            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${user.asset[coin] ? user.asset[coin].$numberDecimal * item.price : 0}`" v-model="priceRmb"/>
+            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${user.basicInfo.asset[coin] ? user.basicInfo.asset[coin].$numberDecimal * item.price : 0}`" v-model="priceRmb"/>
             <span>CNY</span>
           </div>
           <div class="inp br">
-            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${user.asset[coin] ? user.asset[coin].$numberDecimal : 0}`" v-model="amount"/>
+            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${user.basicInfo.asset[coin] ? user.basicInfo.asset[coin].$numberDecimal : 0}`" v-model="amount"/>
             <span>{{ coin.toUpperCase() }}</span>
           </div>
         </div>
@@ -108,7 +107,7 @@ export default {
   },
   methods: {
     allIn() {
-      this.amount = this.user.asset[this.coin] ? this.user.asset[this.coin].$numberDecimal : 0
+      this.amount = this.user.basicInfo.asset[this.coin] ? this.user.basicInfo.asset[this.coin].$numberDecimal : 0
     },
     order(item) {
       if(!this.amount){
@@ -136,7 +135,7 @@ export default {
         params: {
           uid: this.user.uid,
           pend_id: this.currentItem._id,
-          type: this.buyType == 'buy' ? 2 : 1,
+        type: this.buyType == 'debuy' ? 1 : 2,
           amount,
           pwd: password,
           code: verifyCode
@@ -145,15 +144,12 @@ export default {
         .then(res => {
           //TODO jump to order-to-pay page
           this.$router.push({
-            path: "/result"
+            path: this.buyType == 'buy'? '/buyResult' : "/sellResult"
           });
           this.$store.commit('order_detail', res.data);
         })
         .catch(err => {
-          // this.$toast.show({
-          //   msg: err.message || "操作失败"
-          // });
-          console.log("failed, but still jump to order-to-pay page");
+          this.$toast.show(err.message || "操作失败");
         });
     }
   }

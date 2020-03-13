@@ -6,20 +6,22 @@
     </div>
     <div class="nav-tag">
       <ul class="nav-li">
-        <li :class="{'active': navIndex == 3}" @click="changeNavIndex(3)">我发布的</li>
+        <li :class="{'active': navIndex == -1}" @click="changeNavIndex(-1)">我发布的</li>
         <li :class="{'active': navIndex == 0}" @click="changeNavIndex(0)">未完成</li>
         <li :class="{'active': navIndex == 1}" @click="changeNavIndex(1)">已完成</li>
         <li :class="{'active': navIndex == 2}" @click="changeNavIndex(2)">已取消</li>
         <li :class="{'active': navIndex == 4}" @click="changeNavIndex(4)">已申诉</li>
+        <li :class="{'active': navIndex == 3}" @click="changeNavIndex(3)">已付款</li>
+        
       </ul>
     </div>
     <div class="order-listbox">
     <!-- 0我发布 -->
-    <div class="order-list" v-if="navIndex == 3" v-for="item in UserPendList" :key="item._id">  
+    <div class="order-list" v-if="navIndex == -1" v-for="item in UserPendList" :key="item._id">  
       <div class="box published">
         <div class="box-h">
           <div class="coin">
-            <span class="icon" :class="item.type==1?'':'sell'" >{{item.type==1?'买':'卖'}}</span>
+            <span class="icon" :class="item.type==1?'':'sell'" >{{item.type == 1?'买':'卖'}}</span>
             <span>{{item.symbol.toUpperCase()}}</span>
           </div>
           <div class="kill-order" @click="pend_cancel(item._id)">撤单</div>
@@ -42,24 +44,25 @@
       </div>
     </div>
     <!-- 1未完成 -->
-    <div class="order-list" v-if="navIndex != 3" @click="getOrderList(navIndex)">
-      <div class="box unfinish" v-for="(item, index) in orderList" :key="index">
+    <div class="order-list" v-if="navIndex != -1" @click="getOrderList(navIndex)">
+      <div class="box unfinish" v-for="(item, index) in orderList" :key="index" @click="goResult(item)">
         <div class="box-h">
           <div class="coin">
-            <span class="icon" :class="item.type==1?'':'sell'" >{{item.type==1?'买':'卖'}}</span>
+            <span class="icon" :class="item.buyer === user.basicInfo.uid ?'':'sell'" >{{item.buyer === user.basicInfo.uid ?'买':'卖'}}</span>
             <span>{{item.symbol.toUpperCase()}}</span>
           </div>
           <div class="h-tips" v-if="navIndex == 0">待打款</div>
           <div class="h-tips" v-if="navIndex == 1">已完成</div>
-          <div class="h-tips" v-if="navIndex == 2">{{item.type==1 ? '' : '对方'}}已取消</div>
+          <div class="h-tips" v-if="navIndex == 2">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}已取消</div>
+          <div class="h-tips" v-if="navIndex == 4">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}申诉中</div>
         </div>
         <div class="line"></div>
         <div class="box-c-h">
           <div class="c-row order-money">
-            交易金额：6890 CNY
+            交易金额：{{item.amount && item.amount.$numberDecimal * item.price || 0}} CNY
           </div>
           <div class="c-row">
-            商家信息：风轻云淡
+            商家信息：{{item.seller_name || item.seller}}
           </div>
           <div class="c-row">
             转账备注：{{item.code}}
@@ -80,7 +83,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      navIndex: 3, // 3我发布  0未完成  1已完成 2已取消 4已申诉
+      navIndex: -1, // 3我发布  0未完成  1已完成 2已取消 4已申诉
       submitStatus: false,
       pend_cancelstatus: false,
       orderList: [],
@@ -93,7 +96,18 @@ export default {
     ...mapState(["user", "UserPendList"])
   },
   methods: {
+    goResult(item){
+      
+      // this.$router.push({
+      //   path: item.pend_type == 2 ? '/buyResult' : '/sellResult'
+      // });
+      this.$store.commit('order_detail', item);
+      this.$router.push({
+        path: '/status'
+      });
+    },
     getOrderList(status){
+      this.orderList = [];
       this.axios({
         url: "/c2c/getOrderList",
         params: {
@@ -101,10 +115,10 @@ export default {
         }
       })
         .then(res => {
-          if(res.error_code === 0){
-            this.orderList = res.data;
-          }
           
+          if(res.error_code === 0){
+            this.orderList = res.data.filter(item => item.seller === this.user.basicInfo.uid || item.buyer === this.user.basicInfo.uid);
+          }
         })
         .catch(err => {
           this.$toast.show({
@@ -156,7 +170,7 @@ export default {
         });
     },
     changeNavIndex(idx) {
-      if(idx != 3){
+      if(idx != -1){
         this.getOrderList(idx);
       }
       this.navIndex = idx;

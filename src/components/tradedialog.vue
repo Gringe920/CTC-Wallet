@@ -1,4 +1,3 @@
-
 <template>
 <section>
   <div class="modal-wrap"></div>
@@ -81,6 +80,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+section{
+    width: 100%;
+}
 .modal-wrap{
   position: fixed;
   width: 100%;

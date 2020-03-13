@@ -30,7 +30,10 @@ const forget = () => import(/* webpackChunkName: "user" */ './views/login/forget
 
 const order = () => import(/* webpackChunkName: "user" */ './views/order/index.vue');
 const publish = () => import(/* webpackChunkName: "user" */ './views/order/publish.vue');
-const result = () => import(/* webpackChunkName: "user" */ './views/order/result.vue');
+const sellResult = () => import(/* webpackChunkName: "user" */ './views/order/result.vue');
+const buyResult = () => import(/* webpackChunkName: "user" */ './views/order/buyResult.vue');
+const status = () => import(/* webpackChunkName: "user" */ './views/order/status.vue');
+
 //资产页面
 const wallet = () => import(/* webpackChunkName: "ctc" */ './views/wallet/index.vue');
 const address = () => import(/* webpackChunkName: "ctc" */ './views/wallet/address.vue');
@@ -98,6 +101,11 @@ export default new Router({
             component: chat
         },
         {
+            path: '/buyResult',
+            name: 'buyResult',
+            component: buyResult
+        },
+        {
             path: '/Orderstatus',
             name: 'Orderstatus',
             component: Orderstatus
@@ -137,6 +145,11 @@ export default new Router({
             name: 'changeTelephone',
             component: changeTelephone
         },
+        // {
+        //     path: '/buyResult',
+        //     name: 'buyResult',
+        //     component: buyResult
+        // },
         {
             path: '/about',
             name: 'about',
@@ -238,9 +251,14 @@ export default new Router({
             component: publish
         },
         {
-            path: '/result',
-            name: 'result',
-            component: result
+            path: '/sellResult',
+            name: 'sellResult',
+            component: sellResult
+        },
+        {
+            path: '/status',
+            name: 'status',
+            component: status
         },
     ]
 })
