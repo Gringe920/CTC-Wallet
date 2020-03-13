@@ -217,7 +217,7 @@ section {
       .up-tit {
         font-size: 12px;
         color: $active;
-        margin-bottom: 15px;
+            margin-bottom: 15px;
       }
       .upload-box {
         text-align: center;
