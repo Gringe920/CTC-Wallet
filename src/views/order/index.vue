@@ -97,12 +97,17 @@ export default {
   },
   methods: {
     goResult(item){
-      this.$router.push({
-        path: item.pend_type == 2 ? '/buyResult' : '/sellResult'
-      });
+      
+      // this.$router.push({
+      //   path: item.pend_type == 2 ? '/buyResult' : '/sellResult'
+      // });
       this.$store.commit('order_detail', item);
+      this.$router.push({
+        path: '/status'
+      });
     },
     getOrderList(status){
+      this.orderList = [];
       this.axios({
         url: "/c2c/getOrderList",
         params: {
@@ -110,10 +115,10 @@ export default {
         }
       })
         .then(res => {
+          
           if(res.error_code === 0){
             this.orderList = res.data.filter(item => item.seller === this.user.basicInfo.uid || item.buyer === this.user.basicInfo.uid);
           }
-          
         })
         .catch(err => {
           this.$toast.show({
