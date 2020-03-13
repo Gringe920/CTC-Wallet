@@ -50,7 +50,7 @@
               <span class="icon" :class="item.buyer === user.basicInfo.uid ?'':'sell'" >{{item.buyer === user.basicInfo.uid ?'买':'卖'}}</span>
               <span>{{item.symbol.toUpperCase()}}</span>
             </div>
-            <div class="h-tips" v-if="navIndex == 0">待打款</div>
+            <div class="h-tips" v-if="navIndex == 0">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}待打款</div>
             <div class="h-tips" v-if="navIndex == 1">已完成</div>
             <div class="h-tips" v-if="navIndex == 2">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}已取消</div>
             <div class="h-tips" v-if="navIndex == 4">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}申诉中</div>
@@ -99,15 +99,16 @@ export default {
   },
   methods: {
     goResult(item){
-      
-      
       this.$store.commit('order_detail', item);
-      // this.$router.push({
-      //   path: item.pend_type == 2 ? '/buyResult' : '/sellResult'
-      // });
-      this.$router.push({
-        path: '/status'
-      });
+      if(item.status === 0 || item.status === 3){
+        this.$router.push({
+          path: item.buyer === this.user.basicInfo.uid ? '/buyResult' : '/sellResult'
+        })
+      }else{
+        this.$router.push({
+          path: '/status'
+        });
+      }
     },
     clear(){
       this.orderList = [];

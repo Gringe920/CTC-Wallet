@@ -135,7 +135,7 @@ export default {
         params: {
           uid: this.user.uid,
           pend_id: this.currentItem._id,
-        type: this.buyType == 'debuy' ? 1 : 2,
+           type: this.buyType == 'buy' ? 1 : 2,
           amount,
           pwd: password,
           code: verifyCode

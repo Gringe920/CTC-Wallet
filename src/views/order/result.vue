@@ -1,49 +1,29 @@
 <template>
   <section>
-    <Header :title="`${isSeller() ? '购买' : '出售'}${order_detail.symbol.toUpperCase()}`" />
+    <Header :title="`出售${order_detail.symbol.toUpperCase()}`" />
     <div class="container">
-      <!-- <div class="order-progress">
-        <div class="order-status order-status-1">
-          <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
-          <p class="order-name">下单</p>
-        </div>
-        <div class="order-status order-status-2">
-            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
-            <p class="order-name">{{pendingPay}}</p>
-        </div>
-        <div class="order-status order-status-3">
-            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
-            <p class="order-name">{{verifyPay}}</p>
-        </div>
-        <div class="order-status order-status-4">
-            <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
-            <p class="order-name">放币</p>
-      </div>-->
       <div class="order-progress">
         <div class="order-status">
           <div class="order-status-1">
             <img class="progress-icon" src="../../assets/images/details_selected@2x.png" />
           </div>
-          <div class="line"></div>
+          <div :class='position > 1 ? "line" : "line-default"'></div>
           <div class="order-status-2">
-            <img
-              class="progress-icon"
-              :src='order_detail.status === 3 ? require("../../assets/images/details_2_selected@2x.png") : require("../../assets/images/details_2_selected@2x.png")'
-            />
+            <img class="progress-icon" :src='require(`../../assets/images/${getPosition1Img()}`)' />
           </div>
-          <div :class='position >= 2 ? "line" : "line-default"'></div>
+          <div :class='position > 2 ? "line" : "line-default"'></div>
           <div class="order-status-3">
             <img class="progress-icon" :src='require(`../../assets/images/${getPosition2Img()}`)' />
           </div>
-          <div :class='position >= 3 ? "line" : "line-default"'></div>
+          <div :class='position > 3 ? "line" : "line-default"'></div>
           <div class="order-status-4">
             <img class="progress-icon" :src="require(`../../assets/images/${getPosition3Img()}`)" />
           </div>
         </div>
         <div class="order-status-text">
           <div class="sta-txx">下单</div>
-          <div class="sta-txx">{{pendingPay}}</div>
-          <div class="sta-txx">{{verifyPay}}</div>
+          <div class="sta-txx">{{isSeller() ? '给' : '待'}}对方汇款</div>
+          <div class="sta-txx">{{isSeller() ? '核实汇款' : '对方确定'}}</div>
           <div class="sta-txx">放币</div>
         </div>
       </div>
@@ -55,11 +35,10 @@
         <p class="status-text">对方付款 金额 {{ order_detail.price }}CNY</p>
         <p class="reason">等待对方30:00内汇款</p>
       </div>
-      <!-- <div class="order-result" v-if="order_detail.status == 0">
-        <p class="status-text">待对方付款金额 6890 CNY</p>
-        <p class="reason">申诉理由：我已付款，商家未确认。</p>
-        <p class="deal">处理方式：等待处理</p>
-      </div> -->
+      <div class="order-result" v-if="order_detail.status == 3">
+        <p class="status-text">对方已汇款 金额 {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
+        <p class="reason">对方汇款方式：</p>
+      </div>
       <div class="order-detail">
         <div class="d-row">
           <span>订单号</span>
@@ -69,8 +48,8 @@
           </span>
         </div>
         <div class="d-row">
-          <span>商家</span>
-          <span class="d-v">{{}}</span>
+          <span>买家</span>
+          <span class="d-v">{{order_detail.buyer_name || order_detail.buyer}}</span>
         </div>
         <div class="d-row">
           <span>数量</span>
@@ -78,7 +57,7 @@
         </div>
         <div class="d-row">
           <span>价格</span>
-          <span class="d-v">6.89 CNY</span>
+          <span class="d-v">{{order_detail.price}} CNY</span>
         </div>
         <div class="d-row">
           <span>备注码(付款时填写备注码）</span>
@@ -97,19 +76,12 @@
         <br />
       </div>
       <div class="r-bottom">
-        <!-- <div class="bottom-btn" v-if="!isOrderClosed()">
-          <p>
-            <img src="../../assets/images/details_news@2x.png" />
-          </p>
-          <p>聊天</p>
-        </div> -->
         <div class="bottom-btn" v-if="!isOrderClosed()" @click="callDialogShow = true">
           <p>
             <img src="../../assets/images/details_iphone@2x.png" />
           </p>
           <p>联系对方</p>
         </div>
-        <!-- 如果是出售，则是申诉；如果是买入，则是取消订单 -->
         <div class="bottom-btn" v-if="isSeller() && order_detail.status == 3" @click="complainDialogShow = true">
           <p>
             <img src="../../assets/images/details_complaint@2x.png"
@@ -117,15 +89,8 @@
           </p>
           <p>申诉</p>
         </div>
-        <div class="bottom-btn" v-if="!isSeller()" @click="cancelDialogShow = true">
-          <p>
-            <img src= "../../assets/images/details_order_cancel@2x.png"
-            />
-          </p>
-          <p>取消订单</p>
-        </div>
-        <div class="confirm-btn" @click="payDialogShow = true">
-          <p>{{ isSeller() ? '对方已付款': '我已付款'}}</p>
+        <div class="confirm-btn" @click="payDialogShow = true" v-if="order_detail.status != 1">
+          <p>对方已付款</p>
         </div>
       </div>
       <Dialog
@@ -133,7 +98,7 @@
         :show="payDialogShow"
         @on-cancel="payDialogShow = false"
         @on-ok="confirm">
-         <p class="pay-dialog-slot">{{ isSeller() ? '请务必登录网上银行或者第三方支付账号确定收到该笔款项' : '请确认您已向对方付款，恶意点击将直接冻结账户'}}</p>
+         <p class="pay-dialog-slot">请务必登录网上银行或者第三方支付账号确定收到该笔款项</p>
       </Dialog>
       <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false">
         <p class="call-dialog-slot">xxxxxxx</p>
@@ -155,10 +120,10 @@
 import { mapState } from "vuex";
 import Dialog from '../../components/modal.vue'
 const POSITION_MAP = {
-  0: 1,
+  0: 0,
   1: 3,
   3: 2,
-  2: 1, // cancelled
+  2: 0, // cancelled
 }
 export default {
   data() {
@@ -201,15 +166,22 @@ export default {
       return this.order_detail.pend_type == 2;
     },
     updatePosition() {
-        this.position = POSITION_MAP[this.order_detail.pend_type]
+        this.position = POSITION_MAP[this.order_detail.status]
+    },
+    getPosition1Img() {
+        if (this.position > 1) {
+        return 'details_selected@2x.png';
+      } else if (this.position < 1) {
+        return 'details_2_unchecked@2x.png';
+      } else {
+        return 'details_2_selected@2x.png';
+      }
     },
     getPosition2Img() {
       if (this.position > 2) {
-        return 'details_selected@2x.png';
-      } else if (this.position < 2) {
-        return 'details_3_unchecked@2x.png';
-      } else {
         return 'details_3_selected@2x.png';
+      } else {
+        return 'details_3_unchecked@2x.png';
       }
     },
     getPosition3Img() {
@@ -240,13 +212,18 @@ export default {
     },
     confirm() {
       this.axios({
-        url: '/c2c/pay',
+        url: '/c2c/confirm',
         params: {
-          order_id: this.order_detail._id,
-          pay_type: '',
+          order_id: this.order_detail._id
         }
       }).then(res => {
         //TODO refresh order_detail
+        console.log(res)
+        if(res.error_code === 0){
+          this.payDialogShow = false;
+          this.$store.commit('order_detail', res.data)
+        }
+        
       }).catch(err => {
         this.$toast.show({
             msg: err.message || "操作失败"

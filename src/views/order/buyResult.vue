@@ -159,7 +159,7 @@
           <span> {{ complainContent.length }} / 300 </span>
         </div>
       </Dialog>
-      <Dialog title="取消订单" :show="cancelDialogShow" @on-cancel="cancelDialogShow = false">
+      <Dialog title="取消订单" :show="cancelDialogShow" @on-cancel="cancelDialogShow = false" @on-ok="cancelOrder">
         <p class="cancel-dialog-slot">如果您已经向对方付款，请千万不要取消订单，取消规则：当日取消累计3笔订单，将会限制24小时内买入卖出功能。</p>
       </Dialog>
     </div>
@@ -199,20 +199,38 @@ export default {
     ...mapState(["order_detail"])
   },
   methods: {
+      cancelOrder(){
+        this.axios({
+            url: "/c2c/cancel",
+            params: {
+            order_id: this.order_detail._id,
+            }
+        })
+        .then(res => {
+            if(res.error_code === 0){
+                this.cancelDialogShow = false;
+                this.$store.commit('order_detail', res.data);
+                this.$router.replace({path: '/status'})
+            }
+        })
+        .catch(err =>
+          this.$toast.show(err.message || "获取用户支付信息失败")
+        );
+      },
       openComfirm(){
-          if(order_detail.status === 3){
+          if(this.order_detail.status === 3){
               return;
           }
           this.payDialogShow = true;
       },
       getPayInfo(){
-          this.axios({
-        url: "/service/getPayPath",
-        params: {
-          uid : this.order_detail.seller,
-          paytype: 2
-        }
-      })
+        this.axios({
+            url: "/service/getPayPath",
+            params: {
+            uid : this.order_detail.seller,
+            paytype: 2
+            }
+        })
         .then(res => {
             this.payInfo = res.data;
         })
@@ -223,12 +241,12 @@ export default {
       
     appeal(){
       this.axios({
-        url: "/c2c/appeal",
-        params: {
-          order_id: this.order_detail._id,
-          content: this.complainContent
-        }
-      })
+            url: "/c2c/appeal",
+            params: {
+            order_id: this.order_detail._id,
+            content: this.complainContent
+            }
+        })
         .then(res => {
             if(res.error_code  == 0) this.$toast.show("申诉成功")
           this.complainDialogShow = false;
@@ -266,22 +284,6 @@ export default {
         return 'details_4_unchecked@2x.png';
       }
     },
-    // getSellerName(uid) {
-    //   this.axios({
-    //     url: "/service/getNickName",
-    //     params: {
-    //       uid
-    //     }
-    //   })
-    //     .then(res => {
-    //       this.sellerName = res.data;
-    //     })
-    //     .catch(err =>
-    //       this.$toast.show({
-    //         msg: err.message || "获取商家名失败"
-    //       })
-    //     );
-    // },
     isOrderClosed() {
       return this.order_detail.pend_type == 1;
     },
@@ -293,9 +295,8 @@ export default {
           pay_type: 2,
         }
       }).then(res => {
-        //TODO refresh order_detail
         this.payDialogShow = false;
-        this.$$store.commit('order_detail', res.data);
+        this.$store.commit('order_detail', res.data);
         this.updatePosition();
       }).catch(err => {
         this.$toast.show( err.message || "操作失败");
