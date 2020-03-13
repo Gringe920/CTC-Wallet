@@ -49,6 +49,7 @@
         </div>
       </div>
       <div class="line"></div>
+
       </div>
       <r-button text="添加收款方式" width="90%" class="btn-submit" :tocomfirm="addpay()"/>
     </div>
@@ -68,6 +69,7 @@ export default {
     isWechat(val) {
       console.log(val);
     }
+
   },
   methods:{
     addpay(){
@@ -86,6 +88,7 @@ section {
 .container {
   padding: 50px 15px 0;
   height: 100%;
+
 
   .empty{
     margin-top: 60px;

@@ -180,6 +180,7 @@ export default {
     this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
   },
   methods: {
+
     order(uid,pend_id) {
       var self = this;
       if (this.orderStatus) return;
@@ -233,6 +234,25 @@ export default {
           this.$toast.show({
             msg: err.message || "挂单列表获取失败，请重试"
           });
+        });
+    },
+    initData() {
+      let self = this;
+      this.axios({
+        url: "/service/login",
+        params: {
+          phone: "15111487619",
+          mail: "xiemei1996@163.com",
+          pwd: "123456",
+          district: "+86"
+        }
+      })
+        .then(res => {
+
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
         });
     },
     changebuySellShow(item) {

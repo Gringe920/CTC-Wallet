@@ -96,6 +96,7 @@ export default {
       coinlistVisible: false,
     };
   },
+
   mounted() {},
   components: {
     coinlist,

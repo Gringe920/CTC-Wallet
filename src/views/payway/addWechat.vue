@@ -21,6 +21,7 @@
         text="确定"
         width="90%"
         class="btn-submit"
+
       :tocomfirm='submit'
       />
     </div>
@@ -29,6 +30,7 @@
 
 <script>
 export default {
+
   data() {
     return {
       nickname: "我不爱冰阔落",
@@ -208,13 +210,14 @@ section {
       width: 100%;
       padding-bottom: 15px;
     }
+
     .upload-code {
       margin-top: 20px;
 
       .up-tit {
         font-size: 12px;
         color: $active;
-        margin-bottom: 15px;
+            margin-bottom: 15px;
       }
       .upload-box {
         text-align: center;
