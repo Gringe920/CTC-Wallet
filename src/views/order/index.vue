@@ -6,7 +6,7 @@
     </div>
     <div class="nav-tag">
       <ul class="nav-li">
-        <li :class="{'active': navIndex == -1}" @click="changeNavIndex(3)">我发布的</li>
+        <li :class="{'active': navIndex == -1}" @click="changeNavIndex(-1)">我发布的</li>
         <li :class="{'active': navIndex == 0}" @click="changeNavIndex(0)">未完成</li>
         <li :class="{'active': navIndex == 1}" @click="changeNavIndex(1)">已完成</li>
         <li :class="{'active': navIndex == 2}" @click="changeNavIndex(2)">已取消</li>
@@ -48,12 +48,13 @@
       <div class="box unfinish" v-for="(item, index) in orderList" :key="index" @click="goResult(item)">
         <div class="box-h">
           <div class="coin">
-            <span class="icon" :class="item.pend_type==2?'':'sell'" >{{item.pend_type==2?'买':'卖'}}</span>
+            <span class="icon" :class="item.buyer === user.basicInfo.uid ?'':'sell'" >{{item.buyer === user.basicInfo.uid ?'买':'卖'}}</span>
             <span>{{item.symbol.toUpperCase()}}</span>
           </div>
           <div class="h-tips" v-if="navIndex == 0">待打款</div>
           <div class="h-tips" v-if="navIndex == 1">已完成</div>
-          <div class="h-tips" v-if="navIndex == 2">{{item.pend_type==2 ? '' : '对方'}}已取消</div>
+          <div class="h-tips" v-if="navIndex == 2">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}已取消</div>
+          <div class="h-tips" v-if="navIndex == 4">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}申诉中</div>
         </div>
         <div class="line"></div>
         <div class="box-c-h">
@@ -61,7 +62,7 @@
             交易金额：{{item.amount && item.amount.$numberDecimal * item.price || 0}} CNY
           </div>
           <div class="c-row">
-            商家信息：风轻云淡
+            商家信息：{{item.seller_name || item.seller}}
           </div>
           <div class="c-row">
             转账备注：{{item.code}}
@@ -110,7 +111,7 @@ export default {
       })
         .then(res => {
           if(res.error_code === 0){
-            this.orderList = res.data;
+            this.orderList = res.data.filter(item => item.seller === this.user.basicInfo.uid || item.buyer === this.user.basicInfo.uid);
           }
           
         })

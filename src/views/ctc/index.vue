@@ -31,8 +31,8 @@
       <div
         class="buymsg"
         v-for="item in PendList"
-        :key="item.uid"
-        v-if="item.type == 2"
+        :key="item._id"
+        v-if="item.uid === user.basicInfo.uid ? item.type == 1 : item.type == 2"
       >
         <div class="top">
           <div class="left">
@@ -75,7 +75,7 @@
             <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
             <div>限额 {{ item.minmum }}-{{ item.maxmum }}CNY</div>
           </div>
-          <div @click="changebuySellShow(item)" class="right">
+          <div @click="changebuySellShow(item)" class="right" :class="item.uid === user.basicInfo.uid ? 'disabled': ''">
             购买
           </div>
         </div>
@@ -85,8 +85,8 @@
       <div
         class="buymsg"
         v-for="item in PendList"
-        :key="item.uid"
-        v-if="item.type == 1"
+        :key="item._id"
+        v-if="item.uid === user.basicInfo.uid ? item.type == 2 : item.type == 1"
       >
         <div class="top">
           <div class="left">
@@ -129,7 +129,7 @@
             <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
             <div>限额 {{ item.minmum }}-{{ item.maxmum }} CNY</div>
           </div>
-          <div @click="changebuySellShow(item)" class="right">
+          <div @click="changebuySellShow(item)" class="right" :class="item.uid === user.basicInfo.uid ? 'disabled': ''">
             出售
           </div>
         </div>
@@ -236,10 +236,14 @@ export default {
         });
     },
     changebuySellShow(item) {
-      // if(this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state === 0) {
-      //   this.isShowModal = true;
-      //   return
-      // }
+      if(this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state === 0) {
+        this.isShowModal = true;
+        return;
+      }
+      if(item.uid === this.user.basicInfo.uid){
+        this.$toast.show("不可挂自己的单");
+        return;
+      }
       if(item.amount.$numberDecimal < item.minmum){
         this.$toast.show("该币种剩余的数量小于最小限额");
         return;
@@ -347,6 +351,7 @@ export default {
         .right {
           color: $color1;
         }
+        
       }
       .center {
         display: flex;
@@ -386,6 +391,9 @@ export default {
           line-height: 25px;
           text-align: center;
         }
+        .disabled{
+            background-color: #CCD0D3;
+          }
         .right2 {
           width: 60px;
           height: 25px;
