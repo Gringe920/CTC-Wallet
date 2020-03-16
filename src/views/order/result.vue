@@ -191,22 +191,6 @@ export default {
         return 'details_4_unchecked@2x.png';
       }
     },
-    // getSellerName(uid) {
-    //   this.axios({
-    //     url: "/service/getNickName",
-    //     params: {
-    //       uid
-    //     }
-    //   })
-    //     .then(res => {
-    //       this.sellerName = res.data;
-    //     })
-    //     .catch(err =>
-    //       this.$toast.show({
-    //         msg: err.message || "获取商家名失败"
-    //       })
-    //     );
-    // },
     isOrderClosed() {
       return this.order_detail.pend_type == 1;
     },
@@ -218,12 +202,11 @@ export default {
         }
       }).then(res => {
         //TODO refresh order_detail
-        console.log(res)
         if(res.error_code === 0){
           this.payDialogShow = false;
           this.$store.commit('order_detail', res.data)
+          this.updatePosition();
         }
-        
       }).catch(err => {
         this.$toast.show({
             msg: err.message || "操作失败"

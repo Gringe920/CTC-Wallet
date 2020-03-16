@@ -11,7 +11,6 @@
         <li :class="{'active': navIndex == 1}" @click="changeNavIndex(1)">已完成</li>
         <li :class="{'active': navIndex == 2}" @click="changeNavIndex(2)">已取消</li>
         <li :class="{'active': navIndex == 4}" @click="changeNavIndex(4)">已申诉</li>
-        <li :class="{'active': navIndex == 3}" @click="changeNavIndex(3)">已付款</li>
       </ul>
     </div>
     <div class="order-listbox" v-if="(UserPendList.length > 0 || orderList.length > 0)">
@@ -50,10 +49,12 @@
               <span class="icon" :class="item.buyer === user.basicInfo.uid ?'':'sell'" >{{item.buyer === user.basicInfo.uid ?'买':'卖'}}</span>
               <span>{{item.symbol.toUpperCase()}}</span>
             </div>
-            <div class="h-tips" v-if="navIndex == 0">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}待打款</div>
-            <div class="h-tips" v-if="navIndex == 1">已完成</div>
-            <div class="h-tips" v-if="navIndex == 2">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}已取消</div>
-            <div class="h-tips" v-if="navIndex == 4">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}申诉中</div>
+            <div class="h-tips" v-if="item.status == 0">待{{item.buyer === user.basicInfo.uid ? '' : '对方'}}打款</div>
+            <div class="h-tips" v-if="item.status == 1">已完成</div>
+            <div class="h-tips" v-if="item.status == 2">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}已取消</div>
+            <div class="h-tips" v-if="item.status == 4">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}申诉中</div>
+            <div class="h-tips" v-if="item.status == 3">{{item.buyer === user.basicInfo.uid ? '已打款，待确定' : '对方已打款'}}</div>
+
           </div>
           <div class="line"></div>
           <div class="box-c-h">
@@ -115,19 +116,16 @@ export default {
       this.isShowEmpty = false;
     },
     getOrderList(status){
-      
+      let appendParams = '';
+      if(status === 0) appendParams = '&status=3'
       this.axios({
-        url: "/c2c/getOrderList",
-        params: {
-          status
-        }
+        url: `/c2c/getOrderList?status=${status}${appendParams}`,
       })
         .then(res => {
           if(res.error_code === 0){
             if(res.data.length > 0){
               this.orderList = res.data.filter(item => item.seller === this.user.basicInfo.uid || item.buyer === this.user.basicInfo.uid);
             }
-            
             this.isShowEmpty = this.orderList.length === 0
           }
         })

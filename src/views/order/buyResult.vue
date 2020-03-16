@@ -32,7 +32,7 @@
       </div>
       <div class="order-result" v-if="order_detail.status == 0">
         <p class="status-text">待付款 金额 {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
-        <p class="reason">请在30:00内汇款给商家</p>
+        <p class="reason">请在<span class="blue">{{remained}}</span>内汇款给商家</p>
       </div>
       <!-- <div class="order-result" v-if="order_detail.status == 0">
         <p class="status-text">待对方付款金额 6890 CNY</p>
@@ -69,14 +69,14 @@
       </div>
       <div class="order-detail">
         <div class="d-tit">支付方式</div>
-        <div class="d-row">
-          <span><i></i>微信</span>
+        <div class="d-row" @click="selectPayway">
+          <span><i :class="`type-${payItem.paytype}`"></i>{{payItem.name}}</span>
           <span class="d-v">
             切换支付方式
             <i class="ic ic-right"></i>
           </span>
         </div>
-        <div class="line"></div>
+        <div class="line" style="margin-bottom: 15px"></div>
         <div class="d-row">
           <span>收款人</span>
           <span class="d-v">{{payInfo.name || order_detail.seller}}
@@ -113,12 +113,6 @@
         <br />
       </div>
       <div class="r-bottom">
-        <!-- <div class="bottom-btn" v-if="!isOrderClosed()">
-          <p>
-            <img src="../../assets/images/details_news@2x.png" />
-          </p>
-          <p>聊天</p>
-        </div> -->
         <div class="bottom-btn" v-if="!isOrderClosed()" @click="callDialogShow = true">
           <p>
             <img src="../../assets/images/details_iphone@2x.png" />
@@ -162,6 +156,16 @@
       <Dialog title="取消订单" :show="cancelDialogShow" @on-cancel="cancelDialogShow = false" @on-ok="cancelOrder">
         <p class="cancel-dialog-slot">如果您已经向对方付款，请千万不要取消订单，取消规则：当日取消累计3笔订单，将会限制24小时内买入卖出功能。</p>
       </Dialog>
+      <!-- paywayDialog -->
+      <div class="payway-dialog" v-if="paywayDiaglog">
+        <div class="dia-wrap"></div>
+        <div class="content">
+          <div class="c-row" v-for="(item) in payList" :key="item.paytype" @click="selectPaytype(item)">{{item.name}}</div>
+          <div class="btn-cancal" @click="paywayDiaglog = false">
+            取消
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -187,18 +191,74 @@ export default {
       complainDialogShow: false,
       cancelDialogShow: false,
       complainContent: '',
-      payInfo: {}
+      payInfo: {},
+      timer: null,
+      remainedTime: 1800,
+      remained: '30:00',
+      paywayDiaglog: false,
+      payList: [],
+      payItem: {}
     };
   },
   mounted() {
     
     this.updatePosition();
     this.getPayInfo();
+    this.startCountdown();
+    this.updatePayway();
   },
   computed: {
-    ...mapState(["order_detail"])
+    ...mapState(["order_detail", "user"])
   },
   methods: {
+    selectPaytype(item){
+      this.payItem = {...item};
+      this.paywayDiaglog = false;
+    },
+    updatePayway(){
+      if(this.user.wechat_state === 1){
+        this.payList.push({
+          name: '微信',
+          paytype: 2
+        })
+      }
+      if(this.user.bankcard_state === 1){
+        this.payList.push({
+          name: '银行卡',
+          paytype:1
+        })
+      }
+      if(this.user.alipay_state === 1){
+        this.payList.push({
+          name: '支付宝',
+          paytype:1
+        })
+      }
+      if(this.payList.length > 0){
+        this.payItem = this.payList[0]
+      }
+      
+      console.log(this.payList)
+    },
+    selectPayway(){
+      this.paywayDiaglog = true;
+    },
+    prependZero(num){
+      return num < 10 ? `0${num}` : num
+    },
+    startCountdown(){
+      let timeScamp = Math.round(new Date().getTime() / 1000) - Math.round(new Date(this.order_detail.time).getTime() / 1000)
+      let countDown = this.remainedTime - timeScamp;
+      this.timer = setInterval(() => {
+        this.remained = `${this.prependZero(Math.floor(countDown / 60))}:${this.prependZero(countDown%60)}`;
+        countDown -= 1;
+        if(countDown <= 0){
+          clearInterval(this.timer);
+          this.timer = null;
+          this.cancelOrder();
+        }
+      }, 1000)
+    },
       cancelOrder(){
         this.axios({
             url: "/c2c/cancel",
@@ -228,7 +288,7 @@ export default {
             url: "/service/getPayPath",
             params: {
             uid : this.order_detail.seller,
-            paytype: 2
+            paytype: this.payItem.paytype
             }
         })
         .then(res => {
@@ -292,7 +352,7 @@ export default {
         url: '/c2c/pay',
         params: {
           order_id: this.order_detail._id,
-          pay_type: 2,
+          pay_type: this.payItem.paytype,
         }
       }).then(res => {
         this.payDialogShow = false;
@@ -305,6 +365,9 @@ export default {
   },
   components: {
     Dialog,
+  },
+  beforeDestroy(){
+    clearInterval(this.timer)
   }
 }
 </script>
@@ -352,6 +415,9 @@ section {
   font-size: 14px;
   padding: 15px;
   color: #97a2af;
+  .blue{
+    color: #1771ed;
+  }
   .status-text {
     font-size: 18px;
     color: #1771ed;
@@ -365,11 +431,36 @@ section {
   font-size: 14px;
   padding: 15px;
   border-top: 10px solid #f9f8fd;
+  .d-tit{
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+  }
   .d-row {
     display: flex;
     margin-bottom: 14px;
     color: #97a2af;
     justify-content: space-between;
+    span{
+      i{
+        display: inline-block;
+      width: 15px;
+      height: 15px;
+      background-size: 100% 100%;
+       vertical-align: middle;
+       margin-right: 5px;
+       margin-top:-2px;
+      }
+      i.type-2{
+       background-image: url("../../assets/images/otc_wechat@2x.png");
+      }
+      i.type-1{
+       background-image: url("../../assets/images/otc_bank_card@2x.png");
+      }
+      i.type-3{
+       background-image: url("../../assets/images/otc_alipay@2x.png");
+      }
+    }
     i.ic{
         display: inline-block;
       width: 14px;
@@ -379,7 +470,7 @@ section {
       vertical-align: middle;
     }
     i.ic-right{
-
+       background-image: url("../../assets/images/next_black@2x.png");
     }
     i.copy {
       
@@ -468,6 +559,35 @@ section {
     width: 20px;
     height: 20px;
     margin-bottom: 5px;
+  }
+}
+.payway-dialog{
+  .dia-wrap{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  .content{
+    border-radius:16px 16px 0px 0px;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color:#97A2AF;
+    z-index: 12;
+    .c-row{
+      padding: 16px 0;
+    }
+    .btn-cancal{
+      border-top: 10px solid #F7F9FC;
+      padding: 16px 0;
+    }
   }
 }
 </style>
