@@ -78,9 +78,14 @@ export default new Vuex.Store({
         UserPendList:{},
         PendList:{},
         order_detail:{},
-        addAlipayinfo:{}
+        addAlipayinfo:{},
+        wechat_info:{},
+
     },
     mutations: {
+        wechat_info(state, val) {
+            state.wechat_info = val;
+        },
         addAlipayinfo(state, val) {
             state.addAlipayinfo = val;
         },

@@ -1,6 +1,6 @@
 <template>
   <section>
-   <Header :title="alipay_state==1?'添加支付宝':'x'" />
+   <Header :title="user.alipay_state==0?'添加支付宝':'修改支付宝'" />
     <div class="container">
       <div class="item-label">姓名</div>
       <input class="item-inp" type="text" placeholder="请输入姓名" v-model="name" />
@@ -62,7 +62,6 @@ export default {
   methods: {
     getPayPath() {
       var self = this;
-      console.log('sss')
       if (this.getPayPathStatus) return;
       var params = {
         uid: this.user.uid,
@@ -93,8 +92,6 @@ export default {
       formData.append("pwd", pwd);
       formData.append("code", code);
       formData.append("account", this.account);
-      console.log(this.file, "this.file========", this.file.name);
-      console.log(formData, "--formData");
       if (this.submitstatus) return;
       self.submitstatus = true;
       this.axios({
@@ -107,13 +104,21 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("支付宝添加成功!");
+          if (this.user.alipay_state == 1) {
+            this.$toast.show("支付宝修改成功!");
+          } else {
+            this.$toast.show("支付宝添加成功!");
+          }
           this.getPayPath();
         })
         .catch(err => {
           self.submitstatus = false;
           console.log(" err.message");
-          this.$toast.show({ msg: err.message || "支付宝添加失败" });
+          if (this.user.alipay_state == 1) {
+            this.$toast.show({ msg: "支付宝修改失败" });
+          } else {
+            this.$toast.show({ msg: "支付宝添加失败" });
+          }
         });
     }
   }
@@ -158,6 +163,15 @@ section {
         padding: 12px 0;
         border: 1px dashed #1771ed;
         margin-bottom: 20px;
+        position: relative;
+        input {
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          left: 0;
+        }
       }
     }
   }

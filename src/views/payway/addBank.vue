@@ -34,13 +34,16 @@ export default {
     return {
       pwdshow:false,
       submitstatus: false,
-      pwd: "123",
-      code: "1111",
-      name: "xm",
-      register_bank: "招商支行",
-      second_bank: "没填",
-      card: "125372379"
+      pwd: "",
+      code: "",
+      name: "",
+      register_bank: "",
+      second_bank: "",
+      card: ""
     };
+  },
+  mounted(){
+    this.getPayPath()
   },
   methods: {
     onConfirm(data){
@@ -49,13 +52,33 @@ export default {
     topwdshow(){
       this. pwdshow = true
     },
-    submit:function(data,qq) {
+       getPayPath() {
+      var self = this;
+      if (this.getPayPathStatus) return;
+      var params = {
+        uid: this.user.uid,
+        paytype: 1
+      };
+      self.getPayPathStatus = true;
+      this.axios({
+        url: "/service/getPayPath",
+        params: {}
+      })
+        .then(res => {
+          self.getPayPathStatus = false;
+          this.$store.commit("addAlipayinfo", res.data || {});
+        })
+        .catch(err => {
+          self.getPayPathStatus = false;
+        });
+    },
+    submit:function(pwd,code) {
       console.log('99999999')
       console.log(data,qq)
       var self = this;
       var params = {
-        pwd: this.pwd,
-        code: this.code,
+        pwd: pwd,
+        code: code,
         name: this.name,
         register_bank: this.register_bank,
         second_bank: this.second_bank,

@@ -1,6 +1,6 @@
 <template>
   <section>
-   <Header title="添加微信" />
+   <Header :title="user.wechat_state==1?'修改微信':'添加微信'" />
     <div class="container">
       <div class="item-label">姓名</div>
       <input class="item-inp" type="text" placeholder="请输入姓名" v-model="name" />
@@ -11,11 +11,13 @@
       <div class="upload-code">
         <div class="up-tit">上传微信收款二维码</div>
         <div class="upload-box">
-        
           <div>  点击上传</div>
             <input  value type="file" @change="upload($event)">
         </div>
-        <div class="upload-img">{{erweima}}</div>
+        <div class="upload-img">
+          <img :src="imgUrl(img)" alt="" srcset="">
+        </div>
+        
       </div>
       <r-button
         text="确定"
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -43,10 +46,18 @@ export default {
       VerifyCodeStatus: false,
       getStateError: 2,
       path: "nameAuth",
+      getPayPathStatus: false,
+      img: "",
       fileData: {
         state: -1
       }
     };
+  },
+  computed: {
+    ...mapState(["user", "wechat_info"])
+  },
+  mounted() {
+    this.getPayPath();
   },
   methods: {
     topwdshow() {
@@ -54,7 +65,6 @@ export default {
     },
     upload(e) {
       this.file = e.target.files[0];
-
       // if (file.size > 1024 * 1024 * this.size) {
       //   this.fileData = {
       //     state: this.getStateError,
@@ -62,90 +72,6 @@ export default {
       //   };
       //   return;
       // }
-    },
-    upload2(e) {
-      var file = e.target.files[0];
-      console.log();
-      if (!/\.jpg$|\.png$|\.gif$|\.jpeg$|\.webp$/.test(file.name)) {
-        this.fileData = {
-          state: this.getStateError,
-          message: "请上传jpg、jpeg、png、gif、webp格式图片"
-        };
-        // this.$emit("input", this.fileData);
-        return;
-      }
-      // if (file.size > 1024 * 1024 * this.size) {
-      //   this.fileData = {
-      //     state: this.getStateError,
-      //     // message: this.lang.imgFormatSize.replace("{size}", this.size + "M")
-      //   };
-      //   // this.$emit("input", this.fileData);
-      //   return;
-      // }
-      let formData = new FormData();
-      console.log(formData, "formData =========");
-      console.log(file, "------file");
-      formData.append("file", file, file.name);
-      formData.append("path", this.path);
-      console.log(formData, "formData =========");
-      // if (process.env.NODE_ENV == "development") {
-      //   formData.append("cookie", document.cookie);
-      // }
-      var fileVal = e.target.value;
-      // console.log(e.target)
-      console.log(fileVal);
-
-      this.fileData = {
-        state: this.getStateStart,
-        progress: 0,
-        file: fileVal
-      };
-      // console.log(fileData, "fileData");
-
-      // this.$emit("input", this.fileData);
-      // var self = this;
-      // this.axios({
-      //   url: this.api.upFiles,
-      //   headers: {
-      //     "Content-Type": "multipart/form-data"
-      //   },
-      //   timeout: 120000,
-      //   onUploadProgress(progressEvent) {
-      //     self.$emit(
-      //       "input",
-      //       Object.assign({}, self.fileData, {
-      //         progress: Math.floor(
-      //           (progressEvent.loaded / progressEvent.total) * 100
-      //         )
-      //       })
-      //     );
-      //   },
-      //   data: formData
-      // })
-      //   .then(res => {
-      //     this.$store.commit("msg", this.lang.uploadFile1);
-      //     console.log(res);
-      //     e.target.value = "";
-      //     this.fileData = {
-      //       state: this.getStateSuccess,
-      //       data: res.data.url,
-      //       origin: this.origin + res.data.url,
-      //       message: this.lang.uploadFile1,
-      //       file: fileVal
-      //     };
-
-      //     this.$emit("input", this.fileData);
-      //   })
-      //   .catch(err => {
-      //     e.target.value = "";
-      //     this.fileData = {
-      //       state: this.getStateError,
-      //       message: err.message,
-      //       file: fileVal
-      //     };
-      //     this.$emit("input", this.fileData);
-      //     this.$store.commit("msg", this.lang.uploadFile2);
-      //   });
     },
     submit: function(pwd, code) {
       var self = this;
@@ -162,8 +88,6 @@ export default {
       formData.append("pwd", pwd);
       formData.append("code", code);
       formData.append("account", this.account);
-      console.log(this.file,'this.file========')
-      console.log(formData, "--formData");
       if (this.submitstatus) return;
       self.submitstatus = true;
       this.axios({
@@ -176,12 +100,48 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("支付宝添加成功!");
+          if (this.user.wechat_state == 1) {
+            this.$toast.show("微信修改成功!");
+          } else {
+            this.$toast.show("微信添加成功!");
+          }
+          this.getPayPath();
         })
         .catch(err => {
           self.submitstatus = false;
-          console.log(" err.message");
-          this.$toast.show({ msg: err.message || "支付宝添加失败" });
+          if (this.user.wechat_state == 1) {
+            this.$toast.show({ msg: "微信修改失败" });
+          } else {
+            this.$toast.show({ msg: "微信添加失败" });
+          }
+        });
+    },
+    getPayPath() {
+      var self = this;
+      if (this.getPayPathStatus) return;
+      var params = {
+        uid: this.user.uid,
+        paytype: 2
+      };
+      self.getPayPathStatus = true;
+      this.axios({
+        url: "/service/getPayPath",
+        params: {}
+      })
+        .then(res => {
+          self.getPayPathStatus = false;
+          this.$store.commit("wechat_info", res.data || {});
+          var str = res.data.path;
+          var index = str.lastIndexOf("/");
+          this.img = str.substring(index + 1, str.length);
+          console.log(this.img, "===============");
+
+          this.name = res.data.name || "";
+          this.account = res.data.account || "";
+        })
+        .catch(err => {
+          self.getPayPathStatus = false;
+          this.$store.commit("wechat_info", {});
         });
     }
   }
@@ -219,6 +179,13 @@ section {
         color: $active;
         margin-bottom: 15px;
       }
+      .upload-img {
+        text-align: center;
+        img {
+          width: 100px;
+          height: 100px;
+        }
+      }
       .upload-box {
         text-align: center;
         color: #1771ed;
@@ -228,7 +195,7 @@ section {
         position: relative;
         border: 1px dashed #1771ed;
         margin-bottom: 20px;
-        input{
+        input {
           opacity: 0;
           position: absolute;
           top: 0;

@@ -20,7 +20,7 @@
 
          <div class="money" v-for="item in coin_list" :key="item">
             <div class="coin">{{item}}</div>
-            <div class="coin2">{{hidden ? '******':assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal']:'000000'}} <span> ≈ {{hidden ? '******':'4598'}} &nbsp;<small></small></span> </div>
+            <div class="coin2">{{hidden ? '******':assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal']:'000000'}} <span> ≈ {{hidden ? '******':currentPrices[item]*assets_detail.asset[item]['$numberDecimal']}} &nbsp;CNY<small></small></span> </div>
             <div class="coin3">
                 <div class="c_l">可用：{{hidden ? '******':'00000'}}</div>
                 <div class="c_l">冻结：{{hidden ? '******':'0.89987'}}</div>
@@ -45,7 +45,9 @@ export default {
       hidden: false,
       coins: [],
       submitstatus: false,
-      detailstatus: false
+      detailstatus: false,
+      current_priceStatus: false,
+      currentPrices:{}
     };
   },
   computed: {
@@ -63,15 +65,34 @@ export default {
     }
   },
   mounted() {
-    if(!this.user.basicInfo.uid){
-        this.$toast.show("请先登陆!");
-        this.$router.push("login");
-        return false;
+    if (!this.user.basicInfo) {
+      this.$toast.show("请先登陆!");
+      this.$router.push("login");
+      return false;
     }
     this.getcoin_list();
     this.getassets_detail();
+    this.current_price();
   },
   methods: {
+    current_price() {
+      var self = this;
+      if (this.current_priceStatus) return;
+      self.current_priceStatus = true;
+      this.axios({
+        url: "/service/current_price",
+        params: {}
+      })
+        .then(res => {
+       this.currentPrices = res.data || {}
+          self.current_priceStatus = false;
+        })
+        .catch(err => {
+          self.current_priceStatus = false;
+          this.$toast.show({ msg: "信息获取失败，请重试" });
+        });
+    },
+
     getassets_detail() {
       var self = this;
       if (this.detailstatus) return;
@@ -83,12 +104,11 @@ export default {
         .then(res => {
           self.detailstatus = false;
           this.$store.commit("assets_detail", res.data || {});
-          // this.$toast.show("获取币种成功!");
         })
         .catch(err => {
           self.detailstatus = false;
           this.$store.commit("assets_detail", {});
-          this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
+          this.$toast.show({ msg: "币种信息获取失败，请重试" });
         });
     },
     getcoin_list() {
@@ -111,7 +131,6 @@ export default {
         });
     },
     tozhuanzang(item) {
-   
       // if (item.toUpperCase() == "BTC" && !this.balancesBTC.counterparty) {
       //   this.$store.commit("isTrustBtc", true);
       //   return;
