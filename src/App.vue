@@ -105,15 +105,16 @@ export default {
         url: "/service/user_info"
       })
         .then(res => {
-          var data = res.data || {};
+          var data = res.data.data || {};
           this.$store.commit("user", res.data);
+          console.log(res.data);
           this.userState = true;
           this.removeLoad();
           this.loginCheck();
-          if (data.uid) {
-            this.$router.push({ name: "login"});
-            return;
-          }
+          // if (data.uid) {
+          //   this.$router.push({ name: "login"});
+          //   return;
+          // }
         })
         .catch(err => {
           this.userState = true;
@@ -124,8 +125,14 @@ export default {
         });
     },
     loginCheck() {
-      if (this.userState && this.$route.name != "ctc" && !!!this.user.uid) {
-        // this.$router.push("/login?origin=" + this.$route.name);
+      if (this.userState
+          && this.$route.name != "ctc"
+          && !!!(this.user.basicInfo && this.user.basicInfo.uid)
+          && this.$route.name != "phoneRegist"
+          && this.$route.name != "login"
+          && this.$route.name != "forget"
+      ) {
+        this.$router.push("/login?origin=" + this.$route.name);
       }
       if (this.loginCheckTimer) {
         clearTimeout(this.loginCheckTimer);
