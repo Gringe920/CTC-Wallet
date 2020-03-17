@@ -14,11 +14,10 @@
       </div>
     </div>
     <div class="user-navigation">
-      <div class="user-nav-item" @click="$router.push({path: '/payway'})">
+      <div class="user-nav-item" @click="$router.push({path: '/selectPayway'})">
         <i class="icon my_receivables"></i>
         <p>收款方式</p>
         <div class="turn-right">
-          <span>{{isjihuo && invite.length ? $t(`home.home13`) : isjihuo ? $t(`home.home12`) : $t(`home.home6`)}}</span>
           <i></i>
         </div>
       </div>

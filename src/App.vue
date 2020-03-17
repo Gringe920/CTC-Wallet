@@ -110,16 +110,9 @@ export default {
           this.removeLoad();
           this.loginCheck();
           if (data.uid) {
-            // this.$router.push({ name: "login"});
+            this.$router.push({ name: "login"});
             return;
           }
-          // self.$nextTick(() => {
-          //   if (self.timeP == 1 && parseInt(self.user.logins) < 4) {
-          //     // let $toast = self.$refs.toast;
-          //     // $toast.dialog = true;
-          //     this.$store.commit("timeP", 2);
-          //   }
-          // });
         })
         .catch(err => {
           this.userState = true;

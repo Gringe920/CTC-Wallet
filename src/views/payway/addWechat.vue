@@ -3,10 +3,10 @@
    <Header title="添加微信" />
     <div class="container">
       <div class="item-label">姓名</div>
-      <input class="item-inp" type="text" placeholder="请输入姓名" />
+      <input class="item-inp" type="text" placeholder="请输入姓名" v-model="name" />
       <div class="line"></div>
       <div class="item-label">账号</div>
-      <input class="item-inp" type="text" placeholder="请输入微信账号" />
+      <input class="item-inp" type="text" placeholder="请输入微信账号" v-model="account" />
       <div class="line"></div>
       <div class="upload-code">
         <div class="up-tit">上传微信收款二维码</div>
@@ -16,31 +16,30 @@
         </div>
         <div class="upload-img">{{erweima}}</div>
       </div>
-      <div @click="getVerifyCode">获取验证码</div>
       <r-button
         text="确定"
         width="90%"
         class="btn-submit"
-
-      :tocomfirm='submit'
+        :tocomfirm='topwdshow'
       />
     </div>
+    <Tradedialog v-on:onClose='pwdshow = !pwdshow'  v-on:onConfirm="submit" v-if="pwdshow"></Tradedialog>
   </section>
 </template>
 
 <script>
 export default {
-
   data() {
     return {
+      pwdshow: false,
       nickname: "我不爱冰阔落",
       submitstatus: false,
       pwd: "xiemei1234567",
       code: "123456",
       account: "15111487619",
       name: "xm",
-      file: "1",
-      erweima:'',
+      file: {},
+      erweima: "",
       VerifyCodeStatus: false,
       getStateError: 2,
       path: "nameAuth",
@@ -50,9 +49,23 @@ export default {
     };
   },
   methods: {
+    topwdshow() {
+      this.pwdshow = true;
+    },
     upload(e) {
+      this.file = e.target.files[0];
+
+      // if (file.size > 1024 * 1024 * this.size) {
+      //   this.fileData = {
+      //     state: this.getStateError,
+      //     // message: this.lang.imgFormatSize.replace("{size}", this.size + "M")
+      //   };
+      //   return;
+      // }
+    },
+    upload2(e) {
       var file = e.target.files[0];
-      console.log()
+      console.log();
       if (!/\.jpg$|\.png$|\.gif$|\.jpeg$|\.webp$/.test(file.name)) {
         this.fileData = {
           state: this.getStateError,
@@ -71,16 +84,16 @@ export default {
       // }
       let formData = new FormData();
       console.log(formData, "formData =========");
-      console.log(file,'------file')
+      console.log(file, "------file");
       formData.append("file", file, file.name);
       formData.append("path", this.path);
-            console.log(formData, "formData =========");
+      console.log(formData, "formData =========");
       // if (process.env.NODE_ENV == "development") {
       //   formData.append("cookie", document.cookie);
       // }
       var fileVal = e.target.value;
       // console.log(e.target)
-      console.log(fileVal)
+      console.log(fileVal);
 
       this.fileData = {
         state: this.getStateStart,
@@ -134,54 +147,41 @@ export default {
       //     this.$store.commit("msg", this.lang.uploadFile2);
       //   });
     },
-    getVerifyCode() {
+    submit: function(pwd, code) {
       var self = this;
-      var demo;
-      if (this.VerifyCodeStatus) return;
-      self.VerifyCodeStatus = true;
-      this.axios({
-        url: "/c2c/getVerifyCode",
-        params: {}
-      })
-        .then(res => {
-          self.VerifyCodeStatus = false;
-          this.$toast.show("获取C2C操作验证码成功!");
-        })
-        .catch(err => {
-          self.VerifyCodeStatus = false;
-          this.$toast.show({
-            msg: err.message || "获取C2C操作验证码失败，请重试"
-          });
-        });
-    },
-    submit() {
-      var self = this;
-      // if(){
-      //   return false;
-      // }
+      var formData = new FormData();
+      var params = {
+        pwd: pwd,
+        code: code,
+        name: this.name,
+        account: this.account,
+        file: new FormData()
+      };
+      formData.append("file", this.file, this.file.name);
+      formData.append("name", this.name);
+      formData.append("pwd", pwd);
+      formData.append("code", code);
+      formData.append("account", this.account);
+      console.log(this.file,'this.file========')
+      console.log(formData, "--formData");
       if (this.submitstatus) return;
       self.submitstatus = true;
       this.axios({
         url: "/service/addWechat",
         method: "post",
-        header:{
-            'Content-Type': 'multipart/form-data'
+        header: {
+          "Content-Type": "multipart/form-data"
         },
-        params: {
-          pwd: self.pwd,
-          code: self.code,
-          account: self.account,
-          name: self.name,
-          file: self.fileData
-        }
+        data: formData
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("微信支付添加成功");
+          this.$toast.show("支付宝添加成功!");
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || "微信支付添加失败，请重试" });
+          console.log(" err.message");
+          this.$toast.show({ msg: err.message || "支付宝添加失败" });
         });
     }
   }
@@ -217,7 +217,7 @@ section {
       .up-tit {
         font-size: 12px;
         color: $active;
-            margin-bottom: 15px;
+        margin-bottom: 15px;
       }
       .upload-box {
         text-align: center;

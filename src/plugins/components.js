@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import header from '../components/header'
-// const header = () => import(/* webpackChunkName: "components" */ '../components/header');
 const button = () => import(/* webpackChunkName: "components" */ '../components/button');
 const qrcode = () => import(/* webpackChunkName: "components" */ '../components/qrcode');
 const empty = () => import(/* webpackChunkName: "components" */ '../components/empty');
@@ -11,6 +10,7 @@ const modal = () => import(/* webpackChunkName: "components" */ '../components/m
 const copy = () => import(/* webpackChunkName: "components" */ '../components/copy');
 const load = () => import(/* webpackChunkName: "components" */ '../components/load');
 const rSwitch = () => import(/* webpackChunkName: "components" */ '../components/switch');
+const tradedialog= () => import(/* webpackChunkName: "components" */ '../components/tradedialog');
 
 Vue.component('Header', header);
 Vue.component('rButton', button);
@@ -23,3 +23,4 @@ Vue.component('rModal', modal);
 Vue.component('rCopy', copy);
 Vue.component('load', load);
 Vue.component('rSwitch', rSwitch);
+Vue.component('Tradedialog',tradedialog);

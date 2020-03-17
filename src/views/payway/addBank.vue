@@ -1,34 +1,90 @@
 <template>
   <section>
+    
+    
     <Header title="添加银行卡" />
     <div class="container">
       <div class="item-label">姓名</div>
-      <input class="item-inp" type="text" placeholder="请输入姓名" />
+      <input class="item-inp" type="text" placeholder="请输入姓名"  v-model="name" />
       <div class="line"></div>
       <div class="item-label">开户银行</div>
-      <div class="item-inp" @click="$router.push({path: '/searchBank'})">
-        请选择开户银行
-        <i class="right"></i>
-      </div>
+      <input class="item-inp" type="text" placeholder="请输入开户银行"  v-model="register_bank" />
       <div class="line"></div>
       <div class="item-label">银行卡号</div>
-      <input class="item-inp" type="text" placeholder="请输入银行卡号" />
+      <input class="item-inp" type="text" placeholder="请输入银行卡号"   v-model="card"/>
       <div class="line"></div>
       <div class="item-label">开户支行</div>
-      <input class="item-inp" type="text" placeholder="请输入开户支行" />
+      <input class="item-inp" type="text" placeholder="请输入开户支行"  v-model="second_bank" />
       <div class="line"></div>
       <r-button
         text="确定"
         width="90%"
         class="btn-submit"
-        @click="$router.push({path: '/selectPayway'})"
+        :tocomfirm='topwdshow'
+       
       />
     </div>
+      <Tradedialog v-on:onClose='pwdshow = !pwdshow'  v-on:onConfirm="submit" v-if="pwdshow"></Tradedialog>
   </section>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      pwdshow:false,
+      submitstatus: false,
+      pwd: "123",
+      code: "1111",
+      name: "xm",
+      register_bank: "招商支行",
+      second_bank: "没填",
+      card: "125372379"
+    };
+  },
+  methods: {
+    onConfirm(data){
+      console.log(data)
+    },
+    topwdshow(){
+      this. pwdshow = true
+    },
+    submit:function(data,qq) {
+      console.log('99999999')
+      console.log(data,qq)
+      var self = this;
+      var params = {
+        pwd: this.pwd,
+        code: this.code,
+        name: this.name,
+        register_bank: this.register_bank,
+        second_bank: this.second_bank,
+        card: this.card
+      };
+      if (this.submitstatus) return ;
+      return false;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/addBankcard",
+        params: params
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.$toast.show("银行卡添加成功!");
+          (this.pwd = ""),
+            (this.code = ""),
+            (this.name = ""),
+            (this.register_bank = ""),
+            (this.second_bank = ""),
+            (this.card = "");
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$toast.show({ msg: err.message || "银行卡添加失败" });
+        });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

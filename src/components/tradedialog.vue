@@ -26,16 +26,17 @@ export default {
       timer: null,
       isTiktok: false,
       remainedTime: this.countdown,
-      verifyCode: "",
-      password: ""
+      verifyCode: "12345",
+      password: "123"
     };
   },
   computed: {},
   props: {
+
     countdown: {
       type: Number,
       default: 60
-    }
+    },
   },
   methods: {
     getVerifyCode() {
@@ -48,11 +49,11 @@ export default {
       })
         .then(_ => {
           this.startCountdown();
-          this.$toast.show("获取C2C操作验证码成功!");
+          this.$toast.show("获取验证码成功!");
         })
         .catch(err => {
           this.$toast.show({
-            msg: err.message || "获取C2C操作验证码失败，请重试"
+            msg: err.message || "获取验证码失败，请重试"
           });
         });
     },
@@ -60,7 +61,6 @@ export default {
       this.isTiktok = true; // start tiktok
       this.remainedTime = this.countdown; // init time
       this.timer = setInterval(() => {
-        // countdown
         this.remainedTime -= 1;
         if (this.remainedTime <= 0) {
           clearInterval(this.timer);
@@ -71,6 +71,7 @@ export default {
     },
     onConfirm() {
       this.$emit("onConfirm", this.password, this.verifyCode);
+      console.log('-')
     },
     onClose() {
       this.$emit("onClose");
@@ -80,10 +81,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-section{
-    width: 100%;
+section {
+  width: 100%;
 }
-.modal-wrap{
+.modal-wrap {
   position: fixed;
   width: 100%;
   height: 100%;

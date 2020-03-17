@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header title="选择收款方式" />
+       <Header title="支付方式" ></Header>
     <div class="container">
       <div class="tips">*请至少添加一种支付方式</div>
       <div class="line"></div>
@@ -12,12 +12,12 @@
           <div class="p-tit">微信</div>
         </div>
         <div class="turn-right ">
-          <span>未添加</span>
+          <span :class='user.wechat_state == 1 ? "blue" :""'> {{user.wechat_state == 1 ? '已设置':'未设置'}}</span>
           <i></i>
         </div>
       </div>
       <div class="line"></div>
-      <div class="pay-box">
+      <div class="pay-box" @click="$router.push({path: '/addAlipay'})">
         <div class="pay-logo">
           <img src="../../assets/images/set_alipay@2x.png" alt />
         </div>
@@ -25,7 +25,7 @@
           <div class="p-tit">支付宝</div>
         </div>
         <div class="turn-right">
-          <span>未添加</span>
+      <span :class='user.alipay_state == 1 ? "blue" :""'> {{user.alipay_state == 1 ? '已设置':'未设置'}}</span>
           <i></i>
         </div>
       </div>
@@ -38,7 +38,7 @@
           <div class="p-tit">工商银行卡</div>
         </div>
         <div class="turn-right">
-          <span class="blue">未添加</span>
+       <span :class='user.bankcard_state == 1 ? "blue" :""'> {{user.bankcard_state == 1 ? '已设置':'未设置'}}</span>
           <i></i>
         </div>
       </div>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -55,6 +56,9 @@ export default {
       isAlipay: false,
       isBank: false
     };
+  },
+     computed: {
+    ...mapState(['user'])
   },
   watch: {
     isWechat(val) {

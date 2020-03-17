@@ -29,10 +29,10 @@ export default {
   methods: {
     comfirm() {
       if (this.submitState) return;
-      if (this.tocomfirm) {
-        this.tocomfirm();
-        return;
-      }
+        if (this.tocomfirm) {
+          this.tocomfirm();
+          return;
+        }
       // this.$emit("comfirm");
     }
   }

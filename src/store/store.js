@@ -77,9 +77,13 @@ export default new Vuex.Store({
         withdraw_address_list:{},
         UserPendList:{},
         PendList:{},
-        order_detail:{}
+        order_detail:{},
+        addAlipayinfo:{}
     },
     mutations: {
+        addAlipayinfo(state, val) {
+            state.addAlipayinfo = val;
+        },
         UserPendList(state, val) {
             state.UserPendList = val;
         },
