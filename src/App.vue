@@ -124,7 +124,7 @@ export default {
     },
     loginCheck() {
       if (this.userState
-          // && this.$route.name != "ctc"
+          && this.$route.name != "ctc"
           && !!!this.user.uid
           && this.$route.name != "phoneRegist"
           && this.$route.name != "login"
