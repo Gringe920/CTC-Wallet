@@ -15,7 +15,7 @@
             <input  value type="file" @change="upload($event)">
         </div>
         <div class="upload-img">
-          <img :src="imgUrl(img)" alt="" srcset="">
+          <img :src="img" alt="" srcset="">
         </div>
         
       </div>
@@ -131,9 +131,9 @@ export default {
         .catch(err => {
           self.submitstatus = false;
           if (this.user.wechat_state == 1) {
-            this.$toast.show({ msg: "微信修改失败" });
+            this.$toast.show("微信修改失败");
           } else {
-            this.$toast.show({ msg: "微信添加失败" });
+            this.$toast.show("微信添加失败");
           }
         });
     },

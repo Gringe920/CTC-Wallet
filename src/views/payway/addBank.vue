@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -41,6 +42,9 @@ export default {
       second_bank: "",
       card: ""
     };
+  },
+  computed: {
+    ...mapState([ "user"])
   },
   mounted(){
     this.getPayPath()
@@ -55,6 +59,7 @@ export default {
        getPayPath() {
       var self = this;
       if (this.getPayPathStatus) return;
+      console.log(this.user)
       var params = {
         uid: this.user.basicInfo.uid,
         paytype: 1
@@ -62,7 +67,7 @@ export default {
       self.getPayPathStatus = true;
       this.axios({
         url: "/service/getPayPath",
-        params: {}
+        params
       })
         .then(res => {
           self.getPayPathStatus = false;
