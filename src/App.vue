@@ -90,7 +90,7 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$store.commit("coin_list", res.data || {});
-          this.$toast.show("获取币种成功!");
+          // this.$toast.show("获取币种成功!");
         })
         .catch(err => {
           self.submitstatus = false;
@@ -117,6 +117,7 @@ export default {
         })
         .catch(err => {
           this.userState = true;
+          this.$router.push("login");
           this.$store.commit("user", {});
           this.removeLoad();
           this.loginCheck();
