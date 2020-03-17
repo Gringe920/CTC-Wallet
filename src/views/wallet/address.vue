@@ -78,7 +78,7 @@ export default {
       })
         .then(res => {
           self.liststatus = false;
-          this.$store.commit("withdraw_address_list", res.data || {});
+          this.$store.commit("withdraw_address_list", res.data.list || {});
           this.$toast.show("获取币种成功!");
         })
         .catch(err => {
