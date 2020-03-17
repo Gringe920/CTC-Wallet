@@ -99,7 +99,6 @@ export default {
         });
     },
     getUser() {
-      console.log("app.vue getUser");
       var self = this;
       this.axios({
         url: "/service/user_info"

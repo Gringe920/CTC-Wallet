@@ -24,14 +24,31 @@
 export default {
   data() {
     return {
-       oldpwd: "xiemei123456",
-      newpwd: "xiemei1234567",
-       reNewpwd: "xiemei1234567",
+       oldpwd: "",
+      newpwd: "",
+       reNewpwd: "",
       submitstatus: false
     };
   },
   methods: {
     submit() {
+         const { oldpwd, newpwd, reNewpwd } = this;
+      if (this.isEmpty(oldpwd)) {
+        this.$toast.show("原交易密码不能为空");
+        return;
+      }
+      if (this.isEmpty(newpwd)) {
+        this.$toast.show("新交易密码不能为空");
+        return;
+      }
+      if (this.isEmpty(reNewpwd)) {
+        this.$toast.show("请输入确认密码");
+        return;
+      }
+      if (newpwd != reNewpwd) {
+        this.$toast.show("新交易密码与确认密码不相同");
+        return;
+      }
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
@@ -48,7 +65,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || "修改交易密码失败，请重试" });
+          this.$toast.show({ msg: "修改交易密码失败，请重试" });
         });
     }
   }

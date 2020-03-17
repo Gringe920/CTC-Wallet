@@ -7,14 +7,14 @@
     <div class="container">
       <div class="l-tit">用户登录</div>
       <div class="l-info-box">
-        <input placeholder="手机或邮箱" type="number" v-model="account" class="account"/>
+        <input placeholder="手机" type="number" v-model="account" class="account"/>
         <div class="line"></div>
         <input placeholder="密码" type="text" v-model="password"/>
         <div class="line"></div>
         <div @click="submit">
         <r-button text="立即登录" class="btn-login"/>
         </div>
-        <span class="forget">忘记密码？</span>
+        <span class="forget"  @click="$router.push({ path: '/forget'})">忘记密码？</span>
       </div>
     </div>
   </section>
@@ -24,15 +24,27 @@ export default {
   data() {
     return {
       isAllow: true,
-      account: "15111487619",
+      account: "",
       submitstatus: false,
-      password: "xiemei1234567"
+      password: ""
     };
   },
-  created(){
-  },
+  created() {},
   methods: {
     submit() {
+      const { account, password } = this;
+      if (this.isEmpty(account)) {
+        this.$toast.show("手机号码不能为空");
+        return;
+      }
+      if (!this.isValidPhone(account)) {
+        this.$toast.show("手机号格式错误");
+        return;
+      }
+      if (this.isEmpty(password)) {
+        this.$toast.show("登陆密码不能为空");
+        return;
+      }
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
@@ -47,37 +59,32 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show("登陆成功!");
-            this.getLoginInfo();
+          this.getLoginInfo();
         })
         .catch(err => {
           self.submitstatus = false;
-            this.$toast.show({msg: err.message || '登录失败，请重试'});
+          this.$toast.show({ msg: "登录失败，请重试" });
         });
     },
-    getLoginInfo(){
-       var self = this;
+    getLoginInfo() {
+      var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
       this.axios({
         url: "/service/user_info",
-        params: {
-        }
+        params: {}
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("用户信息获取成功!");
-           this.$router.push('ctc')
+          setTimeout(function() {
+            self.$router.push("/ctc");
+          }, 1000);
         })
         .catch(err => {
           self.submitstatus = false;
-            this.$toast.show({msg: err.message || '用户信息获取失败，请重试'});
         });
-
     },
     reply() {
-      // if (this.leftEv()) {
-      //   return;
-      // }
       if (typeof plus == "object") {
         let webview = plus.webview.getLaunchWebview();
         webview.back();
@@ -123,6 +130,7 @@ section {
     .l-info-box {
       input {
         padding: 15px 0;
+        width: 100%;
       }
       .btn-login {
         margin: 30px 0;

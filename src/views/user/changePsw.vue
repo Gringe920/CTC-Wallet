@@ -21,16 +21,33 @@
 
 <script>
 export default {
-   data() {
+  data() {
     return {
-      oldpwd: "xiemei123456",
-      newpwd: "xiemei1234567",
-      reNewpwd:'xiemei1234567',
+      oldpwd: "",
+      newpwd: "",
+      reNewpwd: "",
       submitstatus: false
     };
   },
   methods: {
     submit() {
+      const { oldpwd, newpwd, reNewpwd } = this;
+      if (this.isEmpty(oldpwd)) {
+        this.$toast.show("原登录密码不能为空");
+        return;
+      }
+      if (this.isEmpty(newpwd)) {
+        this.$toast.show("新登录密码不能为空");
+        return;
+      }
+      if (this.isEmpty(reNewpwd)) {
+        this.$toast.show("请输入确认密码");
+        return;
+      }
+      if (newpwd != reNewpwd) {
+        this.$toast.show("新登录密码与确认密码不相同");
+        return;
+      }
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
@@ -38,16 +55,19 @@ export default {
         url: "/service/resetpwd",
         params: {
           oldpwd: self.oldpwd,
-          newpwd:self.newpwd,
+          newpwd: self.newpwd
         }
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("重置密码成功");
+          this.$toast.show("密码修改成功");
+          this.oldpwd = "";
+          this.newpwd = "";
+          this.reNewpwd = "";
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || "重置密码密码失败，请重试" });
+          this.$toast.show({ msg: "重置密码密码失败，请稍后再试！" });
         });
     }
   }

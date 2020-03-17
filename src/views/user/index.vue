@@ -1,19 +1,20 @@
 <template>
   <div class="container">
-    <div class="userinfo" @click="$router.push({path: '/info'})">
+    <div class="userinfo" @click="toinfo()">
       <div class="avatar">
         <img src="../../assets/images/china@2x.png" alt />
       </div>
       <div class="info">
-        <div class="name" v-if="!user.basicInfo.uid" @click="toRoute('login')">请先登陆</div>
-        <div class="name" v-if="user.basicInfo.uid">{{user.basicInfo.username || '我是谁'}}</div>
-        <div class="uid" v-if="user.basicInfo.uid">UID: {{user.basicInfo.uid}}</div>
+        <div class="name" v-if="!user.basicInfo ||!user.basicInfo.uid " >请先登陆</div>
+        <div class="name" v-if="user.basicInfo &&user.basicInfo.uid">{{user.basicInfo.username || user.basicInfo.phone}}</div>
+        <div class="uid" v-if="user.basicInfo &&user.basicInfo.uid">UID: {{user.basicInfo.uid}}</div>
       </div>
       <div class="turn-right">
         <i></i>
       </div>
     </div>
-    <div class="user-navigation">
+    <div class="user-navigation"  >
+         <div v-if="user.basicInfo ">
       <div class="user-nav-item" @click="$router.push({path: '/selectPayway'})">
         <i class="icon my_receivables"></i>
         <p>收款方式</p>
@@ -21,20 +22,20 @@
           <i></i>
         </div>
       </div>
-      <div class="user-nav-item" @click="$router.push({path: '/address'})">
+      <div class="user-nav-item"  @click="$router.push({path: '/address'})">
         <i class="icon my_extract"></i>
         <p>提币地址</p>
         <div class="turn-right">
           <i></i>
         </div>
       </div>
-      <div class="user-nav-item" @click="$router.push({path: '/certification'})">
+      <!-- <div class="user-nav-item" @click="$router.push({path: '/certification'})">
         <i class="icon my_identity"></i>
         <p>身份认证</p>
         <div class="turn-right">
           <i></i>
         </div>
-      </div>
+      </div> -->
       <div v-if='user.basicInfo.deal_pwd_state == 0' class="user-nav-item" @click="$router.push({path: '/setTradePsw'})">
         <i class="icon my_lock"></i>
         <p>交易密码</p>
@@ -51,6 +52,7 @@
           <i></i>
         </div>
       </div>
+   </div>
       <div class="user-nav-item" @click="$router.push({path: '/lang'})">
         <i class="icon my_language"></i>
         <p>多语言</p>
@@ -84,10 +86,17 @@ export default {
   created() {
     this.getLoginInfo();
   },
-   computed: {
-    ...mapState(['user'])
+  computed: {
+    ...mapState(["user"])
   },
   methods: {
+    toinfo() {
+      if (this.user && this.user.basicInfo && this.user.basicInfo.uid) {
+        this.$router.push({ path: "/info" });
+      } else {
+        this.$router.push({ path: "/login" });
+      }
+    },
     getLoginInfo() {
       var self = this;
       if (this.submitstatus) return;
@@ -98,12 +107,12 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-            this.$store.commit("user", res.data || {});
+          this.$store.commit("user", res.data || {});
           localStorage.setItem("user_info", res.data || {});
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$router.push("login");
+          // this.$router.push("login");
           this.$store.commit("user", {});
           this.$toast.show({ msg: err.message || "用户信息获取失败，请重试" });
         });

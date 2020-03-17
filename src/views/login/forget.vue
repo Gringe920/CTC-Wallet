@@ -50,11 +50,14 @@ export default {
   },
   methods: {
     nextshow() {
-      if (this.account == "") {
-        this.$toast.show("用户名不能为空!");
+      const { account } = this;
+      if (this.isEmpty(account)) {
+        this.$toast.show("手机号码不能为空");
         return;
-      } else {
-        this.$toast.show("用户名能为空!");
+      }
+      if (!this.isValidPhone(account)) {
+        this.$toast.show("手机号格式错误");
+        return;
       }
       if (!this.timeStatus) {
         this.$toast.show("请先获取验证码!");
@@ -64,10 +67,22 @@ export default {
         this.$toast.show("验证码不能为空!");
         return;
       }
-
       this.next = !this.next;
     },
     submit() {
+      const { Password, rePassword } = this;
+      if (this.isEmpty(Password)) {
+        this.$toast.show("交易密码不能为空");
+        return;
+      }
+      if (this.isEmpty(rePassword)) {
+        this.$toast.show("确认密码不能为空");
+        return;
+      }
+      if (Password != drePassword) {
+        this.$toast.show("交易密码与确认密码不相同");
+        return;
+      }
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
@@ -84,18 +99,14 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show("注册成功");
-          console.log(res);
         })
         .catch(err => {
           self.submitstatus = false;
           this.$toast.show("注册失败");
-          console.log(err);
+          s;
         });
     },
     reply() {
-      if (this.leftEv()) {
-        return;
-      }
       if (typeof plus == "object") {
         let webview = plus.webview.getLaunchWebview();
         webview.back();
@@ -110,8 +121,6 @@ export default {
         return;
       }
       if (this.timeStatus) return;
-      console.log(this.timeStatus, "------------time");
-
       var times = setInterval(function() {
         self.timeStatus = true;
         if (self.time == 1) {
@@ -119,14 +128,12 @@ export default {
           self.time = 6;
           clearInterval(times);
         }
-        console.log("1");
         self.time = self.time - 1;
       }, 1000);
 
       if (this.codeStatus) return;
       this.codeStatus = true;
       return;
-      console.log(this.codeStatus, "-----------codeStatus");
       this.axios({
         url: "/service/register_verify",
         params: {
@@ -136,14 +143,12 @@ export default {
         }
       })
         .then(res => {
-          console.log("initdata1----------");
           self.codeStatus = false;
-          console.log(res);
+          this.$toast.show("验证码已发送");
         })
         .catch(err => {
-          console.log("initdata2----------");
           self.codeStatus = false;
-          console.log(err);
+          this.$toast.show("验证码发送失败,请稍后再试");
         });
     }
   },

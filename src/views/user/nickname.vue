@@ -17,25 +17,32 @@
 export default {
   data() {
     return {
-      nickname: "我不爱冰阔落",
+      nickname: "",
       submitstatus: false
     };
   },
   methods: {
     submit() {
-      console.log('xm')
+      const { nickname } = this;
+      if (this.isEmpty(nickname)) {
+        this.$toast.show("昵称不能为空");
+        return;
+      }
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
       this.axios({
         url: "/service/reset_nickname",
         params: {
-          nickname: self.nickname,
+          nickname: self.nickname
         }
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("设置昵称成功");
+          this.$toast.show("昵称设置成功");
+          setTimeout(function(){
+            self.$router.push("/info");
+          },1000)
         })
         .catch(err => {
           self.submitstatus = false;

@@ -21,13 +21,27 @@
 export default {
   data() {
     return {
-      dealPwd: "xiemei123456",
-      redealPwd: "xiemei123456",
+      dealPwd: "",
+      redealPwd: "",
       submitstatus: false
     };
   },
   methods: {
+    
     submit() {
+          const { dealPwd, redealPwd} = this;
+      if (this.isEmpty(dealPwd)) {
+        this.$toast.show("交易密码不能为空");
+        return;
+      }
+      if (this.isEmpty(redealPwd)) {
+        this.$toast.show("确认密码不能为空");
+        return;
+      }
+      if (redealPwd != dealPwd) {
+        this.$toast.show("新交易密码与确认密码不相同");
+        return;
+      }
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
@@ -43,7 +57,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || "设置交易密码失败，请重试" });
+          this.$toast.show({ msg:"设置交易密码失败，请重试" });
         });
     }
   }

@@ -41,7 +41,7 @@
         <div  @click="submit()"  v-if="next"> 
           <r-button text="确定" class="btn-login"/>
         </div>
-        <span  v-if="type=='phone'" class="forget" @click="typechange('email')">邮箱注册</span>
+        <!-- <span  v-if="type=='phone'" class="forget" @click="typechange('email')">邮箱注册</span> -->
          <span  v-if="type=='email'" class="forget" @click="typechange('phone')">手机注册</span>
       </div>
     </div>
@@ -53,11 +53,11 @@ export default {
   data() {
     return {
       isAllow: true,
-      account: "15111487619",
+      account: "",
       mail: " ",
       code: " ",
-      password: "xiemei123456",
-      rePassword: "xiemei123456",
+      password: "",
+      rePassword: "",
       time: 60,
       next: false,
       checked: false,
@@ -79,6 +79,15 @@ export default {
       this.$store.commit("type", index);
     },
     getcode() {
+      const { account } = this;
+      if (this.isEmpty(account)) {
+        this.$toast.show("手机号码不能为空");
+        return;
+      }
+      if (!this.isValidPhone(account)) {
+        this.$toast.show("手机号格式错误");
+        return;
+      }
       var self = this;
       if (this.timeStatus) {
         this.$toast.show("请不要重复操作!");
@@ -107,17 +116,20 @@ export default {
         }
       })
         .then(res => {
-          console.log("initdata1----------");
           self.codeStatus = false;
-          console.log(res);
+          this.$toast.show("验证码获取成功");
         })
         .catch(err => {
-          console.log("initdata2----------");
           self.codeStatus = false;
-          console.log(err);
+          this.$toast.show("验证码获取失败,请稍后再试");
         });
     },
     nextshow() {
+      const { account } = this;
+      if (this.isEmpty(account)) {
+        this.$toast.show("手机号码不能为空");
+        return;
+      }
       if (!this.timeStatus) {
         this.$toast.show("请先获取验证码!");
         return;
@@ -133,6 +145,19 @@ export default {
       this.next = !this.next;
     },
     submit() {
+      const { password, rePassword } = this;
+      if (this.isEmpty(password)) {
+        this.$toast.show("登陆密码不能为空");
+        return;
+      }
+      if (this.isEmpty(rePassword)) {
+        this.$toast.show("确认密码不能为空");
+        return;
+      }
+      if (password != rePassword) {
+        this.$toast.show("登陆密码与确认密码不相同");
+        return;
+      }
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
@@ -148,21 +173,17 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("注册成功");
-          this.$router.push('login')
+          this.$toast.show("注册成功,去登陆");
+          this.$router.push("login");
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show("注册失败");
-          console.log(err);
+          this.$toast.show("注册失败,请稍后再试");
         });
     },
     reply() {
       if (this.next) {
         this.next = !this.next;
-        return;
-      }
-      if (this.leftEv()) {
         return;
       }
       if (typeof plus == "object") {
@@ -185,6 +206,9 @@ export default {
 <style lang="scss" scoped>
 .timechecked {
   color: $color1 !important;
+}
+.account-box{
+  border: 1px solid red;
 }
 section {
   .header {
@@ -229,8 +253,10 @@ section {
         margin-right: 10px;
       }
       .code-box2 {
+     
         input {
           width: 100%;
+         
         }
       }
       .code-box {

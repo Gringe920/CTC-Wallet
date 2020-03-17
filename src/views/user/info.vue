@@ -1,12 +1,12 @@
 <template>
   <section class="container">
-    <Header title="我的资料" />
+    <Header title="个人信息" />
     <div class="info-container">
       <div class="info-list">
         <div class="info-item" @click="$router.push({path: '/nickname'})">
           <span class="i-k">昵称</span>
           <div class="turn-right">
-            <span>Parren</span>
+            <span>{{user.basicInfo.username ?user.basicInfo.username :'去设置'}}</span>
             <i></i>
           </div>
           <div class="line"></div>
@@ -14,15 +14,14 @@
         <div class="info-item">
           <span class="i-k">UID</span>
           <div class="turn-right">
-            <span>80006744</span>
+            <span>{{user.basicInfo.uid}}</span>
           </div>
           <div class="line"></div>
         </div>
-        <div class="info-item" @click="$router.push({path: '/changeTelephone'})">
-          <span class="i-k">修改手机号</span>
+        <div class="info-item" >
+          <span class="i-k">手机号</span>
           <div class="turn-right">
-            <span>13823240888</span>
-            <i></i>
+            <span>{{user.basicInfo.phone}}</span>
           </div>
           <div class="line"></div>
         </div>
@@ -42,11 +41,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       submitstatus: false
     };
+  },
+    computed: {
+    ...mapState(["user"])
   },
   methods: {
     logout() {
@@ -62,12 +65,11 @@ export default {
           self.submitstatus = false;
           this.$toast.show("登出成功!");
           console.log(res);
-          this.$router.push("ctc");
+          this.$router.push("/user");
         })
         .catch(err => {
           self.submitstatus = false;
-            this.$toast.show({ msg: err.message || "登出出失败，请重试" });
-      
+            this.$toast.show({ msg:  "登出出失败，请重试" });
         });
     }
   }

@@ -11,7 +11,8 @@
       <div class="upload-code">
         <div class="up-tit">上传微信收款二维码</div>
         <div class="upload-box">
-          点击上传
+        
+          <div>  点击上传</div>
             <input  value type="file" @change="upload($event)">
         </div>
         <div class="upload-img">{{erweima}}</div>
@@ -32,12 +33,11 @@ export default {
   data() {
     return {
       pwdshow: false,
-      nickname: "我不爱冰阔落",
       submitstatus: false,
-      pwd: "xiemei1234567",
-      code: "123456",
-      account: "15111487619",
-      name: "xm",
+      pwd: "",
+      code: "",
+      account: "",
+      name: "",
       file: {},
       erweima: "",
       VerifyCodeStatus: false,
@@ -225,8 +225,17 @@ section {
         font-size: 16px;
         border-radius: 3px;
         padding: 12px 0;
+        position: relative;
         border: 1px dashed #1771ed;
         margin-bottom: 20px;
+        input{
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          left: 0;
+        }
       }
     }
   }

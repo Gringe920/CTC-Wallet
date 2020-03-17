@@ -78,23 +78,15 @@ export default {
       }
     },
     reply() {
-      if(this.leftEv()){
-          return;
+      if (this.leftEv()) {
+        return;
       }
-      console.log(11);
       if (typeof plus == "object") {
-          let webview = plus.webview.getLaunchWebview();
-          webview.back();
-          console.log('2')
+        let webview = plus.webview.getLaunchWebview();
+        webview.back();
       } else {
-      this.$router.go(-1);
-      console.log('3')
-      // if((this.$route.name=='shoukuan'||this.$route.name=='scanning')){
-      //     this.$router.push({name:'wallet'});
-      // }else {
-      //     this.$router.go(-1);
-      // }
-    }
+        this.$router.go(-1);
+      }
     }
   }
 };

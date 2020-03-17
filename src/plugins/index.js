@@ -62,6 +62,36 @@ Vue.mixin({
             }
             return this.$t('wallet.fu')
         },
+        // 判断为空
+        isEmpty (obj) {//判断输入是否为空
+            if (typeof obj == "undefined" || obj == null || obj == "") {
+              return true;
+            } else {
+              const regu = "^[ ]+$";
+              const re = new RegExp(regu);
+              return re.test(obj);
+              //return false;
+            }
+          },
+        // 手机格式
+        isValidPhone (value) {
+            return this.isRegexMatched(value, {
+              regex: /^[0-9]{11}$/,
+              includeEmptyCheck: false
+            });
+          },
+          isRegexMatched (value, {regex, includeEmptyCheck}) {
+            return includeEmptyCheck
+              ? this.isEmpty(value) && regex.test(value)
+              : regex.test(value);
+          },
+        // 邮箱格式
+        isValidEmail (value) {
+            return this.isRegexMatched(value, {
+              regex: /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/,
+              includeEmptyCheck: false
+            });
+          },
         clickBinding (){
             if(this.isjihuo == false){
                 this.$toast.show(this.$t('home.home8'));
