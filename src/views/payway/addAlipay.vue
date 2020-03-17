@@ -6,7 +6,7 @@
       <input class="item-inp" type="text" placeholder="请输入姓名" v-model="name" />
       <div class="line"></div>
       <div class="item-label" >账号</div>
-      <input class="item-inp" type="text" placeholder="请输入微信账号" v-model="account" />
+      <input class="item-inp" type="text" placeholder="请输入支付宝账号" v-model="account" />
       <div class="line"></div>
       <div class="upload-code">
         <div class="up-tit">上传支付宝收款二维码</div>
@@ -50,7 +50,8 @@ export default {
       fileData: {
         state: -1
       },
-      fileVal: ""
+      fileVal: "",
+
     };
   },
   mounted() {
@@ -60,29 +61,64 @@ export default {
     ...mapState(["user", "addAlipayinfo"])
   },
   methods: {
+    topwdshow() {
+      const {name, account, fileVal} = this;
+      if(!name){
+        this.$toast.show("请输入姓名！");
+        return;
+      }
+      if(!account){
+        this.$toast.show("请输入支付宝账号！");
+        return;
+      }
+      if(!fileVal){
+        this.$toast.show("请上传支付宝收款二维码！");
+        return;
+      }
+      this.pwdshow = true;
+    },
     getPayPath() {
       var self = this;
       if (this.getPayPathStatus) return;
       var params = {
-        uid: this.user.uid,
-        paytype: 1
+        uid: this.user.basicInfo.uid,
+        paytype: 3
       };
       self.getPayPathStatus = true;
       this.axios({
         url: "/service/getPayPath",
-        params: {}
+        params
       })
         .then(res => {
           self.getPayPathStatus = false;
           this.$store.commit("addAlipayinfo", res.data || {});
+          var str = res.data.path;
+          var index = str.lastIndexOf("/");
+          this.fileVal = this.imgUrl(str.substring(index + 1, str.length));
+          this.name = res.data.name || "";
+          this.account = res.data.account || "";
         })
         .catch(err => {
           self.getPayPathStatus = false;
+          this.$store.commit("addAlipayinfo", {});
         });
     },
     upload(e) {
       this.file = e.target.files[0];
-      console.log(this.file);
+      const fileType = this.file.type;
+      if(fileType === 'image/png' 
+        || fileType === 'image/jpg'
+        || fileType ==='image/jpeg'){
+          const reader = new FileReader();
+          reader.readAsDataURL(this.file);
+          reader.onload = (e) => {
+            this.fileVal = e.target.result.toString();
+          }
+      }else{
+        this.$toast.show("请上传png/jpg/jpeg格式的图片");
+        this.file = {};
+      }
+      
     },
     submit: function(pwd, code) {
       var self = this;
@@ -106,18 +142,19 @@ export default {
           self.submitstatus = false;
           if (this.user.alipay_state == 1) {
             this.$toast.show("支付宝修改成功!");
+            
           } else {
             this.$toast.show("支付宝添加成功!");
           }
+          this.pwdshow = false;
           this.getPayPath();
         })
         .catch(err => {
           self.submitstatus = false;
-          console.log(" err.message");
           if (this.user.alipay_state == 1) {
-            this.$toast.show({ msg: "支付宝修改失败" });
+            this.$toast.show(err.message || "支付宝添加失败");
           } else {
-            this.$toast.show({ msg: "支付宝添加失败" });
+            this.$toast.show(err.message || "支付宝添加失败");
           }
         });
     }
@@ -146,6 +183,12 @@ section {
       background: none;
       width: 100%;
       padding-bottom: 15px;
+    }
+    .upload-img{
+      text-align: center;
+      img{
+        width: 100px;
+      }
     }
     .upload-code {
       margin-top: 20px;

@@ -56,7 +56,7 @@ export default {
       var self = this;
       if (this.getPayPathStatus) return;
       var params = {
-        uid: this.user.uid,
+        uid: this.user.basicInfo.uid,
         paytype: 1
       };
       self.getPayPathStatus = true;
@@ -89,7 +89,7 @@ export default {
       self.submitstatus = true;
       this.axios({
         url: "/service/addBankcard",
-        params: params
+        params
       })
         .then(res => {
           self.submitstatus = false;

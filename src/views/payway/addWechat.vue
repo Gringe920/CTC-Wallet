@@ -50,7 +50,8 @@ export default {
       img: "",
       fileData: {
         state: -1
-      }
+      },
+
     };
   },
   computed: {
@@ -61,17 +62,37 @@ export default {
   },
   methods: {
     topwdshow() {
+      const {name, account, img} = this;
+      if(!name){
+        this.$toast.show("请输入姓名！");
+        return;
+      }
+      if(!account){
+        this.$toast.show("请输入支付宝账号！");
+        return;
+      }
+      if(!img){
+        this.$toast.show("请上传支付宝收款二维码！");
+        return;
+      }
       this.pwdshow = true;
     },
     upload(e) {
       this.file = e.target.files[0];
-      // if (file.size > 1024 * 1024 * this.size) {
-      //   this.fileData = {
-      //     state: this.getStateError,
-      //     // message: this.lang.imgFormatSize.replace("{size}", this.size + "M")
-      //   };
-      //   return;
-      // }
+      const fileType = this.file.type;
+      if(fileType === 'image/png' 
+        || fileType === 'image/jpg'
+        || fileType ==='image/jpeg'){
+          const reader = new FileReader();
+          reader.readAsDataURL(this.file);
+          reader.onload = (e) => {
+            this.img = e.target.result;
+          }
+      }else{
+        this.$toast.show("请上传png/jpg/jpeg格式的图片");
+        this.file = {};
+      }
+      
     },
     submit: function(pwd, code) {
       var self = this;
@@ -120,22 +141,20 @@ export default {
       var self = this;
       if (this.getPayPathStatus) return;
       var params = {
-        uid: this.user.uid,
+        uid: this.user.basicInfo.uid,
         paytype: 2
       };
       self.getPayPathStatus = true;
       this.axios({
         url: "/service/getPayPath",
-        params: {}
+        params
       })
         .then(res => {
           self.getPayPathStatus = false;
           this.$store.commit("wechat_info", res.data || {});
           var str = res.data.path;
           var index = str.lastIndexOf("/");
-          this.img = str.substring(index + 1, str.length);
-          console.log(this.img, "===============");
-
+          this.img = this.imgUrl(str.substring(index + 1, str.length));
           this.name = res.data.name || "";
           this.account = res.data.account || "";
         })

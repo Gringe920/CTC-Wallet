@@ -54,9 +54,9 @@ export default {
     $route(n, o) {
       this.showBottomNav();
     },
-    "$route.name"(n, o) {
-      this.getUser();
-    }
+    // "$route.name"(n, o) {
+    //   this.getUser();
+    // }
     // connected (){
     //     this.loginPage();
     // },
@@ -70,6 +70,7 @@ export default {
   },
   mounted() {
     this.showBottomNav();
+    this.getUser();
     // console.log(this.account.accounts);
     // this.account.createWallet('123456');
     // this.account.getAccount();
@@ -116,7 +117,7 @@ export default {
         })
         .catch(err => {
           this.userState = true;
-          this.$router.push("login");
+          // this.$router.push("login");
           this.$store.commit("user", {});
           this.removeLoad();
           this.loginCheck();

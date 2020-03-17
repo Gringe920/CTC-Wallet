@@ -19,6 +19,7 @@ export default {
     },
     methods: {
         onCopy(){
+            console.log('111')
             this.$toast.show(this.$t('copySucceed'))
         },
         onError(err){

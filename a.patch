@@ -1,0 +1,417 @@
+diff --git a/src/router.js b/src/router.js
+index 2458768..eb42a18 100644
+--- a/src/router.js
++++ b/src/router.js
+@@ -30,7 +30,9 @@ const forget = () => import(/* webpackChunkName: "user" */ './views/login/forget
+ 
+ const order = () => import(/* webpackChunkName: "user" */ './views/order/index.vue');
+ const publish = () => import(/* webpackChunkName: "user" */ './views/order/publish.vue');
+-const result = () => import(/* webpackChunkName: "user" */ './views/order/result.vue');
++const sellResult = () => import(/* webpackChunkName: "user" */ './views/order/result.vue');
++const buyResult = () => import(/* webpackChunkName: "user" */ './views/order/buyResult.vue');
++
+ //资产页面
+ const wallet = () => import(/* webpackChunkName: "ctc" */ './views/wallet/index.vue');
+ const address = () => import(/* webpackChunkName: "ctc" */ './views/wallet/address.vue');
+@@ -97,6 +99,11 @@ export default new Router({
+             name: 'chat',
+             component: chat
+         },
++        {
++            path: '/buyResult',
++            name: 'buyResult',
++            component: buyResult
++        },
+         {
+             path: '/Orderstatus',
+             name: 'Orderstatus',
+@@ -137,6 +144,11 @@ export default new Router({
+             name: 'changeTelephone',
+             component: changeTelephone
+         },
++        // {
++        //     path: '/buyResult',
++        //     name: 'buyResult',
++        //     component: buyResult
++        // },
+         {
+             path: '/about',
+             name: 'about',
+@@ -238,9 +250,9 @@ export default new Router({
+             component: publish
+         },
+         {
+-            path: '/result',
+-            name: 'result',
+-            component: result
++            path: '/sellResult',
++            name: 'sellResult',
++            component: sellResult
+         },
+     ]
+ })
+diff --git a/src/views/ctc/buySell.vue b/src/views/ctc/buySell.vue
+index bfb5be2..b825a71 100644
+--- a/src/views/ctc/buySell.vue
++++ b/src/views/ctc/buySell.vue
+@@ -1,7 +1,6 @@
+ <template>
+   <section class="buySellbox">
+     <div class="infos" v-if="orderType == 1">
+-      
+       <div class="top top2">
+         <div class="l">{{buyType == 'buy'?'购买':"出售"}} {{ coin.toUpperCase() }} </div>
+         <img
+@@ -136,7 +135,7 @@ export default {
+         params: {
+           uid: this.user.uid,
+           pend_id: this.currentItem._id,
+-          type: this.buyType == 'buy' ? 2 : 1,
++        type: this.buyType == 'debuy' ? 1 : 2,
+           amount,
+           pwd: password,
+           code: verifyCode
+@@ -145,13 +144,12 @@ export default {
+         .then(res => {
+           //TODO jump to order-to-pay page
+           this.$router.push({
+-            path: "/result"
++            path: this.buyType == 'buy'? '/buyResult' : "/sellResult"
+           });
+           this.$store.commit('order_detail', res.data);
+         })
+         .catch(err => {
+           this.$toast.show(err.message || "操作失败");
+-          console.log("failed, but still jump to order-to-pay page");
+         });
+     }
+   }
+diff --git a/src/views/ctc/index.vue b/src/views/ctc/index.vue
+index 9a2a816..168e5eb 100644
+--- a/src/views/ctc/index.vue
++++ b/src/views/ctc/index.vue
+@@ -32,7 +32,7 @@
+         class="buymsg"
+         v-for="item in PendList"
+         :key="item.uid"
+-        v-if="item.type == 1"
++        v-if="item.type == 2"
+       >
+         <div class="top">
+           <div class="left">
+@@ -86,7 +86,7 @@
+         class="buymsg"
+         v-for="item in PendList"
+         :key="item.uid"
+-        v-if="item.type == 2"
++        v-if="item.type == 1"
+       >
+         <div class="top">
+           <div class="left">
+@@ -215,6 +215,10 @@ export default {
+       //   this.isShowModal = true;
+       //   return
+       // }
++      if(item.amount.$numberDecimal < item.minmum){
++        this.$toast.show("该币种剩余的数量小于最小限额");
++        return;
++      }
+       this.bugSellItem = item;
+       this.$store.commit("buySellShow", true);
+     },
+diff --git a/src/views/order/index.vue b/src/views/order/index.vue
+index 6acf341..15523e9 100644
+--- a/src/views/order/index.vue
++++ b/src/views/order/index.vue
+@@ -6,20 +6,22 @@
+     </div>
+     <div class="nav-tag">
+       <ul class="nav-li">
+-        <li :class="{'active': navIndex == 3}" @click="changeNavIndex(3)">我发布的</li>
++        <li :class="{'active': navIndex == -1}" @click="changeNavIndex(3)">我发布的</li>
+         <li :class="{'active': navIndex == 0}" @click="changeNavIndex(0)">未完成</li>
+         <li :class="{'active': navIndex == 1}" @click="changeNavIndex(1)">已完成</li>
+         <li :class="{'active': navIndex == 2}" @click="changeNavIndex(2)">已取消</li>
+         <li :class="{'active': navIndex == 4}" @click="changeNavIndex(4)">已申诉</li>
++        <li :class="{'active': navIndex == 3}" @click="changeNavIndex(3)">已付款</li>
++        
+       </ul>
+     </div>
+     <div class="order-listbox">
+     <!-- 0我发布 -->
+-    <div class="order-list" v-if="navIndex == 3" v-for="item in UserPendList" :key="item._id">  
++    <div class="order-list" v-if="navIndex == -1" v-for="item in UserPendList" :key="item._id">  
+       <div class="box published">
+         <div class="box-h">
+           <div class="coin">
+-            <span class="icon" :class="item.type==1?'':'sell'" >{{item.type==1?'买':'卖'}}</span>
++            <span class="icon" :class="item.type==1?'':'sell'" >{{item.type == 1?'买':'卖'}}</span>
+             <span>{{item.symbol.toUpperCase()}}</span>
+           </div>
+           <div class="kill-order" @click="pend_cancel(item._id)">撤单</div>
+@@ -42,21 +44,21 @@
+       </div>
+     </div>
+     <!-- 1未完成 -->
+-    <div class="order-list" v-if="navIndex != 3" @click="getOrderList(navIndex)">
+-      <div class="box unfinish" v-for="(item, index) in orderList" :key="index">
++    <div class="order-list" v-if="navIndex != -1" @click="getOrderList(navIndex)">
++      <div class="box unfinish" v-for="(item, index) in orderList" :key="index" @click="goResult(item)">
+         <div class="box-h">
+           <div class="coin">
+-            <span class="icon" :class="item.type==1?'':'sell'" >{{item.type==1?'买':'卖'}}</span>
++            <span class="icon" :class="item.pend_type==2?'':'sell'" >{{item.pend_type==2?'买':'卖'}}</span>
+             <span>{{item.symbol.toUpperCase()}}</span>
+           </div>
+           <div class="h-tips" v-if="navIndex == 0">待打款</div>
+           <div class="h-tips" v-if="navIndex == 1">已完成</div>
+-          <div class="h-tips" v-if="navIndex == 2">{{item.type==1 ? '' : '对方'}}已取消</div>
++          <div class="h-tips" v-if="navIndex == 2">{{item.pend_type==2 ? '' : '对方'}}已取消</div>
+         </div>
+         <div class="line"></div>
+         <div class="box-c-h">
+           <div class="c-row order-money">
+-            交易金额：6890 CNY
++            交易金额：{{item.amount && item.amount.$numberDecimal * item.price || 0}} CNY
+           </div>
+           <div class="c-row">
+             商家信息：风轻云淡
+@@ -80,7 +82,7 @@ import { mapState } from "vuex";
+ export default {
+   data() {
+     return {
+-      navIndex: 3, // 3我发布  0未完成  1已完成 2已取消 4已申诉
++      navIndex: -1, // 3我发布  0未完成  1已完成 2已取消 4已申诉
+       submitStatus: false,
+       pend_cancelstatus: false,
+       orderList: [],
+@@ -93,6 +95,12 @@ export default {
+     ...mapState(["user", "UserPendList"])
+   },
+   methods: {
++    goResult(item){
++      this.$router.push({
++        path: item.pend_type == 2 ? '/buyResult' : '/sellResult'
++      });
++      this.$store.commit('order_detail', item);
++    },
+     getOrderList(status){
+       this.axios({
+         url: "/c2c/getOrderList",
+@@ -156,7 +164,7 @@ export default {
+         });
+     },
+     changeNavIndex(idx) {
+-      if(idx != 3){
++      if(idx != -1){
+         this.getOrderList(idx);
+       }
+       this.navIndex = idx;
+diff --git a/src/views/order/publish.vue b/src/views/order/publish.vue
+index e31fee7..a8af14b 100644
+--- a/src/views/order/publish.vue
++++ b/src/views/order/publish.vue
+@@ -168,6 +168,7 @@ export default {
+         .then(res => {
+           this.submitStatus = false;
+           this.$toast.show("挂单成功!");
++          this.$router.go(-1);
+         })
+         .catch(err => {
+           this.submitStatus = false;
+diff --git a/src/views/order/result.vue b/src/views/order/result.vue
+index f55fa8e..e532d8b 100644
+--- a/src/views/order/result.vue
++++ b/src/views/order/result.vue
+@@ -1,6 +1,6 @@
+ <template>
+   <section>
+-    <Header title="出售USDT" />
++    <Header :title="`${isSeller() ? '购买' : '出售'}${order_detail.symbol.toUpperCase()}`" />
+     <div class="container">
+       <!-- <div class="order-progress">
+         <div class="order-status order-status-1">
+@@ -28,7 +28,7 @@
+           <div class="order-status-2">
+             <img
+               class="progress-icon"
+-              :src='position > 1 ? require("../../assets/images/details_selected@2x.png"): require("../../assets/images/details_2_selected@2x.png")'
++              :src='order_detail.status === 3 ? require("../../assets/images/details_2_selected@2x.png") : require("../../assets/images/details_2_selected@2x.png")'
+             />
+           </div>
+           <div :class='position >= 2 ? "line" : "line-default"'></div>
+@@ -47,26 +47,34 @@
+           <div class="sta-txx">放币</div>
+         </div>
+       </div>
+-      <div class="order-result">
+-        <p class="status-text">申诉中 金额6890 CNY</p>
++      <div class="order-result" v-if="order_detail.status == 0 && !isSeller()">
++        <p class="status-text">待付款 金额 {{ order_detail.price }}CNY</p>
++        <p class="reason">请在30:00内汇款给商家</p>
++      </div>
++      <div class="order-result" v-if="order_detail.status == 0 && isSeller()">
++        <p class="status-text">对方付款 金额 {{ order_detail.price }}CNY</p>
++        <p class="reason">等待对方30:00内汇款</p>
++      </div>
++      <!-- <div class="order-result" v-if="order_detail.status == 0">
++        <p class="status-text">待对方付款金额 6890 CNY</p>
+         <p class="reason">申诉理由：我已付款，商家未确认。</p>
+         <p class="deal">处理方式：等待处理</p>
+-      </div>
++      </div> -->
+       <div class="order-detail">
+         <div class="d-row">
+           <span>订单号</span>
+           <span class="d-v">
+-            2342837482847482582857
++            {{order_detail._id}}
+             <i class="copy"></i>
+           </span>
+         </div>
+         <div class="d-row">
+           <span>商家</span>
+-          <span class="d-v">{{sellerName}}</span>
++          <span class="d-v">{{}}</span>
+         </div>
+         <div class="d-row">
+           <span>数量</span>
+-          <!-- <span class="d-v">{{order_detail.amount.$numberDecimal}}</span> -->
++          <span class="d-v">{{order_detail.amount.$numberDecimal}}</span>
+         </div>
+         <div class="d-row">
+           <span>价格</span>
+@@ -89,12 +97,12 @@
+         <br />
+       </div>
+       <div class="r-bottom">
+-        <div class="bottom-btn" v-if="!isOrderClosed()">
++        <!-- <div class="bottom-btn" v-if="!isOrderClosed()">
+           <p>
+             <img src="../../assets/images/details_news@2x.png" />
+           </p>
+           <p>聊天</p>
+-        </div>
++        </div> -->
+         <div class="bottom-btn" v-if="!isOrderClosed()" @click="callDialogShow = true">
+           <p>
+             <img src="../../assets/images/details_iphone@2x.png" />
+@@ -102,13 +110,19 @@
+           <p>联系对方</p>
+         </div>
+         <!-- 如果是出售，则是申诉；如果是买入，则是取消订单 -->
+-        <div class="bottom-btn" v-if="!isOrderClosed()" @click=" isSeller ? (complainDialogShow = true) : (cancelDialogShow = true)">
++        <div class="bottom-btn" v-if="isSeller() && order_detail.status == 3" @click="complainDialogShow = true">
+           <p>
+-            <img
+-              :src='require(isSeller() ? "../../assets/images/details_complaint@2x.png":"../../assets/images/details_order_cancel@2x.png")'
++            <img src="../../assets/images/details_complaint@2x.png"
++            />
++          </p>
++          <p>申诉</p>
++        </div>
++        <div class="bottom-btn" v-if="!isSeller()" @click="cancelDialogShow = true">
++          <p>
++            <img src= "../../assets/images/details_order_cancel@2x.png"
+             />
+           </p>
+-          <p>{{ isSeller() ? '申诉':'取消订单'}}</p>
++          <p>取消订单</p>
+         </div>
+         <div class="confirm-btn" @click="payDialogShow = true">
+           <p>{{ isSeller() ? '对方已付款': '我已付款'}}</p>
+@@ -124,7 +138,7 @@
+       <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false">
+         <p class="call-dialog-slot">xxxxxxx</p>
+       </Dialog>
+-      <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false">
++      <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false" @on-ok="appeal">
+         <div class="complain-dialog-slot" >
+           <textarea placeholder="请填写申诉内容" v-model="complainContent" />
+           <span> {{ complainContent.length }} / 300 </span>
+@@ -161,21 +175,28 @@ export default {
+     };
+   },
+   mounted() {
+-    let uid = 0;
+-    if (this.order_detail.pend_type == 1) {
+-      // type 1, uid = buyer
+-      uid = this.order_detail.buyer;
+-    } else if (this.order_detail.pend_type == 2) {
+-      // type 2, uid = seller
+-      uid = this.order_detail.seller;
+-    }
+-    this.getSellerName(uid);
++    
+     this.updatePosition()
+   },
+   computed: {
+     ...mapState(["order_detail"])
+   },
+   methods: {
++    appeal(){
++      this.axios({
++        url: "/c2c/appeal",
++        params: {
++          order_id: this.order_detail._id,
++          content: this.complainContent
++        }
++      })
++        .then(res => {
++          this.complainDialogShow = false;
++        })
++        .catch(err =>
++          this.$toast.show(err.message || "申诉失败")
++        );
++    },
+     isSeller() {
+       return this.order_detail.pend_type == 2;
+     },
+@@ -198,22 +219,22 @@ export default {
+         return 'details_4_unchecked@2x.png';
+       }
+     },
+-    getSellerName(uid) {
+-      this.axios({
+-        url: "/service/getNickName",
+-        params: {
+-          uid
+-        }
+-      })
+-        .then(res => {
+-          this.sellerName = res.data;
+-        })
+-        .catch(err =>
+-          this.$toast.show({
+-            msg: err.message || "获取商家名失败"
+-          })
+-        );
+-    },
++    // getSellerName(uid) {
++    //   this.axios({
++    //     url: "/service/getNickName",
++    //     params: {
++    //       uid
++    //     }
++    //   })
++    //     .then(res => {
++    //       this.sellerName = res.data;
++    //     })
++    //     .catch(err =>
++    //       this.$toast.show({
++    //         msg: err.message || "获取商家名失败"
++    //       })
++    //     );
++    // },
+     isOrderClosed() {
+       return this.order_detail.pend_type == 1;
+     },
+@@ -221,7 +242,7 @@ export default {
+       this.axios({
+         url: '/c2c/pay',
+         params: {
+-          order_id: '',
++          order_id: this.order_detail._id,
+           pay_type: '',
+         }
+       }).then(res => {
