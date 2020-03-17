@@ -11,8 +11,8 @@
         </div>
           <div class="cointype">
             <div class="l">接收地址</div>
-            <div class="r">
-                <span>{{address?address:'请选择接收地址'}}</span>
+            <div class="r rtibi">
+                <div>{{address?address:'请选择接收地址'}}</div>
                 <!-- <input type="text" v-model="address" placeholder=""> -->
                 <img src="../../assets/images/next_black@2x.png" alt="" srcset="">
             </div>
@@ -217,6 +217,16 @@ export default {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding: 15px;
     align-items: center;
+    .rtibi{
+    width: 70% !important;
+      div{
+          width: 100%;
+          display: inline-block;
+      overflow-y: scroll; 
+
+      }
+
+    }
     .r {
       display: flex;
       align-items: center;
@@ -230,6 +240,8 @@ export default {
         span {
           color: $active;
           font-size: 14px;
+          display: inline-block;
+     
         }
       }
     }
