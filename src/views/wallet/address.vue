@@ -79,12 +79,11 @@ export default {
         .then(res => {
           self.liststatus = false;
           this.$store.commit("withdraw_address_list", res.data.list || {});
-          this.$toast.show("获取币种成功!");
         })
         .catch(err => {
           self.liststatus = false;
           this.$store.commit("withdraw_address_listl", {});
-          this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
+          this.$toast.show({ msg: "币种信息获取失败，请重试" });
         });
     },
     toacceptCoin() {},

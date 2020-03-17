@@ -226,7 +226,7 @@ export default {
             this.$store.commit("PendList", res.data.list || {});
           }
           
-          this.$toast.show("挂单列表获取成功!");
+          // this.$toast.show("挂单列表获取成功!");
         })
         .catch(err => {
           self.submitStatus = false;

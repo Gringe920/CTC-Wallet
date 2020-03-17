@@ -175,7 +175,7 @@ export default {
         .then(res => {
           self.submitStatus = false;
           this.$store.commit("UserPendList", res.data.list || {});
-          this.$toast.show("挂单列表获取成功!");
+          // this.$toast.show("挂单列表获取成功!");
         })
         .catch(err => {
           self.submitStatus = false;
