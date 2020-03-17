@@ -79,7 +79,7 @@ export default {
         .then(res => {
           self.liststatus = false;
           this.$store.commit("withdraw_address_list", res.data || {});
-          this.$toast.show("获取币种成功!");
+          // this.$toast.show("获取币种成功!");
         })
         .catch(err => {
           self.liststatus = false;
