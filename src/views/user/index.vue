@@ -5,9 +5,9 @@
         <img src="../../assets/images/china@2x.png" alt />
       </div>
       <div class="info">
-        <div class="name" v-if="!user.uid" @click="toRoute('login')">请先登陆</div>
-        <div class="name" v-if="user.uid">{{user.username || '我是谁'}}</div>
-        <div class="uid" v-if="user.uid">UID: {{user.uid}}</div>
+        <div class="name" v-if="!user.basicInfo.uid" @click="toRoute('login')">请先登陆</div>
+        <div class="name" v-if="user.basicInfo.uid">{{user.basicInfo.username || '我是谁'}}</div>
+        <div class="uid" v-if="user.basicInfo.uid">UID: {{user.basicInfo.uid}}</div>
       </div>
       <div class="turn-right">
         <i></i>
@@ -35,7 +35,7 @@
           <i></i>
         </div>
       </div>
-      <div v-if='user.deal_pwd_state == 0' class="user-nav-item" @click="$router.push({path: '/setTradePsw'})">
+      <div v-if='user.basicInfo.deal_pwd_state == 0' class="user-nav-item" @click="$router.push({path: '/setTradePsw'})">
         <i class="icon my_lock"></i>
         <p>交易密码</p>
         <div class="turn-right">
@@ -43,7 +43,7 @@
           <i></i>
         </div>
       </div>
-      <div class="user-nav-item" @click="$router.push({path: '/changeTradePsw'})">
+      <div   v-if='user.basicInfo.deal_pwd_state != 0' class="user-nav-item" @click="$router.push({path: '/changeTradePsw'})">
         <i class="icon my_lock"></i>
         <p>交易密码</p>
         <div class="turn-right">
@@ -100,7 +100,6 @@ export default {
           self.submitstatus = false;
             this.$store.commit("user", res.data || {});
           localStorage.setItem("user_info", res.data || {});
-          this.$toast.show("用户信息获取成功!");
         })
         .catch(err => {
           self.submitstatus = false;

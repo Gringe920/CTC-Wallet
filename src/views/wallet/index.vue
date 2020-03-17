@@ -4,7 +4,7 @@
         <div class="walletbanner">
             <div class="w-t">
                 <span>{{$t(`wallet.zichan`)}} </span>
-                <router-link class="gateway" to="/gateway">{{$t('Trust the gateway')}}</router-link>
+                <!-- <router-link class="gateway" to="/gateway">{{$t('Trust the gateway')}}</router-link> -->
             </div>
             <div class="w-t2">
                 <span>8900</span>&nbsp;CNY
@@ -63,6 +63,11 @@ export default {
     }
   },
   mounted() {
+    if(!this.user.basicInfo.uid){
+        this.$toast.show("请先登陆!");
+        this.$router.push("login");
+        return false;
+    }
     this.getcoin_list();
     this.getassets_detail();
   },
@@ -78,7 +83,7 @@ export default {
         .then(res => {
           self.detailstatus = false;
           this.$store.commit("assets_detail", res.data || {});
-          this.$toast.show("获取币种成功!");
+          // this.$toast.show("获取币种成功!");
         })
         .catch(err => {
           self.detailstatus = false;

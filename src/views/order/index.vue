@@ -93,6 +93,13 @@ export default {
     };
   },
   mounted() {
+    console.log(this.user.basicInfo.uid)
+        if(!this.user.basicInfo.uid){
+          
+        this.$toast.show("请先登陆!");
+        this.$router.push("login");
+        return false;
+    }
     this.getUserPendList();
   },
   computed: {
