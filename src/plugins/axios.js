@@ -2,7 +2,7 @@ import axios from "axios";
 import Vue from 'vue'
 import vueAxios from 'vue-axios'
 var instance = axios.create({
-    baseURL: (/file/gi.test(location.href)) ? 'http://api.goaladdin.org' : process.env.NODE_ENV == 'development' ? '' : 'https://api.goaladdin.org',
+    baseURL: (/file/gi.test(location.href)) ? 'http://47.240.110.55:9200' : process.env.NODE_ENV == 'development' ? '' : 'http://47.240.110.55:9200',
     withCredentials: process.env.NODE_ENV == "development" ? true : false,
     method: "get",
     responseType: "json",
