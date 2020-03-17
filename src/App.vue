@@ -109,22 +109,28 @@ export default {
           this.userState = true;
           this.removeLoad();
           this.loginCheck();
-          if (data.uid) {
-            this.$router.push({ name: "login"});
-            return;
-          }
+          // if (data.uid) {
+          //   this.$router.push({ name: "login"});
+          //   return;
+          // }
         })
         .catch(err => {
           this.userState = true;
-          this.$router.push("login");
+          // this.$router.push("login");
           this.$store.commit("user", {});
           this.removeLoad();
           this.loginCheck();
         });
     },
     loginCheck() {
-      if (this.userState && this.$route.name != "ctc" && !!!this.user.uid) {
-        // this.$router.push("/login?origin=" + this.$route.name);
+      if (this.userState
+          // && this.$route.name != "ctc"
+          && !!!this.user.uid
+          && this.$route.name != "phoneRegist"
+          && this.$route.name != "login"
+          && this.$route.name != "forget"
+      ) {
+        this.$router.push("/login?origin=" + this.$route.name);
       }
       if (this.loginCheckTimer) {
         clearTimeout(this.loginCheckTimer);
