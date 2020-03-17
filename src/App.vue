@@ -104,8 +104,9 @@ export default {
         url: "/service/user_info"
       })
         .then(res => {
-          var data = res.data || {};
+          var data = res.data.data || {};
           this.$store.commit("user", res.data);
+          console.log(res.data);
           this.userState = true;
           this.removeLoad();
           this.loginCheck();
@@ -125,7 +126,7 @@ export default {
     loginCheck() {
       if (this.userState
           && this.$route.name != "ctc"
-          && !!!this.user.uid
+          && !!!(this.user.basicInfo && this.user.basicInfo.uid)
           && this.$route.name != "phoneRegist"
           && this.$route.name != "login"
           && this.$route.name != "forget"
