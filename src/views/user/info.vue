@@ -49,7 +49,10 @@ export default {
     };
   },
     computed: {
-    ...mapState(["user"])
+    ...mapState(["user",'UserChange'])
+  },
+  mounted(){
+    this.$store.commit("UserChange", !this.UserChange);
   },
   methods: {
     logout() {
@@ -64,7 +67,6 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show("登出成功!");
-          console.log(res);
           this.$router.push("/user");
         })
         .catch(err => {

@@ -22,8 +22,7 @@
             </div>
         </div>
         <div class="yue">*请填写对应平台的提币地址，否则提币无法到账，由此造成的损失，本平台改不负责</div>
-              <r-button :tocomfirm='submit' text="确定" width="90%" class="comfirm" />
-
+        <r-button    :tocomfirm='topwdshow' text="确定" width="90%" class="comfirm" />
        <div class="coinchange" v-if="close" @click="toclose">
             <div class="coinbox">
                 <div @click="clickCoin(item, index)" class="coin" :class="coin == item ? 'active' : ''" v-for="(item, index) in coin_list" :key='item'>
@@ -34,6 +33,8 @@
                 </div>
             </div>
         </div>
+        <Tradedialog v-on:onClose='pwdshow = !pwdshow'  v-on:onConfirm="submit" v-if="pwdshow"></Tradedialog>
+        
   </section>
 </template>
 <script>
@@ -43,24 +44,63 @@ export default {
   data() {
     return {
       close: false,
+      pwdshow: false,
       submitState: false,
       num: "",
-      label: "我才不是标签",
-      address: "RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ",
+      label: "",
+      address: "",
       canCoin: 8768,
       liststatus: false,
-      coin: "ald",
+      coin: "btc",
       clickAll: "",
-      code:'123456',
+      code: "123456"
     };
   },
   created() {},
+  mounted() {
+    this.getcoin_list();
+  },
   computed: {
     ...mapState(["user", "coin_list", "assets_detail"])
   },
   methods: {
+    topwdshow() {
+        const { address, label } = this;
+      if (this.isEmpty(address)) {
+        this.$toast.show("接受地址不能为空");
+        return;
+      }
+      if (this.isEmpty(label)) {
+        this.$toast.show("标签不能为空");
+        return;
+      }
+      if (this.isEmpty(address)) {
+        this.$toast.show("标签不能为空");
+        return;
+      }
+      this.pwdshow = true;
+    },
+    getcoin_list() {
+      var self = this;
+      if (this.submitstatus) return;
+      self.submitstatus = true;
+      this.axios({
+        url: "/service/coin_list",
+        params: {}
+      })
+        .then(res => {
+          self.submitstatus = false;
+          this.coin = this.coin_list[0];
+          this.$store.commit("coin_list", res.data || {});
+        })
+        .catch(err => {
+          self.submitstatus = false;
+          this.$store.commit("coin_list", {});
+        });
+    },
     submit() {
-      console.log("1111111");
+    
+
       var self = this;
       if (this.liststatus) return;
       self.liststatus = true;
@@ -76,18 +116,23 @@ export default {
       })
         .then(res => {
           self.liststatus = false;
-          this.$router.push('address')
           this.$toast.show("添加提币地址成功!");
+          this.address = ''
+          this.label = ''
+           this.pwdshow = false;
+           setTimeout(function(){
+             self.$router.go(-1);
+           },1000)
         })
         .catch(err => {
           self.liststatus = false;
+            this.pwdshow = false;
           this.$toast.show({ msg: err.message || "v添加提币地址失败，请重试" });
         });
     },
     toclose() {
       this.close = !this.close;
     },
-    toacceptCoin() {},
     clickCoin(item, index) {
       this.coin = item;
     }
@@ -98,7 +143,7 @@ export default {
 .addAdress {
   text-transform: uppercase;
   position: relative;
-  padding: 0 15px;
+  // padding: 0 15px;
   padding-top: 55px;
   min-height: 100%;
   .yue {

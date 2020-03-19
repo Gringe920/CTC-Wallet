@@ -22,7 +22,7 @@
           <i></i>
         </div>
       </div>
-      <div class="user-nav-item"  @click="$router.push({path: '/address'})">
+      <div class="user-nav-item"  @click="$router.push({path: '/Myaddress'})">
         <i class="icon my_extract"></i>
         <p>提币地址</p>
         <div class="turn-right">
@@ -112,9 +112,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          // this.$router.push("login");
           this.$store.commit("user", {});
-          this.$toast.show({ msg: err.message || "用户信息获取失败，请重试" });
         });
     }
   }

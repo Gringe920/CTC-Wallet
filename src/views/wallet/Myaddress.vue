@@ -1,40 +1,24 @@
 <template>
   <section class="addressall">
-     <Header title="选择提币地址" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record_black@2x.png')"></Header>
-     <div class="addresBox" v-for="(item,index) in withdraw_address_list" :key="index">
+      <load v-if="loading"></load>
+     <Header title="提币地址"></Header>
+     <div v-if="!loading && withdraw_address_list.length >0" class="addresBox" v-for="(item,index) in withdraw_address_list" :key="index">
        <div class="coin"><span>{{item['symbol']}}</span><div @click="delAddress(item._id)">删除</div></div>
        <div class="address">地址:{{item['address']}}</div>
        <div class="title">标签:{{item['name']}}</div>
      </div>
-          <r-button :tocomfirm='submit' text="添加地址" width="100%" class="comfirm" />
-
+     <Empty v-if="!loading && withdraw_address_list <=0"></Empty>
+    <r-button v-if="!loading" :tocomfirm='submit' text="添加地址" width="100%" class="comfirm" />
   </section>
 </template>
 <script>
 import { mapState } from "vuex";
 export default {
-  name: "address",
+  name: "Myaddress",
   data() {
     return {
+      loading: true,
       submitState: false,
-      myAddress: [
-        {
-          coin: "Usdt",
-          address: "RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ",
-          title: "Usdt地址"
-        },
-        {
-          coin: "eth",
-          address: "FJDKFJKSJDFKERUEKFNDKBDLDJOEWWHFKSK",
-          title: "ETH地址"
-        },
-        {
-          coin: "RCP",
-          address: "FJDKFJKSJDFKERUEKFNDKBDLDJOEWWHFKSK",
-          title: "RCP地址"
-        }
-      ],
-      // 地址:RKWPDQTXW3FUPZTU111NVCEAUG8HEDXEX7ZWQ
       liststatus: false,
       symbol: "btc",
       elAddresStatus: false
@@ -73,17 +57,17 @@ export default {
       self.liststatus = true;
       this.axios({
         url: "/service/withdraw_address_list",
-        params: {
-        }
+        params: {}
       })
         .then(res => {
           self.liststatus = false;
           this.$store.commit("withdraw_address_list", res.data.list || {});
+          this.loading = false;
         })
         .catch(err => {
           self.liststatus = false;
-          this.$store.commit("withdraw_address_listl", {});
-          this.$toast.show({ msg: "币种信息获取失败，请重试" });
+          this.$store.commit("withdraw_address_list", {});
+          this.loading = false;
         });
     },
     toacceptCoin() {},

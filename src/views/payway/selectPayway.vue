@@ -35,7 +35,7 @@
           <img src="../../assets/images/set_card@2x.png" alt />
         </div>
         <div class="pay-info">
-          <div class="p-tit">工商银行卡</div>
+          <div class="p-tit">银行卡</div>
         </div>
         <div class="turn-right">
        <span :class='user.bankcard_state == 1 ? "blue" :""'> {{user.bankcard_state == 1 ? '已设置':'未设置'}}</span>
@@ -46,7 +46,6 @@
     </div>
   </section>
 </template>
-
 <script>
 import { mapState } from "vuex";
 export default {
@@ -60,7 +59,25 @@ export default {
      computed: {
     ...mapState(['user'])
   },
+  methods:{
+    delWechat(){
+       this.axios({
+        url: "/service/user_info",
+        params: {
+          pwd: '123',
+          code:''
+        }
+      })
+        .then(res => {
+          this.$toast.show("设置成功");
+        })
+        .catch(err => {
+          this.$toast.show("设置失败");
+        });
+    }
+  },
   watch: {
+    
     isWechat(val) {
       console.log(val);
     }

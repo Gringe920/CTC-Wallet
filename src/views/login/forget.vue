@@ -6,11 +6,11 @@
     <div class="container">
       <div class="l-tit" >{{next?'设置新登陆密码':'忘记密码'}}</div>
       <div class="l-info-box">
-        <input v-show="!next" placeholder="请输入手机或邮箱" type="text" v-model="account" class="account"/>
+        <input v-show="!next" placeholder="请输入手机" type="text" v-model="account" class="account"/>
         <div class="line" v-show="!next"></div>
         <div class="code-box" v-show="!next">
           <input placeholder="请输入验证码" type="text" v-model="code" />
-          <span @click="getcode" :class="timeStatus?'timechecked':''">{{timeStatus?time+'s':"发送验证码"}}</span>
+          <span @click="getcode" :class="isTiktok ?'timechecked':''">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</span>
         </div>
         <div class="line"></div>
               <input v-show="next" placeholder="请输入密码" type="Password"  v-model="Password"/>
@@ -39,7 +39,9 @@ export default {
       Password: "",
       rePassword: "",
       time: 60,
+      isTiktok: false,
       code: "",
+      remainedTime: 60,
       next: false,
       checked: false,
       district: "+86",
@@ -59,7 +61,7 @@ export default {
         this.$toast.show("手机号格式错误");
         return;
       }
-      if (!this.timeStatus) {
+      if (!this.isTiktok) {
         this.$toast.show("请先获取验证码!");
         return;
       }
@@ -79,7 +81,7 @@ export default {
         this.$toast.show("确认密码不能为空");
         return;
       }
-      if (Password != drePassword) {
+      if (Password != rePassword) {
         this.$toast.show("交易密码与确认密码不相同");
         return;
       }
@@ -90,7 +92,6 @@ export default {
         url: "/service/register",
         params: {
           phone: self.account,
-          mail: "xiemei1996@163.com",
           pwd: self.password,
           verify: self.code,
           district: "+86"
@@ -114,42 +115,49 @@ export default {
         this.$router.go(-1);
       }
     },
+
     getcode() {
       var self = this;
-      if (this.timeStatus) {
-        this.$toast.show("请不要重复操作!");
+        const {account} = this;
+      if (this.isEmpty(account)) {
+        this.$toast.show("手机号码不能为空");
         return;
       }
-      if (this.timeStatus) return;
-      var times = setInterval(function() {
-        self.timeStatus = true;
-        if (self.time == 1) {
-          self.timeStatus = false;
-          self.time = 6;
-          clearInterval(times);
-        }
-        self.time = self.time - 1;
-      }, 1000);
-
+      if (!this.isValidPhone(account)) {
+        this.$toast.show("手机号格式错误");
+        return;
+      }
+      console.log('xm')
       if (this.codeStatus) return;
       this.codeStatus = true;
-      return;
       this.axios({
         url: "/service/register_verify",
         params: {
           phone: self.account,
-          mail: self.mail,
           district: self.district
         }
       })
         .then(res => {
           self.codeStatus = false;
           this.$toast.show("验证码已发送");
+          this.startCountdown();
         })
         .catch(err => {
           self.codeStatus = false;
           this.$toast.show("验证码发送失败,请稍后再试");
         });
+    },
+    startCountdown() {
+      this.isTiktok = true; // start tiktok
+      this.remainedTime = 60 // init time
+      this.timer = setInterval(() => {
+        this.remainedTime -= 1;
+        if (this.remainedTime <= 0) {
+          clearInterval(this.timer);
+          this.timer = null;
+          this.isTiktok = false;
+        }
+      }, 1000);
     }
   },
   watch: {

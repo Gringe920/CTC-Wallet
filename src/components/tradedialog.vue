@@ -26,8 +26,8 @@ export default {
       timer: null,
       isTiktok: false,
       remainedTime: this.countdown,
-      verifyCode: "12345",
-      password: "123"
+      verifyCode: "",
+      password: ""
     };
   },
   computed: {},
@@ -40,6 +40,7 @@ export default {
   },
   methods: {
     getVerifyCode() {
+   
       if (this.timer != null) {
         return;
       }
@@ -70,6 +71,19 @@ export default {
       }, 1000);
     },
     onConfirm() {
+         const { password,isTiktok } = this;
+      if (this.isEmpty(password)) {
+        this.$toast.show("交易密码不能为空");
+        return;
+      }
+      if (!this.isTiktok) {
+        this.$toast.show("请先获取验证码!");
+        return;
+      }
+      if (!this.verifyCode) {
+        this.$toast.show("验证码不能为空!");
+        return;
+      }
       this.$emit("onConfirm", this.password, this.verifyCode);
       console.log('-')
     },

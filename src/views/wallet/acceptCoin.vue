@@ -3,14 +3,13 @@
         <Header :title="$t(`wallet.jilu`)" :leftEv="leftEv"></Header>
         <div class="acceptCoin_type">
             <div    :class="activeIdx == 0 ? 'divactive' : '' "  @click="changetype(0)">提币</div>
-            <div   :class="activeIdx == 1 ? 'divactive' : '' "  @click="changetype(1)">{{activeIdx}}充币</div>
+            <div   :class="activeIdx == 1 ? 'divactive' : '' "  @click="changetype(1)">充币</div>
         </div>
         <!-- 提币 -->
         <div class="zhuaninfo">
             <load v-if="loadState"></load>
             <div class="zhuan" v-for="item in depositHistory" :key="item.type" @click="todetails(item)">
                 <div class="top">
-                    <!-- <img src="../../assets/images/night_record_time@2x.png" alt srcset /> -->
                     2019/09/01
                 </div>
                 <template v-if="activeIdx == 0">

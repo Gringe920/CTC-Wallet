@@ -1,7 +1,8 @@
 <template>
     <section class="walletall">
+      <load v-if="loading"></load>
         <Header :title="$t(`wallet.name`)" :rightEv='toacceptCoin' :leftShow='false' :rightIcon="require('../../assets/images/record_black@2x.png')" ></Header>
-        <div class="walletbanner">
+        <div v-if="!loading" class="walletbanner">
             <div class="w-t">
                 <span>{{$t(`wallet.zichan`)}} </span>
                 <!-- <router-link class="gateway" to="/gateway">{{$t('Trust the gateway')}}</router-link> -->
@@ -10,7 +11,7 @@
                 <span>8900</span>&nbsp;CNY
             </div>
         </div>
-       <div class="hiddenmoney">
+       <div  v-if="!loading" class="hiddenmoney">
             <div class="h_l" @click="hiddenmoney">
                 <img src="../../assets/images/night_asset_unchecked@2x.png" alt="" srcset="" v-if="!hidden">
                 <img src="../../assets/images/asset_selection@2x.png" alt="" srcset="" v-else>
@@ -18,7 +19,7 @@
             </div>
         </div>
 
-         <div class="money" v-for="item in coin_list" :key="item">
+         <div class="money"   v-if="!loading"  v-for="item in coin_list" :key="item">
             <div class="coin">{{item}}</div>
             <div class="coin2">{{hidden ? '******':assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal']:'000000'}} <span> ≈ {{hidden ? '******':currentPrices[item]*assets_detail.asset[item]['$numberDecimal']}} &nbsp;CNY<small></small></span> </div>
             <div class="coin3">
@@ -41,13 +42,14 @@ export default {
   data() {
     return {
       searchmsg: "",
+      loading: true,
       serchnow: false,
       hidden: false,
       coins: [],
       submitstatus: false,
       detailstatus: false,
       current_priceStatus: false,
-      currentPrices:{}
+      currentPrices: {}
     };
   },
   computed: {
@@ -65,11 +67,7 @@ export default {
     }
   },
   mounted() {
-    if (!this.user.basicInfo) {
-      this.$toast.show("请先登陆!");
-      this.$router.push("login");
-      return false;
-    }
+  
     this.getcoin_list();
     this.getassets_detail();
     this.current_price();
@@ -84,7 +82,7 @@ export default {
         params: {}
       })
         .then(res => {
-       this.currentPrices = res.data || {}
+          this.currentPrices = res.data || {};
           self.current_priceStatus = false;
         })
         .catch(err => {
@@ -121,21 +119,22 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
+          this.loading = false;
           this.$store.commit("coin_list", res.data || {});
-          // this.$toast.show("获取币种成功!");
         })
         .catch(err => {
           self.submitstatus = false;
+                    this.loading = false;
           this.$store.commit("coin_list", {});
-          this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
         });
     },
     tozhuanzang(item) {
-      // if (item.toUpperCase() == "BTC" && !this.balancesBTC.counterparty) {
-      //   this.$store.commit("isTrustBtc", true);
-      //   return;
-      // }
-      this.$router.push(`/zhuanqian/${item}`);
+          this.$router.push({
+          path: "/takeCoins",
+          query: {
+            type: item
+          }
+        });
     },
     hiddenmoney() {
       this.hidden = !this.hidden;

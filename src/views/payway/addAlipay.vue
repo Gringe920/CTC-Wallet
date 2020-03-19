@@ -1,7 +1,8 @@
 <template>
   <section>
+        <load v-if="loading"></load>
    <Header :title="user.alipay_state==0?'添加支付宝':'修改支付宝'" />
-    <div class="container">
+    <div class="container"  v-if="!loading">
       <div class="item-label">姓名</div>
       <input class="item-inp" type="text" placeholder="请输入姓名" v-model="name" />
       <div class="line"></div>
@@ -51,7 +52,8 @@ export default {
         state: -1
       },
       fileVal: "",
-
+      size:4,
+      loading: true
     };
   },
   mounted() {
@@ -62,16 +64,16 @@ export default {
   },
   methods: {
     topwdshow() {
-      const {name, account, fileVal} = this;
-      if(!name){
+      const { name, account, fileVal } = this;
+      if (!name) {
         this.$toast.show("请输入姓名！");
         return;
       }
-      if(!account){
+      if (!account) {
         this.$toast.show("请输入支付宝账号！");
         return;
       }
-      if(!fileVal){
+      if (!fileVal) {
         this.$toast.show("请上传支付宝收款二维码！");
         return;
       }
@@ -97,28 +99,41 @@ export default {
           this.fileVal = this.imgUrl(str.substring(index + 1, str.length));
           this.name = res.data.name || "";
           this.account = res.data.account || "";
+          this.loading = false;
         })
         .catch(err => {
           self.getPayPathStatus = false;
+          this.loading = false;
           this.$store.commit("addAlipayinfo", {});
         });
     },
     upload(e) {
-      this.file = e.target.files[0];
-      const fileType = this.file.type;
-      if(fileType === 'image/png' 
-        || fileType === 'image/jpg'
-        || fileType ==='image/jpeg'){
-          const reader = new FileReader();
-          reader.readAsDataURL(this.file);
-          reader.onload = (e) => {
-            this.fileVal = e.target.result.toString();
-          }
-      }else{
+      let file = e.target.files[0];
+      if (!/\.jpg$|\.png$|\.gif$|\.jpeg$|\.webp$/gi.test(file.name)) {
+        this.$toast.show("请上传jpg、jpeg、png、gif、webp格式图片");
+        return;
+      }
+      if (file.size > 1024 * 1024 * this.size) {
+        this.$toast.show("请不要上传超过" + this.size + "M的图片");
+        return;
+      }
+      const fileType = file.type;
+         this.file = e.target.files[0];
+      if (
+        fileType === "image/png" ||
+        fileType === "image/jpg" ||
+        fileType === "image/jpeg"
+      ) {
+         const reader = new FileReader();
+        reader.readAsDataURL(this.file);
+        reader.onload = e => {
+          this.fileVal = e.target.result;
+        };
+      } else {
         this.$toast.show("请上传png/jpg/jpeg格式的图片");
         this.file = {};
       }
-      
+   
     },
     submit: function(pwd, code) {
       var self = this;
@@ -142,7 +157,6 @@ export default {
           self.submitstatus = false;
           if (this.user.alipay_state == 1) {
             this.$toast.show("支付宝修改成功!");
-            
           } else {
             this.$toast.show("支付宝添加成功!");
           }
@@ -152,10 +166,11 @@ export default {
         .catch(err => {
           self.submitstatus = false;
           if (this.user.alipay_state == 1) {
-            this.$toast.show(err.message || "支付宝添加失败");
+            this.$toast.show("支付宝添加失败");
           } else {
-            this.$toast.show(err.message || "支付宝添加失败");
+            this.$toast.show("支付宝添加失败");
           }
+                 this.pwdshow = false;
         });
     }
   }
@@ -184,9 +199,9 @@ section {
       width: 100%;
       padding-bottom: 15px;
     }
-    .upload-img{
+    .upload-img {
       text-align: center;
-      img{
+      img {
         width: 100px;
       }
     }

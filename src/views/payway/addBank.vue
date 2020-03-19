@@ -1,9 +1,9 @@
 <template>
   <section>
+    <load v-if="loading"></load>
     
-    
-    <Header title="添加银行卡" />
-    <div class="container">
+    <Header :title="user.bankcard_state==0?'添加银行卡':'修改银行卡'" />
+    <div class="container" v-if="!loading">
       <div class="item-label">姓名</div>
       <input class="item-inp" type="text" placeholder="请输入姓名"  v-model="name" />
       <div class="line"></div>
@@ -24,7 +24,7 @@
        
       />
     </div>
-      <Tradedialog v-on:onClose='pwdshow = !pwdshow'  v-on:onConfirm="submit" v-if="pwdshow"></Tradedialog>
+    <Tradedialog v-on:onClose='pwdshow = !pwdshow'  v-on:onConfirm="submit" v-if="pwdshow"></Tradedialog>
   </section>
 </template>
 
@@ -33,33 +33,28 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      pwdshow:false,
+      pwdshow: false,
       submitstatus: false,
       pwd: "",
       code: "",
       name: "",
       register_bank: "",
       second_bank: "",
-      card: ""
+      card: "",
+      getPayPathStatus: false,
+      loading: true
     };
   },
   computed: {
-    ...mapState([ "user"])
+    ...mapState(["user", "Bankkinfo"])
   },
-  mounted(){
-    this.getPayPath()
+  mounted() {
+    this.getPayPath();
   },
   methods: {
-    onConfirm(data){
-      console.log(data)
-    },
-    topwdshow(){
-      this. pwdshow = true
-    },
-       getPayPath() {
+    getPayPath() {
       var self = this;
       if (this.getPayPathStatus) return;
-      console.log(this.user)
       var params = {
         uid: this.user.basicInfo.uid,
         paytype: 1
@@ -71,15 +66,43 @@ export default {
       })
         .then(res => {
           self.getPayPathStatus = false;
-          this.$store.commit("addAlipayinfo", res.data || {});
+          this.$store.commit("Bankkinfo", res.data || {});
+          this.name = res.data.name || "";
+          this.register_bank = res.data.register_bank || "";
+          this.second_bank = res.data.second_bank || "";
+          this.card = res.data.card || "";
+          this.loading = false;
         })
         .catch(err => {
           self.getPayPathStatus = false;
+          this.$store.commit("Bankkinfo", {});
+          this.loading = false;
         });
     },
-    submit:function(pwd,code) {
-      console.log('99999999')
-      console.log(data,qq)
+    onConfirm(data) {
+      console.log(data);
+    },
+    topwdshow() {
+      this.pwdshow = true;
+    },
+    submit: function(pwd, code) {
+      const { name, register_bank, card, second_bank } = this;
+      if (this.isEmpty(name)) {
+        this.$toast.show("姓名不能为空");
+        return;
+      }
+      if (this.isEmpty(register_bank)) {
+        this.$toast.show("开户银行不能为空");
+        return;
+      }
+      if (this.isEmpty(card)) {
+        this.$toast.show("银行卡号不能为空");
+        return;
+      }
+      if (this.isEmpty(second_bank)) {
+        this.$toast.show("开户支行不能为空");
+        return;
+      }
       var self = this;
       var params = {
         pwd: pwd,
@@ -89,8 +112,7 @@ export default {
         second_bank: this.second_bank,
         card: this.card
       };
-      if (this.submitstatus) return ;
-      return false;
+      if (this.submitstatus) return;
       self.submitstatus = true;
       this.axios({
         url: "/service/addBankcard",
@@ -98,17 +120,29 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("银行卡添加成功!");
+          if (this.user.bankcard_state == 0) {
+            this.$toast.show("银行卡添加成功!");
+          } else {
+            this.$toast.show("银行卡修改成功!");
+          }
+
           (this.pwd = ""),
             (this.code = ""),
             (this.name = ""),
             (this.register_bank = ""),
             (this.second_bank = ""),
             (this.card = "");
+          this.getPayPath();
+             this.pwdshow = true;
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || "银行卡添加失败" });
+          if (this.user.bankcard_state == 0) {
+            this.$toast.show("银行卡添加失败!");
+          } else {
+            this.$toast.show("银行卡修改失败!");
+          }
+             this.pwdshow = true;
         });
     }
   }

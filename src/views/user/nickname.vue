@@ -40,9 +40,7 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show("昵称设置成功");
-          setTimeout(function(){
-            self.$router.push("/info");
-          },1000)
+        
         })
         .catch(err => {
           self.submitstatus = false;

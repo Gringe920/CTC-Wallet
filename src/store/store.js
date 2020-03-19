@@ -80,9 +80,21 @@ export default new Vuex.Store({
         order_detail:{},
         addAlipayinfo:{},
         wechat_info:{},
+        Bankkinfo:{},
+        UserChange:false,
+        address:'',
 
     },
     mutations: {
+        address(state, val) {
+            state.address= val;
+        },
+        UserChange(state, val) {
+            state.UserChange= val;
+        },
+        Bankkinfo(state, val) {
+            state.Bankkinfo= val;
+        },
         wechat_info(state, val) {
             state.wechat_info = val;
         },

@@ -79,7 +79,7 @@ export default {
     },
     reply() {
       if (this.leftEv()) {
-        return;
+        return false;
       }
       if (typeof plus == "object") {
         let webview = plus.webview.getLaunchWebview();

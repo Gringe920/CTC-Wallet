@@ -53,13 +53,8 @@ export default {
   watch: {
     $route(n, o) {
       this.showBottomNav();
+            this.getUser();
     },
-    // "$route.name"(n, o) {
-    //   this.getUser();
-    // }
-    // connected (){
-    //     this.loginPage();
-    // },
   },
 
   created() {
@@ -70,14 +65,9 @@ export default {
   },
   mounted() {
     this.showBottomNav();
-    this.getUser();
-    // console.log(this.account.accounts);
-    // this.account.createWallet('123456');
-    // this.account.getAccount();
-    // console.log(this.account.accounts.mnemonic);
   },
   computed: {
-    ...mapState(["showNav", "user", "coin_list"])
+    ...mapState(["showNav", "user", "coin_list",'UserChange'])
   },
   methods: {
     getcoin_list() {
@@ -107,14 +97,10 @@ export default {
         .then(res => {
           var data = res.data.data || {};
           this.$store.commit("user", res.data);
-          console.log(res.data);
           this.userState = true;
           this.removeLoad();
           this.loginCheck();
-          // if (data.uid) {
-          //   this.$router.push({ name: "login"});
-          //   return;
-          // }
+         
         })
         .catch(err => {
           this.userState = true;
@@ -127,6 +113,7 @@ export default {
     loginCheck() {
       if (this.userState
           && this.$route.name != "ctc"
+            && this.$route.name != "user"
           && !!!(this.user.basicInfo && this.user.basicInfo.uid)
           && this.$route.name != "phoneRegist"
           && this.$route.name != "login"
@@ -148,11 +135,8 @@ export default {
     backbutton() {
       let self = this;
       plus.key.addEventListener("backbutton", function(e) {
-        console.log("backbutton");
         let webview = plus.webview.getLaunchWebview();
-        console.log("webview.id", webview.id);
         webview.canBack(function(e) {
-          console.log(JSON.stringify(e));
           if (e.canBack) {
             webview.back();
           } else {
@@ -215,14 +199,11 @@ export default {
                               force: true
                             },
                             function(widgetInfo) {
-                              console.log(widgetInfo);
                             },
                             function(err) {
-                              console.log(err.message);
                             }
                           );
                         } else {
-                          console.log("Download failed: " + status);
                         }
                       }
                     );

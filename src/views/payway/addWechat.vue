@@ -1,7 +1,8 @@
 <template>
   <section>
+        <load v-if="loading"></load>
    <Header :title="user.wechat_state==1?'修改微信':'添加微信'" />
-    <div class="container">
+    <div class="container" v-if="!loading">
       <div class="item-label">姓名</div>
       <input class="item-inp" type="text" placeholder="请输入姓名" v-model="name" />
       <div class="line"></div>
@@ -45,13 +46,14 @@ export default {
       erweima: "",
       VerifyCodeStatus: false,
       getStateError: 2,
+      loading: true,
       path: "nameAuth",
       getPayPathStatus: false,
       img: "",
       fileData: {
         state: -1
       },
-
+      size:4,
     };
   },
   computed: {
@@ -62,37 +64,47 @@ export default {
   },
   methods: {
     topwdshow() {
-      const {name, account, img} = this;
-      if(!name){
+      const { name, account, img } = this;
+      if (!name) {
         this.$toast.show("请输入姓名！");
         return;
       }
-      if(!account){
+      if (!account) {
         this.$toast.show("请输入支付宝账号！");
         return;
       }
-      if(!img){
+      if (!img) {
         this.$toast.show("请上传支付宝收款二维码！");
         return;
       }
       this.pwdshow = true;
     },
     upload(e) {
+         let file = e.target.files[0];
+      if (!/\.jpg$|\.png$|\.gif$|\.jpeg$|\.webp$/gi.test(file.name)) {
+        this.$toast.show("请上传jpg、jpeg、png、gif、webp格式图片");
+        return;
+      }
+      if (file.size > 1024 * 1024 * this.size) {
+        this.$toast.show("请不要上传超过" + this.size + "M的图片");
+        return;
+      }
       this.file = e.target.files[0];
       const fileType = this.file.type;
-      if(fileType === 'image/png' 
-        || fileType === 'image/jpg'
-        || fileType ==='image/jpeg'){
-          const reader = new FileReader();
-          reader.readAsDataURL(this.file);
-          reader.onload = (e) => {
-            this.img = e.target.result;
-          }
-      }else{
+      if (
+        fileType === "image/png" ||
+        fileType === "image/jpg" ||
+        fileType === "image/jpeg"
+      ) {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.file);
+        reader.onload = e => {
+          this.img = e.target.result;
+        };
+      } else {
         this.$toast.show("请上传png/jpg/jpeg格式的图片");
         this.file = {};
       }
-      
     },
     submit: function(pwd, code) {
       var self = this;
@@ -127,6 +139,7 @@ export default {
             this.$toast.show("微信添加成功!");
           }
           this.getPayPath();
+              this.pwdshow =false;
         })
         .catch(err => {
           self.submitstatus = false;
@@ -135,6 +148,7 @@ export default {
           } else {
             this.$toast.show("微信添加失败");
           }
+             this.pwdshow =false;
         });
     },
     getPayPath() {
@@ -157,10 +171,12 @@ export default {
           this.img = this.imgUrl(str.substring(index + 1, str.length));
           this.name = res.data.name || "";
           this.account = res.data.account || "";
+          this.loading = false;
         })
         .catch(err => {
           self.getPayPathStatus = false;
           this.$store.commit("wechat_info", {});
+          this.loading = false;
         });
     }
   }

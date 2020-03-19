@@ -20,7 +20,7 @@
         <div class="line"  v-if="!next"></div>
         <div class="code-box"  v-if="!next">
           <input placeholder="请输入验证码" type="number" v-model="code" />
-          <span :class="timeStatus?'timechecked':''" @click="getcode">{{timeStatus?time+'s':"发送验证码"}}</span>
+          <span :class="isTiktok ?'timechecked':''" @click="getcode">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</span>
         </div>
         <div class="line" v-show="next"></div>
            <div class="code-box2" v-show="next">
@@ -61,9 +61,10 @@ export default {
       time: 60,
       next: false,
       checked: false,
+      remainedTime:60,
       district: "+86",
       codeStatus: false,
-      timeStatus: false,
+      isTiktok: false,
       submitstatus: false
     };
   },
@@ -89,40 +90,40 @@ export default {
         return;
       }
       var self = this;
-      if (this.timeStatus) {
+      if (this.isTiktok) {
         this.$toast.show("请不要重复操作!");
         return;
       }
-      if (this.timeStatus) return;
-      var times = setInterval(function() {
-        self.timeStatus = true;
-        if (self.time == 1) {
-          self.timeStatus = false;
-          self.time = 6;
-          clearInterval(times);
-        }
-        console.log("1");
-        self.time = self.time - 1;
-      }, 1000);
       if (this.codeStatus) return;
       this.codeStatus = true;
-      console.log(this.codeStatus, "-----------codeStatus");
       this.axios({
         url: "/service/register_verify",
         params: {
           phone: self.account,
-          mail: self.mail,
           district: self.district
         }
       })
         .then(res => {
           self.codeStatus = false;
           this.$toast.show("验证码获取成功");
+          this.startCountdown()
         })
         .catch(err => {
           self.codeStatus = false;
           this.$toast.show("验证码获取失败,请稍后再试");
         });
+    },
+       startCountdown() {
+      this.isTiktok = true; // start tiktok
+      this.remainedTime = 60 // init time
+      this.timer = setInterval(() => {
+        this.remainedTime -= 1;
+        if (this.remainedTime <= 0) {
+          clearInterval(this.timer);
+          this.timer = null;
+          this.isTiktok = false;
+        }
+      }, 1000);
     },
     nextshow() {
       const { account } = this;
@@ -130,7 +131,7 @@ export default {
         this.$toast.show("手机号码不能为空");
         return;
       }
-      if (!this.timeStatus) {
+      if (!this.isTiktok) {
         this.$toast.show("请先获取验证码!");
         return;
       }

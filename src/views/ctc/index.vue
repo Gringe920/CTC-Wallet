@@ -177,7 +177,7 @@ export default {
   },
   mounted() {
     this.getPendList();
-    this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
+    // this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
   },
   methods: {
 
@@ -275,9 +275,7 @@ export default {
       this.$store.commit("buyType", data);
     },
     submitActive() {
-      this.$router.push({
-          path: "/payway"
-      });
+      this.$router.push({path: '/selectPayway'})
       this.isShowModal = false;
     },
     showActivatedModal() {

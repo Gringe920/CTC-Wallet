@@ -186,6 +186,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @media screen and (max-height: 424px) {
+        .btn-submit{
+          display: none;
+        }
+    }
 section {
   .header {
     line-height: 50px;

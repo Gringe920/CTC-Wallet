@@ -1,7 +1,11 @@
+
 <template>
-    <section class="zhuanqian">
+
+   <section   class="zhuanqian">
+     <load v-if="loading"></load>
         <Header title="提币" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record_black@2x.png')"></Header>
-        <div class="yue">可用：{{assets_detail.asset[coin]['$numberDecimal']}}&nbsp;{{coin}}</div>
+        <div v-if="!loading">
+           <div class="yue">可用：{{canCoin}}&nbsp;{{coin}}</div>
         <div class="cointype">
             <div class="l">币种</div>
             <div class="r" @click="toclose">
@@ -11,9 +15,8 @@
         </div>
           <div class="cointype">
             <div class="l">接收地址</div>
-            <div class="r rtibi">
+            <div class="r rtibi" @click="tochange()"> 
                 <div>{{address?address:'请选择接收地址'}}</div>
-                <!-- <input type="text" v-model="address" placeholder=""> -->
                 <img src="../../assets/images/next_black@2x.png" alt="" srcset="">
             </div>
         </div>
@@ -27,8 +30,8 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="yue">*提币手续费5RCP;最低提币数量100RCP，请输入正确的提币地址，地址出错币丢失。</div> -->
-        <div @click="submit">
+        <div class="yue">*请输入正确的提币地址，地址出错币丢失。</div>
+        <div @click="toshowPsw">
             <r-button text="确定" width="90%" class="comfirm" />
         </div>
         <div class="coinchange" v-if="close" @click="toclose">
@@ -48,21 +51,24 @@
                 <img class="img2" @click="changebuySellShow" src="../../assets/images/top_off_black@2x.png" alt="" srcset="">
               </div>
               <div class="inp">
-                <input type="password" v-model="password" placeholder="输入交易密码">
+                <input type="password" v-model="pwd" placeholder="输入交易密码">
               </div>
               <div class="inp">
                 <input type="password" v-model="code" placeholder="输入验证码">
               <div class="code" @click="getVerifyCode">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</div>
             </div>
-            <div class="btn"> 确定</div>
+            <div class="btn" @click="submit"> 确定</div>
           </div>
-          </div>
+        </div>
+        </div>
+       
     </section>
+ 
 </template>
 <script>
 import { mapState } from "vuex";
 export default {
-  name: "zhuanqian",
+  name: "takeCions",
   data() {
     return {
       showPsw: false,
@@ -70,28 +76,60 @@ export default {
       isTiktok: false,
       password: "",
       close: false,
+      loading:true,
       code: "",
       isShowPswModal: false,
       num: "",
-      address: "RKWPDQTXW3FUPZTU111NVCEAUG8HEDXEX7ZWQ",
       liststatus: false,
       submitState: false,
       canCoin: "",
-      coin: this.$route.params.coin || "",
+      coin: this.$route.query.type || "",
       clickAll: "",
       coinVolume3: ["RCP", "USDT", "ETH"],
-      timer: null
+      timer: null,
+      liststatus: false,
+      detailstatus: false,
+      pwd:''
     };
   },
   computed: {
-    ...mapState(["user", "withdraw_address_list", "coin_list", "assets_detail"])
+    ...mapState([
+      "address",
+      "user",
+      "withdraw_address_list",
+      "coin_list",
+      "assets_detail"
+    ])
   },
   created() {
-    // this.withdrawlist();
-    this.canCoin = this.assets_detail.asset[this.coin]["$numberDecimal"];
-    console.log(this.canCoin);
+    this.getassets_detail();
   },
   methods: {
+    getassets_detail() {
+      var self = this;
+      if (this.detailstatus) return;
+      self.detailstatus = true;
+      this.axios({
+        url: "/service/assets_detail",
+        params: {}
+      })
+        .then(res => {
+          self.detailstatus = false;
+          this.$store.commit("assets_detail", res.data || {});
+          var coin = this.coin;
+          this.loading = false;
+          this.canCoin = this.assets_detail.asset[coin]["$numberDecimal"];
+        })
+        .catch(err => {
+          self.detailstatus = false;
+          this.loading = false;
+          this.$store.commit("assets_detail", {});
+        });
+    },
+    tochange() {
+      console.log(1);
+      this.$router.push({ path: "/changeAdress" });
+    },
     getVerifyCode() {
       if (this.timer != null) {
         return;
@@ -138,7 +176,7 @@ export default {
         })
         .catch(err => {
           self.liststatus = false;
-          this.$store.commit("withdraw_address_listl", {});
+          this.$store.commit("withdraw_address_list", {});
           this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
         });
     },
@@ -148,13 +186,68 @@ export default {
     changebuySellShow() {
       this.showPsw = false;
     },
-    toacceptCoin() {},
-    submit() {
+    toacceptCoin() {
+           this.$router.push({
+        path: "/acceptCoin",
+        query: {
+          type: 0,
+        }
+      });
+    },
+    toshowPsw() {
+          const {address,num} = this;
+      if (this.isEmpty(address)) {
+        this.$toast.show("接收地址不能为空");
+        return;
+      }
+      if (this.isEmpty(num)) {
+        this.$toast.show("转账数量不能为空");
+        return;
+      }
       this.showPsw = true;
     },
     clickCoin(item, index) {
       this.coin = item;
       this.withdrawlist();
+    },
+    submit() {
+           const {pwd,code} = this;
+      if (this.isEmpty(pwd)) {
+        this.$toast.show("交易密码不能为空");
+        return;
+      }
+      if (this.isEmpty(code)) {
+        this.$toast.show("验证码不能为空");
+        return;
+      }
+      var self = this;
+      if (this.liststatus) return;
+      self.liststatus = true;
+      this.axios({
+        url: "/service/custom_withdraw_confirm",
+        params: {
+          symbol: self.coin,
+          to: self.address,
+          code: self.code,
+          amount: self.num,
+          pwd:self.pwd,
+        }
+      })
+        .then(res => {
+          self.liststatus = false;
+          this.$toast.show("提币成功!");
+          this.showPsw = false;
+          this.code =''
+          this.num =''
+            this.$store.commit("address",'');
+          this.getassets_detail()
+          
+        })
+        .catch(err => {
+          self.liststatus = false;
+          this.pwdshow = false;
+          this.$toast.show("提币失败，请重试");
+        });
     }
   }
 };
@@ -249,6 +342,7 @@ export default {
     align-items: center;
     .rtibi {
       width: 70% !important;
+      text-align: right;
       div {
         width: 100%;
         display: inline-block;

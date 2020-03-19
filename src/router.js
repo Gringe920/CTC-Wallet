@@ -35,13 +35,16 @@ const buyResult = () => import(/* webpackChunkName: "user" */ './views/order/buy
 const status = () => import(/* webpackChunkName: "user" */ './views/order/status.vue');
 
 //资产页面
+
+const takeCoins = () => import(/* webpackChunkName: "ctc" */ './views/wallet/takeCoins.vue'); //提币
 const wallet = () => import(/* webpackChunkName: "ctc" */ './views/wallet/index.vue');
-const address = () => import(/* webpackChunkName: "ctc" */ './views/wallet/address.vue');
+const Myaddress = () => import(/* webpackChunkName: "ctc" */ './views/wallet/Myaddress.vue');
 const zhuanqian = () => import(/* webpackChunkName: "ctc" */ './views/wallet/zhuanqian.vue');//
 const addAdress = () => import(/* webpackChunkName: "ctc" */ './views/wallet/addAdress.vue');//
 const acceptCoin = () => import(/* webpackChunkName: "ctc" */ './views/wallet/acceptCoin.vue');//
 const reCharge = () => import(/* webpackChunkName: "ctc" */ './views/wallet/reCharge.vue');//
 const detais = () => import(/* webpackChunkName: "ctc" */ './views/wallet/detais.vue');//
+const changeAdress = () => import(/* webpackChunkName: "ctc" */ './views/wallet/changeAdress.vue');//
 
 //交易模块页面
 const Ctc = () => import(/* webpackChunkName: "ctc" */ './views/ctc/index.vue');
@@ -66,6 +69,12 @@ export default new Router({
             component: detais
         },
         {
+            path: '/changeAdress',
+            name: 'changeAdress',
+            component:  changeAdress
+        },
+       
+        {
             path: '/reCharge/:coin',
             name: 'reCharge',
             component: reCharge
@@ -76,9 +85,9 @@ export default new Router({
             component: acceptCoin
         },
         {
-            path: '/address',
-            name: 'address',
-            component: address
+            path: '/Myaddress',
+            name: 'Myaddress',
+            component: Myaddress
         },
         {
             path: '/addAdress',
@@ -95,6 +104,12 @@ export default new Router({
             name: 'zhuanqian',
             component: zhuanqian
         },
+        {
+            path: '/takeCoins',
+            name: 'takeCoins',
+            component: takeCoins
+        },
+       
         {
             path: '/chat',
             name: 'chat',
