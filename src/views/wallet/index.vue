@@ -21,10 +21,10 @@
 
          <div class="money"   v-if="!loading"  v-for="item in coin_list" :key="item">
             <div class="coin">{{item}}</div>
-            <div class="coin2">{{hidden ? '******':assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal']:'000000'}} <span> ≈ {{hidden ? '******':currentPrices[item]*assets_detail.asset[item]['$numberDecimal']}} &nbsp;CNY<small></small></span> </div>
+            <div class="coin2">{{hidden ? '******':assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal'] :'000000'}} <span> ≈ {{hidden ? '******':currentPrices[item]*assets_detail.asset[item]['$numberDecimal']}} &nbsp;CNY<small></small></span> </div>
             <div class="coin3">
-                <div class="c_l">可用：{{hidden ? '******':'00000'}}</div>
-                <div class="c_l">冻结：{{hidden ? '******':'0.89987'}}</div>
+                <div class="c_l">可用：{{hidden ? '******': assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal'] :'000000'}}</div>
+                <div class="c_l">冻结：{{hidden ? '******': getFreezeAsset(assets_detail.freeze_asset[item])}}</div>
             </div>
             <div class="coin4">
                 <div class="shou"  @click="$router.push('/reCharge/'+item)">充币</div>
@@ -73,6 +73,14 @@ export default {
     this.current_price();
   },
   methods: {
+    getFreezeAsset(assets){
+      let freezeAsset = 0;
+      if(assets){
+        const numberDecimals = Object.values(assets)
+        freezeAsset = numberDecimals.reduce(((p, c) => +c.$numberDecimal + p), 0)
+      }
+      return freezeAsset
+    },
     current_price() {
       var self = this;
       if (this.current_priceStatus) return;
