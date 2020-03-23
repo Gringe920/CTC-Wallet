@@ -73,7 +73,7 @@
         <div class="last">
           <div class="left">
             <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
-            <div>限额 {{ item.minmum }}-{{ item.maxmum }}CNY</div>
+            <div>限额 {{ item.minmum }}-{{ item.maxmum }} {{ coin.toUpperCase() }}</div>
           </div>
           <div @click="changebuySellShow(item)" class="right" :class="item.uid === user.basicInfo.uid ? 'disabled': ''">
             购买

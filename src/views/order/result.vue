@@ -28,11 +28,11 @@
         </div>
       </div>
       <div class="order-result" v-if="order_detail.status == 0 && !isSeller()">
-        <p class="status-text">待付款 金额 {{ order_detail.price }}CNY</p>
+        <p class="status-text">待付款 金额 {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
         <p class="reason">请在30:00内汇款给商家</p>
       </div>
       <div class="order-result" v-if="order_detail.status == 0 && isSeller()">
-        <p class="status-text">对方付款 金额 {{ order_detail.price }}CNY</p>
+        <p class="status-text">对方付款 金额 {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
         <p class="reason">等待对方30:00内汇款</p>
       </div>
       <div class="order-result" v-if="order_detail.status == 3">
@@ -100,8 +100,8 @@
         @on-ok="confirm">
          <p class="pay-dialog-slot">请务必登录网上银行或者第三方支付账号确定收到该笔款项</p>
       </Dialog>
-      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false">
-        <p class="call-dialog-slot">xxxxxxx</p>
+      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false" @on-ok="callPhone">
+        <p class="call-dialog-slot">{{phoneNumber}}</p>
       </Dialog>
       <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false" @on-ok="appeal">
         <div class="complain-dialog-slot" >
@@ -136,17 +136,38 @@ export default {
       callDialogShow: false,
       complainDialogShow: false,
       cancelDialogShow: false,
-      complainContent: ''
+      complainContent: '',
+      phoneNumber: ''
     };
   },
   mounted() {
     
-    this.updatePosition()
+    this.updatePosition();
+    this.getUserPhone();
   },
   computed: {
     ...mapState(["order_detail"])
   },
   methods: {
+    callPhone(){
+      window.location.href = `tel:${this.phoneNumber}`
+    },
+    getUserPhone(){
+      this.axios({
+            url: "/service/getPhoneNumber",
+            params: {
+              uid: this.order_detail.buyer
+            }
+        })
+        .then(res => {
+            if(res.error_code === 0){
+              this.phoneNumber = res.data
+            }
+        })
+        .catch(err =>
+          this.$toast.show(err.message || "获取")
+        );
+    },
     appeal(){
       this.axios({
         url: "/c2c/appeal",
@@ -174,7 +195,7 @@ export default {
       } else if (this.position < 1) {
         return 'details_2_unchecked@2x.png';
       } else {
-        return 'details_2_selected@2x.png';
+        return 'details_2_select  ed@2x.png';
       }
     },
     getPosition2Img() {

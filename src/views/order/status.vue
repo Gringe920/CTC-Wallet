@@ -97,8 +97,8 @@
         @on-ok="confirm">
          <p class="pay-dialog-slot">{{ isSeller() ? '请务必登录网上银行或者第三方支付账号确定收到该笔款项' : '请确认您已向对方付款，恶意点击将直接冻结账户'}}</p>
       </Dialog>
-      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false">
-        <p class="call-dialog-slot">xxxxxxx</p>
+      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false" @on-ok="callPhone">
+        <p class="call-dialog-slot">{{phoneNumber}}</p>
       </Dialog>
       <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false" @on-ok="appeal">
         <div class="complain-dialog-slot" >
@@ -133,17 +133,37 @@ export default {
       callDialogShow: false,
       complainDialogShow: false,
       cancelDialogShow: false,
-      complainContent: ''
+      complainContent: '',
+      phoneNumber: ''
     };
   },
   mounted() {
-    
-    this.updatePosition()
+    this.updatePosition();
+    this.getUserPhone()
   },
   computed: {
     ...mapState(["order_detail", 'user'])
   },
   methods: {
+    callPhone(){
+      window.location.href = `tel:${this.phoneNumber}`
+    },
+    getUserPhone(){
+      this.axios({
+            url: "/service/getPhoneNumber",
+            params: {
+              uid: this.isSeller() ? this.order_detail.buyer : this.order_detail.seller
+            }
+        })
+        .then(res => {
+            if(res.error_code === 0){
+              this.phoneNumber = res.data
+            }
+        })
+        .catch(err =>
+          this.$toast.show(err.message || "获取")
+        );
+    },
     appeal(){
       this.axios({
         url: "/c2c/appeal",

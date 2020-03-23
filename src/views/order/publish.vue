@@ -44,18 +44,18 @@
           </div>
           <div class="line"></div>
           <div class="p-row">
-            <span class="tit">最高成交额</span>
+            <span class="tit">最高成交量</span>
             <div class="inp">
-              <input type="number" placeholder="请输入价格" v-model="maxnum" />
-              <span>CNY</span>
+              <input type="number" placeholder="请输入数量" v-model="maxnum" />
+              <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>
           <div class="line"></div>
           <div class="p-row">
-            <span class="tit">最低成交额</span>
+            <span class="tit">最低成交量</span>
             <div class="inp">
-              <input placeholder="请输入价格" v-model="minnum" />
-              <span>CNY</span>
+              <input placeholder="请输入数量" v-model="minnum" />
+              <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>
          

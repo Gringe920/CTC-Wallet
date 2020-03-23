@@ -86,13 +86,13 @@
         <div class="d-row">
           <span>账号</span>
           <span class="d-v">
-              {{payInfo.account}}
+              {{payInfo.account || payInfo.card}}
               <i class="ic copy"></i>
             </span>
         </div>
-        <div class="d-row">
+        <div class="d-row" v-if="!payInfo.card">
           <span>收款二维码</span>
-          <span class="d-v">
+          <span class="d-v" @click="showQrcode = true">
             <i class="ic ic-qrcode"></i>
           </span>
         </div>
@@ -144,8 +144,8 @@
         @on-ok="confirm">
          <p class="pay-dialog-slot">{{ isSeller() ? '请务必登录网上银行或者第三方支付账号确定收到该笔款项' : '请确认您已向对方付款，恶意点击将直接冻结账户'}}</p>
       </Dialog>
-      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false">
-        <p class="call-dialog-slot">xxxxxxx</p>
+      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false" @on-ok="callPhone">
+        <p class="call-dialog-slot">{{phoneNumber}}</p>
       </Dialog>
       <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false" @on-ok="appeal">
         <div class="complain-dialog-slot" >
@@ -165,6 +165,14 @@
             取消
           </div>
         </div>
+      </div>
+      <!-- 二维码打开 -->
+      <div class="qrcode-dialog" v-if="showQrcode">
+        <div class="dia-wrap" @click="showQrcode = false"></div>
+        <div class="qrcode-img">
+          <img :src="qrcodeUrl" />
+        </div>
+        
       </div>
     </div>
   </section>
@@ -197,22 +205,45 @@ export default {
       remained: '30:00',
       paywayDiaglog: false,
       payList: [],
-      payItem: {}
+      payItem: {},
+      qrcodeUrl: '',
+      showQrcode: false,
+      phoneNumber: ''
     };
   },
   mounted() {
-    
+    this.updatePayway();
     this.updatePosition();
     this.getPayInfo();
     this.startCountdown();
-    this.updatePayway();
+    this.getUserPhone();
   },
   computed: {
     ...mapState(["order_detail", "user"])
   },
   methods: {
+    callPhone(){
+      window.location.href = `tel:${this.phoneNumber}`
+    },
+    getUserPhone(){
+      this.axios({
+            url: "/service/getPhoneNumber",
+            params: {
+              uid: this.order_detail.seller
+            }
+        })
+        .then(res => {
+            if(res.error_code === 0){
+              this.phoneNumber = res.data
+            }
+        })
+        .catch(err =>
+          this.$toast.show(err.message || "获取")
+        );
+    },
     selectPaytype(item){
       this.payItem = {...item};
+      this.getPayInfo();
       this.paywayDiaglog = false;
     },
     updatePayway(){
@@ -237,8 +268,6 @@ export default {
       if(this.payList.length > 0){
         this.payItem = this.payList[0]
       }
-      
-      console.log(this.payList)
     },
     selectPayway(){
       this.paywayDiaglog = true;
@@ -268,6 +297,7 @@ export default {
         })
         .then(res => {
             if(res.error_code === 0){
+                this.$toast.show("取消订单成功")
                 this.cancelDialogShow = false;
                 this.$store.commit('order_detail', res.data);
                 this.$router.replace({path: '/status'})
@@ -293,6 +323,9 @@ export default {
         })
         .then(res => {
             this.payInfo = res.data;
+            if(this.payInfo.path){
+              this.qrcodeUrl = this.imgUrl(this.payInfo.path.substring(this.payInfo.path.lastIndexOf("/") + 1, this.payInfo.path.length))
+            }
         })
         .catch(err =>
           this.$toast.show(err.message || "获取用户支付信息失败")
@@ -588,6 +621,24 @@ section {
       border-top: 10px solid #F7F9FC;
       padding: 16px 0;
     }
+  }
+}
+.qrcode-dialog{
+  .dia-wrap{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  .qrcode-img{
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    z-index: 11;
   }
 }
 </style>

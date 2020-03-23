@@ -13,7 +13,7 @@
       </div>
       <div class="top">
         <div class="l2">单笔限额</div>
-        <div class="r">¥{{ item.minmum }} - ¥{{ item.maxmum }}</div>
+        <div class="r">¥{{ item.minmum * item.price }} - ¥{{ item.maxmum * item.price }}</div>
       </div>
       <div class="top">
         <div class="l2">委托价格</div>
@@ -44,11 +44,11 @@
       <div class="inpbox">
         <div class="left">
           <div class="inp bt br">
-            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${user.basicInfo.asset[coin] ? user.basicInfo.asset[coin].$numberDecimal * item.price : 0}`" v-model="priceRmb"/>
+            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${item.amount.$numberDecimal * item.price}`" v-model="priceRmb"/>
             <span>CNY</span>
           </div>
           <div class="inp br">
-            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${user.basicInfo.asset[coin] ? user.basicInfo.asset[coin].$numberDecimal : 0}`" v-model="amount"/>
+            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${item.amount.$numberDecimal}`" v-model="amount"/>
             <span>{{ coin.toUpperCase() }}</span>
           </div>
         </div>
@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     allIn() {
-      this.amount = this.user.basicInfo.asset[this.coin] ? this.user.basicInfo.asset[this.coin].$numberDecimal : 0
+      this.amount = this.item.amount.$numberDecimal
     },
     order(item) {
       if(!this.amount){
@@ -115,11 +115,11 @@ export default {
         return;
       }
       if(this.amount < this.item.minmum){
-        this.$toast.show("输入币种数量少于最低限额");
+        this.$toast.show("输入币种数量少于最低数量");
         return;
       }
-      if(this.amount > this.item.maxmum){
-        this.$toast.show("输入币种数量大于最高限额");
+      if(this.amount > this.item.amount.$numberDecimal){
+        this.$toast.show("输入币种数量大于最高数量");
         return;
       }
       this.orderType = 2;
