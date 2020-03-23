@@ -99,11 +99,11 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("注册成功");
+          this.$toast.show("设置成功");
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show("注册失败");
+          this.$toast.show("设置失败");
           s;
         });
     },
