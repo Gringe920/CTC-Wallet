@@ -26,7 +26,7 @@ module.exports = {
         plugins
     },
     publicPath: appState ? './static/' : './',
-    outputDir: appState ? 'D:\\rcpApp\\otcApp\\static' : path.resolve(__dirname, "./dist"),
+    outputDir: appState ? 'D:\\rcpApp\\aldApp\\otc\\static' : path.resolve(__dirname, "./dist"),
     assetsDir: appState ? "./" : "static",
     productionSourceMap: process.env.NODE_ENV === 'production' ? false : true,
     devServer: {
@@ -67,7 +67,7 @@ module.exports = {
 
         if (appState) {
             config.plugin('html').tap(args => {
-                args[0].filename = "D:\\rcpApp\\otcApp\\index.html";
+                args[0].filename = "D:\\rcpApp\\aldApp\\otc\\index.html";
                 return args;
             });
 

@@ -1,6 +1,9 @@
 <template>
     <div id="app">
         <router-view/>
+        <a @click="clickWallet" class="wallet-icon">
+            <img src="./assets/images/home@2x.png" alt="" srcset="">
+        </a>
         <div v-if="showNav" class="bg navall" >
             <router-link tag="a"   to="/ctc"   :class="($route.name=='empty'||$route.name=='home')?'nav-active':''">
                 <div class="thenav">
@@ -70,6 +73,13 @@ export default {
     ...mapState(["showNav", "user", "coin_list",'UserChange'])
   },
   methods: {
+      clickWallet (){
+          if(typeof plus == 'object'){
+              var h = plus.webview.getLaunchWebview();
+              h.show();
+          }
+
+      },
     getcoin_list() {
       var self = this;
       if (this.submitstatus) return;
@@ -135,20 +145,21 @@ export default {
     backbutton() {
       let self = this;
       plus.key.addEventListener("backbutton", function(e) {
-        let webview = plus.webview.getLaunchWebview();
+        let webview = plus.webview.getWebviewById('otc');
         webview.canBack(function(e) {
           if (e.canBack) {
             webview.back();
           } else {
-            plus.nativeUI.confirm(
-              self.$t("exitAPP"),
-              function(e) {
-                if (e.index == 0) {
-                  plus.runtime.quit();
-                }
-              },
-              self.$t("title")
-            );
+              self.clickWallet();
+            // plus.nativeUI.confirm(
+            //   self.$t("exitAPP"),
+            //   function(e) {
+            //     if (e.index == 0) {
+            //       plus.runtime.quit();
+            //     }
+            //   },
+            //   self.$t("title")
+            // );
           }
         });
       });
@@ -336,6 +347,30 @@ html {
   padding: 0;
   margin: 0;
   background: $bg;
+}
+.wallet-icon{
+    position: fixed;
+    right: 10px;
+    bottom: 66px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow:0px 0px 10px 0px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: #fff;
+    opacity: 0.8;
+    img{
+        width: 25px;
+        height: 25px;
+    }
+    span{
+        width: 100%;
+        font-size: 12px;
+        text-align: center;
+    }
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
