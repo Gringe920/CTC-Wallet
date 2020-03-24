@@ -1,5 +1,4 @@
 <template>
-import { setTimeout } from 'timers';
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
