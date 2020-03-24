@@ -1,5 +1,6 @@
 <template>
   <section>
+    <load v-if="loading"></load>
     <div class="header">
       <span>订单</span>
       <span class="publish" @click="toRoute('publish')">发布</span>
@@ -89,17 +90,11 @@ export default {
       submitStatus: false,
       pend_cancelstatus: false,
       orderList: [],
-      isShowEmpty: false
+      isShowEmpty: false,
+      loading: false
     };
   },
   mounted() {
-    console.log(this.user.basicInfo.uid)
-        if(!this.user.basicInfo.uid){
-          
-        this.$toast.show("请先登陆!");
-        this.$router.push("login");
-        return false;
-    }
     this.getUserPendList();
   },
   computed: {
@@ -123,6 +118,7 @@ export default {
       this.isShowEmpty = false;
     },
     getOrderList(status){
+      this.loading = true;
       let appendParams = '';
       if(status === 0) appendParams = '&status=3'
       this.axios({
@@ -133,11 +129,13 @@ export default {
             if(res.data.length > 0){
               this.orderList = res.data.filter(item => item.seller === this.user.basicInfo.uid || item.buyer === this.user.basicInfo.uid);
             }
-            this.isShowEmpty = this.orderList.length === 0
+            this.isShowEmpty = this.orderList.length === 0;
+            this.loading = false
           }
         })
         .catch(err => {
           this.$toast.show(err.message || "请重试");
+          this.loading = false
         });
     },
     pend_cancel(id) {
@@ -164,6 +162,7 @@ export default {
       var self = this;
       if (this.submitStatus) return;
       self.submitStatus = true;
+      this.loading = true;
       this.axios({
         url: "/c2c/getUserPendList",
         params: {}
@@ -171,12 +170,14 @@ export default {
         .then(res => {
           self.submitStatus = false;
           this.$store.commit("UserPendList", res.data.list || {});
+          this.loading = false;
           // this.$toast.show("挂单列表获取成功!");
         })
         .catch(err => {
           self.submitStatus = false;
           this.$store.commit("UserPendList", {});
-          this.$toast.show(err.message || "挂单列表获取失败，请重试"); 
+          this.$toast.show(err.message || "挂单列表获取失败，请重试");
+          this.loading = false;
         });
     },
     changeNavIndex(idx) {

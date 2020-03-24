@@ -1,5 +1,6 @@
 <template>
   <section class="ctc">
+    <load v-if="loading"></load>
     <div class="header">
       <div class="icon_l" @click="changcoinshow = !changcoinshow">
         {{ coin.toUpperCase() }}
@@ -27,7 +28,7 @@
       </div>
       <span class="text_r" @click="publish">发布</span>
     </div>
-    <div class="buyall" v-if="buyType == 'buy'">
+      <div class="buyall" v-if="buyType == 'buy'">
       <div
         class="buymsg"
         v-for="item in PendList"
@@ -158,6 +159,7 @@ export default {
   name: "ctc",
   data() {
     return {
+      loading: false,
       isShowModal: false,
       changcoinshow: false,
       submitStatus: false,
@@ -215,6 +217,8 @@ export default {
       this.getPendList();
     },
     getPendList() {
+      this.$store.commit("PendList", []);
+      this.loading = true;
       var self = this;
       if (this.submitStatus) return;
       self.submitStatus = true;
@@ -227,14 +231,15 @@ export default {
         .then(res => {
           self.submitStatus = false;
           if(res.error_code == 0){
-            this.$store.commit("PendList", res.data.list || {});
+            this.$store.commit("PendList", res.data.list || []);
           }
-          
+          this.loading = false;
           // this.$toast.show("挂单列表获取成功!");
         })
         .catch(err => {
+          this.loading = false;
           self.submitStatus = false;
-          this.$store.commit("UserPendList", {});
+          this.$store.commit("UserPendList", []);
           this.$toast.show(err.message || "挂单列表获取失败，请重试");
         });
     },
