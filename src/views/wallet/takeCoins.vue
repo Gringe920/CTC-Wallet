@@ -92,6 +92,17 @@ export default {
       pwd:''
     };
   },
+  watch:{
+    num(n,o){
+      var self = this
+      var nownum = parseInt(n)
+      var canCoin = parseInt(self.canCoin)
+      if(nownum> canCoin){
+        this.num = canCoin
+        this.$toast.show("转账数量不能大于可用数量");
+      }
+    }
+  },
   computed: {
     ...mapState([
       "address",

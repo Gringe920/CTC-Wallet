@@ -8,7 +8,8 @@
        <div class="title">标签:{{item['name']}}</div>
      </div>
      <Empty v-if="!loading && withdraw_address_list <=0"></Empty>
-    <r-button v-if="!loading" :tocomfirm='submit' text="确定" width="100%" class="comfirm" />
+     <r-button v-if="!loading&& withdraw_address_list <=0" :tocomfirm='toaddAdress' text="去添加地址" width="100%" class="comfirm" />
+    <r-button v-if="!loading&& withdraw_address_list >0" :tocomfirm='submit' text="确定" width="100%" class="comfirm" />
   </section>
 </template>
 <script>
@@ -31,6 +32,12 @@ export default {
     this.withdrawlist();
   },
   methods: {
+        toaddAdress() {
+          this.$router.push({
+          path: "/addAdress"
+       
+        });
+    },
     selectAddress(address){
            this.$store.commit("address",address);
            console.log(address)

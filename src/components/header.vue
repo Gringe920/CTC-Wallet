@@ -85,7 +85,11 @@ export default {
         let webview = plus.webview.getLaunchWebview();
         webview.back();
       } else {
-        this.$router.go(-1);
+        if (this.$route.name == "acceptCoin") {
+          this.$router.push({ name: "wallet" });
+        } else{
+          this.$router.go(-1);
+        }
       }
     }
   }

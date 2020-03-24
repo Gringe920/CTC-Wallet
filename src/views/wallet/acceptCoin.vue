@@ -8,9 +8,10 @@
           <load v-if="loading"></load>
         <!-- 提币 -->
       
-            <Empty v-if="!loading &&depositHistory.length <=0"></Empty>
-        <div v-if="!loading && depositHistory.length>0" class="zhuaninfo">
-            <div class="zhuan"  v-if="activeIdx == 0" v-for="(item,key) in withdrawHistory" :key="item.type" @click="todetails(key)">
+           
+        <div v-if="!loading" class="zhuaninfo">
+           <Empty v-if="withdrawHistory.length <=0 && activeIdx == 0 "></Empty>
+            <div class="zhuan"  v-if="activeIdx == 0  && withdrawHistory.length>0" v-for="(item,key) in withdrawHistory" :key="item.type" @click="todetails(key)">
                 <div class="top">
                    {{resolvingDate(item.time)}}
                 </div>
@@ -25,7 +26,8 @@
                 </template>
            
             </div>
-            <div class="zhuan"  v-if="activeIdx == 1" v-for="(item,key) in depositHistory" :key="item.type" @click="todetails(key)">
+              <Empty v-if="depositHistory.length <=0 && activeIdx == 1"></Empty>
+            <div class="zhuan"  v-if="activeIdx == 1  &&depositHistory.length >0 " v-for="(item,key) in depositHistory" :key="item.type" @click="todetails(key)">
                 <div class="top">
                   {{resolvingDate(item.time)}}
                 </div>
@@ -74,8 +76,8 @@ export default {
   },
   watch: {},
   created() {
-         this.$store.commit("withdrawHistory", {});
-         this.$store.commit("depositHistory", {});
+    this.$store.commit("withdrawHistory", {});
+    this.$store.commit("depositHistory", {});
     this.deposit_history(); //充币记录
     this.withdraw_history(); //提币记录
   },
@@ -94,6 +96,7 @@ export default {
         .then(res => {
           this.$store.commit("withdrawHistory", res.data.data || {});
           self.withdrawStatus = false;
+          console.log(this.withdrawHistory, "-withdrawHistory");
           this.loading = false;
         })
         .catch(err => {
@@ -133,7 +136,7 @@ export default {
       }
     },
     todetails(item) {
-        console.log(this.depositHistory)
+      console.log(this.depositHistory);
       this.$router.push({
         path: "/detais",
         query: {

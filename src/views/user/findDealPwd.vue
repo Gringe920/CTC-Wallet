@@ -4,7 +4,7 @@
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
     </div>
     <div class="container">
-      <div class="l-tit" >{{next?'设置新登陆密码':'忘记交易密码'}}</div>
+      <div class="l-tit" >{{next?'设置新交易密码':'忘记交易密码'}}</div>
       <div class="l-info-box">
         <input v-show="!next" placeholder="请输入手机" type="text" v-model="account" class="account"/>
         <div class="line" v-show="!next"></div>
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       isAllow: true,
-      account: "15111487619",
+      account: "",
       Password: "",
       rePassword: "",
       time: 60,
@@ -100,6 +100,10 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show("设置成功");
+          this.account = ''
+          this.Password=''
+          this.code =''
+          this.rePassword = ''
         })
         .catch(err => {
           self.submitstatus = false;

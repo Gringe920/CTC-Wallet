@@ -1,9 +1,7 @@
 <template>
     <div id="app">
         <router-view/>
-        <a @click="clickWallet" class="wallet-icon">
-            <img src="./assets/images/home@2x.png" alt="" srcset="">
-        </a>
+      
         <div v-if="showNav" class="bg navall" >
             <router-link tag="a"   to="/ctc"   :class="($route.name=='empty'||$route.name=='home')?'nav-active':''">
                 <div class="thenav">
