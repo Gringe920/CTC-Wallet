@@ -134,6 +134,7 @@ export default {
           }
         })
         .catch(err => {
+          this.isShowEmpty = true;
           this.$toast.show(err.message || "请重试");
           this.loading = false
         });
