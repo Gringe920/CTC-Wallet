@@ -262,7 +262,7 @@ export default {
       if(this.user.alipay_state === 1){
         this.payList.push({
           name: '支付宝',
-          paytype:1
+          paytype:3
         })
       }
       if(this.payList.length > 0){
@@ -639,6 +639,9 @@ section {
     transform: translate(-50%, -50%);
     left: 50%;
     z-index: 11;
+    img{
+      max-width: 120px;
+    }
   }
 }
 </style>

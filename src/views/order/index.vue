@@ -19,7 +19,7 @@
         <div class="box published">
           <div class="box-h">
             <div class="coin">
-              <span class="icon" :class="item.type==1?'':'sell'" >{{item.type == 1?'买':'卖'}}</span>
+              <span class="icon" :class="item.type==1?'sell':''" >{{item.type == 1?'卖':'买'}}</span>
               <span>{{item.symbol.toUpperCase()}}</span>
             </div>
             <div class="kill-order" @click="pend_cancel(item._id)">撤单</div>

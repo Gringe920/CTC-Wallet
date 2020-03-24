@@ -32,7 +32,7 @@
         class="buymsg"
         v-for="item in PendList"
         :key="item._id"
-        v-if="item.uid === user.basicInfo.uid ? item.type == 1 : item.type == 2"
+        v-if="item.uid !== user.basicInfo.uid"
       >
         <div class="top">
           <div class="left">
@@ -86,7 +86,7 @@
         class="buymsg"
         v-for="item in PendList"
         :key="item._id"
-        v-if="item.uid === user.basicInfo.uid ? item.type == 2 : item.type == 1"
+        v-if="item.uid === user.basicInfo.uid"
       >
         <div class="top">
           <div class="left">
