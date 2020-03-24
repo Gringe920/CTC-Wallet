@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       isAllow: true,
-      account: "15111487619",
+      account: "",
       Password: "",
       rePassword: "",
       time: 60,

@@ -34,7 +34,7 @@
         v-for="item in PendList"
         :key="item._id"
         v-if="user.basicInfo ? item.uid !== user.basicInfo.uid : item.type === 2"
-      >
+        >
         <div class="top">
           <div class="left">
             <img
@@ -154,7 +154,7 @@
 <script>
 import { mapState } from "vuex";
 import buySell from "./buySell.vue";
-import coinlist from '../../components/coinlist.vue'
+import coinlist from "../../components/coinlist.vue";
 export default {
   name: "ctc",
   data() {
@@ -171,7 +171,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["buySellShow", "buyType", "PendList", "coin_list", 'user'])
+    ...mapState(["buySellShow", "buyType", "PendList", "coin_list", "user"])
   },
   components: {
     buySell,
@@ -182,14 +182,14 @@ export default {
     // this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
   },
   methods: {
-    publish(){
-      if(!this.user.basicInfo){
-        this.$router.push({path: '/login'});
+    publish() {
+      if (!this.user.basicInfo) {
+        this.$router.push({ path: "/login" });
         return;
       }
-      this.$router.push({path: '/publish'});
+      this.$router.push({ path: "/publish" });
     },
-    order(uid,pend_id) {
+    order(uid, pend_id) {
       var self = this;
       if (this.orderStatus) return;
       self.orderStatus = true;
@@ -230,7 +230,7 @@ export default {
       })
         .then(res => {
           self.submitStatus = false;
-          if(res.error_code == 0){
+          if (res.error_code == 0) {
             this.$store.commit("PendList", res.data.list || []);
           }
           this.loading = false;
@@ -244,19 +244,23 @@ export default {
         });
     },
     changebuySellShow(item) {
-      if(!this.user.basicInfo){
-        this.$router.push({path: '/login'});
+      if (!this.user.basicInfo) {
+        this.$router.push({ path: "/login" });
         return;
       }
-      if(this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state === 0) {
+      if (
+        this.user.wechat_state === 0 &&
+        this.user.bankcard_state === 0 &&
+        this.user.alipay_state === 0
+      ) {
         this.isShowModal = true;
         return;
       }
-      if(item.uid === this.user.basicInfo.uid){
+      if (item.uid === this.user.basicInfo.uid) {
         this.$toast.show("不可挂自己的单");
         return;
       }
-      if(item.amount.$numberDecimal < item.minmum){
+      if (item.amount.$numberDecimal < item.minmum) {
         this.$toast.show("该币种剩余的数量小于最小限额");
         return;
       }
@@ -267,7 +271,7 @@ export default {
       this.$store.commit("buyType", data);
     },
     submitActive() {
-      this.$router.push({path: '/selectPayway'})
+      this.$router.push({ path: "/selectPayway" });
       this.isShowModal = false;
     },
     showActivatedModal() {
@@ -361,7 +365,6 @@ export default {
         .right {
           color: $color1;
         }
-        
       }
       .center {
         display: flex;
@@ -401,9 +404,9 @@ export default {
           line-height: 25px;
           text-align: center;
         }
-        .disabled{
-            background-color: #CCD0D3;
-          }
+        .disabled {
+          background-color: #ccd0d3;
+        }
         .right2 {
           width: 60px;
           height: 25px;

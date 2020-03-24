@@ -60,7 +60,7 @@ export default {
       rePassword: "",
       time: 60,
       next: false,
-      checked: false,
+      checked: true,
       remainedTime:60,
       district: "+86",
       codeStatus: false,

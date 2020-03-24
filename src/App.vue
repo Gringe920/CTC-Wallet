@@ -126,6 +126,8 @@ export default {
           && this.$route.name != "phoneRegist"
           && this.$route.name != "login"
           && this.$route.name != "forget"
+          && this.$route.name != "lang"
+          && this.$route.name != "about"
       ) {
         this.$router.push("/login?origin=" + this.$route.name);
       }
