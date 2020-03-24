@@ -2,7 +2,7 @@
   <div class="container">
     <div class="userinfo" @click="toinfo()">
       <div class="avatar">
-        <img src="../../assets/images/china@2x.png" alt />
+        <img src="../../assets/images/about_logo@2x.png" alt />
       </div>
       <div class="info">
         <div class="name" v-if="!user.basicInfo ||!user.basicInfo.uid " >请先登陆</div>

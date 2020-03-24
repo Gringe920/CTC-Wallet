@@ -80,6 +80,8 @@ export default {
       this.$store.commit("type", index);
     },
     getcode() {
+        this.$toast.show("即将开放");
+        return;
       const { account } = this;
       if (this.isEmpty(account)) {
         this.$toast.show("手机号码不能为空");
@@ -126,6 +128,8 @@ export default {
       }, 1000);
     },
     nextshow() {
+        this.$toast.show("即将开放");
+        return;
       const { account } = this;
       if (this.isEmpty(account)) {
         this.$toast.show("手机号码不能为空");
@@ -146,8 +150,7 @@ export default {
       this.next = !this.next;
     },
     submit() {
-        this.$toast.show("即将开放");
-        return;
+
       const { password, rePassword } = this;
       if (this.isEmpty(password)) {
         this.$toast.show("登陆密码不能为空");
