@@ -3,7 +3,57 @@ import Vue from "vue";
 Vue.mixin({
 
     methods: {
+        errorMsg(error_code,msg){
+            var self  =this
+          
+            var errorMsg = this.$t("error.error"+ error_code )
+            console.log(errorMsg)
+            if( !errorMsg && msg) {
+                    this.$toast.show(msg);
+            }else{
+                this.$toast.show(errorMsg);
+            }
+        },
+      resolvingDate(date){
+              let d = new Date(date);
+            
+              let month = (d.getMonth() + 1) < 10 ? '0'+(d.getMonth() + 1) : (d.getMonth() + 1);
+              let day = d.getDate()<10 ? '0'+d.getDate() : d.getDate();
+              let hours = d.getHours()<10 ? '0'+d.getHours() : d.getHours();
+              let min = d.getMinutes()<10 ? '0'+d.getMinutes() : d.getMinutes();
+              let sec = d.getSeconds()<10 ? '0'+d.getSeconds() : d.getSeconds();
+            
+              let times=d.getFullYear() + '-' + month + '-' + day 
+              return times
+            },
+            resolvingDate3(date){
+                let d = new Date(date);
+              
+                let month = (d.getMonth() + 1) < 10 ? '0'+(d.getMonth() + 1) : (d.getMonth() + 1);
+                let day = d.getDate()<10 ? '0'+d.getDate() : d.getDate();
+                let hours = d.getHours()<10 ? '0'+d.getHours() : d.getHours();
+                let min = d.getMinutes()<10 ? '0'+d.getMinutes() : d.getMinutes();
+                let sec = d.getSeconds()<10 ? '0'+d.getSeconds() : d.getSeconds();
+              
+                let times=d.getFullYear() + '-' + month + '-' + day + '  '+hours + ':' + min + ':' + sec;
+                return times
+              },
+            resolvingHover(date){
+                let d = new Date(date);
+              
+                let month = (d.getMonth() + 1) < 10 ? '0'+(d.getMonth() + 1) : (d.getMonth() + 1);
+                let day = d.getDate()<10 ? '0'+d.getDate() : d.getDate();
+                let hours = d.getHours()<10 ? '0'+d.getHours() : d.getHours();
+                let min = d.getMinutes()<10 ? '0'+d.getMinutes() : d.getMinutes();
+                let sec = d.getSeconds()<10 ? '0'+d.getSeconds() : d.getSeconds();
+              
+                let times= month + '-' + day +'   '+hours + ':' + min + ':' + sec;
+              
+                return times
+              },
+       
         localDate(date, day, split = "-") {
+         
             if (date) {
                 day = day || false;
                 date = date + "";
@@ -15,7 +65,9 @@ Vue.mixin({
                 }
                 var d = new Date(Math.floor(date * 1));
                 d = d ? d : new Date();
+                console.log(date,day,split)
                 if (day) {
+                    console.log(day,'-----day')
                     if (day == -1) {
                         return (
                             this.twoLen(d.getMonth() + 1) +
@@ -55,6 +107,9 @@ Vue.mixin({
             } else {
                 return "";
             }
+        },
+        twoLen(val) {
+            return val < 10 ? "0" + val : val;
         },
         transactionTypeText (item){
             if(item.type == 'trustline'){

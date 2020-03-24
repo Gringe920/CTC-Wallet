@@ -5,38 +5,46 @@
             <div    :class="activeIdx == 0 ? 'divactive' : '' "  @click="changetype(0)">提币</div>
             <div   :class="activeIdx == 1 ? 'divactive' : '' "  @click="changetype(1)">充币</div>
         </div>
+          <load v-if="loading"></load>
         <!-- 提币 -->
-        <div class="zhuaninfo">
-            <load v-if="loadState"></load>
-            <div class="zhuan" v-for="item in depositHistory" :key="item.type" @click="todetails(item)">
+      
+            <Empty v-if="!loading &&depositHistory.length <=0"></Empty>
+        <div v-if="!loading && depositHistory.length>0" class="zhuaninfo">
+            <div class="zhuan"  v-if="activeIdx == 0" v-for="(item,key) in withdrawHistory" :key="item.type" @click="todetails(key)">
                 <div class="top">
-                    2019/09/01
+                   {{resolvingDate(item.time)}}
                 </div>
-                <template v-if="activeIdx == 0">
+                <template>
                     <div class="center">
                         <div>
                             提币:&nbsp;{{item.amount.$numberDecimal?item.amount.$numberDecimal:''}}&nbsp; {{item.symbol?item.symbol:''}}
                         </div>
                         <img src="../../assets/images/next_black@2x.png" alt srcset />
                     </div>
-                    <div class="last">01/03 &nbsp;23:20</div>
+                      <div class="last">{{resolvingHover(item.time)}}</div>
                 </template>
-                  <template v-if="activeIdx == 1">
+           
+            </div>
+            <div class="zhuan"  v-if="activeIdx == 1" v-for="(item,key) in depositHistory" :key="item.type" @click="todetails(key)">
+                <div class="top">
+                  {{resolvingDate(item.time)}}
+                </div>
+                  <template>
                     <div class="center">
                         <div>
                             充币:&nbsp;{{item.amount.$numberDecimal?item.amount.$numberDecimal:''}}&nbsp; {{item.symbol?item.symbol:''}}
                         </div>
                         <img src="../../assets/images/next_black@2x.png" alt srcset />
                     </div>
-                    <div class="last">01/03 &nbsp;23:20</div>
+                    <div class="last">{{resolvingHover(item.time)}}</div>
                 </template>
            
             </div>
         </div>
-        <!-- 充币 -->
     </section>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "acceptCoin",
   data() {
@@ -53,20 +61,48 @@ export default {
           type: "payment"
         }
       ],
+      loading: true,
       loadState: false,
       routerNum: 0,
       liststatus: false,
-      coin: "usdt",
-      depositHistory: {}
+      withdrawStatus: false,
+      coin: this.$route.query.coin || ""
     };
+  },
+  computed: {
+    ...mapState(["depositHistory", "withdrawHistory"])
   },
   watch: {},
   created() {
-    this.deposit_history();
+         this.$store.commit("withdrawHistory", {});
+         this.$store.commit("depositHistory", {});
+    this.deposit_history(); //充币记录
+    this.withdraw_history(); //提币记录
   },
   methods: {
+    withdraw_history() {
+      var self = this;
+      if (this.withdrawStatus) return;
+      self.withdrawStatus = true;
+      var symbol = this.coin;
+      this.axios({
+        url: "/service/withdraw_history",
+        params: {
+          symbol: symbol
+        }
+      })
+        .then(res => {
+          this.$store.commit("withdrawHistory", res.data.data || {});
+          self.withdrawStatus = false;
+          this.loading = false;
+        })
+        .catch(err => {
+          self.withdrawStatus = false;
+          this.$store.commit("withdrawHistory", {});
+          this.loading = false;
+        });
+    },
     deposit_history() {
-        console.log('-start')
       var self = this;
       if (this.liststatus) return;
       self.liststatus = true;
@@ -78,12 +114,14 @@ export default {
         }
       })
         .then(res => {
-          this.depositHistory = res.data.data || {};
+          this.$store.commit("depositHistory", res.data.data || {});
           self.liststatus = false;
+          this.loading = false;
         })
         .catch(err => {
           self.liststatus = false;
-          this.depositHistory = {};
+          this.$store.commit("depositHistory", {});
+          this.loading = false;
         });
     },
     leftEv() {
@@ -94,18 +132,19 @@ export default {
         return false;
       }
     },
-    todetails(item){
+    todetails(item) {
+        console.log(this.depositHistory)
       this.$router.push({
-          path: "/detais",
-          query: {
-            detials:item
-          }
-        });
+        path: "/detais",
+        query: {
+          type: this.activeIdx,
+          key: item
+        }
+      });
     },
     changetype(activeIdx) {
       if (activeIdx != this.activeIdx) {
-          this.activeIdx = activeIdx
-        console.log(activeIdx, this.activeIdx, "==================activeIdx");
+        this.activeIdx = activeIdx;
         this.$router.push({
           path: "/acceptCoin",
           query: {

@@ -191,6 +191,7 @@ export default {
         path: "/acceptCoin",
         query: {
           type: 0,
+             coin:this.coin,
         }
       });
     },

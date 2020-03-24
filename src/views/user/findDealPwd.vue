@@ -1,11 +1,10 @@
 <template>
-import { setTimeout } from 'timers';
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
     </div>
     <div class="container">
-      <div class="l-tit" >{{next?'设置新登陆密码':'忘记密码'}}</div>
+      <div class="l-tit" >{{next?'设置新登陆密码':'忘记交易密码'}}</div>
       <div class="l-info-box">
         <input v-show="!next" placeholder="请输入手机" type="text" v-model="account" class="account"/>
         <div class="line" v-show="!next"></div>
@@ -14,9 +13,9 @@ import { setTimeout } from 'timers';
           <span @click="getcode" :class="isTiktok ?'timechecked':''">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</span>
         </div>
         <div class="line"></div>
-              <input v-show="next" placeholder="请输入密码" type="Password"  v-model="Password"/>
+              <input v-show="next" placeholder="请输入新交易密码" type="Password"  v-model=" Password"/>
         <div class="line" v-show="next"></div>
-        <input v-show="next" placeholder="请再次输入密码" type="Password"  v-model="rePassword"/>
+        <input v-show="next" placeholder="请再次输入交易密码" type="Password"  v-model="rePassword"/>
         <div class="line" v-show="next"></div>
          <div  class="btn-login" @click="nextshow()" v-show="!next">
         <r-button text="下一步"/>
@@ -89,26 +88,22 @@ export default {
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
-      console.log(self.Password,'self.password')
       this.axios({
-        url: "/service/find_pwd",
+        url: "/service/find_deal_pwd",
         params: {
           phone: self.account,
-          pwd: self.Password,
+          pwd: Password,
           code: self.code,
           district: "+86"
         }
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("密码设置成功，去登陆");
-          setTimeout(function(){
- self.$router.push("login");
-          },1000)
+          this.$toast.show("设置成功");
         })
         .catch(err => {
-          self.submitstatus = false;F
-          this.$toast.show("设置失败");
+          self.submitstatus = false;
+               this.errorMsg(err.code)
         });
     },
     reply() {
@@ -131,11 +126,10 @@ export default {
         this.$toast.show("手机号格式错误");
         return;
       }
-      console.log('xm')
       if (this.codeStatus) return;
       this.codeStatus = true;
       this.axios({
-        url: "/service/findPwdVerify",
+        url: "/c2c/getVerifyCode",
         params: {
           phone: self.account,
           district: self.district
@@ -148,7 +142,7 @@ export default {
         })
         .catch(err => {
           self.codeStatus = false;
-          this.$toast.show("验证码发送失败,请稍后再试");
+               this.errorMsg(err.code)
         });
     },
     startCountdown() {

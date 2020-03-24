@@ -126,22 +126,18 @@ export default {
             this.$toast.show("银行卡修改成功!");
           }
 
-          (this.pwd = ""),
-            (this.code = ""),
-            (this.name = ""),
-            (this.register_bank = ""),
-            (this.second_bank = ""),
-            (this.card = "");
+          this.pwd = ""
+            this.code = ""
+            this.name = ""
+            this.register_bank = ""
+            this.second_bank = ""
+            this.card = ""
           this.getPayPath();
-             this.pwdshow = true;
+             this.pwdshow = false;
         })
         .catch(err => {
           self.submitstatus = false;
-          if (this.user.bankcard_state == 0) {
-            this.$toast.show("银行卡添加失败!");
-          } else {
-            this.$toast.show("银行卡修改失败!");
-          }
+              this.errorMsg(err.code)
              this.pwdshow = true;
         });
     }

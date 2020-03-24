@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-
 const User = () => import(/* webpackChunkName: "user" */ './views/user/index.vue');
+const findDealPwd= () => import(/* webpackChunkName: "user" */ './views/user/findDealPwd.vue');//找回交易密码
 const Info = () => import(/* webpackChunkName: "user" */ './views/user/info.vue');
 const Lang = () => import(/* webpackChunkName: "user" */ './views/user/lang.vue');
 const nickname = () => import(/* webpackChunkName: "user" */ './views/user/nickname.vue');
@@ -62,6 +62,11 @@ export default new Router({
         {
             path: '/',
             redirect: '/ctc'
+        },
+        {
+            path: '/findDealPwd',
+            name: 'findDealPwd',
+            component: findDealPwd
         },
         {
             path: '/detais',

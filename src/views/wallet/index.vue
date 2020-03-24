@@ -1,8 +1,8 @@
 <template>
     <section class="walletall">
-      <load v-if="loading"></load>
+      <load v-if="loading || loading2"></load>
         <Header :title="$t(`wallet.name`)" :rightEv='toacceptCoin' :leftShow='false' :rightIcon="require('../../assets/images/record_black@2x.png')" ></Header>
-        <div v-if="!loading" class="walletbanner">
+        <div v-if="!loading &&  !loading2" class="walletbanner">
             <div class="w-t">
                 <span>{{$t(`wallet.zichan`)}} </span>
                 <!-- <router-link class="gateway" to="/gateway">{{$t('Trust the gateway')}}</router-link> -->
@@ -11,7 +11,7 @@
                 <span>8900</span>&nbsp;CNY
             </div>
         </div>
-       <div  v-if="!loading" class="hiddenmoney">
+       <div  v-if="!loading &&  !loading2" class="hiddenmoney">
             <div class="h_l" @click="hiddenmoney">
                 <img src="../../assets/images/night_asset_unchecked@2x.png" alt="" srcset="" v-if="!hidden">
                 <img src="../../assets/images/asset_selection@2x.png" alt="" srcset="" v-else>
@@ -19,9 +19,9 @@
             </div>
         </div>
 
-         <div class="money"   v-if="!loading"  v-for="item in coin_list" :key="item">
+         <div class="money"   v-if="!loading &&  !loading2"  v-for="item in coin_list" :key="item">
             <div class="coin">{{item}}</div>
-            <div class="coin2">{{hidden ? '******':assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal'] :'000000'}} <span> ≈ {{hidden ? '******':currentPrices[item]*assets_detail.asset[item]['$numberDecimal']}} &nbsp;CNY<small></small></span> </div>
+            <div class="coin2">{{hidden ? '******':assets_detail.asset[item]['$numberDecimal']?parseFloat(assets_detail.asset[item]['$numberDecimal'] )+parseFloat(getFreezeAsset(assets_detail.freeze_asset[item])):'000000'}} <span> ≈ {{hidden ? '******':currentPrices[item]*assets_detail.asset[item]['$numberDecimal']}} &nbsp;CNY<small></small></span> </div>
             <div class="coin3">
                 <div class="c_l">可用：{{hidden ? '******': assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal'] :'000000'}}</div>
                 <div class="c_l">冻结：{{hidden ? '******': getFreezeAsset(assets_detail.freeze_asset[item])}}</div>
@@ -43,13 +43,15 @@ export default {
     return {
       searchmsg: "",
       loading: true,
+      loading2: true,
       serchnow: false,
       hidden: false,
       coins: [],
       submitstatus: false,
       detailstatus: false,
       current_priceStatus: false,
-      currentPrices: {}
+      currentPrices: {},
+      allAssets:'',
     };
   },
   computed: {
@@ -67,7 +69,6 @@ export default {
     }
   },
   mounted() {
-  
     this.getcoin_list();
     this.getassets_detail();
     this.current_price();
@@ -109,10 +110,12 @@ export default {
       })
         .then(res => {
           self.detailstatus = false;
+              this.loading2 = false;
           this.$store.commit("assets_detail", res.data || {});
         })
         .catch(err => {
           self.detailstatus = false;
+              this.loading2 = false;
           this.$store.commit("assets_detail", {});
           this.$toast.show({ msg: "币种信息获取失败，请重试" });
         });
@@ -151,7 +154,8 @@ export default {
       this.$router.push({
         path: "/acceptCoin",
         query: {
-          type: 0
+          type: 0,
+          coin:'',
         }
       });
     }

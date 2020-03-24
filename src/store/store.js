@@ -83,9 +83,17 @@ export default new Vuex.Store({
         Bankkinfo:{},
         UserChange:false,
         address:'',
+        depositHistory: [],//充币记录
+        withdrawHistory:[],//提币记录
 
     },
     mutations: {
+        depositHistory(state, val) {
+            state.depositHistory= val;
+        },
+        withdrawHistory(state, val) {
+            state.withdrawHistory= val;
+        },
         address(state, val) {
             state.address= val;
         },

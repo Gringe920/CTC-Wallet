@@ -63,7 +63,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show("登录失败，请重试");
+          this.errorMsg(err.code)
         });
     },
     getLoginInfo() {

@@ -11,11 +11,10 @@
       <div class="password">再确定密码</div>
       <input class="psw-input" v-model="reNewpwd" type="text" placeholder="再次确定交易密码" />
       <div class="divider"></div>
+     <div class="forget"  @click="$router.push({ path: '/findDealPwd'})">忘记交易密码？</div>
     </div>
-    <div class="error-msg" v-if="false">*原安全密码不正确</div>
     <div @click="submit">
     <r-button text="确定" width="90%" class="comfirm" />
-
     </div>
   </div>
 </template>
@@ -24,15 +23,15 @@
 export default {
   data() {
     return {
-       oldpwd: "",
+      oldpwd: "",
       newpwd: "",
-       reNewpwd: "",
+      reNewpwd: "",
       submitstatus: false
     };
   },
   methods: {
     submit() {
-         const { oldpwd, newpwd, reNewpwd } = this;
+      const { oldpwd, newpwd, reNewpwd } = this;
       if (this.isEmpty(oldpwd)) {
         this.$toast.show("原交易密码不能为空");
         return;
@@ -55,17 +54,20 @@ export default {
       this.axios({
         url: "/service/reset_deal_pwd",
         params: {
-           oldpwd: self.oldpwd,
-           newpwd:self.newpwd,
+          oldpwd: self.oldpwd,
+          newpwd: self.newpwd
         }
       })
         .then(res => {
           self.submitstatus = false;
+          this.oldpwd =''
+          this.newpwd =''
+          this.reNewpwd = ''
           this.$toast.show("修改交易密码成功");
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: "修改交易密码失败，请重试" });
+             this.errorMsg(err.code,'修改交易密码失败')
         });
     }
   }
@@ -75,7 +77,10 @@ export default {
 <style lang="scss" scoped>
 .content {
   margin: 70px 15px 0px;
-
+  .forget {
+    font-size: 14px;
+    color: #1771ed;
+  }
   .password {
     font-size: 12px;
     color: $active;

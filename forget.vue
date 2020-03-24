@@ -1,5 +1,4 @@
 <template>
-import { setTimeout } from 'timers';
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
@@ -36,7 +35,7 @@ export default {
   data() {
     return {
       isAllow: true,
-      account: "15111487619",
+      account: "",
       Password: "",
       rePassword: "",
       time: 60,
@@ -89,26 +88,23 @@ export default {
       var self = this;
       if (this.submitstatus) return;
       self.submitstatus = true;
-      console.log(self.Password,'self.password')
       this.axios({
         url: "/service/find_pwd",
         params: {
           phone: self.account,
-          pwd: self.Password,
+          pwd: self.password,
           code: self.code,
           district: "+86"
         }
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("密码设置成功，去登陆");
-          setTimeout(function(){
- self.$router.push("login");
-          },1000)
+          this.$toast.show("设置成功");
         })
         .catch(err => {
-          self.submitstatus = false;F
+          self.submitstatus = false;
           this.$toast.show("设置失败");
+          s;
         });
     },
     reply() {
@@ -135,7 +131,7 @@ export default {
       if (this.codeStatus) return;
       this.codeStatus = true;
       this.axios({
-        url: "/service/findPwdVerify",
+        url: "/service/register_verify",
         params: {
           phone: self.account,
           district: self.district

@@ -175,11 +175,13 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show("注册成功,去登陆");
-          this.$router.push("login");
+        setTimeout(function(){
+ self.$router.push("login");
+          },1000)
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show("注册失败,请稍后再试");
+              this.errorMsg(err.code)
         });
     },
     reply() {
