@@ -146,6 +146,8 @@ export default {
       this.next = !this.next;
     },
     submit() {
+        this.$toast.show("即将开放");
+        return;
       const { password, rePassword } = this;
       if (this.isEmpty(password)) {
         this.$toast.show("登陆密码不能为空");
