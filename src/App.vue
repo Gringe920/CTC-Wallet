@@ -99,7 +99,7 @@ export default {
           this.$store.commit("user", res.data);
           this.userState = true;
           this.removeLoad();
-          this.loginCheck();
+          // this.loginCheck();
          
         })
         .catch(err => {
@@ -107,7 +107,7 @@ export default {
           // this.$router.push("login");
           this.$store.commit("user", {});
           this.removeLoad();
-          this.loginCheck();
+          // this.loginCheck();
         });
     },
     loginCheck() {

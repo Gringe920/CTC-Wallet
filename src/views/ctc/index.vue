@@ -25,14 +25,14 @@
           出售
         </div>
       </div>
-      <span class="text_r" @click="toRoute('publish')">发布</span>
+      <span class="text_r" @click="publish">发布</span>
     </div>
     <div class="buyall" v-if="buyType == 'buy'">
       <div
         class="buymsg"
         v-for="item in PendList"
         :key="item._id"
-        v-if="item.uid !== user.basicInfo.uid"
+        v-if="user.basicInfo ? item.uid !== user.basicInfo.uid : item.type === 2"
       >
         <div class="top">
           <div class="left">
@@ -75,7 +75,7 @@
             <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
             <div>限额 {{ item.minmum }}-{{ item.maxmum }} {{ coin.toUpperCase() }}</div>
           </div>
-          <div @click="changebuySellShow(item)" class="right" :class="item.uid === user.basicInfo.uid ? 'disabled': ''">
+          <div @click="changebuySellShow(item)" class="right" :class="(user.basicInfo &&item.uid === user.basicInfo.uid) ? 'disabled': ''">
             购买
           </div>
         </div>
@@ -86,7 +86,7 @@
         class="buymsg"
         v-for="item in PendList"
         :key="item._id"
-        v-if="item.uid === user.basicInfo.uid"
+        v-if="user.basicInfo ? item.uid === user.basicInfo.uid : item.type === 1"
       >
         <div class="top">
           <div class="left">
@@ -129,7 +129,7 @@
             <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
             <div>限额 {{ item.minmum }}-{{ item.maxmum }} CNY</div>
           </div>
-          <div @click="changebuySellShow(item)" class="right" :class="item.uid === user.basicInfo.uid ? 'disabled': ''">
+          <div @click="changebuySellShow(item)" class="right" :class="(user.basicInfo && item.uid === user.basicInfo.uid) ? 'disabled': ''">
             出售
           </div>
         </div>
@@ -180,7 +180,13 @@ export default {
     // this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
   },
   methods: {
-
+    publish(){
+      if(!this.user.basicInfo){
+        this.$router.push({path: '/login'});
+        return;
+      }
+      this.$router.push({path: '/publish'});
+    },
     order(uid,pend_id) {
       var self = this;
       if (this.orderStatus) return;
@@ -256,6 +262,10 @@ export default {
         });
     },
     changebuySellShow(item) {
+      if(!this.user.basicInfo){
+        this.$router.push({path: '/login'});
+        return;
+      }
       if(this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state === 0) {
         this.isShowModal = true;
         return;
