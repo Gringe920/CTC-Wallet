@@ -242,25 +242,6 @@ export default {
           });
         });
     },
-    initData() {
-      let self = this;
-      this.axios({
-        url: "/service/login",
-        params: {
-          phone: "15111487619",
-          mail: "xiemei1996@163.com",
-          pwd: "123456",
-          district: "+86"
-        }
-      })
-        .then(res => {
-
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
     changebuySellShow(item) {
       if(!this.user.basicInfo){
         this.$router.push({path: '/login'});

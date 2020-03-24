@@ -124,7 +124,7 @@ export default {
           self.detailstatus = false;
               this.loading2 = false;
           this.$store.commit("assets_detail", {});
-          this.$toast.show({ msg: "币种信息获取失败，请重试" });
+          this.$toast.show( "币种信息获取失败，请重试");
         });
     },
     getcoin_list() {

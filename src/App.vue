@@ -96,7 +96,7 @@ export default {
         .catch(err => {
           self.submitstatus = false;
           this.$store.commit("coin_list", {});
-          this.$toast.show({ msg: err.message || "币种信息获取失败，请重试" });
+          this.$toast.show(err.message || "币种信息获取失败，请重试");
         });
     },
     getUser() {
