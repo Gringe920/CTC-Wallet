@@ -229,9 +229,7 @@ export default {
           this.updatePosition();
         }
       }).catch(err => {
-        this.$toast.show({
-            msg: err.message || "操作失败"
-          });
+        this.$toast.show(err.message || "操作失败");
       })
     }
   },

@@ -67,7 +67,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: "重置密码密码失败，请稍后再试！" });
+          this.$toast.show("重置密码密码失败，请稍后再试！");
         });
     }
   }

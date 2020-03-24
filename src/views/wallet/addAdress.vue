@@ -127,7 +127,7 @@ export default {
         .catch(err => {
           self.liststatus = false;
             this.pwdshow = false;
-          this.$toast.show({ msg: err.message || "v添加提币地址失败，请重试" });
+          this.$toast.show(err.message || "添加提币地址失败，请重试");
         });
     },
     toclose() {

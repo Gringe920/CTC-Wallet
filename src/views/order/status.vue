@@ -221,9 +221,7 @@ export default {
       }).then(res => {
         //TODO refresh order_detail
       }).catch(err => {
-        this.$toast.show({
-            msg: err.message || "操作失败"
-          });
+        this.$toast.show(err.message || "操作失败");
       })
     }
   },

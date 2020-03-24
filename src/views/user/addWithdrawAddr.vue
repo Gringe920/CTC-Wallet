@@ -60,7 +60,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || "设置交易密码失败，请重试" });
+          this.$toast.show(err.message || "设置交易密码失败，请重试");
         });
     }
   }

@@ -206,9 +206,7 @@ export default {
         })
         .catch(err => {
           self.orderStatus = false;
-          this.$toast.show({
-            msg: err.message || "下单失败，请重试"
-          });
+          this.$toast.show(err.message || "下单失败，请重试");
         });
     },
     selectCoin(coin) {
@@ -237,9 +235,7 @@ export default {
         .catch(err => {
           self.submitStatus = false;
           this.$store.commit("UserPendList", {});
-          this.$toast.show({
-            msg: err.message || "挂单列表获取失败，请重试"
-          });
+          this.$toast.show(err.message || "挂单列表获取失败，请重试");
         });
     },
     changebuySellShow(item) {

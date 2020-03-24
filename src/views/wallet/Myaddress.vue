@@ -48,7 +48,7 @@ export default {
         })
         .catch(err => {
           self.delAddresStatus = false;
-          this.$toast.show({ msg: err.message || "删除地址失败，请重试" });
+          this.$toast.show(err.message || "删除地址失败，请重试");
         });
     },
     withdrawlist() {

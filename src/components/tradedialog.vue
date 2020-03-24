@@ -53,9 +53,7 @@ export default {
           this.$toast.show("获取验证码成功!");
         })
         .catch(err => {
-          this.$toast.show({
-            msg: err.message || "获取验证码失败，请重试"
-          });
+          this.$toast.show(err.message || "获取验证码失败，请重试");
         });
     },
     startCountdown() {

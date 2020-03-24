@@ -137,9 +137,7 @@ export default {
           }
         })
         .catch(err => {
-          this.$toast.show({
-            msg: err.message || "请重试"
-          });
+          this.$toast.show(err.message || "请重试");
         });
     },
     pend_cancel(id) {
@@ -159,9 +157,7 @@ export default {
         })
         .catch(err => {
           self.pend_cancelstatus = false;
-          this.$toast.show({
-            msg: err.message || "取消挂单失败，请重试"
-          });
+          this.$toast.show(err.message || "取消挂单失败，请重试");
         });
     },
     getUserPendList() {
@@ -180,9 +176,7 @@ export default {
         .catch(err => {
           self.submitStatus = false;
           this.$store.commit("UserPendList", {});
-          this.$toast.show({
-            msg: err.message || "挂单列表获取失败，请重试"
-          }); 
+          this.$toast.show(err.message || "挂单列表获取失败，请重试"); 
         });
     },
     changeNavIndex(idx) {

@@ -71,7 +71,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-            this.$toast.show({ msg:  "登出出失败，请重试" });
+            this.$toast.show("登出出失败，请重试");
         });
     }
   }

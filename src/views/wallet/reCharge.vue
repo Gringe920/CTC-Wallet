@@ -40,7 +40,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || "获取充币地址失败，请重试" });
+          this.$toast.show(err.message || "获取充币地址失败，请重试");
         });
     },
     toacceptCoin() {

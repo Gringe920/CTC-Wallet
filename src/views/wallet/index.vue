@@ -103,7 +103,7 @@ export default {
         })
         .catch(err => {
           self.current_priceStatus = false;
-          this.$toast.show({ msg: "信息获取失败，请重试" });
+          this.$toast.show("信息获取失败，请重试");
         });
     },
 
