@@ -8,7 +8,7 @@
                 <!-- <router-link class="gateway" to="/gateway">{{$t('Trust the gateway')}}</router-link> -->
             </div>
             <div class="w-t2">
-                <span>8900</span>&nbsp;CNY
+                <span>{{total.toFixed(2)}}</span>&nbsp;CNY
             </div>
         </div>
        <div  v-if="!loading &&  !loading2" class="hiddenmoney">
@@ -52,6 +52,7 @@ export default {
       current_priceStatus: false,
       currentPrices: {},
       allAssets:'',
+      total: 0
     };
   },
   computed: {
@@ -59,8 +60,6 @@ export default {
   },
   watch: {
     searchmsg() {
-      console.log(this.searchmsg);
-      console.log(new RegExp(this.searchmsg).test("xxm"));
       if (this.searchmsg != "") {
         this.serchnow = true;
       } else {
@@ -74,6 +73,13 @@ export default {
     this.current_price();
   },
   methods: {
+    getTotalAsset(){
+      let total = 0;
+      this.coin_list.map(item => {
+        total += parseFloat(this.currentPrices[item] * this.assets_detail.asset[item]['$numberDecimal'])
+      })
+      this.total = total;
+    },
     getFreezeAsset(assets){
       let freezeAsset = 0;
       if(assets){
@@ -92,6 +98,7 @@ export default {
       })
         .then(res => {
           this.currentPrices = res.data || {};
+          this.getTotalAsset()
           self.current_priceStatus = false;
         })
         .catch(err => {
