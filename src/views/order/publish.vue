@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div class="header">
+    <div class="header"> 
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
-      发布订单
+      {{$t('publish.title')}}
       <span @click="coinlistVisible = !coinlistVisible"> {{symbol}}
       <i ></i></span>
     </div>
@@ -11,57 +11,57 @@
               @onItemSelect="onCoinSelect" />
     <div class="content">
       <div class="tag">
-        <div class="tagli" @click="handleActive(1)" :class="{'active': activeIndex == 1}">购买</div>
-        <div class="tagli" @click="handleActive(2)" :class="{'active': activeIndex == 2}">出售</div>
+        <div class="tagli" @click="handleActive(1)" :class="{'active': activeIndex == 1}">{{$t('ctc.buy')}}</div>
+        <div class="tagli" @click="handleActive(2)" :class="{'active': activeIndex == 2}">{{$t('ctc.sell')}}</div>
       </div>
       <div class="line"></div>
       <div class="buy-box" >
         <div class="p-content bor-bottom">
           <div class="p-row tips">
-            <span>余额：{{user.basicInfo.asset[symbol] ? user.basicInfo.asset[symbol].$numberDecimal : 0}} {{symbol.toUpperCase()}}</span>
-            <span>参考价：¥6.79</span>
+            <span>{{$t('ctc.assets')}}：{{user.basicInfo.asset[symbol] ? user.basicInfo.asset[symbol].$numberDecimal : 0}} {{symbol.toUpperCase()}}</span>
+            <span>{{$t('publish.currPrice')}}：¥{{currentPrices[symbol]}}</span>
           </div>
           <div class="line"></div>
           <div class="p-row">
-            <span class="tit">价格</span>
+            <span class="tit">{{$t('publish.inpPrice')}}</span>
             <div class="inp">
-              <input type="number" :placeholder="`${activeIndex == 2 ?'卖出': '买入'}价格，不低于0.995，不高于1`" v-model="price" />
+              <input type="number" :placeholder="`${activeIndex == 2 ? $t('ctc.selling'): $t('ctc.buying')}${$t('publish.placeholder1')}`" v-model="price" />
               <span>CNY</span>
             </div>
           </div>
           <div class="line"></div>
           <div class="p-row">
-            <span class="tit">数量</span>
+            <span class="tit">{{$t('publish.amount')}}</span>
             <div class="inp">
-              <input type="number" :placeholder="`${activeIndex == 2 ?'卖出': '买入'}数量，不低于20000`" v-model="amount" />
+              <input type="number" :placeholder="`${activeIndex == 2 ?$t('ctc.selling'): $t('ctc.buying')}${$t('publish.placeholder2')}`" v-model="amount" />
               <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>
         </div>
         <div class="p-content">
           <div class="p-row tips">
-            <span>交易限额</span>
+            <span>{{$t('publish.traPrice')}}</span>
           </div>
           <div class="line"></div>
           <div class="p-row">
-            <span class="tit">最高成交量</span>
+            <span class="tit">{{$t('publish.highDeals')}}</span>
             <div class="inp">
-              <input type="number" placeholder="请输入数量" v-model="maxnum" />
+              <input type="number" :placeholder="$t('publish.placeholder3')" v-model="maxnum" />
               <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>
           <div class="line"></div>
           <div class="p-row">
-            <span class="tit">最低成交量</span>
+            <span class="tit">{{$t('publish.lowDeals')}}</span>
             <div class="inp">
-              <input placeholder="请输入数量" v-model="minnum" />
+              <input :placeholder="$t('publish.placeholder3')" v-model="minnum" />
               <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>
          
           
           <div class="line"></div>
-          <div class="in-tips">交易总额：0.00 CNY</div>
+          <div class="in-tips">{{$t('publish.total')}}：0.00 CNY</div>
         </div>
       </div>
       <tradedialog
@@ -69,7 +69,7 @@
         @onClose="changebuySellShow"
         @onConfirm="submit"
       />
-      <r-button text="发布" width="90%" class="btn-submit" :tocomfirm='commitButton' />
+      <r-button :text="$t('ctc.publish')" width="90%" class="btn-submit" :tocomfirm='commitButton' />
     </div>
   </section>
 </template>
@@ -94,10 +94,13 @@ export default {
       maxnum: null, // 支持的最大交易数量
       VerifyCodeStatus:false,
       coinlistVisible: false,
+      currentPrices: {}
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.getCurrentprice()
+  },
   components: {
     coinlist,
     tradedialog
@@ -106,31 +109,43 @@ export default {
     ...mapState(["user", "coin_list", "assets_detail"])
   },
   methods: {
+    getCurrentprice() {
+      this.axios({
+        url: "/service/current_price",
+        params: {}
+      })
+        .then(res => {
+          this.currentPrices = res.data || {};
+        })
+        .catch(err => {
+          this.$toast.show(this.$t('publish.toast0'));
+        });
+    },
     handleActive(idx){
       this.amount = this.price = this.minnum = this.maxnum = null;
       this.activeIndex = idx;
     },
     commitButton(){
       const {amount, price, minnum, maxnum, activeIndex } = this;
-      const toTxt = activeIndex == 2 ? '出售': '购买';
+      const toTxt = activeIndex == 2 ? this.$t('publish.sell'): this.$t('publish.buy');
       if(!price){
-        this.$toast.show(`请输入${toTxt}价格`);
+        this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.inpPrice')}`);
         return;
       }
       if(!amount){
-        this.$toast.show(`请输入${toTxt}数量`);
+        this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.amount')}`);
         return;
       }
       if(!maxnum){
-        this.$toast.show(`请输入${toTxt}最高成交额`);
+        this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.highDeals')}`);
         return;
       }
       if(!minnum){
-        this.$toast.show(`请输入${toTxt}最低成交额`);
+        this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.lowDeals')}`);
         return;
       }
       if(minnum > maxnum){
-        this.$toast.show(`最低成交额不可大于最高成交额`);
+        this.$toast.show(this.$t('publish.toast2'));
         return;
       }
       this.VerifyCodeStatus = true;
@@ -165,12 +180,12 @@ export default {
       })
         .then(res => {
           this.submitStatus = false;
-          this.$toast.show("挂单成功!");
+          this.$toast.show(this.$t('publish.toast3'));
           this.$router.go(-1);
         })
         .catch(err => {
           this.submitStatus = false;
-          this.$toast.show( err.message || "挂单失败，请重试" );
+          this.$toast.show( err.message || this.$t('publish.toast4') );
         });
     },
     reply() {
