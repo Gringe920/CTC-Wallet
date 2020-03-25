@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Header :title="`购买${order_detail.symbol.toUpperCase()}`" />
+    <Header :title="`${$t('result.buy')}${order_detail.symbol.toUpperCase()}`" />
     <div class="container">
       <div class="order-progress">
         <div class="order-status">
@@ -24,15 +24,15 @@
           </div>
         </div>
         <div class="order-status-text">
-          <div class="sta-txx">下单</div>
-          <div class="sta-txx">{{pendingPay}}</div>
-          <div class="sta-txx">{{verifyPay}}</div>
-          <div class="sta-txx">放币</div>
+          <div class="sta-txx">{{$t('result.status0')}}</div>
+          <div class="sta-txx">{{$t('result.status1')}}</div>
+          <div class="sta-txx">{{$t('result.status2')}}</div>
+          <div class="sta-txx">{{$t('result.status3')}}</div>
         </div>
       </div>
       <div class="order-result" v-if="order_detail.status == 0">
-        <p class="status-text">待付款 金额 {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
-        <p class="reason">请在<span class="blue">{{remained}}</span>内汇款给商家</p>
+        <p class="status-text">{{$t('result.status4')}}{{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
+        <p class="reason">{{$t('result.status5')}}<span class="blue">{{remained}}</span>{{$t('result.status6')}}</p>
       </div>
       <!-- <div class="order-result" v-if="order_detail.status == 0">
         <p class="status-text">待对方付款金额 6890 CNY</p>
@@ -41,26 +41,26 @@
       </div> -->
       <div class="order-detail">
         <div class="d-row">
-          <span>订单号</span>
+          <span>{{$t('result.orderId')}}</span>
           <span class="d-v">
             {{order_detail._id}}
             <i class="ic copy"></i>
           </span>
         </div>
         <div class="d-row">
-          <span>商家</span>
+          <span>{{$t('result.seller')}}</span>
           <span class="d-v">{{order_detail.seller_name || order_detail.seller}}</span>
         </div>
         <div class="d-row">
-          <span>数量</span>
+          <span>{{$t('result.amount')}}</span>
           <span class="d-v">{{order_detail.amount.$numberDecimal}}</span>
         </div>
         <div class="d-row">
-          <span>价格</span>
+          <span>{{$t('result.price')}}</span>
           <span class="d-v">{{order_detail.price}} CNY</span>
         </div>
         <div class="d-row">
-          <span>备注码(付款时填写备注码）</span>
+          <span>{{$t('result.code')}}</span>
           <span class="d-v">
             {{order_detail.code}}
             <i class="copy"></i>
@@ -68,36 +68,36 @@
         </div>
       </div>
       <div class="order-detail">
-        <div class="d-tit">支付方式</div>
+        <div class="d-tit">{{$t('result.payway')}}</div>
         <div class="d-row" @click="selectPayway">
           <span><i :class="`type-${payItem.paytype}`"></i>{{payItem.name}}</span>
           <span class="d-v">
-            切换支付方式
+            {{$t('result.changePayway')}}
             <i class="ic ic-right"></i>
           </span>
         </div>
         <div class="line" style="margin-bottom: 15px"></div>
         <div class="d-row">
-          <span>收款人</span>
+          <span>{{$t('result.name')}}</span>
           <span class="d-v">{{payInfo.name || order_detail.seller}}
               <i class="ic copy"></i>
           </span>
         </div>
         <div class="d-row">
-          <span>账号</span>
+          <span>{{$t('result.account')}}</span>
           <span class="d-v">
               {{payInfo.account || payInfo.card}}
               <i class="ic copy"></i>
             </span>
         </div>
         <div class="d-row" v-if="!payInfo.card">
-          <span>收款二维码</span>
+          <span>{{$t('result.qrcode')}}</span>
           <span class="d-v" @click="showQrcode = true">
             <i class="ic ic-qrcode"></i>
           </span>
         </div>
         <div class="d-row">
-          <span>备注码(付款时填写备注码）</span>
+          <span>{{$t('result.code')}}</span>
           <span class="d-v">
             {{order_detail.code}}
             <i class="ic copy"></i>
@@ -105,11 +105,11 @@
         </div>
       </div>
       <div class="attention">
-        1、您的汇款将直接进入卖方账户，交易过程中卖方出售的数字资产由平台托管保护；
-        <br />2、转账时“转账备注/附言”必需填写转账备注；
-        <br />3、“支付完成后”请务必点击【我已付款】，避免超时订单自动取消造成您的财产损失；
-        <br />4、如订单金额较大时，建议分开多次转账（每笔不超过5万）以保证资金能及时到账；
-        <br />5、如果买卖双方当日取消订单3次，将会被限制当日买入卖出功能。
+        {{$t('result.attention1')}}
+        <br /> {{$t('result.attention2')}}
+        <br /> {{$t('result.attention3')}}
+        <br /> {{$t('result.attention4')}}
+        <br /> {{$t('result.attention5')}}
         <br />
       </div>
       <div class="r-bottom">
@@ -117,44 +117,44 @@
           <p>
             <img src="../../assets/images/details_iphone@2x.png" />
           </p>
-          <p>联系对方</p>
+          <p>{{$t('result.concact')}}</p>
         </div>
         <div class="bottom-btn" @click="cancelDialogShow = true" v-if="order_detail.status === 0">
           <p>
             <img src= "../../assets/images/details_order_cancel@2x.png"
             />
           </p>
-          <p>取消订单</p>
+          <p>{{$t('result.cancelOrder')}}</p>
         </div>
         <div class="bottom-btn" @click="complainDialogShow = true" v-if="order_detail.status === 3">
           <p>
             <img src= "../../assets/images/details_order_cancel@2x.png"
             />
           </p>
-          <p>申诉</p>
+          <p>{{$t('result.complain')}}</p>
         </div>
         <div class="confirm-btn" v-if="order_detail.status != 1" :class="order_detail.status === 3 ? 'disable': ''" @click="openComfirm" >
-          <p>我已付款</p>
+          <p>{{$t('result.confirm')}}</p>
         </div>
       </div>
       <Dialog
-        title="确定付款"
+        :title="$t('result.dialogT1')"
         :show="payDialogShow"
         @on-cancel="payDialogShow = false"
         @on-ok="confirm">
-         <p class="pay-dialog-slot">{{ isSeller() ? '请务必登录网上银行或者第三方支付账号确定收到该笔款项' : '请确认您已向对方付款，恶意点击将直接冻结账户'}}</p>
+         <p class="pay-dialog-slot">{{$t('result.content1')}}</p>
       </Dialog>
-      <Dialog title="确定拨号" :show="callDialogShow" @on-cancel="callDialogShow = false" @on-ok="callPhone">
+      <Dialog :title="$t('result.dialogT2')" :show="callDialogShow" @on-cancel="callDialogShow = false" @on-ok="callPhone">
         <p class="call-dialog-slot">{{phoneNumber}}</p>
       </Dialog>
-      <Dialog title="申诉" :show="complainDialogShow" @on-cancel="complainDialogShow = false" @on-ok="appeal">
+      <Dialog :title="$t('result.dialogT3')" :show="complainDialogShow" @on-cancel="complainDialogShow = false" @on-ok="appeal">
         <div class="complain-dialog-slot" >
-          <textarea placeholder="请填写申诉内容" v-model="complainContent" />
+          <textarea :placeholder="$t('result.placeholder')" v-model="complainContent" />
           <span> {{ complainContent.length }} / 300 </span>
         </div>
       </Dialog>
-      <Dialog title="取消订单" :show="cancelDialogShow" @on-cancel="cancelDialogShow = false" @on-ok="cancelOrder">
-        <p class="cancel-dialog-slot">如果您已经向对方付款，请千万不要取消订单，取消规则：当日取消累计3笔订单，将会限制24小时内买入卖出功能。</p>
+      <Dialog :title="$t('result.dialogT4')" :show="cancelDialogShow" @on-cancel="cancelDialogShow = false" @on-ok="cancelOrder">
+        <p class="cancel-dialog-slot">{{$t('result.content4')}}</p>
       </Dialog>
       <!-- paywayDialog -->
       <div class="payway-dialog" v-if="paywayDiaglog">
@@ -162,7 +162,7 @@
         <div class="content">
           <div class="c-row" v-for="(item) in payList" :key="item.paytype" @click="selectPaytype(item)">{{item.name}}</div>
           <div class="btn-cancal" @click="paywayDiaglog = false">
-            取消
+            {{$t('result.cancel')}}
           </div>
         </div>
       </div>
@@ -190,8 +190,6 @@ const POSITION_MAP = {
 export default {
   data() {
     return {
-      pendingPay: "给对方付款",
-      verifyPay: "对方确定",
       sellerName: "",
       position: 0,
       payDialogShow: false,
@@ -238,7 +236,7 @@ export default {
             }
         })
         .catch(err =>
-          this.$toast.show(err.message || "获取")
+          this.$toast.show(err.message || this.$t('order.toast0'))
         );
     },
     selectPaytype(item){
@@ -249,19 +247,19 @@ export default {
     updatePayway(){
       if(this.user.wechat_state === 1){
         this.payList.push({
-          name: '微信',
+          name: this.$t('order.wechat'),
           paytype: 2
         })
       }
       if(this.user.bankcard_state === 1){
         this.payList.push({
-          name: '银行卡',
+          name: this.$t('order.bank'),
           paytype:1
         })
       }
       if(this.user.alipay_state === 1){
         this.payList.push({
-          name: '支付宝',
+          name: this.$t('order.alipay'),
           paytype:3
         })
       }
@@ -297,14 +295,14 @@ export default {
         })
         .then(res => {
             if(res.error_code === 0){
-                this.$toast.show("取消订单成功")
+                this.$toast.show(this.$t('order.toast1'))
                 this.cancelDialogShow = false;
                 this.$store.commit('order_detail', res.data);
                 this.$router.replace({path: '/status'})
             }
         })
         .catch(err =>
-          this.$toast.show(err.message || "获取用户支付信息失败")
+          this.$toast.show(err.message || this.$t('order.toast2'))
         );
       },
       openComfirm(){
@@ -328,7 +326,7 @@ export default {
             }
         })
         .catch(err =>
-          this.$toast.show(err.message || "获取用户支付信息失败")
+          this.$toast.show(err.message || this.$t('order.toast3'))
         );
       },
       
@@ -341,11 +339,11 @@ export default {
             }
         })
         .then(res => {
-            if(res.error_code  == 0) this.$toast.show("申诉成功")
+            if(res.error_code  == 0) this.$toast.show(this.$t('order.toast4'))
           this.complainDialogShow = false;
         })
         .catch(err =>
-          this.$toast.show(err.message || "申诉失败")
+          this.$toast.show(err.message || this.$t('order.toast5'))
         );
     },
     isSeller() {
@@ -392,7 +390,7 @@ export default {
         this.$store.commit('order_detail', res.data);
         this.updatePosition();
       }).catch(err => {
-        this.$toast.show( err.message || "操作失败");
+        this.$toast.show( err.message ||this.$t('order.toast6'));
       })
     }
   },
