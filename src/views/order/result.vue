@@ -195,7 +195,7 @@ export default {
       } else if (this.position < 1) {
         return 'details_2_unchecked@2x.png';
       } else {
-        return 'details_2_select  ed@2x.png';
+        return 'details_2_selected@2x.png';
       }
     },
     getPosition2Img() {
