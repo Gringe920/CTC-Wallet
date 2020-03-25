@@ -2,16 +2,16 @@
   <section>
     <load v-if="loading"></load>
     <div class="header">
-      <span>订单</span>
-      <span class="publish" @click="toRoute('publish')">发布</span>
+      <span>{{$t('order.title')}}</span>
+      <span class="publish" @click="toRoute('publish')">{{$t('ctc.publish')}}</span>
     </div>
     <div class="nav-tag">
       <ul class="nav-li">
-        <li :class="{'active': navIndex == -1}" @click="changeNavIndex(-1)">我发布的</li>
-        <li :class="{'active': navIndex == 0}" @click="changeNavIndex(0)">未完成</li>
-        <li :class="{'active': navIndex == 1}" @click="changeNavIndex(1)">已完成</li>
-        <li :class="{'active': navIndex == 2}" @click="changeNavIndex(2)">已取消</li>
-        <li :class="{'active': navIndex == 4}" @click="changeNavIndex(4)">已申诉</li>
+        <li :class="{'active': navIndex == -1}" @click="changeNavIndex(-1)">{{$t('order.nav0')}}</li>
+        <li :class="{'active': navIndex == 0}" @click="changeNavIndex(0)">{{$t('order.nav1')}}</li>
+        <li :class="{'active': navIndex == 1}" @click="changeNavIndex(1)">{{$t('order.nav2')}}</li>
+        <li :class="{'active': navIndex == 2}" @click="changeNavIndex(2)">{{$t('order.nav3')}}</li>
+        <li :class="{'active': navIndex == 4}" @click="changeNavIndex(4)">{{$t('order.nav4')}}</li>
       </ul>
     </div>
     <div class="order-listbox" v-if="(UserPendList.length > 0 || orderList.length > 0)">
@@ -20,24 +20,24 @@
         <div class="box published">
           <div class="box-h">
             <div class="coin">
-              <span class="icon" :class="item.type==1?'sell':''" >{{item.type == 1?'卖':'买'}}</span>
+              <span class="icon" :class="item.type==1?'sell':''" >{{item.type == 1?$t('order.sell'):$t('order.buy')}}</span>
               <span>{{item.symbol.toUpperCase()}}</span>
             </div>
-            <div class="kill-order" @click="pend_cancel(item._id)">撤单</div>
+            <div class="kill-order" @click="pend_cancel(item._id)">{{$t('order.cancel')}}</div>
           </div>
           <div class="line"></div>
           <div class="box-c">
             <div class="c-item">
-              <p class="i-t">委托价格</p>
+              <p class="i-t">{{$t('order.price')}}</p>
               <p>{{item.price}} CNY</p>
             </div>
             <div class="c-item">
-              <p class="i-t">委托数量</p>
+              <p class="i-t">{{$t('order.amount')}}</p>
               <p>{{item.amount && item.amount.$numberDecimal}}</p>
             </div>
             <div class="c-item">
-              <p class="i-t">已成交数量</p>
-              <p>0.000000</p>
+              <p class="i-t">{{$t('order.deals')}}</p>
+              <p>{{item.deals}}</p>
             </div>
           </div>
         </div>
@@ -47,29 +47,29 @@
         <div class="box unfinish" v-for="(item, index) in orderList" :key="index" @click="goResult(item)">
           <div class="box-h">
             <div class="coin">
-              <span class="icon" :class="item.buyer === user.basicInfo.uid ?'':'sell'" >{{item.buyer === user.basicInfo.uid ?'买':'卖'}}</span>
+              <span class="icon" :class="item.buyer === user.basicInfo.uid ?'':'sell'" >{{item.buyer === user.basicInfo.uid ?$t('order.sell'):$t('order.buy')}}</span>
               <span>{{item.symbol.toUpperCase()}}</span>
             </div>
-            <div class="h-tips" v-if="item.status == 0">待{{item.buyer === user.basicInfo.uid ? '' : '对方'}}打款</div>
-            <div class="h-tips" v-if="item.status == 1">已完成</div>
-            <div class="h-tips" v-if="item.status == 2">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}已取消</div>
-            <div class="h-tips" v-if="item.status == 4">{{item.buyer === user.basicInfo.uid ? '' : '对方'}}申诉中</div>
-            <div class="h-tips" v-if="item.status == 3">{{item.buyer === user.basicInfo.uid ? '已打款，待确定' : '对方已打款'}}</div>
+            <div class="h-tips" v-if="item.status == 0">{{$t('order.wait')}}{{item.buyer === user.basicInfo.uid ? '' : $t('order.other')}}{{$t('order.giveM')}}</div>
+            <div class="h-tips" v-if="item.status == 1">{{$t('order.nav2')}}</div>
+            <div class="h-tips" v-if="item.status == 2">{{item.buyer === user.basicInfo.uid ? '' :  $t('order.other')}}{{$t('order.nav3')}}</div>
+            <div class="h-tips" v-if="item.status == 4">{{item.buyer === user.basicInfo.uid ? '' :  $t('order.other')}}{{$t('order.status0')}}</div>
+            <div class="h-tips" v-if="item.status == 3">{{item.buyer === user.basicInfo.uid ?  $t('order.status1') : $t('order.status2')}}</div>
 
           </div>
           <div class="line"></div>
           <div class="box-c-h">
             <div class="c-row order-money">
-              交易金额：{{item.amount && item.amount.$numberDecimal * item.price || 0}} CNY
+              {{$t('order.tradePrice')}}：{{item.amount && item.amount.$numberDecimal * item.price || 0}} CNY
             </div>
             <div class="c-row">
-              商家信息：{{item.seller_name || item.seller}}
+              {{$t('order.seller')}}：{{item.seller_name || item.seller}}
             </div>
             <div class="c-row">
-              转账备注：{{item.code}}
+             {{$t('order.code')}}：{{item.code}}
             </div>
             <div class="c-row">
-              创建时间：{{item.time}}
+              {{$t('order.time')}}：{{item.time}}
             </div>
           </div>
         </div>
@@ -135,7 +135,7 @@ export default {
         })
         .catch(err => {
           this.isShowEmpty = true;
-          this.$toast.show(err.message || "请重试");
+          this.$toast.show(err.message || this.$t('order.toast0'));
           this.loading = false
         });
     },
@@ -151,12 +151,12 @@ export default {
       })
         .then(res => {
           self.pend_cancelstatus = false;
-          this.$toast.show("取消挂单成功!");
+          this.$toast.show(this.$t('order.toast1'));
           this.getUserPendList();
         })
         .catch(err => {
           self.pend_cancelstatus = false;
-          this.$toast.show(err.message || "取消挂单失败，请重试");
+          this.$toast.show(err.message || this.$t('order.toast2'));
         });
     },
     getUserPendList() {
@@ -177,7 +177,7 @@ export default {
         .catch(err => {
           self.submitStatus = false;
           this.$store.commit("UserPendList", {});
-          this.$toast.show(err.message || "挂单列表获取失败，请重试");
+          this.$toast.show(err.message || this.$t('order.toast3'));
           this.loading = false;
         });
     },

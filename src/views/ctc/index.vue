@@ -16,17 +16,17 @@
           :class="buyType == 'buy' ? 'tradeactive' : ''"
           @click="goBuyType('buy')"
         >
-          购买
+        {{$t("ctc.buy")}}
         </div>
         <div
           class="sell"
           :class="buyType == 'sell' ? 'tradeactive' : ''"
           @click="goBuyType('sell')"
         >
-          出售
+          {{$t("ctc.sell")}}
         </div>
       </div>
-      <span class="text_r" @click="publish">发布</span>
+      <span class="text_r" @click="publish"> {{$t("ctc.publish")}}</span>
     </div>
       <div class="buyall" v-if="buyType == 'buy'">
       <div
@@ -45,7 +45,7 @@
             <span>{{ item.nickname }}</span>
           </div>
           <div class="right" v-if="item.deals">
-            月销售量：{{item.deals}}
+            {{$t("ctc.deal")}}：{{item.deals}}
           </div>
         </div>
         <div class="center">
@@ -73,11 +73,11 @@
         </div>
         <div class="last">
           <div class="left">
-            <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
-            <div>限额 {{ item.minmum }}-{{ item.maxmum }} {{ coin.toUpperCase() }}</div>
+            <div>{{$t("ctc.number")}} {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
+            <div>{{$t("ctc.minmax")}} {{ item.minmum }}-{{ item.maxmum }} {{ coin.toUpperCase() }}</div>
           </div>
           <div @click="changebuySellShow(item)" class="right" :class="(user.basicInfo &&item.uid === user.basicInfo.uid) ? 'disabled': ''">
-            购买
+            {{$t("ctc.buy")}}
           </div>
         </div>
       </div>
@@ -99,7 +99,7 @@
             <span>{{ item.nickname }}</span>
           </div>
           <div class="right" v-if="item.deals">
-            月销售量：{{ item.deals }}
+            {{$t("ctc.deal")}}：{{ item.deals }}
           </div>
         </div>
         <div class="center">
@@ -127,11 +127,11 @@
         </div>
         <div class="last">
           <div class="left">
-            <div>数量 {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
-            <div>限额 {{ item.minmum }}-{{ item.maxmum }} CNY</div>
+            <div>{{$t("ctc.number")}} {{ item.amount.$numberDecimal }} {{ coin.toUpperCase() }}</div>
+            <div>{{$t("ctc.minmax")}} {{ item.minmum }}-{{ item.maxmum }} CNY</div>
           </div>
           <div @click="changebuySellShow(item)" class="right" :class="(user.basicInfo && item.uid === user.basicInfo.uid) ? 'disabled': ''">
-            出售
+            {{$t("ctc.sell")}}
           </div>
         </div>
       </div>
@@ -140,12 +140,12 @@
     <coinlist :coin="coin" v-if="changcoinshow"
               @onItemSelect="selectCoin"/>
     <r-modal
-      title="设置支付方式"
+      :title="$t('ctc.setPayway')"
       @on-ok="submitActive"
       :show="isShowModal"
       @on-cancel="isShowModal = false"
     >
-      <p class="active-content">您尚未设置支付方式，请先去设置。</p>
+      <p class="active-content">{{$t('ctc.paywayCont')}}</p>
     </r-modal>
     <!-- 购买出售弹窗 -->
     <buySell v-if="buySellShow" :item="bugSellItem" :coin="coin"></buySell>
@@ -204,11 +204,11 @@ export default {
       })
         .then(res => {
           self.orderStatus = false;
-          this.$toast.show("下单成功!");
+          this.$toast.show(this.$t('ctc.orderToast0'));
         })
         .catch(err => {
           self.orderStatus = false;
-          this.$toast.show(err.message || "下单失败，请重试");
+          this.$toast.show(err.message || this.$t('ctc.orderToast1'));
         });
     },
     selectCoin(coin) {
@@ -240,7 +240,7 @@ export default {
           this.loading = false;
           self.submitStatus = false;
           this.$store.commit("UserPendList", []);
-          this.$toast.show(err.message || "挂单列表获取失败，请重试");
+          this.$toast.show(err.message || this.$t('ctc.orderToast2'));
         });
     },
     changebuySellShow(item) {
@@ -257,11 +257,11 @@ export default {
         return;
       }
       if (item.uid === this.user.basicInfo.uid) {
-        this.$toast.show("不可挂自己的单");
+        this.$toast.show(this.$t('ctc.orderToast3'));
         return;
       }
       if (item.amount.$numberDecimal < item.minmum) {
-        this.$toast.show("该币种剩余的数量小于最小限额");
+        this.$toast.show(this.$t('ctc.orderToast4'));
         return;
       }
       this.bugSellItem = item;
