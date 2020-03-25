@@ -1,20 +1,19 @@
 <template>
   <div class="container">
-    <Header title="修改登录密码" />
+    <Header :title="$t('user.userMsg14')" />
     <div class="content">
-      <div class="password">原登录密码</div>
-      <input class="psw-input" v-model='oldpwd' type="text" placeholder="请输入原登录密码" />
+      <div class="password">{{$t('user.userMsg15')}}</div>
+      <input class="psw-input" v-model='oldpwd' type="text" :placeholder="$t('user.userMsg18')" />
       <div class="divider"></div>
-      <div class="password">新登录密码</div>
-      <input class="psw-input" v-model="newpwd" type="text" placeholder="请输入新登录密码" />
+      <div class="password">{{$t('user.userMsg16')}}</div>
+      <input class="psw-input" v-model="newpwd" type="text" :placeholder="$t('user.userMsg19')" />
       <div class="divider"></div>
-      <div class="password">再确定密码</div>
-      <input class="psw-input" v-model="reNewpwd" type="text" placeholder="再次确定新登录密码" />
+      <div class="password">{{$t('user.userMsg17')}}</div>
+      <input class="psw-input" v-model="reNewpwd" type="text" :placeholder="$t('user.userMsg20')" />
       <div class="divider"></div>
     </div>
-    <div class="error-msg" v-if="false">*原安全密码不正确</div>
     <div @click="submit">
-    <r-button text="确定" width="90%" class="comfirm" />
+    <r-button :text="$t('user.userMsg21')" width="90%" class="comfirm" />
     </div>
   </div>
 </template>
@@ -33,19 +32,19 @@ export default {
     submit() {
       const { oldpwd, newpwd, reNewpwd } = this;
       if (this.isEmpty(oldpwd)) {
-        this.$toast.show("原登录密码不能为空");
+        this.$toast.show(this.$t('user.userMsg22'));
         return;
       }
       if (this.isEmpty(newpwd)) {
-        this.$toast.show("新登录密码不能为空");
+        this.$toast.show(this.$t('user.userMsg23'));
         return;
       }
       if (this.isEmpty(reNewpwd)) {
-        this.$toast.show("请输入确认密码");
+        this.$toast.show(this.$t('user.userMsg24'));
         return;
       }
       if (newpwd != reNewpwd) {
-        this.$toast.show("新登录密码与确认密码不相同");
+        this.$toast.show(this.$t('user.userMsg25'));
         return;
       }
       var self = this;
@@ -60,14 +59,14 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("密码修改成功");
+          this.$toast.show(this.$t('user.userMsg26'));
           this.oldpwd = "";
           this.newpwd = "";
           this.reNewpwd = "";
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show("重置密码密码失败，请稍后再试！");
+          this.$toast.show(this.$t('user.userMsg27'));
         });
     }
   }

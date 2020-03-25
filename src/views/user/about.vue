@@ -1,22 +1,21 @@
 <template>
   <section>
-    <Header title="关于我们" />
+    <Header :title="$t('user.userMsg9')" />
     <div class="container">
       <img src="../../assets/images/about_logo@2x.png" class="about-logo" alt />
-      <div class="version">版本号1.0.0</div>
+      <div class="version">{{$t('user.userMsg10')}}</div>
       <div class="line"></div>
       <div class="info-box">
-        <span>CTC介绍</span>
+        <span>{{$t('user.userMsg11')}}</span>
         <div class="turn-right">
           <i></i>
         </div>
       </div>
       <div class="line"></div>
       <div class="info-box">
-        <span>当前版本</span>
+        <span>{{$t('user.userMsg12')}}</span>
         <div class="turn-right">
-          <span>已是最新版本</span>
-          <i></i>
+          <span>{{$t('user.userMsg13')}}</span>
         </div>
       </div>
       <div class="line"></div>

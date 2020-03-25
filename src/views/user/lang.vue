@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Header title="语言设置"/>
+        <Header :title="$t('user.userMsg62')"/>
         <div class="lang-list">
             <div class="lang-container">
                 <div class="lang-item" 

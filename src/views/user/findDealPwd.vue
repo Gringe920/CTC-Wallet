@@ -4,24 +4,24 @@
       <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
     </div>
     <div class="container">
-      <div class="l-tit" >{{next?'设置新交易密码':'忘记交易密码'}}</div>
+      <div class="l-tit" >{{next?$t('user.userMsg42'):$t('user.userMsg43')}}</div>
       <div class="l-info-box">
-        <input v-show="!next" placeholder="请输入手机" type="text" v-model="account" class="account"/>
+        <input v-show="!next" :placeholder="$t('user.userMsg44')" type="text" v-model="account" class="account"/>
         <div class="line" v-show="!next"></div>
         <div class="code-box" v-show="!next">
-          <input placeholder="请输入验证码" type="text" v-model="code" />
-          <span @click="getcode" :class="isTiktok ?'timechecked':''">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</span>
+          <input :placeholder="$t('user.userMsg45')" type="text" v-model="code" />
+          <span @click="getcode" :class="isTiktok ?'timechecked':''">{{isTiktok ? `${remainedTime}s`:$t('user.userMsg46') }}</span>
         </div>
         <div class="line"></div>
-              <input v-show="next" placeholder="请输入新交易密码" type="Password"  v-model=" Password"/>
+              <input v-show="next" :placeholder="$t('user.userMsg33')" type="Password"  v-model=" Password"/>
         <div class="line" v-show="next"></div>
-        <input v-show="next" placeholder="请再次输入交易密码" type="Password"  v-model="rePassword"/>
+        <input v-show="next" :placeholder="$t('user.userMsg34')" type="Password"  v-model="rePassword"/>
         <div class="line" v-show="next"></div>
          <div  class="btn-login" @click="nextshow()" v-show="!next">
-        <r-button text="下一步"/>
+        <r-button :text="$t('user.userMsg47')"/>
       </div>
       <div  class="btn-login" @click="submit()" v-show="next">
-        <r-button text="确定"/>
+        <r-button :text="$t('user.userMsg21')"/>
       </div>
       </div>
       </div>
@@ -54,19 +54,19 @@ export default {
     nextshow() {
       const { account } = this;
       if (this.isEmpty(account)) {
-        this.$toast.show("手机号码不能为空");
+        this.$toast.show(this.$t('user.userMsg48'));
         return;
       }
       if (!this.isValidPhone(account)) {
-        this.$toast.show("手机号格式错误");
+        this.$toast.show(this.$t('user.userMsg49'));
         return;
       }
       if (!this.isTiktok) {
-        this.$toast.show("请先获取验证码!");
+        this.$toast.show(this.$t('user.userMsg50'));
         return;
       }
       if (!this.code) {
-        this.$toast.show("验证码不能为空!");
+        this.$toast.show(this.$t('user.userMsg51'));
         return;
       }
       this.next = !this.next;
@@ -74,15 +74,15 @@ export default {
     submit() {
       const { Password, rePassword } = this;
       if (this.isEmpty(Password)) {
-        this.$toast.show("交易密码不能为空");
+        this.$toast.show(this.$t('user.userMsg37'));
         return;
       }
       if (this.isEmpty(rePassword)) {
-        this.$toast.show("确认密码不能为空");
+        this.$toast.show(this.$t('user.userMsg38'));
         return;
       }
       if (Password != rePassword) {
-        this.$toast.show("交易密码与确认密码不相同");
+        this.$toast.show(this.$t('user.userMsg39'));
         return;
       }
       var self = this;
@@ -99,7 +99,7 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("设置成功");
+          this.$toast.show(this.$t('user.userMsg52'));
           this.account = ''
           this.Password=''
           this.code =''
@@ -123,11 +123,11 @@ export default {
       var self = this;
         const {account} = this;
       if (this.isEmpty(account)) {
-        this.$toast.show("手机号码不能为空");
+        this.$toast.show(this.$t('user.userMsg48'));
         return;
       }
       if (!this.isValidPhone(account)) {
-        this.$toast.show("手机号格式错误");
+        this.$toast.show(this.$t('user.userMsg49'));
         return;
       }
       if (this.codeStatus) return;
@@ -141,7 +141,7 @@ export default {
       })
         .then(res => {
           self.codeStatus = false;
-          this.$toast.show("验证码已发送");
+          this.$toast.show(this.$t('user.userMsg53'));
           this.startCountdown();
         })
         .catch(err => {

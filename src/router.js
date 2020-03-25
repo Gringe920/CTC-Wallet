@@ -14,7 +14,6 @@ const setTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/se
 const certification = () => import(/* webpackChunkName: "user" */ './views/user/certification.vue');
 const uploadCertification = () => import(/* webpackChunkName: "user" */ './views/user/uploadCertification.vue');
 const selectWithdrawAddr = () => import(/* webpackChunkName: "user" */ './views/user/selectWithdrawAddr.vue');
-const addWithdrawAddr = () => import(/* webpackChunkName: "user" */ './views/user/addWithdrawAddr.vue');
 const payway = () => import(/* webpackChunkName: "user" */ './views/payway/index.vue');
 const selectPayway = () => import(/* webpackChunkName: "user" */ './views/payway/selectPayway.vue');
 const addBank = () => import(/* webpackChunkName: "user" */ './views/payway/addBank.vue');
@@ -199,11 +198,6 @@ export default new Router({
             path: '/selectWithdrawAddr',
             name: 'selectWithdrawAddr',
             component: selectWithdrawAddr
-        },
-        {
-            path: '/addWithdrawAddr',
-            name: 'addWithdrawAddr',
-            component: addWithdrawAddr
         },
         {
             path: '/payway',

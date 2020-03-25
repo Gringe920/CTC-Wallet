@@ -1,39 +1,39 @@
 <template>
   <section class="container">
-    <Header title="个人信息" />
+    <Header :title="$t('user.userMsg21')" />
     <div class="info-container">
       <div class="info-list">
         <div class="info-item" @click="$router.push({path: '/nickname'})">
-          <span class="i-k">昵称</span>
+          <span class="i-k">{{$t('user.userMsg55')}}</span>
           <div class="turn-right">
-            <span>{{user.basicInfo.username ?user.basicInfo.username :'去设置'}}</span>
+            <span>{{user.basicInfo.username ?user.basicInfo.username :$t('user.userMsg56')}}</span>
             <i></i>
           </div>
           <div class="line"></div>
         </div>
         <div class="info-item">
-          <span class="i-k">UID</span>
+          <span class="i-k">{{$t('user.userMsg2')}}</span>
           <div class="turn-right">
             <span>{{user.basicInfo.uid}}</span>
           </div>
           <div class="line"></div>
         </div>
         <div class="info-item" >
-          <span class="i-k">手机号</span>
+          <span class="i-k">{{$t('user.userMsg57')}}</span>
           <div class="turn-right">
             <span>{{user.basicInfo.phone}}</span>
           </div>
           <div class="line"></div>
         </div>
         <div class="info-item" @click="$router.push({path: '/changePsw'})">
-          <span class="i-k">修改登录密码</span>
+          <span class="i-k">{{$t('user.userMsg58')}}</span>
           <div class="turn-right">
             <i></i>
           </div>
           <div class="line"></div>
         </div>
         <div  @click="logout()"   > 
-          <r-button text="登出" width="90%" class="comfirm"/>
+          <r-button :text="$t('user.userMsg59')" width="90%" class="comfirm"/>
         </div>
       </div>
     </div>
@@ -66,12 +66,12 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("登出成功!");
+          this.$toast.show(this.$t('user.userMsg60'));
           this.$router.push("/user");
         })
         .catch(err => {
           self.submitstatus = false;
-            this.$toast.show("登出出失败，请重试");
+            this.$toast.show(this.$t('user.userMsg61'));
         });
     }
   }

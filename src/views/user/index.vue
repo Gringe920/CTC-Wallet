@@ -5,9 +5,9 @@
         <img src="../../assets/images/about_logo@2x.png" alt />
       </div>
       <div class="info">
-        <div class="name" v-if="!user.basicInfo ||!user.basicInfo.uid " >请先登陆</div>
+        <div class="name" v-if="!user.basicInfo ||!user.basicInfo.uid " >{{$t('user.userMsg1')}}</div>
         <div class="name" v-if="user.basicInfo &&user.basicInfo.uid">{{user.basicInfo.username || user.basicInfo.phone}}</div>
-        <div class="uid" v-if="user.basicInfo &&user.basicInfo.uid">UID: {{user.basicInfo.uid}}</div>
+        <div class="uid" v-if="user.basicInfo &&user.basicInfo.uid">{{$t('user.userMsg2')}}: {{user.basicInfo.uid}}</div>
       </div>
       <div class="turn-right">
         <i></i>
@@ -17,45 +17,38 @@
          <div v-if="user.basicInfo ">
       <div class="user-nav-item" @click="$router.push({path: '/selectPayway'})">
         <i class="icon my_receivables"></i>
-        <p>收款方式</p>
+        <p>{{$t('user.userMsg3')}}</p>
         <div class="turn-right">
           <i></i>
         </div>
       </div>
       <div class="user-nav-item"  @click="$router.push({path: '/Myaddress'})">
         <i class="icon my_extract"></i>
-        <p>提币地址</p>
+        <p>{{$t('user.userMsg4')}}</p>
         <div class="turn-right">
           <i></i>
         </div>
       </div>
-      <!-- <div class="user-nav-item" @click="$router.push({path: '/certification'})">
-        <i class="icon my_identity"></i>
-        <p>身份认证</p>
-        <div class="turn-right">
-          <i></i>
-        </div>
-      </div> -->
       <div v-if='user.basicInfo.deal_pwd_state == 0' class="user-nav-item" @click="$router.push({path: '/setTradePsw'})">
         <i class="icon my_lock"></i>
-        <p>交易密码</p>
+        <p>{{$t('user.userMsg5')}}</p>
         <div class="turn-right">
-          <span>未设置</span>
+          <span>{{$t('user.userMsg6')}}</span>
           <i></i>
         </div>
       </div>
       <div   v-if='user.basicInfo.deal_pwd_state != 0' class="user-nav-item" @click="$router.push({path: '/changeTradePsw'})">
         <i class="icon my_lock"></i>
-        <p>交易密码</p>
+        <p>{{$t('user.userMsg5')}}</p>
         <div class="turn-right">
-          <span>已设置</span>
+          <span>{{$t('user.userMsg7')}}</span>
           <i></i>
         </div>
       </div>
    </div>
       <div class="user-nav-item" @click="$router.push({path: '/lang'})">
         <i class="icon my_language"></i>
-        <p>多语言</p>
+        <p>{{$t('user.userMsg8')}}</p>
         <div class="turn-right">
           <span>
             {{
@@ -67,7 +60,7 @@
       </div>
       <div class="user-nav-item" @click="$router.push({path: '/about'})">
         <i class="icon my_about"></i>
-        <p>关于我们</p>
+        <p>{{$t('user.userMsg9')}}</p>
         <div class="turn-right">
           <i></i>
         </div>

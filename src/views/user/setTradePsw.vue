@@ -1,18 +1,16 @@
 <template>
   <div class="container">
-    <Header title="设置交易密码" />
+    <Header :title="$t('user.userMsg68')" />
     <div class="content">
-      <div class="password">交易密码</div>
-      <input class="psw-input" v-model="dealPwd" type="text" placeholder="请输入交易密码" />
+      <div class="password">{{$t('user.userMsg69')}}</div>
+      <input class="psw-input" v-model="dealPwd" type="text" :placeholder="$t('user.userMsg71')" />
       <div class="divider"></div>
-      <div class="password">确定密码</div>
-      <input class="psw-input" type="text" v-model="redealPwd" placeholder="再次确定交易密码" />
+      <div class="password">{{$t('user.userMsg70')}}</div>
+      <input class="psw-input" type="text" v-model="redealPwd" :placeholder="$t('user.userMsg72')" />
       <div class="divider"></div>
     </div>
-    <div class="error-msg" v-if="false">*原安全密码不正确</div>
     <div @click="submit">
-    <r-button text="确定" width="90%" class="comfirm" />
-
+    <r-button :text="$t('user.userMsg21')" width="90%" class="comfirm" />
     </div>
   </div>
 </template>
@@ -27,19 +25,18 @@ export default {
     };
   },
   methods: {
-    
     submit() {
-          const { dealPwd, redealPwd} = this;
+      const { dealPwd, redealPwd } = this;
       if (this.isEmpty(dealPwd)) {
-        this.$toast.show("交易密码不能为空");
+        this.$toast.show(this.$t("user.userMsg73"));
         return;
       }
       if (this.isEmpty(redealPwd)) {
-        this.$toast.show("确认密码不能为空");
+        this.$toast.show(this.$t("user.userMsg38"));
         return;
       }
       if (redealPwd != dealPwd) {
-        this.$toast.show("新交易密码与确认密码不相同");
+        this.$toast.show(this.$t("user.userMsg39"));
         return;
       }
       var self = this;
@@ -48,16 +45,16 @@ export default {
       this.axios({
         url: "/service/set_deal_pwd",
         params: {
-          dealPwd: self.dealPwd,
+          dealPwd: self.dealPwd
         }
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("设置交易密码成功");
+          this.$toast.show(this.$t("user.userMsg74"));
         })
         .catch(err => {
           self.submitstatus = false;
-              this.errorMsg(err.code)
+          this.errorMsg(err.code || this.$t("user.userMsg75"));
         });
     }
   }

@@ -1,20 +1,20 @@
 <template>
   <div class="container">
-    <Header title="修改交易密码" />
+    <Header :title="$t('user.userMsg28')" />
     <div class="content">
-      <div class="password">原交易密码</div>
-      <input class="psw-input" v-model="oldpwd" type="text" placeholder="请输入原交易密码" />
+      <div class="password">{{$t('user.userMsg29')}}</div>
+      <input class="psw-input" v-model="oldpwd" type="text" :placeholder="$t('user.userMsg32')" />
       <div class="divider"></div>
-      <div class="password">新交易密码</div>
-      <input class="psw-input" type="text" v-model="newpwd" placeholder="请输入新交易密码" />
+      <div class="password">{{$t('user.userMsg30')}}</div>
+      <input class="psw-input" type="text" v-model="newpwd" :placeholder="$t('user.userMsg33')" />
       <div class="divider"></div>
-      <div class="password">再确定密码</div>
-      <input class="psw-input" v-model="reNewpwd" type="text" placeholder="再次确定交易密码" />
+      <div class="password">{{$t('user.userMsg31')}}</div>
+      <input class="psw-input" v-model="reNewpwd" type="text" :placeholder="$t('user.userMsg34')" />
       <div class="divider"></div>
-     <div class="forget"  @click="$router.push({ path: '/findDealPwd'})">忘记交易密码？</div>
+     <div class="forget"  @click="$router.push({ path: '/findDealPwd'})">{{$t('user.userMsg35')}}</div>
     </div>
     <div @click="submit">
-    <r-button text="确定" width="90%" class="comfirm" />
+    <r-button :text="$t('user.userMsg21')" width="90%" class="comfirm" />
     </div>
   </div>
 </template>
@@ -33,19 +33,19 @@ export default {
     submit() {
       const { oldpwd, newpwd, reNewpwd } = this;
       if (this.isEmpty(oldpwd)) {
-        this.$toast.show("原交易密码不能为空");
+        this.$toast.show(this.$t('user.userMsg36'));
         return;
       }
       if (this.isEmpty(newpwd)) {
-        this.$toast.show("新交易密码不能为空");
+        this.$toast.show(this.$t('user.userMsg37'));
         return;
       }
       if (this.isEmpty(reNewpwd)) {
-        this.$toast.show("请输入确认密码");
+        this.$toast.show(this.$t('user.userMsg38'));
         return;
       }
       if (newpwd != reNewpwd) {
-        this.$toast.show("新交易密码与确认密码不相同");
+        this.$toast.show(this.$t('user.userMsg39'));
         return;
       }
       var self = this;
@@ -63,11 +63,11 @@ export default {
           this.oldpwd =''
           this.newpwd =''
           this.reNewpwd = ''
-          this.$toast.show("修改交易密码成功");
+          this.$toast.show(this.$t('user.userMsg40'));
         })
         .catch(err => {
           self.submitstatus = false;
-             this.errorMsg(err.code,'修改交易密码失败')
+             this.errorMsg(err.code,self.$t('user.userMsg41'))
         });
     }
   }

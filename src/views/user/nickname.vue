@@ -1,18 +1,17 @@
 <template>
   <section>
-    <Header title="设置昵称" />
+    <Header :title="$t('user.userMsg62')" />
     <div class="container">
       <div class="content">
-        <input class="nickname" v-model="nickname" placeholder="请输入昵称" type="text" />
+        <input class="nickname" v-model="nickname" :placeholder="$t('user.userMsg63')" type="text" />
         <div class="line"></div>
       </div>
       <div class="">
-      <r-button :tocomfirm='submit' text="确定" width="90%" class="comfirm" />
+      <r-button :tocomfirm='submit' :text="$t('user.userMsg21')" width="90%" class="comfirm" />
       </div>
     </div>
   </section>
 </template>
-
 <script>
 export default {
   data() {
@@ -25,7 +24,7 @@ export default {
     submit() {
       const { nickname } = this;
       if (this.isEmpty(nickname)) {
-        this.$toast.show("昵称不能为空");
+        this.$toast.show(this.$t("user.userMsg65"));
         return;
       }
       var self = this;
@@ -39,12 +38,11 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("昵称设置成功");
-        
+          this.$toast.show(this.$t("user.userMsg66"));
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || "昵称设置失败，请重试" });
+          this.$toast.show({ msg: err.message || this.$t("user.userMsg67") });
         });
     }
   }
