@@ -2,7 +2,7 @@
   <section class="buySellbox">
     <div class="infos" v-if="orderType == 1">
       <div class="top top2">
-        <div class="l">{{buyType == 'buy'?'购买':"出售"}} {{ coin.toUpperCase() }} </div>
+        <div class="l">{{buyType == 'buy'?$t('ctc.buy'):$t('ctc.sell')}} {{ coin.toUpperCase() }} </div>
         <img
           class="img2"
           @click="changebuySellShow"
@@ -12,15 +12,15 @@
         />
       </div>
       <div class="top">
-        <div class="l2">单笔限额</div>
+        <div class="l2">{{$t('ctc.onemum')}}</div>
         <div class="r">¥{{ item.minmum * item.price }} - ¥{{ item.maxmum * item.price }}</div>
       </div>
       <div class="top">
-        <div class="l2">委托价格</div>
+        <div class="l2">{{$t('ctc.price')}}</div>
         <div class="r2">{{ item.price }}CNY</div>
       </div>
       <div class="top">
-        <div class="l2">付款方式</div>
+        <div class="l2">{{$t('ctc.payway')}}</div>
         <div class="right">
           <img
             v-if="item.paytype_bank == 1"
@@ -38,17 +38,17 @@
         </div>
       </div>
       <div class="n" v-if="buyType != 'buy'">
-        余额：{{ user.basicInfo.asset[coin] ? user.basicInfo.asset[coin].$numberDecimal : 0}} {{ coin.toUpperCase() }} &nbsp;
-        <span class="transfer">去划转</span>
+        {{$t('ctc.assets')}}：{{ user.basicInfo.asset[coin] ? user.basicInfo.asset[coin].$numberDecimal : 0}} {{ coin.toUpperCase() }} &nbsp;
+        <span class="transfer">{{$t('ctc.transf')}}</span>
       </div>
       <div class="inpbox">
         <div class="left">
           <div class="inp bt br">
-            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${item.amount.$numberDecimal * item.price}`" v-model="priceRmb"/>
+            <input type="number" :placeholder="`最大可${buyType == 'buy' ? $t('ctc.buying') : $t('ctc.selling')}${item.amount.$numberDecimal * item.price}`" v-model="priceRmb"/>
             <span>CNY</span>
           </div>
           <div class="inp br">
-            <input type="number" :placeholder="`最大可${buyType == 'buy' ? '买入' : '卖出'}${item.amount.$numberDecimal}`" v-model="amount"/>
+            <input type="number" :placeholder="`最大可${buyType == 'buy' ? $t('ctc.buying') : $t('ctc.selling')}${item.amount.$numberDecimal}`" v-model="amount"/>
             <span>{{ coin.toUpperCase() }}</span>
           </div>
         </div>
@@ -56,7 +56,7 @@
           <span>全部</span>
         </div>
       </div>
-      <div class="btn" @click="order(item)">{{buyType == 'buy'?'购买':"出售"}}</div>
+      <div class="btn" @click="order(item)">{{buyType == 'buy'?$t('ctc.buy'):$t('ctc.sell')}}</div>
     </div>
     <tradedialog
       v-if="orderType == 2"
@@ -111,15 +111,15 @@ export default {
     },
     order(item) {
       if(!this.amount){
-        this.$toast.show("请输入币种数量");
+        this.$toast.show(this.$t('ctc.orderToast5'));
         return;
       }
       if(this.amount < this.item.minmum){
-        this.$toast.show("输入币种数量少于最低数量");
+        this.$toast.show(this.$t('ctc.orderToast6'));
         return;
       }
       if(this.amount > this.item.amount.$numberDecimal){
-        this.$toast.show("输入币种数量大于最高数量");
+        this.$toast.show(this.$t('ctc.orderToast7'));
         return;
       }
       this.orderType = 2;
@@ -149,7 +149,7 @@ export default {
           this.$store.commit('order_detail', res.data);
         })
         .catch(err => {
-          this.$toast.show(err.message || "操作失败");
+          this.$toast.show(err.message || this.$t('ctc.orderToast8'));
         });
     }
   }

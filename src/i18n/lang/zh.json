@@ -215,5 +215,34 @@
   "lang25" : "备份助记词",
   "Trust the gateway" : "信任网关",
   "Please open it in the browser" : "请在浏览器中打开",
-  "-" : "-"
+  "-" : "-",
+  "ctc": {
+    "buy": "购买",
+    "sell": "出售",
+    "publish": "发布",
+    "deal": "月销售量",
+    "number": "数量",
+    "minmax": "限额",
+    "setPayway": "设置支付方式",
+    "paywayCont": "您尚未设置支付方式，请先去设置。",
+    "orderToast0": "下单成功",
+    "orderToast1": "下单失败，请重试",
+    "orderToast2": "挂单列表获取失败，请重试",
+    "orderToast3": "不可挂自己的单",
+    "orderToast4": "该币种剩余的数量小于最小限额",
+    "orderToast5": "请输入币种数量",
+    "orderToast6": "输入币种数量少于最低数量",
+    "orderToast7": "输入币种数量大于最高数量",
+    "orderToast8": "操作失败",
+    "onemum": "单笔限额",
+    "price": "委托价格",
+    "payway": "付款方式",
+    "assets": "余额",
+    "transf": "去划转",
+    "selling": "卖出",
+    "buying": "买入"
+  },
+  "publish": {
+    
+  }
 }
