@@ -12,7 +12,7 @@
             <div class="l">接收地址</div>
             <div class="r">
                 <input type="text" v-model="address" placeholder="请输入提币地址">
-                <img src="../../assets/images/add_scan@2x.png" alt="" srcset="">
+                <!-- <img src="../../assets/images/add_scan@2x.png" alt="" srcset=""> -->
             </div>
         </div>
              <div class="cointype">
