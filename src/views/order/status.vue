@@ -30,7 +30,7 @@
       </div>
       <div class="order-result" v-if="order_detail.status === 4">
         <p class="status-text">{{isSeller() ? '' : $t('order.other')}}{{$t('result.status11')}}{{order_detail.price * order_detail.amount.$numberDecimal}} CNY</p>
-        <p class="reason">{{$t('result.status12')}}</p>
+        <p class="reason">{{$t('result.status12')}}：{{order_detail.appeal_content}}。</p>
         <p class="reason">{{$t('result.status13')}}</p>
       </div>
       <!-- <div class="order-result" v-if="order_detail.status == 0 && isSeller()">
@@ -45,10 +45,12 @@
         <div class="line" style="margin-bottom: 15px;"></div>
         <div class="d-row">
           <span>{{$t('result.orderId')}}</span>
-          <span class="d-v">
-            {{order_detail._id}}
-            <i class="copy"></i>
-          </span>
+          <r-copy :copyText="order_detail._id">
+              <span class="d-v">
+                {{order_detail._id}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
         </div>
         <div class="d-row" v-if="isSeller()">
           <span>{{$t('result.seller')}}</span>
@@ -68,10 +70,12 @@
         </div>
         <div class="d-row">
           <span>{{$t('result.code')}}</span>
-          <span class="d-v">
-            {{order_detail.code}}
-            <i class="copy"></i>
-          </span>
+          <r-copy :copyText="order_detail.code">
+              <span class="d-v">
+                {{order_detail.code}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
         </div>
       </div>
       <div class="attention">

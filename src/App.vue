@@ -173,14 +173,14 @@ export default {
       let self = this;
       if (window.plus) {
         setTimeout(function() {
-          self.updateApp();
+         // self.updateApp();
           self.backbutton();
         }, 0);
       } else {
         document.addEventListener(
           "plusready",
           function() {
-            self.updateApp();
+           // self.updateApp();
             self.backbutton();
           },
           false
@@ -232,7 +232,7 @@ export default {
               }
             } else {
               setTimeout(function() {
-                self.updateApp();
+               // self.updateApp();
               }, 8000);
             }
           } else {
@@ -262,7 +262,7 @@ export default {
               }
             } else {
               setTimeout(function() {
-                self.updateApp();
+              //  self.updateApp();
               }, 8000);
             }
           }
@@ -271,7 +271,7 @@ export default {
         .catch(err => {
           console.log(err);
           setTimeout(function() {
-            self.updateApp();
+          //  self.updateApp();
           }, 8000);
         });
     },

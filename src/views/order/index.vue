@@ -16,7 +16,7 @@
     </div>
     <div class="order-listbox" v-if="(UserPendList.length > 0 || orderList.length > 0)">
     <!-- 0我发布 -->
-      <div class="order-list" v-if="navIndex == -1" v-for="item in UserPendList" :key="item._id">  
+      <div class="order-list" v-if="navIndex == -1 && !loading" v-for="item in UserPendList" :key="item._id">  
         <div class="box published">
           <div class="box-h">
             <div class="coin">
@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-      <empty v-if="isShowEmpty" />
+      <empty v-if="isShowEmpty && !loading" />
     </div>
     
     

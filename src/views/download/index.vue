@@ -44,7 +44,7 @@ export default {
     },
     created (){
         this.micromessenger();
-        this.getUrl();
+        //this.getUrl();
     },
     methods : {
         getUrl (){

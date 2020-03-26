@@ -33,15 +33,17 @@
       </div>
       <div class="order-result" v-if="order_detail.status == 3">
         <p class="status-text">{{$t('result.status9')}} {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
-        <p class="reason">对方汇款方式：</p>
+        <p class="reason">对方汇款方式：{{payWay[order_detail.pay_type + 1]}}</p>
       </div>
       <div class="order-detail">
         <div class="d-row">
           <span>{{$t('result.orderId')}}</span>
-          <span class="d-v">
-            {{order_detail._id}}
-            <i class="copy"></i>
-          </span>
+          <r-copy :copyText="order_detail._id">
+              <span class="d-v">
+                {{order_detail._id}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
         </div>
         <div class="d-row">
           <span>{{$t('result.buyer')}}</span>
@@ -57,10 +59,13 @@
         </div>
         <div class="d-row">
           <span>{{$t('result.code')}}</span>
-          <span class="d-v">
-            {{order_detail.code}}
-            <i class="copy"></i>
-          </span>
+          <r-copy :copyText="order_detail.code">
+              <span class="d-v">
+                {{order_detail.code}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
+          
         </div>
       </div>
       <div class="attention">
@@ -132,7 +137,8 @@ export default {
       complainDialogShow: false,
       cancelDialogShow: false,
       complainContent: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      payWay: ['银行卡','微信', '支付宝']
     };
   },
   mounted() {

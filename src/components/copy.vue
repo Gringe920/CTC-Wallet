@@ -13,17 +13,12 @@ import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
 export default {
-    props: {
-        copyText: String,
-
-    },
+    props: ['copyText'],
     methods: {
         onCopy(){
-            console.log('111')
             this.$toast.show(this.$t('copySucceed'))
         },
         onError(err){
-            console.log(err);
             this.$toast.show(this.$t('复制失败'))
         }
     }

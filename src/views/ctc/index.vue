@@ -28,12 +28,11 @@
       </div>
       <span class="text_r" @click="publish"> {{$t("ctc.publish")}}</span>
     </div>
-      <div class="buyall" v-if="buyType == 'buy'">
+    <div class="buyall" v-if="PendList.length > 0">
       <div
         class="buymsg"
         v-for="item in PendList"
         :key="item._id"
-        v-if="user.basicInfo ? item.uid !== user.basicInfo.uid : item.type === 2"
         >
         <div class="top">
           <div class="left">
@@ -77,12 +76,13 @@
             <div>{{$t("ctc.minmax")}} {{ item.minmum }}-{{ item.maxmum }} {{ coin.toUpperCase() }}</div>
           </div>
           <div @click="changebuySellShow(item)" class="right" :class="(user.basicInfo &&item.uid === user.basicInfo.uid) ? 'disabled': ''">
-            {{$t("ctc.buy")}}
+            {{buyType == 'buy' ? $t("ctc.buy") : $t("ctc.sell")}}
           </div>
         </div>
       </div>
     </div>
-    <div class="buyall" v-else>
+    <empty class="pend-empty" v-if="PendList.length == 0 && !loading" />
+    <!-- <div class="buyall" v-else>
       <div
         class="buymsg"
         v-for="item in PendList"
@@ -135,7 +135,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- 币种选择 -->
     <coinlist :coin="coin" v-if="changcoinshow"
               @onItemSelect="selectCoin"/>
@@ -167,7 +167,8 @@ export default {
       coin: "usdt",
       buyList: [],
       sellList: [],
-      bugSellItem: {}
+      bugSellItem: {},
+      currentPendList: []
     };
   },
   computed: {
@@ -179,6 +180,7 @@ export default {
   },
   mounted() {
     this.getPendList();
+
     // this.isShowModal = (this.user.wechat_state === 0 && this.user.bankcard_state === 0 && this.user.alipay_state) === 0 ? true : false;
   },
   methods: {
@@ -231,7 +233,9 @@ export default {
         .then(res => {
           self.submitStatus = false;
           if (res.error_code == 0) {
+            this.currentPendList = res.data.list || [];
             this.$store.commit("PendList", res.data.list || []);
+            this.filterPendList()
           }
           this.loading = false;
           // this.$toast.show("挂单列表获取成功!");
@@ -269,6 +273,11 @@ export default {
     },
     goBuyType(data) {
       this.$store.commit("buyType", data);
+      this.filterPendList();
+    },
+    filterPendList(){
+      const type = this.buyType == 'buy' ? 2 : 1;
+      this.$store.commit("PendList", this.currentPendList.filter(item => item.type == type));
     },
     submitActive() {
       this.$router.push({ path: "/selectPayway" });
@@ -276,7 +285,7 @@ export default {
     },
     showActivatedModal() {
       this.isShowModal = true;
-    }
+    },
   }
 };
 </script>
@@ -286,6 +295,9 @@ export default {
   height: auto;
   min-height: 100%;
   background-color: #f7f9fc;
+  .pend-empty{
+    padding-top: 80px;
+  }
   .header {
     background: $bg;
     z-index: 10;

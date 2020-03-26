@@ -42,10 +42,12 @@
       <div class="order-detail">
         <div class="d-row">
           <span>{{$t('result.orderId')}}</span>
-          <span class="d-v">
-            {{order_detail._id}}
-            <i class="ic copy"></i>
-          </span>
+          <r-copy :copyText="order_detail._id">
+              <span class="d-v">
+                {{order_detail._id}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
         </div>
         <div class="d-row">
           <span>{{$t('result.seller')}}</span>
@@ -61,10 +63,12 @@
         </div>
         <div class="d-row">
           <span>{{$t('result.code')}}</span>
-          <span class="d-v">
-            {{order_detail.code}}
-            <i class="copy"></i>
-          </span>
+          <r-copy :copyText="order_detail.code">
+              <span class="d-v">
+                {{order_detail.code}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
         </div>
       </div>
       <div class="order-detail">
@@ -79,16 +83,21 @@
         <div class="line" style="margin-bottom: 15px"></div>
         <div class="d-row">
           <span>{{$t('result.name')}}</span>
-          <span class="d-v">{{payInfo.name || order_detail.seller}}
-              <i class="ic copy"></i>
-          </span>
+          <r-copy :copyText="payInfo.name || order_detail.seller">
+              <span class="d-v">
+                {{payInfo.name || order_detail.seller}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
         </div>
         <div class="d-row">
           <span>{{$t('result.account')}}</span>
-          <span class="d-v">
-              {{payInfo.account || payInfo.card}}
-              <i class="ic copy"></i>
-            </span>
+          <r-copy :copyText="payInfo.account || payInfo.card">
+              <span class="d-v">
+                {{payInfo.account || payInfo.card}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
         </div>
         <div class="d-row" v-if="!payInfo.card">
           <span>{{$t('result.qrcode')}}</span>
@@ -98,10 +107,12 @@
         </div>
         <div class="d-row">
           <span>{{$t('result.code')}}</span>
-          <span class="d-v">
-            {{order_detail.code}}
-            <i class="ic copy"></i>
-          </span>
+           <r-copy :copyText="order_detail.code">
+              <span class="d-v">
+                {{order_detail.code}}
+                <i class="copy"></i>
+              </span>
+          </r-copy>
         </div>
       </div>
       <div class="attention">
@@ -247,19 +258,19 @@ export default {
     updatePayway(){
       if(this.user.wechat_state === 1){
         this.payList.push({
-          name: this.$t('order.wechat'),
+          name: this.$t('result.wechat'),
           paytype: 2
         })
       }
       if(this.user.bankcard_state === 1){
         this.payList.push({
-          name: this.$t('order.bank'),
+          name: this.$t('result.bank'),
           paytype:1
         })
       }
       if(this.user.alipay_state === 1){
         this.payList.push({
-          name: this.$t('order.alipay'),
+          name: this.$t('result.alipay'),
           paytype:3
         })
       }
