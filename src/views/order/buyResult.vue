@@ -247,7 +247,7 @@ export default {
             }
         })
         .catch(err =>
-          this.$toast.show(err.message || this.$t('order.toast0'))
+          this.$toast.show(err.message || this.$t('result.toast0'))
         );
     },
     selectPaytype(item){
@@ -313,7 +313,7 @@ export default {
             }
         })
         .catch(err =>
-          this.$toast.show(err.message || this.$t('order.toast2'))
+          this.$toast.show(err.message || this.$t('result.toast2'))
         );
       },
       openComfirm(){
@@ -337,7 +337,7 @@ export default {
             }
         })
         .catch(err =>
-          this.$toast.show(err.message || this.$t('order.toast3'))
+          this.$toast.show(err.message || this.$t('result.toast3'))
         );
       },
       
@@ -350,11 +350,11 @@ export default {
             }
         })
         .then(res => {
-            if(res.error_code  == 0) this.$toast.show(this.$t('order.toast4'))
+            if(res.error_code  == 0) this.$toast.show(this.$t('result.toast4'))
           this.complainDialogShow = false;
         })
         .catch(err =>
-          this.$toast.show(err.message || this.$t('order.toast5'))
+          this.$toast.show(err.message || this.$t('result.toast5'))
         );
     },
     isSeller() {

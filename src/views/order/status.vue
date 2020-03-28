@@ -138,7 +138,7 @@ export default {
       this.axios({
             url: "/service/getPhoneNumber",
             params: {
-              uid: this.isSeller() ? this.order_detail.buyer : this.order_detail.seller
+              uid: this.isSeller() ? this.order_detail.seller : this.order_detail.buyer
             }
         })
         .then(res => {
@@ -147,22 +147,7 @@ export default {
             }
         })
         .catch(err =>
-          this.$toast.show(err.message || this.$t('order.toast0'))
-        );
-    },
-    appeal(){
-      this.axios({
-        url: "/c2c/appeal",
-        params: {
-          order_id: this.order_detail._id,
-          content: this.complainContent
-        }
-      })
-        .then(res => {
-          this.complainDialogShow = false;
-        })
-        .catch(err =>
-          this.$toast.show(err.message || this.$t('order.toast5'))
+          this.$toast.show(err.message || this.$t('result.toast0'))
         );
     },
     isSeller() {
@@ -197,19 +182,6 @@ export default {
     isOrderClosed() {
       return this.order_detail.pend_type == 1;
     },
-    confirm() {
-      this.axios({
-        url: '/c2c/pay',
-        params: {
-          order_id: this.order_detail._id,
-          pay_type: '',
-        }
-      }).then(res => {
-        //TODO refresh order_detail
-      }).catch(err => {
-        this.$toast.show(err.message || this.$t('order.toast6'));
-      })
-    }
   },
   components: {
     Dialog,

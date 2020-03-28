@@ -33,7 +33,7 @@
       </div>
       <div class="order-result" v-if="order_detail.status == 3">
         <p class="status-text">{{$t('result.status9')}} {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
-        <p class="reason">对方汇款方式：{{payWay[order_detail.pay_type + 1]}}</p>
+        <p class="reason">对方汇款方式：{{payWay[+order_detail.pay_type - 1]}}</p>
       </div>
       <div class="order-detail">
         <div class="d-row">
@@ -166,7 +166,7 @@ export default {
             }
         })
         .catch(err =>
-          this.$toast.show(err.message || this.$t('order.toast0'))
+          this.$toast.show(err.message || this.$t('result.toast0'))
         );
     },
     appeal(){
@@ -181,7 +181,7 @@ export default {
           this.complainDialogShow = false;
         })
         .catch(err =>
-          this.$toast.show(err.message || this.$t('order.toast5'))
+          this.$toast.show(err.message || this.$t('result.toast5'))
         );
     },
     isSeller() {
@@ -230,7 +230,7 @@ export default {
           this.updatePosition();
         }
       }).catch(err => {
-        this.$toast.show(err.message || this.$t('order.toast6'));
+        this.$toast.show(err.message || this.$t('result.toast6'));
       })
     }
   },

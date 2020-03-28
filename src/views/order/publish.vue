@@ -61,7 +61,7 @@
          
           
           <div class="line"></div>
-          <div class="in-tips">{{$t('publish.total')}}：0.00 CNY</div>
+          <div class="in-tips">{{$t('publish.total')}}：{{price * amount}} CNY</div>
         </div>
       </div>
       <tradedialog
@@ -144,7 +144,9 @@ export default {
         this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.lowDeals')}`);
         return;
       }
-      if(minnum > maxnum){
+      console.log(minnum)
+      console.log(maxnum)
+      if(+minnum > +maxnum){
         this.$toast.show(this.$t('publish.toast2'));
         return;
       }

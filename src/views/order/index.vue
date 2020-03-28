@@ -47,7 +47,7 @@
         <div class="box unfinish" v-for="(item, index) in orderList" :key="index" @click="goResult(item)">
           <div class="box-h">
             <div class="coin">
-              <span class="icon" :class="item.buyer === user.basicInfo.uid ?'':'sell'" >{{item.buyer === user.basicInfo.uid ?$t('order.sell'):$t('order.buy')}}</span>
+              <span class="icon" :class="item.buyer === user.basicInfo.uid ? 'sell' : ''" >{{item.buyer === user.basicInfo.uid ? $t('order.buy'):$t('order.sell')}}</span>
               <span>{{item.symbol.toUpperCase()}}</span>
             </div>
             <div class="h-tips" v-if="item.status == 0">{{$t('order.wait')}}{{item.buyer === user.basicInfo.uid ? '' : $t('order.other')}}{{$t('order.giveM')}}</div>
