@@ -127,7 +127,7 @@ export default {
     },
     commitButton(){
       const {amount, price, minnum, maxnum, activeIndex } = this;
-      const toTxt = activeIndex == 2 ? this.$t('publish.sell'): this.$t('publish.buy');
+      const toTxt = activeIndex == 2 ? this.$t('ctc.sell'): this.$t('ctc.buy');
       if(!price){
         this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.inpPrice')}`);
         return;
@@ -161,6 +161,7 @@ export default {
     submit(pwd, code) {
       if (this.submitStatus) return;
       this.submitStatus = true;
+      this.type = this.activeIndex;
       const {symbol, amount, price, type, paytype_bank, paytype_wx, paytype_alipay, minnum, maxnum} = this;
       this.axios({
         url: "/c2c/pend",
