@@ -260,7 +260,7 @@ export default {
         this.$router.push({ path: "/login" });
         return;
       }
-      if(this.deal_pwd_state != 1){
+      if(this.user.deal_pwd_state != 1){
           this.isShowModal2 = true;
           return;
       }
