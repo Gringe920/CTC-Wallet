@@ -256,11 +256,12 @@ export default {
         });
     },
     changebuySellShow(item) {
+        console.log('changebuySellShow');
       if (!this.user.basicInfo) {
         this.$router.push({ path: "/login" });
         return;
       }
-      if(this.user.deal_pwd_state != 1){
+      if(this.user.basicInfo.deal_pwd_state != 1){
           this.isShowModal2 = true;
           return;
       }

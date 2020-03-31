@@ -73,6 +73,23 @@
       />
       <r-button :text="$t('ctc.publish')" width="90%" class="btn-submit" :tocomfirm='commitButton' />
     </div>
+    <r-modal
+            :title="$t('ctc.setPayway')"
+            @on-ok="submitActive"
+            :show="isShowModal"
+            @on-cancel="isShowModal = false"
+    >
+      <p class="active-content">{{$t('ctc.paywayCont')}}</p>
+    </r-modal>
+
+    <r-modal
+            :title="$t('user.userMsg68')"
+            @on-ok="submitActive2"
+            :show="isShowModal2"
+            @on-cancel="isShowModal2 = false"
+    >
+      <p class="active-content">{{$t('user.userMsg42')}}</p>
+    </r-modal>
   </section>
 </template>
 
@@ -85,6 +102,8 @@ export default {
     return {
       activeIndex: 1,
       submitStatus: false,
+      isShowModal: false,
+      isShowModal2: false,
       symbol: "usdt",
       amount: null,
       price: null,
@@ -99,7 +118,6 @@ export default {
       currentPrices: {}
     };
   },
-
   mounted() {
     this.getCurrentprice()
   },
@@ -111,6 +129,14 @@ export default {
     ...mapState(["user", "coin_list", "assets_detail"])
   },
   methods: {
+      submitActive() {
+          this.$router.push({ path: "/selectPayway" });
+          this.isShowModal = false;
+      },
+      submitActive2() {
+          this.$router.push({ path: "/setTradePsw" });
+          this.isShowModal2 = false;
+      },
     getCurrentprice() {
       this.axios({
         url: "/service/current_price",
@@ -128,6 +154,22 @@ export default {
       this.activeIndex = idx;
     },
     commitButton(){
+        if (!this.user.basicInfo) {
+            this.$router.push({ path: "/login" });
+            return;
+        }
+        if(this.user.basicInfo.deal_pwd_state != 1){
+            this.isShowModal2 = true;
+            return;
+        }
+        if (
+            this.user.wechat_state === 0 &&
+            this.user.bankcard_state === 0 &&
+            this.user.alipay_state === 0
+        ) {
+            this.isShowModal = true;
+            return;
+        }
       const {amount, price, minnum, maxnum, activeIndex } = this;
       const toTxt = activeIndex == 2 ? this.$t('ctc.sell'): this.$t('ctc.buy');
       if(!price){
