@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="header"> 
-      <img @click="reply" src="../../assets/images/return_black@2x.png" alt class="icon_l" />
+      <img @click="reply" src="../../assets/images/home_search_white@2x(1).png" alt class="icon_l" />
       {{$t('publish.title')}}
       <span @click="coinlistVisible = !coinlistVisible"> {{symbol}}
       <i ></i></span>
@@ -193,7 +193,7 @@ export default {
     },
     reply() {
       if (typeof plus == "object") {
-        let webview = plus.webview.getLaunchWebview();
+        let webview = plus.webview.getWebviewById('otc');
         webview.back();
       } else {
         this.$router.go(-1);

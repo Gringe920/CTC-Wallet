@@ -1,6 +1,6 @@
 <template>
     <section class="header" :style="`background:${color}`">
-        <img  v-if="leftShow && !leftIcon"  @click="reply" src="../assets/images/return_black@2x.png" alt="" class="icon_l">
+        <img  v-if="leftShow && !leftIcon"  @click="reply" src="../assets/images/home_search_white@2x(1).png" alt="" class="icon_l">
         <img  v-if="leftShow && leftIcon"  @click="reply" :src="leftIcon" alt="" class="icon_l">
         <span>{{title}}</span>
         <span   @click="totextpath"  v-if="righttext" class="text_r" >{{righttext}}</span>
@@ -82,7 +82,7 @@ export default {
         return false;
       }
       if (typeof plus == "object") {
-        let webview = plus.webview.getLaunchWebview();
+        let webview = plus.webview.getWebviewById('otc');
         webview.back();
       } else {
         if (this.$route.name == "acceptCoin") {
