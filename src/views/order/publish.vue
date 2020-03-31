@@ -25,7 +25,8 @@
           <div class="p-row">
             <span class="tit">{{$t('publish.inpPrice')}}</span>
             <div class="inp">
-              <input type="number" :placeholder="`${activeIndex == 2 ? $t('ctc.selling'): $t('ctc.buying')}${$t('publish.placeholder1')}`" v-model="price" />
+              <!--<input type="number" :placeholder="`${activeIndex == 2 ? $t('ctc.selling'): $t('ctc.buying')}${$t('publish.placeholder1')}`" v-model="price" />-->
+              <input type="number" placeholder="" v-model="price" />
               <span>CNY</span>
             </div>
           </div>
@@ -33,7 +34,8 @@
           <div class="p-row">
             <span class="tit">{{$t('publish.amount')}}</span>
             <div class="inp">
-              <input type="number" :placeholder="`${activeIndex == 2 ?$t('ctc.selling'): $t('ctc.buying')}${$t('publish.placeholder2')}`" v-model="amount" />
+              <!--<input type="number" :placeholder="`${activeIndex == 2 ?$t('ctc.selling'): $t('ctc.buying')}${$t('publish.placeholder2')}`" v-model="amount" />-->
+              <input type="number" placeholder="" v-model="amount" />
               <span>{{symbol.toUpperCase()}}</span>
             </div>
           </div>

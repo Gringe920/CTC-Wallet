@@ -147,6 +147,15 @@
     >
       <p class="active-content">{{$t('ctc.paywayCont')}}</p>
     </r-modal>
+
+    <r-modal
+            :title="$t('user.userMsg68')"
+            @on-ok="submitActive2"
+            :show="isShowModal2"
+            @on-cancel="isShowModal2 = false"
+    >
+      <p class="active-content">{{$t('user.userMsg42')}}</p>
+    </r-modal>
     <!-- 购买出售弹窗 -->
     <buySell v-if="buySellShow" :item="bugSellItem" :coin="coin"></buySell>
   </section>
@@ -161,6 +170,7 @@ export default {
     return {
       loading: false,
       isShowModal: false,
+      isShowModal2: false,
       changcoinshow: false,
       submitStatus: false,
       symbol: "usdt",
@@ -252,6 +262,10 @@ export default {
         this.$router.push({ path: "/login" });
         return;
       }
+      if(this.deal_pwd_state != 1){
+          this.isShowModal2 = true;
+          return;
+      }
       if (
         this.user.wechat_state === 0 &&
         this.user.bankcard_state === 0 &&
@@ -282,6 +296,10 @@ export default {
     submitActive() {
       this.$router.push({ path: "/selectPayway" });
       this.isShowModal = false;
+    },
+      submitActive2() {
+      this.$router.push({ path: "/setTradePsw" });
+      this.isShowModal2 = false;
     },
     showActivatedModal() {
       this.isShowModal = true;
