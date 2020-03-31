@@ -26,25 +26,26 @@ module.exports = {
         plugins
     },
     publicPath: appState ? './static/' : './',
-    outputDir: appState ? 'D:\\rcpApp\\aldApp\\otc\\static' : path.resolve(__dirname, "./dist"),
+    // outputDir: appState ? 'D:\\rcpApp\\aldApp\\otc\\static' : path.resolve(__dirname, "./dist"),
+    outputDir: appState ? 'D:\\rcpApp\\otcApp\\static' : path.resolve(__dirname, "./dist"),
     assetsDir: appState ? "./" : "static",
     productionSourceMap: process.env.NODE_ENV === 'production' ? false : true,
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://47.240.110.55:9200/',
+                target: 'http://otcapi.goaladdin.org/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {}
             },
             '/service': {
-                target: 'http://47.240.110.55:9200/',
+                target: 'http://otcapi.goaladdin.org/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {}
             },
             '/c2c': {
-                target: 'http://47.240.110.55:9200/',
+                target: 'http://otcapi.goaladdin.org/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {}
@@ -67,7 +68,8 @@ module.exports = {
 
         if (appState) {
             config.plugin('html').tap(args => {
-                args[0].filename = "D:\\rcpApp\\aldApp\\otc\\index.html";
+                // args[0].filename = "D:\\rcpApp\\aldApp\\otc\\index.html";
+                args[0].filename = "D:\\rcpApp\\otcApp\\index.html";
                 return args;
             });
 

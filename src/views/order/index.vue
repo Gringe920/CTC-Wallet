@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="order-box">
     <load v-if="loading"></load>
     <div class="header">
       <span>{{$t('order.title')}}</span>

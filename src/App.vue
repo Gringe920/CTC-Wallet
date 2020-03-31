@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="ald">
         <router-view/>
         <a @click="clickWallet" class="wallet-icon">
             <img src="./assets/images/home@2x.png" alt="" srcset="">

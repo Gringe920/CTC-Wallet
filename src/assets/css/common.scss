@@ -118,3 +118,49 @@ body, html, #app {
     vertical-align: middle;
   }
 }
+
+
+
+
+html{
+  background: #0C0D0C;
+}
+body.ald{
+  #app{
+    background: #0C0D0C;
+    color: #ffffff;
+    .ctc{
+      background: #0C0D0C;
+    }
+    .navall{
+      background: #000000;
+    }
+    .header{
+      background: #141714;
+      color: #ffffff;
+      border-bottom: none;
+    }
+    .container{
+      background: #0C0D0C;
+    }
+    input{
+      background: none;
+      color: #ffffff;
+    }
+    .walletall{
+      background: #0C0D0C;
+    }
+    .order-box{
+      background: #0C0D0C;
+    }
+    .attention,.order-detail,.order-result{
+      border-top: none;
+    }
+    .order-progress{
+      border-bottom: none;
+    }
+    .container .user-navigation .user-nav-item p{
+      color: #ffffff;
+    }
+  }
+}
