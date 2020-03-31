@@ -20,10 +20,22 @@
 
          <div class="money"   v-if="!loading &&  !loading2"  v-for="item in coin_list" :key="item">
             <div class="coin">{{item}}</div>
-            <div class="coin2">{{hidden ? '******':assets_detail.asset[item]['$numberDecimal']?parseFloat(assets_detail.asset[item]['$numberDecimal'] )+parseFloat(getFreezeAsset(assets_detail.freeze_asset[item])):'000000'}} <span> ≈ {{hidden ? '******':(currentPrices[item]*(parseFloat(assets_detail.asset[item]['$numberDecimal'] )+parseFloat(getFreezeAsset(assets_detail.freeze_asset[item])))).toFixed(2)}} &nbsp;CNY<small></small></span> </div>
-            <div class="coin3">
+            <div class="coin2" v-if="assets_detail.asset && assets_detail.asset[item]">
+                {{
+                hidden ? '******':assets_detail.asset[item]['$numberDecimal']
+                ?parseFloat(assets_detail.asset[item]['$numberDecimal'] ) + parseFloat(getFreezeAsset((assets_detail.freeze_asset && assets_detail.freeze_asset[item]) || 0))
+                :'000000'
+                }}
+                <span>
+                    ≈ {{
+                    hidden ? '******'
+                    : (currentPrices[item]*(parseFloat(assets_detail.asset[item]['$numberDecimal'] ) + parseFloat(getFreezeAsset((assets_detail.freeze_asset && assets_detail.freeze_asset[item] || 0))))).toFixed(2)
+                    }} &nbsp;CNY<small></small>
+                </span>
+            </div>
+            <div class="coin3" v-if="assets_detail.asset && assets_detail.asset[item]">
                 <div class="c_l">可用：{{hidden ? '******': assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal'] :'000000'}}</div>
-                <div class="c_l">冻结：{{hidden ? '******': getFreezeAsset(assets_detail.freeze_asset[item])}}</div>
+                <div class="c_l">冻结：{{hidden ? '******': getFreezeAsset((assets_detail.freeze_asset && assets_detail.freeze_asset[item]) || 0)}}</div>
             </div>
             <div class="coin4">
                 <div class="shou"  @click="$router.push('/reCharge/'+item)">充币</div>
@@ -117,6 +129,7 @@ export default {
         .then(res => {
           self.detailstatus = false;
               this.loading2 = false;
+              console.log(res.data);
           this.$store.commit("assets_detail", res.data || {});
         })
         .catch(err => {
