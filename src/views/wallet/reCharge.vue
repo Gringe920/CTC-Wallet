@@ -1,19 +1,23 @@
 <template>
   <section class="reCharge">
-    <Header title="充币 RCP " :rightEv='toacceptCoin'  :rightIcon="require('../../assets/images/record_black@2x.png')" >充币 RCP</Header>
+    <Header :title="'充币 ' + symbol.toUpperCase()" :rightEv='toacceptCoin'  :rightIcon="require('../../assets/images/record_black@2x.png')" >充币 RCP</Header>
     <img src="" alt="" srcset="">
-    <div class="title" @click="create_address()"> 充币地址</div>
-    <div class="address">RKWPDQTXW3FUPZTUNVCEAUG8HEDXEX7ZWQ</div>
-    <div class="infos">*该地址只接受PYC（支付链），其他币转至该地址造成的损失，本平台概不负责</div>
-    <r-button text="复制充币地址" width="90%" class="btn-submit" @comfirm="$router.push({path: '/selectPayway'})"/>
-  </section>    
+    <div class="title" @click="create_address()"> 充币地址 <span v-if="symbol.toLowerCase() == 'usdt'">ERC20</span></div>
+    <div class="address">{{address}}</div>
+    <div class="infos">* 该地址只接受{{symbol.toUpperCase()}}，其他币转至该地址造成的损失，本平台概不负责</div>
+    <r-copy :copyText="address" class="btn">
+      复制充币地址
+    </r-copy>
+  </section>
 </template>
 <script>
 export default {
   name: "",
   data() {
     return {
-      submitstatus:false
+      submitstatus:false,
+        symbol : '',
+        address : '',
     };
     
   },
@@ -21,13 +25,16 @@ export default {
     this.create_address();
   },
   methods: {
+      comfirm2 (){
+          console.log('comfirm');
+      },
     create_address() {
       var self = this
       console.log(this.$route.params.coin,'-------symbol')
       if (this.submitstatus) return;
       self.submitstatus = true;
       var symbol =  this.$route.params.coin || '';
-      
+      this.symbol = symbol;
       this.axios({
         url: "/service/create_address",
         params: {
@@ -36,6 +43,7 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
+          this.address = res.data.address;
           this.$toast.show("获取充币地址成功");
         })
         .catch(err => {
@@ -55,8 +63,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+  .btn{
+    margin-top: 50px;
+  }
 .reCharge {
   padding: 50px 15px 0 15px;
+
   .title {
     color: $color1;
     font-size: 14px;
