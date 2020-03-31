@@ -36,11 +36,9 @@
         >
         <div class="top">
           <div class="left">
-            <img
-              src="../../assets/images/details_3_selected@2x.png"
-              alt=""
-              srcset=""
-            />
+            <div class="avatar">
+              {{item.nickname ? item.nickname[0] : ''}}
+            </div>
             <span>{{ item.nickname }}</span>
           </div>
           <div class="right" v-if="item.deals">
@@ -316,6 +314,17 @@ export default {
   .pend-empty{
     padding-top: 80px;
   }
+  .avatar{
+      width: 22px;
+      height: 22px;
+      color: #fff;
+      font-size: 13px;
+      text-align: center;
+      line-height: 22px;
+      border-radius: 22px;
+      background-color: #1771ED;
+      margin-right: 5px;
+    }
   .header {
     background: $bg;
     z-index: 10;
@@ -330,6 +339,7 @@ export default {
     text-align: center;
     align-items: center;
     padding: 0 15px;
+    
     .center {
       display: flex;
       div {

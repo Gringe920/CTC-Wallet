@@ -146,8 +146,6 @@ export default {
         this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.lowDeals')}`);
         return;
       }
-      console.log(minnum)
-      console.log(maxnum)
       if(+minnum > +maxnum){
         this.$toast.show(this.$t('publish.toast2'));
         return;
