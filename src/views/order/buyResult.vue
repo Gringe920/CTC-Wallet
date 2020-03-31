@@ -520,8 +520,9 @@ section {
       
     }
     i.ic-qrcode {
-      
+      background: #fff;
       background-image: url("../../assets/images/details_rq@2x.png");
+      background-size: 100% 100%;
       
     }
     

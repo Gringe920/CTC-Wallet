@@ -39,7 +39,7 @@
       </div>
       <div class="n" v-if="buyType != 'buy'">
         {{$t('ctc.assets')}}：{{ user.basicInfo.asset[coin] ? user.basicInfo.asset[coin].$numberDecimal : 0}} {{ coin.toUpperCase() }} &nbsp;
-        <span class="transfer">{{$t('ctc.transf')}}</span>
+        <!--<span class="transfer">{{$t('ctc.transf')}}</span>-->
       </div>
       <div class="inpbox">
         <div class="left">

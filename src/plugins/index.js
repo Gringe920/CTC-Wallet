@@ -150,7 +150,7 @@ Vue.mixin({
         //   图片路径
           imgUrl (url) {
             if ((/file/gi.test(location.href))) {
-              return axios.defaults.baseURL + "/" + url;
+              return this.axios.defaults.baseURL + "/" + url;
             }
             let origin = process.env.NODE_ENV == "development"
                 ? "http://47.240.110.55:9200"
