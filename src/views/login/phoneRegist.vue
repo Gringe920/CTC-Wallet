@@ -80,8 +80,8 @@ export default {
       this.$store.commit("type", index);
     },
     getcode() {
-        this.$toast.show("即将开放");
-        return;
+        // this.$toast.show("即将开放");
+        // return;
       const { account } = this;
       if (this.isEmpty(account)) {
         this.$toast.show("手机号码不能为空");
@@ -128,8 +128,8 @@ export default {
       }, 1000);
     },
     nextshow() {
-        this.$toast.show("即将开放");
-        return;
+        // this.$toast.show("即将开放");
+        // return;
       const { account } = this;
       if (this.isEmpty(account)) {
         this.$toast.show("手机号码不能为空");
