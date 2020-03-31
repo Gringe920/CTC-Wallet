@@ -114,11 +114,11 @@ export default {
         this.$toast.show(this.$t('ctc.orderToast5'));
         return;
       }
-      if(this.amount < this.item.minmum){
+      if(+this.amount < +this.item.minmum){
         this.$toast.show(this.$t('ctc.orderToast6'));
         return;
       }
-        if(this.amount > this.item.maxmum){
+        if(+this.amount > +this.item.maxmum){
             this.$toast.show(this.$t('ctc.orderToast7'));
             return;
         }
