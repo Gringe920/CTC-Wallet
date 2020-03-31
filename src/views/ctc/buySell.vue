@@ -118,10 +118,14 @@ export default {
         this.$toast.show(this.$t('ctc.orderToast6'));
         return;
       }
-      if(this.amount > this.item.amount.$numberDecimal){
-        this.$toast.show(this.$t('ctc.orderToast7'));
-        return;
-      }
+        if(this.amount > this.item.maxmum){
+            this.$toast.show(this.$t('ctc.orderToast7'));
+            return;
+        }
+      // if(this.amount > this.item.amount.$numberDecimal){
+      //   this.$toast.show(this.$t('ctc.orderToast7'));
+      //   return;
+      // }
       this.orderType = 2;
       this.currentItem = item;
     },
