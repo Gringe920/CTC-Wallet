@@ -51,6 +51,8 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show(this.$t("user.userMsg74"));
+          self.dealPwd = ''
+          self.redealPwd =''
         })
         .catch(err => {
           self.submitstatus = false;
@@ -83,7 +85,7 @@ export default {
   .divider {
     width: 100%;
     height: 1px;
-    background-color: #e2e2e2;
+    background-color: $bg2;
     margin: 15px 0;
   }
 }

@@ -45,10 +45,10 @@ export default {
   top: 50px;
   background: rgba(0, 0, 0, 0.5);
   .coinsbox {
-    background: $white;
+    background:$border2;
     .coins {
       text-transform: uppercase;
-      background: $white;
+      background: $border2;
       color: $color1;
       height: 40px;
       line-height: 40px;

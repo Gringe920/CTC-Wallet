@@ -1,6 +1,6 @@
 <template>
   <section class="reCharge">
-    <Header :title="'充币 ' + symbol.toUpperCase()" :rightEv='toacceptCoin'  :rightIcon="require('../../assets/images/record_black@2x.png')" >充币 RCP</Header>
+    <Header :title="'充币 ' + symbol.toUpperCase()" :rightEv='toacceptCoin'  :rightIcon="require('../../assets/images/record_black@2x.png')" ></Header>
     <img src="" alt="" srcset="">
     <div class="title" @click="create_address()"> 充币地址 <span v-if="symbol.toLowerCase() == 'usdt'">ERC20</span></div>
     <div class="address">{{address}}</div>
@@ -26,11 +26,9 @@ export default {
   },
   methods: {
       comfirm2 (){
-          console.log('comfirm');
       },
     create_address() {
       var self = this
-      console.log(this.$route.params.coin,'-------symbol')
       if (this.submitstatus) return;
       self.submitstatus = true;
       var symbol =  this.$route.params.coin || '';
@@ -48,7 +46,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show(err.message || "获取充币地址失败，请重试");
+          this.$toast.show("获取充币地址失败，请重试");
         });
     },
     toacceptCoin() {
@@ -73,12 +71,16 @@ export default {
     color: $color1;
     font-size: 14px;
     margin-bottom: 10px;
+   
   }
   .address {
-    background: #f7f9fc;
+    background: $border2;
     border-radius: 3px;
+        box-shadow: 0px 6px 10px 0px $border3;
+     border: 1px solid $border3;
     color: $active;
     font-size: 14px;
+     overflow-x: scroll;
     padding: 10px;
     margin-bottom: 20px;
   }

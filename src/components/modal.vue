@@ -55,7 +55,7 @@
         background: rgba(0,0,0,.5);
         z-index: 10;
         .modal-container{
-            background: $white;
+            background: $border2;
             width: 92%;
             top: 50%;
             left: 50%;
@@ -69,10 +69,10 @@
                 font-weight: bold;
                 text-align: center;
                 padding: 30px 0;
-                color: $color2;
+                color: $color1;
             }
             .modal-content{
-                color: $color1;
+                color: $primary;
                 text-align: center;
             }
             .modal-footer{

@@ -194,23 +194,23 @@ export default {
     .coinbox {
       position: absolute;
       bottom: 0;
-      background: $bg;
+      background: $border2;
       width: 100%;
       .cg {
-        color: $active !important;
+        color: $color1 !important;
         border-top: 5px solid rgba(0, 0, 0, 0.05);
       }
       .coin {
         width: 100%;
         text-align: center;
-        color: $color1;
+        color: $color1 !important;
         height: 48px;
         display: flex;
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         &.active {
-          color: $fontActive;
+          color: $fontActive !important;
         }
         img {
           width: 20px;

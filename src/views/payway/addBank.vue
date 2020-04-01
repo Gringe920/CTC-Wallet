@@ -83,10 +83,7 @@ export default {
       console.log(data);
     },
     topwdshow() {
-      this.pwdshow = true;
-    },
-    submit: function(pwd, code) {
-      const { name, register_bank, card, second_bank } = this;
+       const { name, register_bank, card, second_bank } = this;
       if (this.isEmpty(name)) {
         this.$toast.show("姓名不能为空");
         return;
@@ -103,6 +100,11 @@ export default {
         this.$toast.show("开户支行不能为空");
         return;
       }
+      this.pwdshow = true;
+      
+    },
+    submit: function(pwd, code) {
+      const { name, register_bank, card, second_bank } = this;
       var self = this;
       var params = {
         pwd: pwd,

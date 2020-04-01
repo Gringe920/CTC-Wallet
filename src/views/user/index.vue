@@ -46,25 +46,25 @@
         </div>
       </div>
    </div>
-      <div class="user-nav-item" @click="$router.push({path: '/lang'})">
-        <i class="icon my_language"></i>
-        <p>{{$t('user.userMsg8')}}</p>
-        <div class="turn-right">
-          <span>
-            {{
-            $i18n.locale == 'en' ? 'English' : $i18n.locale == 'ru' ? 'русский язык' : $i18n.locale == 'zhCN' ? '中文繁体' : '中文简体'
-            }}
-          </span>
-          <i></i>
-        </div>
+    <div class="user-nav-item" @click="$router.push({path: '/lang'})">
+      <i class="icon my_language"></i>
+      <p>{{$t('user.userMsg8')}}</p>
+      <div class="turn-right">
+        <span>
+          {{
+          $i18n.locale == 'en' ? 'English' : $i18n.locale == 'ru' ? 'русский язык' : $i18n.locale == 'zhCN' ? '中文繁体' : '中文简体'
+          }}
+        </span>
+        <i></i>
       </div>
-      <div class="user-nav-item" @click="$router.push({path: '/about'})">
-        <i class="icon my_about"></i>
-        <p>{{$t('user.userMsg9')}}</p>
-        <div class="turn-right">
-          <i></i>
-        </div>
+    </div>
+    <div class="user-nav-item" @click="$router.push({path: '/about'})">
+      <i class="icon my_about"></i>
+      <p>{{$t('user.userMsg9')}}</p>
+      <div class="turn-right">
+        <i></i>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -148,7 +148,7 @@ export default {
     .info {
       .name {
         font-size: 19px;
-        color: $active;
+        color: $bg;
       }
       .uid {
         font-size: 12px;
@@ -164,7 +164,7 @@ export default {
       align-items: center;
       padding: 15px 0;
       position: relative;
-
+      border-bottom: 1px solid $border2;
       i.icon {
         display: inline-block;
         width: 18px;

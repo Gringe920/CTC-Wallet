@@ -70,11 +70,11 @@ export default {
         return;
       }
       if (!account) {
-        this.$toast.show("请输入支付宝账号！");
+        this.$toast.show("请输入微信账号！");
         return;
       }
       if (!img) {
-        this.$toast.show("请上传支付宝收款二维码！");
+        this.$toast.show("请上传微信收款二维码！");
         return;
       }
       this.pwdshow = true;

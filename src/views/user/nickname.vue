@@ -62,7 +62,7 @@ export default {
     padding: 15px 0;
   }
   .line {
-    background-color: #f2f2f2;
+    background-color: $bg2;
     height: 1px;
     width: 100%;
     position: absolute;

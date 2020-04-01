@@ -2,7 +2,7 @@
   <section>
     <div class="header"> 
       <img @click="reply" src="../../assets/images/home_search_white@2x(1).png" alt class="icon_l" />
-      {{$t('publish.title')}}
+      <span>{{$t('publish.title')}}</span>
       <span @click="coinlistVisible = !coinlistVisible"> {{symbol}}
       <i ></i></span>
     </div>
@@ -95,7 +95,7 @@
 
 <script>
 import { mapState } from "vuex";
-import coinlist from '../../components/coinlist.vue'
+import coinlist from "../../components/coinlist.vue";
 import tradedialog from "../../components/tradedialog.vue";
 export default {
   data() {
@@ -113,13 +113,13 @@ export default {
       paytype_alipay: 1, // 是否支持支付宝
       minnum: null, // 支持的最小交易数量
       maxnum: null, // 支持的最大交易数量
-      VerifyCodeStatus:false,
+      VerifyCodeStatus: false,
       coinlistVisible: false,
       currentPrices: {}
     };
   },
   mounted() {
-    this.getCurrentprice()
+    this.getCurrentprice();
   },
   components: {
     coinlist,
@@ -129,14 +129,14 @@ export default {
     ...mapState(["user", "coin_list", "assets_detail"])
   },
   methods: {
-      submitActive() {
-          this.$router.push({ path: "/selectPayway" });
-          this.isShowModal = false;
-      },
-      submitActive2() {
-          this.$router.push({ path: "/setTradePsw" });
-          this.isShowModal2 = false;
-      },
+    submitActive() {
+      this.$router.push({ path: "/selectPayway" });
+      this.isShowModal = false;
+    },
+    submitActive2() {
+      this.$router.push({ path: "/setTradePsw" });
+      this.isShowModal2 = false;
+    },
     getCurrentprice() {
       this.axios({
         url: "/service/current_price",
@@ -146,50 +146,58 @@ export default {
           this.currentPrices = res.data || {};
         })
         .catch(err => {
-          this.$toast.show(this.$t('publish.toast0'));
+          this.$toast.show(this.$t("publish.toast0"));
         });
     },
-    handleActive(idx){
+    handleActive(idx) {
       this.amount = this.price = this.minnum = this.maxnum = null;
       this.activeIndex = idx;
     },
-    commitButton(){
-        if (!this.user.basicInfo) {
-            this.$router.push({ path: "/login" });
-            return;
-        }
-        if(this.user.basicInfo.deal_pwd_state != 1){
-            this.isShowModal2 = true;
-            return;
-        }
-        if (
-            this.user.wechat_state === 0 &&
-            this.user.bankcard_state === 0 &&
-            this.user.alipay_state === 0
-        ) {
-            this.isShowModal = true;
-            return;
-        }
-      const {amount, price, minnum, maxnum, activeIndex } = this;
-      const toTxt = activeIndex == 2 ? this.$t('ctc.sell'): this.$t('ctc.buy');
-      if(!price){
-        this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.inpPrice')}`);
+    commitButton() {
+      if (!this.user.basicInfo) {
+        this.$router.push({ path: "/login" });
         return;
       }
-      if(!amount){
-        this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.amount')}`);
+      if (this.user.basicInfo.deal_pwd_state != 1) {
+        this.isShowModal2 = true;
         return;
       }
-      if(!maxnum){
-        this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.highDeals')}`);
+      if (
+        this.user.wechat_state === 0 &&
+        this.user.bankcard_state === 0 &&
+        this.user.alipay_state === 0
+      ) {
+        this.isShowModal = true;
         return;
       }
-      if(!minnum){
-        this.$toast.show(`${this.$t('publish.toast1')}${toTxt}${this.$t('publish.lowDeals')}`);
+      const { amount, price, minnum, maxnum, activeIndex } = this;
+      const toTxt = activeIndex == 2 ? this.$t("ctc.sell") : this.$t("ctc.buy");
+      if (!price) {
+        this.$toast.show(
+          `${this.$t("publish.toast1")}${toTxt}${this.$t("publish.inpPrice")}`
+        );
         return;
       }
-      if(+minnum > +maxnum){
-        this.$toast.show(this.$t('publish.toast2'));
+      if (!amount) {
+        this.$toast.show(
+          `${this.$t("publish.toast1")}${toTxt}${this.$t("publish.amount")}`
+        );
+        return;
+      }
+      if (!maxnum) {
+        this.$toast.show(
+          `${this.$t("publish.toast1")}${toTxt}${this.$t("publish.highDeals")}`
+        );
+        return;
+      }
+      if (!minnum) {
+        this.$toast.show(
+          `${this.$t("publish.toast1")}${toTxt}${this.$t("publish.lowDeals")}`
+        );
+        return;
+      }
+      if (+minnum > +maxnum) {
+        this.$toast.show(this.$t("publish.toast2"));
         return;
       }
       this.VerifyCodeStatus = true;
@@ -206,7 +214,17 @@ export default {
       if (this.submitStatus) return;
       this.submitStatus = true;
       this.type = this.activeIndex;
-      const {symbol, amount, price, type, paytype_bank, paytype_wx, paytype_alipay, minnum, maxnum} = this;
+      const {
+        symbol,
+        amount,
+        price,
+        type,
+        paytype_bank,
+        paytype_wx,
+        paytype_alipay,
+        minnum,
+        maxnum
+      } = this;
       this.axios({
         url: "/c2c/pend",
         params: {
@@ -220,22 +238,22 @@ export default {
           minnum,
           maxnum,
           pwd,
-          code,
+          code
         }
       })
         .then(res => {
           this.submitStatus = false;
-          this.$toast.show(this.$t('publish.toast3'));
+          this.$toast.show(this.$t("publish.toast3"));
           this.$router.go(-1);
         })
         .catch(err => {
           this.submitStatus = false;
-          this.$toast.show( err.message || this.$t('publish.toast4') );
+          this.$toast.show(err.message || this.$t("publish.toast4"));
         });
     },
     reply() {
       if (typeof plus == "object") {
-        let webview = plus.webview.getWebviewById('otc');
+        let webview = plus.webview.getWebviewById("otc");
         webview.back();
       } else {
         this.$router.go(-1);
@@ -246,17 +264,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @media screen and (max-height: 424px) {
-        .btn-submit{
-          display: none;
-        }
-    }
+@media screen and (max-height: 424px) {
+  .btn-submit {
+    display: none;
+  }
+}
 section {
   .header {
     line-height: 50px;
     font-size: 18px;
     text-transform: uppercase;
     text-align: center;
+    color: $color1;
+    span {
+      color: $color1;
+    }
     .icon_l {
       position: absolute;
       left: 15px;
@@ -274,15 +296,16 @@ section {
     }
   }
   .content {
+    background: $border2;
     .tag {
       padding: 12px 0;
       display: flex;
       justify-content: space-around;
       .tagli {
         font-size: 14px;
-        color: #97a2af;
+        color: $color1;
         &.active {
-          color: #1771ed;
+          color: $fontActive;
           position: relative;
           &::after {
             content: "";
@@ -291,7 +314,7 @@ section {
             bottom: -12px;
             width: 28px;
             height: 2px;
-            background-color: #1771ed;
+            background-color: $fontActive;
             left: 50%;
             transform: translateX(-50%);
           }
@@ -299,7 +322,7 @@ section {
       }
     }
     .bor-bottom {
-      border-bottom: 10px solid #f9f9fb;
+      border-bottom: 10px solid  $border2;
     }
     .p-content {
       padding: 15px;
@@ -308,10 +331,11 @@ section {
         display: flex;
         justify-content: space-between;
         font-size: 14px;
+        color: $color1;
         padding: 15px 0;
         &.tips {
           font-size: 12px;
-          color: #97a2af;
+          color: $color1;
           padding: 0 0 10px;
         }
         .inp {
@@ -322,7 +346,7 @@ section {
             width: 80%;
           }
           span {
-            color: #333;
+            color: $color1;
             padding-left: 5px;
           }
         }

@@ -29,6 +29,7 @@ export default {};
 
 <style lang="scss" scoped>
 .container {
+     color: $color1;
   padding-top: 50px;
   margin: 0 15px;
   text-align: center;
@@ -38,12 +39,12 @@ export default {};
   }
   .version {
     font-size: 13px;
-    color: #97a2af;
+    color: $color1;
     margin-top: 8px;
     margin-bottom: 30px;
   }
   .line {
-    background-color: #f2f2f2;
+    background-color: $border2;
     height: 1px;
     width: 100%;
   }

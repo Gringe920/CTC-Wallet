@@ -209,13 +209,13 @@ section {
     }
     .publish {
       font-size: 14px;
-      color: #1771ed;
+      color: $btnDefalutBg;
       position: absolute;
       right: 15px;
     }
   }
   .nav-tag {
-    background-color: #fff;
+    background-color: $border2;
     position: fixed;
     top: 50px;
     width: 100%;
@@ -228,7 +228,7 @@ section {
       padding: 12px 0;
       justify-content: space-around;
       li.active {
-        color: #1771ed;
+        color: $btnDefalutBg;
         position: relative;
       }
       li.active:after {
@@ -236,7 +236,7 @@ section {
         display: inline-block;
         width: 28px;
         height: 2px;
-        background-color: #1771ed;
+        background-color: $btnDefalutBg;
         position: absolute;
         bottom: -12px;
         left: 50%;
@@ -281,7 +281,7 @@ section {
           }
           .kill-order {
             font-size: 12px;
-            color: #1771ed;
+            color: $btnDefalutBg;
             border-radius: 2px;
             border: 1px solid rgba(23, 113, 237, 1);
             padding: 0 10px;
@@ -320,7 +320,7 @@ section {
           }
           .order-money {
             font-size: 16px;
-            color: #1771ed;
+            color: $btnDefalutBg;
             margin-bottom: 10px;
             margin-top: 10px;
           }

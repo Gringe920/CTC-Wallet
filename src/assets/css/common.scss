@@ -13,7 +13,7 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 }
 input{
   border: 0;
-  color:$color2;
+  color:$white;
 }
 
 input::placeholder{
@@ -98,7 +98,7 @@ body, html, #app {
 }
 
 .line{
-  background-color: #F2F2F2;
+  background-color:$bg2;
   height: 1px;
   width: 100%;
 }
@@ -137,7 +137,7 @@ body.ald{
     }
     .header{
       background: #141714;
-      color: #ffffff;
+      color: $color1;
       border-bottom: none;
     }
     .container{
@@ -145,7 +145,7 @@ body.ald{
     }
     input{
       background: none;
-      color: #ffffff;
+      color: $color1;
     }
     .walletall{
       background: #0C0D0C;
@@ -164,7 +164,7 @@ body.ald{
     }
     .pasword{
       background: #141714;
-      box-shadow: 0 0 20px rgba(255,255,255, 0.5);
+      box-shadow: 0 0 20px $bg2;
     }
     .cointype{
       color: #ffffff;
@@ -176,7 +176,7 @@ body.ald{
       color: #000;
     }
     .pasword .inp{
-      border-color: #ffffff;
+      // border-color: #ffffff;
     }
     .content .p-content .p-row .inp input{
       color: #ffffff;

@@ -126,9 +126,10 @@ section {
     .pay-info {
       .p-tit {
         font-size: 14px;
+          color: $color1;
       }
       .p-num {
-        color: #97a2af;
+        color: $color1;
         font-size: 12px;
       }
     }

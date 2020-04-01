@@ -248,7 +248,7 @@ export default {
           border-right: 1px solid $border;
         }
         .bt {
-          border-bottom: 1px solid $border;
+          border-bottom: 1px solid $border2;
         }
       }
       .right {

@@ -214,11 +214,11 @@ export default {
       })
         .then(res => {
           self.orderStatus = false;
-          this.$toast.show(this.$t('ctc.orderToast0'));
+          this.$toast.show(this.$t("ctc.orderToast0"));
         })
         .catch(err => {
           self.orderStatus = false;
-          this.$toast.show(err.message || this.$t('ctc.orderToast1'));
+          this.$toast.show(err.message || this.$t("ctc.orderToast1"));
         });
     },
     selectCoin(coin) {
@@ -243,7 +243,7 @@ export default {
           if (res.error_code == 0) {
             this.currentPendList = res.data.list || [];
             this.$store.commit("PendList", res.data.list || []);
-            this.filterPendList()
+            this.filterPendList();
           }
           this.loading = false;
           // this.$toast.show("挂单列表获取成功!");
@@ -252,18 +252,18 @@ export default {
           this.loading = false;
           self.submitStatus = false;
           this.$store.commit("UserPendList", []);
-          this.$toast.show(err.message || this.$t('ctc.orderToast2'));
+          this.$toast.show(err.message || this.$t("ctc.orderToast2"));
         });
     },
     changebuySellShow(item) {
-        console.log('changebuySellShow');
+      console.log("changebuySellShow");
       if (!this.user.basicInfo) {
         this.$router.push({ path: "/login" });
         return;
       }
-      if(this.user.basicInfo.deal_pwd_state != 1){
-          this.isShowModal2 = true;
-          return;
+      if (this.user.basicInfo.deal_pwd_state != 1) {
+        this.isShowModal2 = true;
+        return;
       }
       if (
         this.user.wechat_state === 0 &&
@@ -274,11 +274,11 @@ export default {
         return;
       }
       if (item.uid === this.user.basicInfo.uid) {
-        this.$toast.show(this.$t('ctc.orderToast3'));
+        this.$toast.show(this.$t("ctc.orderToast3"));
         return;
       }
       if (item.amount.$numberDecimal < item.minmum) {
-        this.$toast.show(this.$t('ctc.orderToast4'));
+        this.$toast.show(this.$t("ctc.orderToast4"));
         return;
       }
       this.bugSellItem = item;
@@ -288,21 +288,24 @@ export default {
       this.$store.commit("buyType", data);
       this.filterPendList();
     },
-    filterPendList(){
-      const type = this.buyType == 'buy' ? 2 : 1;
-      this.$store.commit("PendList", this.currentPendList.filter(item => item.type == type));
+    filterPendList() {
+      const type = this.buyType == "buy" ? 2 : 1;
+      this.$store.commit(
+        "PendList",
+        this.currentPendList.filter(item => item.type == type)
+      );
     },
     submitActive() {
       this.$router.push({ path: "/selectPayway" });
       this.isShowModal = false;
     },
-      submitActive2() {
+    submitActive2() {
       this.$router.push({ path: "/setTradePsw" });
       this.isShowModal2 = false;
     },
     showActivatedModal() {
       this.isShowModal = true;
-    },
+    }
   }
 };
 </script>
@@ -312,20 +315,20 @@ export default {
   height: auto;
   min-height: 100%;
   background-color: #f7f9fc;
-  .pend-empty{
+  .pend-empty {
     padding-top: 80px;
   }
-  .avatar{
-      width: 22px;
-      height: 22px;
-      color: #fff;
-      font-size: 13px;
-      text-align: center;
-      line-height: 22px;
-      border-radius: 22px;
-      background-color: #1771ED;
-      margin-right: 5px;
-    }
+  .avatar {
+    width: 22px;
+    height: 22px;
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    line-height: 22px;
+    border-radius: 22px;
+    background-color: #1771ed;
+    margin-right: 5px;
+  }
   .header {
     background: $bg;
     z-index: 10;
@@ -340,7 +343,7 @@ export default {
     text-align: center;
     align-items: center;
     padding: 0 15px;
-    
+
     .center {
       display: flex;
       div {
@@ -360,7 +363,7 @@ export default {
       display: flex;
       align-items: center;
       left: 15px;
-      color: $color2;
+      color: $color1;
       img {
         margin-left: 5px;
         width: 15px;
@@ -375,17 +378,17 @@ export default {
   .buyall {
     padding: 50px 15px 60px 15px;
     .buymsg {
-      box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.03);
+      box-shadow: 0px 6px 10px 0px $border3;
       margin-top: 15px;
       padding: 0 15px;
       border-radius: 4px;
-      background: $bg;
+      background: $border2;
       .top {
         padding: 15px 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid $bg3;
         .left {
           display: flex;
           height: 30px;

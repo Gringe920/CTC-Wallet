@@ -108,10 +108,11 @@ section {
   position: fixed;
   bottom: 0px;
   width: 100%;
-  background: $white;
+  background: $border2;
   padding: 25px 15px;
   border-radius: 16px 16px 0px 0px;
   z-index: 100;
+  color:$color1;
   .top {
     position: relative;
     margin-bottom: 25px;
@@ -134,7 +135,7 @@ section {
     justify-content: space-between;
     margin-bottom: 20px;
     border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid $color1;
     height: 44px;
     input {
       min-width: 70%;
@@ -146,7 +147,7 @@ section {
       line-height: 44px;
       padding-left: 10px;
       padding-right: 5px;
-      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      border-left: 0.3px solid $color1
     }
   }
 }

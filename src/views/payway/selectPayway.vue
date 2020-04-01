@@ -93,7 +93,7 @@ section {
   padding: 50px 15px 0;
   height: 100%;
   .tips {
-    color: #97a2af;
+      color: $color1;
     font-size: 12px;
     padding: 15px 0;
   }
@@ -112,9 +112,10 @@ section {
     .pay-info {
       .p-tit {
         font-size: 14px;
+          color: $color1;
       }
       .p-num {
-        color: #97a2af;
+          color: $color1;
         font-size: 12px;
       }
     }

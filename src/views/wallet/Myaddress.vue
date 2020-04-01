@@ -92,7 +92,7 @@ export default {
     .coin {
       font-size: 16px;
       display: flex;
-      color: $active;
+      color: $white !important;
       justify-content: space-between;
       align-items: center;
       text-transform: uppercase;

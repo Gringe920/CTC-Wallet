@@ -100,7 +100,7 @@ export default {
         align-items: center;
         padding: 16px 0;
         .i-k {
-          color: $active;
+          color: $color1;
         }
         .turn-right {
           span {
@@ -119,7 +119,7 @@ export default {
           }
         }
         .line {
-          background-color: #f2f2f2;
+          background-color: $bg2;
           height: 1px;
           width: 100%;
           position: absolute;

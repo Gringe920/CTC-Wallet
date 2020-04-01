@@ -264,21 +264,22 @@ export default {
   .money {
     height: 100%;
     text-transform: uppercase;
-    background: $white;
+    background:$border2;
     margin-bottom: 20px;
     border-radius: 5px;
-    box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px 6px 10px 0px $border3;
+     border: 1px solid $bg3;
     border-radius: 10px;
     .coin {
       padding: 20px 15px 0 15px;
       font-size: 18px;
       font-weight: 500;
-      color: $fontActive;
+      color: $fontActive !important;
     }
     .coin2 {
       padding: 0 15px;
       font-size: 24px;
-      color: $active;
+      color: $color1;
       margin: 15px 0;
       span {
         font-size: 18px;
@@ -294,7 +295,7 @@ export default {
       }
     }
     .coin4 {
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 1px solid $bg4;
       height: 40px;
       color: $active;
       font-size: 14px;
@@ -309,7 +310,7 @@ export default {
         color: $white;
       }
       .shou {
-        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        border-right: 1px solid $bg4;
       }
     }
   }

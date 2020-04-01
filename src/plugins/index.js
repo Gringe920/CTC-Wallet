@@ -153,7 +153,7 @@ Vue.mixin({
               return this.axios.defaults.baseURL + "/" + url;
             }
             let origin = process.env.NODE_ENV == "development"
-                ? "http://47.240.110.55:9200"
+                ? "http://otcapi.goaladdin.org"
                 : window.location.origin;
         
             return origin  +'/'+ url;

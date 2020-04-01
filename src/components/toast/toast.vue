@@ -23,9 +23,9 @@ export default {
   min-width: 200px;
   max-width: 80%;
   line-height: 1.4;
-  background: rgba(10,25,45,0.7);
+  background: $border2;
   border-radius: 10px;
-  color: $white;
+  color: $color1;
   padding: 10px 20px;
   z-index: 999999;
   text-align: center;
