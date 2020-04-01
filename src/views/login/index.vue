@@ -2,19 +2,19 @@
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/home_search_white@2x(1).png" alt class="icon_l" />
-      <span @click="$router.push({path: '/phoneRegist'})">注册</span>
+      <span @click="$router.push({path: '/phoneRegist'})">{{$t('login.regist')}}</span>
     </div>
     <div class="container">
-      <div class="l-tit">用户登录</div>
+      <div class="l-tit">{{$t('login.userLogin')}}</div>
       <div class="l-info-box">
-        <input placeholder="手机" type="number" v-model="account" class="account"/>
+        <input :placeholder="$t('login.placeholder0')" type="number" v-model="account" class="account"/>
         <div class="line"></div>
-        <input placeholder="密码" type="Password" v-model="password"/>
+        <input :placeholder="$t('login.placeholder1')" type="Password" v-model="password"/>
         <div class="line"></div>
         <div @click="submit">
-        <r-button text="立即登录" class="btn-login"/>
+        <r-button :text="$t('login.btn0')" class="btn-login"/>
         </div>
-        <span class="forget"  @click="$router.push({ path: '/forget'})">忘记密码？</span>
+        <span class="forget"  @click="$router.push({ path: '/forget'})">{{$t('login.forget')}}</span>
       </div>
     </div>
   </section>
@@ -34,15 +34,15 @@ export default {
     submit() {
       const { account, password } = this;
       if (this.isEmpty(account)) {
-        this.$toast.show("手机号码不能为空");
+        this.$toast.show(this.$t('login.toast0'));
         return;
       }
       if (!this.isValidPhone(account)) {
-        this.$toast.show("手机号格式错误");
+        this.$toast.show(this.$t('login.toast1'));
         return;
       }
       if (this.isEmpty(password)) {
-        this.$toast.show("登陆密码不能为空");
+        this.$toast.show(this.$t('login.toast2'));
         return;
       }
       var self = this;
@@ -58,7 +58,7 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("登陆成功!");
+          this.$toast.show(this.$t('login.toast3'));
           this.getLoginInfo();
         })
         .catch(err => {

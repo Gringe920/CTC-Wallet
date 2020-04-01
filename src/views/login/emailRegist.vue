@@ -2,27 +2,27 @@
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/home_search_white@2x(1).png" alt class="icon_l" />
-      <span @click="$router.push({path: '/login'})">登录</span>
+      <span @click="$router.push({path: '/login'})">{{$t('login.login')}}</span>
     </div>
     <div class="container">
-      <div class="l-tit">邮箱注册</div>
+      <div class="l-tit">{{$t('login.emailRegist')}}</div>
       <div class="l-info-box">
-        <div class="region">中国<i></i></div>
+        <div class="region">{{$t('login.region')}}<i></i></div>
         <div classs="account-box">
-          <input placeholder="请输入邮箱地址" v-model="account" class="account"/>
+          <input :placeholder="$t('login.placeholder2')" v-model="account" class="account"/>
         </div>
         <div class="line"></div>
         <div class="code-box">
-          <input placeholder="请输入验证码" type="password" />
-          <span class="">发送验证码</span>
+          <input :placeholder="$t('login.placeholder3')" type="password" />
+          <span class="">{{$t('login.sendCode')}}}</span>
         </div>
         <div class="line"></div>
         <div class="allow">
           <i></i>
-          同意《用户服务条款与用户隐私协议》
+          {{$t('login.allow')}}
         </div>
-        <r-button text="下一步" class="btn-login"/>
-        <span class="forget">邮箱注册</span>
+        <r-button :text="$t('login.next')" class="btn-login"/>
+        <span class="forget">{{$t('login.emailRegist')}}</span>
       </div>
     </div>
   </section>

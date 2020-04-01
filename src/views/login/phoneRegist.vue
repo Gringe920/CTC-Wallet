@@ -2,47 +2,47 @@
   <section>
     <div class="header">
       <img @click="reply" src="../../assets/images/home_search_white@2x(1).png" alt class="icon_l" />
-      <span @click="$router.push({path: '/login'})">登录</span>
+      <span @click="$router.push({path: '/login'})">{{$t('login.login')}}</span>
     </div>
     <div class="container">
-      <div class="l-tit" @click="submit()">{{next?'设置登陆密码':type=='email'?"邮箱注册":'手机注册'}}</div>
+      <div class="l-tit" @click="submit()">{{next? $t('login.setloginPwd') : type=='email'? $t('login.emailRegist') : $t('login.phoneRegist')}}</div>
       <div class="l-info-box">
-        <div class="region"  v-if="!next ">中国<i></i></div>
+        <div class="region"  v-if="!next ">{{$t('login.region')}}<i></i></div>
         <div classs="account-box"  v-if="!next && type=='phone'">
           <span class="area-code">+86</span>
-          <input placeholder="请输入手机" type="number" v-model="account" class="account"/>
+          <input :placeholder="$t('user.userMsg44')" type="number" v-model="account" class="account"/>
         </div>
         <div class="line" v-show="!next && type=='email'"></div>
         <div class="code-box2" v-show="!next && type=='email'">
-          <input placeholder="请输入邮箱地址" type="text"  v-model="mail"/>
+          <input :placeholder="$t('login.placeholder2')" type="text"  v-model="mail"/>
         </div>
         <div class="line" v-show="next"></div>
         <div class="line"  v-if="!next"></div>
         <div class="code-box"  v-if="!next">
-          <input placeholder="请输入验证码" type="number" v-model="code" />
-          <span :class="isTiktok ?'timechecked':''" @click="getcode">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</span>
+          <input :placeholder="$t('user.userMsg45')" type="number" v-model="code" />
+          <span :class="isTiktok ?'timechecked':''" @click="getcode">{{isTiktok ? `${remainedTime}s`: $t('user.userMsg46') }}</span>
         </div>
         <div class="line" v-show="next"></div>
            <div class="code-box2" v-show="next">
-          <input placeholder="请输入密码" type="password"  v-model="password"/>
+          <input :placeholder="$t('lang12')" type="password"  v-model="password"/>
         </div>
         <div class="line" v-show="next"></div>
           <div class="code-box2" v-show="next">
-          <input placeholder="请再次输入密码" type="Password"  v-model="rePassword"/>
+          <input :placeholder="$t('login.placeholder4')" type="Password"  v-model="rePassword"/>
         </div>
         <div class="line" v-show="next"></div>
         <div class="allow" :class="checked?'checked':''" v-if='!next'>
           <i @click="toyi" ></i>
-          同意《用户服务条款与用户隐私协议》
+          {{$t('login.allow')}}
         </div>
         <div @click="nextshow()" v-if="!next">
-          <r-button text="下一步"  class="btn-login"/>
+          <r-button :text="$t('login.next')"  class="btn-login"/>
         </div>
         <div  @click="submit()"  v-if="next"> 
-          <r-button text="确定" class="btn-login"/>
+          <r-button :text="$t('confirm')" class="btn-login"/>
         </div>
         <!-- <span  v-if="type=='phone'" class="forget" @click="typechange('email')">邮箱注册</span> -->
-         <span  v-if="type=='email'" class="forget" @click="typechange('phone')">手机注册</span>
+         <span  v-if="type=='email'" class="forget" @click="typechange('phone')">{{$t('login.phoneRegist')}}</span>
       </div>
     </div>
   </section>
@@ -84,16 +84,17 @@ export default {
         // return;
       const { account } = this;
       if (this.isEmpty(account)) {
-        this.$toast.show("手机号码不能为空");
+
+        this.$toast.show(this.$t('user.userMsg48'));
         return;
       }
       if (!this.isValidPhone(account)) {
-        this.$toast.show("手机号格式错误");
+        this.$toast.show(this.$t('user.userMsg49'));
         return;
       }
       var self = this;
       if (this.isTiktok) {
-        this.$toast.show("请不要重复操作!");
+        this.$toast.show(this.$t('user.userMsg79'));
         return;
       }
       if (this.codeStatus) return;
@@ -107,12 +108,12 @@ export default {
       })
         .then(res => {
           self.codeStatus = false;
-          this.$toast.show("验证码获取成功");
+          this.$toast.show(this.$t('user.userMsg80'));
           this.startCountdown()
         })
         .catch(err => {
           self.codeStatus = false;
-          this.$toast.show("验证码获取失败,请稍后再试");
+          this.$toast.show(this.$t('user.userMsg78'));
         });
     },
        startCountdown() {
@@ -132,19 +133,19 @@ export default {
         // return;
       const { account } = this;
       if (this.isEmpty(account)) {
-        this.$toast.show("手机号码不能为空");
+        this.$toast.show(this.$t('login.toast0'));
         return;
       }
       if (!this.isTiktok) {
-        this.$toast.show("请先获取验证码!");
+        this.$toast.show(this.$t('user.userMsg50'));
         return;
       }
       if (!this.code) {
-        this.$toast.show("验证码不能为空!");
+        this.$toast.show(this.$t('user.userMsg51'));
         return;
       }
       if (!this.checked) {
-        this.$toast.show("请先阅读并同意协议!");
+        this.$toast.show(this.$t('user.userMsg81'));
         return;
       }
       this.next = !this.next;
@@ -153,15 +154,15 @@ export default {
 
       const { password, rePassword } = this;
       if (this.isEmpty(password)) {
-        this.$toast.show("登陆密码不能为空");
+        this.$toast.show(this.$t('login.toast2'));
         return;
       }
       if (this.isEmpty(rePassword)) {
-        this.$toast.show("确认密码不能为空");
+        this.$toast.show(this.$t('user.userMsg38'));
         return;
       }
       if (password != rePassword) {
-        this.$toast.show("登陆密码与确认密码不相同");
+        this.$toast.show(this.$t('user.userMsg82'));
         return;
       }
       var self = this;
@@ -179,7 +180,7 @@ export default {
       })
         .then(res => {
           self.submitstatus = false;
-          this.$toast.show("注册成功,去登陆");
+          this.$toast.show(this.$t('user.userMsg83'));
         setTimeout(function(){
  self.$router.push("login");
           },1000)
