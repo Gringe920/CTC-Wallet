@@ -3,7 +3,7 @@
     <div class="imgbox">
          <img src="../assets/images/blank_page_book@2x.png" />
     </div>
-    <div class="text">暂无数据</div>
+    <div class="text">{{$t('empty')}}</div>
   </section>
 </template>
 <script>

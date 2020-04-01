@@ -49,6 +49,13 @@
   "langSet" : "语言设置",
   "dispark" : "暂未开放",
   "my" : "我的",
+  "empty": "暂无数据",
+  "cancel": "取消",
+  "placeholder1": "输入交易密码",
+  "placeholder2": "输入短信验证码",
+  "toast0": "获取验证码成功",
+  "toast1": "获取验证码失败，请重试",
+  
   "updateApp": {
     "lang1": "下载更新文件...",
     "lang2": "下载失败！",

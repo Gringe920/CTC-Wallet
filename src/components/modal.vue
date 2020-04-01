@@ -8,7 +8,7 @@
                 <slot></slot>
             </div>
             <div class="modal-footer">
-                <button class="cancel" @click="hideModal">取消</button>
+                <button class="cancel" @click="hideModal">{{$t('cancel')}}</button>
                 <button class="ok" @click="submit">{{btnText}}</button>
             </div>
         </div>
@@ -28,7 +28,7 @@
             },
             btnText: {
                 type: String,
-                default: '确定'
+                default: this.$t('confirm')
             },
         },
         methods: {

@@ -19,7 +19,7 @@ export default {
             this.$toast.show(this.$t('copySucceed'))
         },
         onError(err){
-            this.$toast.show(this.$t('复制失败'))
+            this.$toast.show(this.$t('copyError'))
         }
     }
 }

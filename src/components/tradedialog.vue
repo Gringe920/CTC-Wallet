@@ -3,17 +3,17 @@
   <div class="modal-wrap"></div>
   <div class="pasword">
     <div class="top">
-      <div class="l">请输入交易密码</div>
+      <div class="l">{{$t('wallet.zhuanqian12')}}</div>
       <img class="img2" @click="onClose" src="../assets/images/top_off_black@2x.png" alt srcset />
     </div>
     <div class="inp">
-      <input type="password" v-model="password" placeholder="输入交易密码" />
+      <input type="password" v-model="password" :placeholder="$t('placeholder1')" />
     </div>
     <div class="inp">
-      <input type="number" v-model="verifyCode" placeholder="输入短信验证码" />
-      <div class="code" @click="getVerifyCode">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</div>
+      <input type="number" v-model="verifyCode" :placeholder="$t('placeholder2')" />
+      <div class="code" @click="getVerifyCode">{{isTiktok ? `${remainedTime}s`: $t('user.userMsg46') }}</div>
     </div>
-    <div class="btn" @click="onConfirm">确定</div>
+    <div class="btn" @click="onConfirm">{{$t('confirm')}}</div>
   </div>
 </section>
   
@@ -50,10 +50,10 @@ export default {
       })
         .then(_ => {
           this.startCountdown();
-          this.$toast.show("获取验证码成功!");
+          this.$toast.show(this.$t('toast0'));
         })
         .catch(err => {
-          this.$toast.show(err.message || "获取验证码失败，请重试");
+          this.$toast.show(err.message || this.$t('toast1'));
         });
     },
     startCountdown() {
@@ -71,19 +71,18 @@ export default {
     onConfirm() {
          const { password,isTiktok } = this;
       if (this.isEmpty(password)) {
-        this.$toast.show("交易密码不能为空");
+        this.$toast.show(this.$t('user.userMsg73'));
         return;
       }
       if (!this.isTiktok) {
-        this.$toast.show("请先获取验证码!");
+        this.$toast.show(this.$t('user.userMsg50'));
         return;
       }
       if (!this.verifyCode) {
-        this.$toast.show("验证码不能为空!");
+        this.$toast.show(this.$t('user.userMsg51'));
         return;
       }
       this.$emit("onConfirm", this.password, this.verifyCode);
-      console.log('-')
     },
     onClose() {
       this.$emit("onClose");

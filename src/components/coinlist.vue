@@ -2,7 +2,7 @@
   <div class="changcoin">
     <div class="coinsbox">
       <div class="coins">
-        <div>币种</div>
+        <div>{{$t('coin')}}</div>
       </div>
       <div
         class="coins"
