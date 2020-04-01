@@ -256,7 +256,6 @@ export default {
         });
     },
     changebuySellShow(item) {
-      console.log("changebuySellShow");
       if (!this.user.basicInfo) {
         this.$router.push({ path: "/login" });
         return;
