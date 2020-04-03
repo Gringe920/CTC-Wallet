@@ -42,7 +42,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show({ msg: err.message || this.$t("user.userMsg67") });
+          this.$toast.show(this.$t("user.userMsg67") );
         });
     }
   }

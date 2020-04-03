@@ -2,27 +2,26 @@
   <section class="addAdress">
       <Header title="添加提币地址" ></Header>
          <div class="cointype">
-            <div class="l">币种</div>
+            <div class="l">{{$t(`wallet.wallet3`)}}</div>
             <div class="r" @click="toclose">
                 {{coin?coin:$t(`wallet.zhuanqian1`)}}
                 <img src="../../assets/images/next_black@2x.png" alt="" srcset="">
             </div>
         </div>
         <div class="cointype">
-            <div class="l">接收地址</div>
+            <div class="l">{{$t(`wallet.zhuanqian3`)}}</div>
             <div class="r">
-                <input type="text" v-model="address" placeholder="请输入提币地址">
-                <!-- <img src="../../assets/images/add_scan@2x.png" alt="" srcset=""> -->
+                <input type="text" v-model="address" :placeholder="$t(`wallet.wallet4`)">
             </div>
         </div>
              <div class="cointype">
-            <div class="l">标签</div>
+            <div class="l">{{$t(`wallet.wallet5`)}}</div>
             <div class="r">
-                <input type="text" v-model="label" placeholder="用于表示这个地址自定义名称">
+                <input type="text" v-model="label" placeholder="$t(`wallet.wallet6`)">
             </div>
         </div>
-        <div class="yue">*请填写对应平台的提币地址，否则提币无法到账，由此造成的损失，本平台改不负责</div>
-        <r-button    :tocomfirm='topwdshow' text="确定" width="90%" class="comfirm" />
+        <div class="yue">*{{$t(`wallet.wallet7`)}}</div>
+        <r-button    :tocomfirm='topwdshow' :text="$t(`wallet.zhuanqian6`)" width="90%" class="comfirm" />
        <div class="coinchange" v-if="close" @click="toclose">
             <div class="coinbox">
                 <div @click="clickCoin(item, index)" class="coin" :class="coin == item ? 'active' : ''" v-for="(item, index) in coin_list" :key='item'>
@@ -53,7 +52,7 @@ export default {
       liststatus: false,
       coin: "btc",
       clickAll: "",
-      code: "123456"
+      code: ""
     };
   },
   created() {},
@@ -65,17 +64,13 @@ export default {
   },
   methods: {
     topwdshow() {
-        const { address, label } = this;
+      const { address, label } = this;
       if (this.isEmpty(address)) {
-        this.$toast.show("接受地址不能为空");
+        this.$toast.show(this.$t("wallet.wallet8"));
         return;
       }
       if (this.isEmpty(label)) {
-        this.$toast.show("标签不能为空");
-        return;
-      }
-      if (this.isEmpty(address)) {
-        this.$toast.show("标签不能为空");
+        this.$toast.show(this.$t("wallet.wallet9"));
         return;
       }
       this.pwdshow = true;
@@ -99,8 +94,6 @@ export default {
         });
     },
     submit() {
-    
-
       var self = this;
       if (this.liststatus) return;
       self.liststatus = true;
@@ -116,18 +109,18 @@ export default {
       })
         .then(res => {
           self.liststatus = false;
-          this.$toast.show("添加提币地址成功!");
-          this.address = ''
-          this.label = ''
-           this.pwdshow = false;
-           setTimeout(function(){
-             self.$router.go(-1);
-           },1000)
+          this.$toast.show(this.$t("wallet.wallet10"));
+          this.address = "";
+          this.label = "";
+          this.pwdshow = false;
+          setTimeout(function() {
+            self.$router.go(-1);
+          }, 1000);
         })
         .catch(err => {
           self.liststatus = false;
-            this.pwdshow = false;
-          this.$toast.show(err.message || "添加提币地址失败，请重试");
+          this.pwdshow = false;
+          this.$toast.show(this.$t("wallet.wallet11"));
         });
     },
     toclose() {
@@ -143,7 +136,6 @@ export default {
 .addAdress {
   text-transform: uppercase;
   position: relative;
-  // padding: 0 15px;
   padding-top: 55px;
   min-height: 100%;
   .yue {

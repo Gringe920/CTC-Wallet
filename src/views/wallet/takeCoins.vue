@@ -3,26 +3,26 @@
 
    <section   class="zhuanqian">
      <load v-if="loading"></load>
-        <Header title="提币" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record_black@2x.png')"></Header>
+        <Header :title="$t(`wallet.wallet1`)" :rightEv='toacceptCoin' :rightIcon="require('../../assets/images/record_black@2x.png')"></Header>
         <div v-if="!loading">
-           <div class="yue">可用：{{canCoin}}&nbsp;{{coin}}</div>
+           <div class="yue">{{$t(`wallet.can`)}}：{{canCoin}}&nbsp;{{coin}}</div>
         <div class="cointype">
-            <div class="l">币种</div>
+            <div class="l">{{$t(`wallet.wallet3`)}}</div>
             <div class="r" @click="toclose">
                 {{coin?coin:$t(`wallet.zhuanqian1`)}}
                 <img src="../../assets/images/next_black@2x.png" alt="" srcset="">
             </div>
         </div>
           <div class="cointype">
-            <div class="l">接收地址</div>
+            <div class="l">{{$t(`wallet.zhuanqian3`)}}</div>
             <div class="r rtibi" @click="tochange()"> 
-                <div>{{address?address:'请选择接收地址'}}</div>
+                <div>{{address?address:$t(`wallet.wallet32`)}}</div>
                 <img src="../../assets/images/next_black@2x.png" alt="" srcset="">
             </div>
         </div>
 
         <div class="cointype">
-            <div class="l">转账数量</div>
+            <div class="l">{{$t(`wallet.wallet33`)}}</div>
             <div class="r">
                 <input type="number" v-model="num" :placeholder="$t(`wallet.zhuanqian8`)" class="in2">
                 <div class="r">
@@ -30,9 +30,9 @@
                 </div>
             </div>
         </div>
-        <div class="yue">*请输入正确的提币地址，地址出错币丢失。</div>
+        <div class="yue">*{{$t(`wallet.wallet34`)}}</div>
         <div @click="toshowPsw">
-            <r-button text="确定" width="90%" class="comfirm" />
+            <r-button :text="$t(`wallet.zhuanqian6`)" width="90%" class="comfirm" />
         </div>
         <div class="coinchange" v-if="close" @click="toclose">
             <div class="coinbox">
@@ -47,17 +47,17 @@
         <div class="pswBox"  v-if="showPsw">
           <div class="pasword">
               <div class="top">
-                <div class="l ">请输入交易密码</div>
+                <div class="l ">{{$t(`wallet.wallet35`)}}</div>
                 <img class="img2" @click="changebuySellShow" src="../../assets/images/top_off_black@2x.png" alt="" srcset="">
               </div>
               <div class="inp">
-                <input type="password" v-model="pwd" placeholder="输入交易密码">
+                <input type="password" v-model="pwd" :placeholder="$t(`wallet.wallet36`)">
               </div>
               <div class="inp">
-                <input type="password" v-model="code" placeholder="输入验证码">
-              <div class="code" @click="getVerifyCode">{{isTiktok ? `${remainedTime}s`:'获取验证码' }}</div>
+                <input type="password" v-model="code" :placeholder="$t(`wallet.wallet37`)">
+              <div class="code" @click="getVerifyCode">{{isTiktok ? `${remainedTime}s`:$t(`wallet.wallet38`) }}</div>
             </div>
-            <div class="btn" @click="submit"> 确定</div>
+            <div class="btn" @click="submit"> {{$t(`wallet.zhuanqian6`)}}</div>
           </div>
         </div>
         </div>
@@ -76,7 +76,7 @@ export default {
       isTiktok: false,
       password: "",
       close: false,
-      loading:true,
+      loading: true,
       code: "",
       isShowPswModal: false,
       num: "",
@@ -89,17 +89,17 @@ export default {
       timer: null,
       liststatus: false,
       detailstatus: false,
-      pwd:''
+      pwd: ""
     };
   },
-  watch:{
-    num(n,o){
-      var self = this
-      var nownum = parseInt(n)
-      var canCoin = parseInt(self.canCoin)
-      if(nownum> canCoin){
-        this.num = canCoin
-        this.$toast.show("转账数量不能大于可用数量");
+  watch: {
+    num(n, o) {
+      var self = this;
+      var nownum = parseInt(n);
+      var canCoin = parseInt(self.canCoin);
+      if (nownum > canCoin) {
+        this.num = canCoin;
+        this.$toast.show(this.$t("wallet.wallet39"));
       }
     }
   },
@@ -138,7 +138,6 @@ export default {
         });
     },
     tochange() {
-      console.log(1);
       this.$router.push({ path: "/changeAdress" });
     },
     getVerifyCode() {
@@ -151,10 +150,10 @@ export default {
       })
         .then(_ => {
           this.startCountdown();
-          this.$toast.show("获取验证码成功!");
+          this.$toast.show(this.$t("wallet.wallet40"));
         })
         .catch(err => {
-          this.$toast.show("获取验证码失败，请重试");
+          this.$toast.show(this.$t("wallet.wallet41"));
         });
     },
     startCountdown() {
@@ -183,12 +182,10 @@ export default {
         .then(res => {
           self.liststatus = false;
           this.$store.commit("withdraw_address_list", res.data || {});
-          // this.$toast.show("获取币种成功!");
         })
         .catch(err => {
           self.liststatus = false;
           this.$store.commit("withdraw_address_list", {});
-          this.$toast.show(err.message || "币种信息获取失败，请重试");
         });
     },
     toclose() {
@@ -198,22 +195,22 @@ export default {
       this.showPsw = false;
     },
     toacceptCoin() {
-           this.$router.push({
+      this.$router.push({
         path: "/acceptCoin",
         query: {
           type: 0,
-             coin:this.coin,
+          coin: this.coin
         }
       });
     },
     toshowPsw() {
-          const {address,num} = this;
+      const { address, num } = this;
       if (this.isEmpty(address)) {
-        this.$toast.show("接收地址不能为空");
+        this.$toast.show(this.$t("wallet.wallet42"));
         return;
       }
       if (this.isEmpty(num)) {
-        this.$toast.show("转账数量不能为空");
+        this.$toast.show(this.$t("wallet.wallet43"));
         return;
       }
       this.showPsw = true;
@@ -223,13 +220,13 @@ export default {
       this.withdrawlist();
     },
     submit() {
-           const {pwd,code} = this;
+      const { pwd, code } = this;
       if (this.isEmpty(pwd)) {
-        this.$toast.show("交易密码不能为空");
+        this.$toast.show(this.$t("wallet.wallet44"));
         return;
       }
       if (this.isEmpty(code)) {
-        this.$toast.show("验证码不能为空");
+        this.$toast.show(this.$t("wallet.wallet45"));
         return;
       }
       var self = this;
@@ -242,23 +239,22 @@ export default {
           to: self.address,
           code: self.code,
           amount: self.num,
-          pwd:self.pwd,
+          pwd: self.pwd
         }
       })
         .then(res => {
           self.liststatus = false;
-          this.$toast.show("提币成功!");
+          this.$toast.show(this.$t("wallet.wallet46"));
           this.showPsw = false;
-          this.code =''
-          this.num =''
-            this.$store.commit("address",'');
-          this.getassets_detail()
-          
+          this.code = "";
+          this.num = "";
+          this.$store.commit("address", "");
+          this.getassets_detail();
         })
         .catch(err => {
           self.liststatus = false;
           this.pwdshow = false;
-          this.$toast.show("提币失败，请重试");
+          this.$toast.show(this.$t("wallet.wallet47"));
         });
     }
   }

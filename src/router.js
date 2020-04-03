@@ -8,13 +8,10 @@ const Lang = () => import(/* webpackChunkName: "user" */ './views/user/lang.vue'
 const nickname = () => import(/* webpackChunkName: "user" */ './views/user/nickname.vue');
 const about = () => import(/* webpackChunkName: "user" */ './views/user/about.vue');
 const changePsw = () => import(/* webpackChunkName: "user" */ './views/user/changePsw.vue');
-const changeTelephone = () => import(/* webpackChunkName: "user" */ './views/user/changeTelephone.vue');
 const changeTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/changeTradePsw.vue');
 const setTradePsw = () => import(/* webpackChunkName: "user" */ './views/user/setTradePsw.vue');
 const certification = () => import(/* webpackChunkName: "user" */ './views/user/certification.vue');
 const uploadCertification = () => import(/* webpackChunkName: "user" */ './views/user/uploadCertification.vue');
-const selectWithdrawAddr = () => import(/* webpackChunkName: "user" */ './views/user/selectWithdrawAddr.vue');
-const payway = () => import(/* webpackChunkName: "user" */ './views/payway/index.vue');
 const selectPayway = () => import(/* webpackChunkName: "user" */ './views/payway/selectPayway.vue');
 const addBank = () => import(/* webpackChunkName: "user" */ './views/payway/addBank.vue');
 const searchBank = () => import(/* webpackChunkName: "user" */ './views/payway/searchBank.vue');
@@ -159,11 +156,7 @@ export default new Router({
             name: 'changePsw',
             component: changePsw
         },
-        {
-            path: '/changeTelephone',
-            name: 'changeTelephone',
-            component: changeTelephone
-        },
+      
         // {
         //     path: '/buyResult',
         //     name: 'buyResult',
@@ -193,16 +186,6 @@ export default new Router({
             path: '/uploadCertification',
             name: 'uploadCertification',
             component: uploadCertification
-        },
-        {
-            path: '/selectWithdrawAddr',
-            name: 'selectWithdrawAddr',
-            component: selectWithdrawAddr
-        },
-        {
-            path: '/payway',
-            name: 'payway',
-            component: payway
         },
         {
             path: '/selectPayway',

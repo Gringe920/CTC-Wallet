@@ -34,12 +34,12 @@
                 </span>
             </div>
             <div class="coin3" v-if="assets_detail.asset && assets_detail.asset[item]">
-                <div class="c_l">可用：{{hidden ? '******': assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal'] :'000000'}}</div>
-                <div class="c_l">冻结：{{hidden ? '******': getFreezeAsset((assets_detail.freeze_asset && assets_detail.freeze_asset[item]) || 0)}}</div>
+                <div class="c_l">{{$t(`wallet.can`)}}：{{hidden ? '******': assets_detail.asset[item]['$numberDecimal']?assets_detail.asset[item]['$numberDecimal'] :'000000'}}</div>
+                <div class="c_l">{{$t(`wallet.nocan`)}}：{{hidden ? '******': getFreezeAsset((assets_detail.freeze_asset && assets_detail.freeze_asset[item]) || 0)}}</div>
             </div>
             <div class="coin4">
-                <div class="shou"  @click="$router.push('/reCharge/'+item)">充币</div>
-                <div class="zhuan" @click="tozhuanzang(item)">提币</div>
+              <div class="shou"  @click="$router.push('/reCharge/'+item)">{{$t(`wallet.wallet2`)}}</div>
+                <div class="zhuan" @click="tozhuanzang(item)">{{$t(`wallet.wallet1`)}}</div>
             </div>
         </div>
     </section>
@@ -62,7 +62,7 @@ export default {
       detailstatus: false,
       current_priceStatus: false,
       currentPrices: {},
-      allAssets:'',
+      allAssets: "",
       total: 0
     };
   },
@@ -84,20 +84,23 @@ export default {
     this.current_price();
   },
   methods: {
-    getTotalAsset(){
+    getTotalAsset() {
       let total = 0;
       this.coin_list.map(item => {
-        total += parseFloat(this.currentPrices[item] * this.assets_detail.asset[item]['$numberDecimal'])
-      })
+        total += parseFloat(
+          this.currentPrices[item] *
+            this.assets_detail.asset[item]["$numberDecimal"]
+        );
+      });
       this.total = total;
     },
-    getFreezeAsset(assets){
+    getFreezeAsset(assets) {
       let freezeAsset = 0;
-      if(assets){
-        const numberDecimals = Object.values(assets)
-        freezeAsset = numberDecimals.reduce(((p, c) => +c.$numberDecimal + p), 0)
+      if (assets) {
+        const numberDecimals = Object.values(assets);
+        freezeAsset = numberDecimals.reduce((p, c) => +c.$numberDecimal + p, 0);
       }
-      return freezeAsset
+      return freezeAsset;
     },
     current_price() {
       var self = this;
@@ -109,12 +112,11 @@ export default {
       })
         .then(res => {
           this.currentPrices = res.data || {};
-          this.getTotalAsset()
+          this.getTotalAsset();
           self.current_priceStatus = false;
         })
         .catch(err => {
           self.current_priceStatus = false;
-          this.$toast.show("信息获取失败，请重试");
         });
     },
 
@@ -128,15 +130,13 @@ export default {
       })
         .then(res => {
           self.detailstatus = false;
-              this.loading2 = false;
-              console.log(res.data);
+          this.loading2 = false;
           this.$store.commit("assets_detail", res.data || {});
         })
         .catch(err => {
           self.detailstatus = false;
-              this.loading2 = false;
+          this.loading2 = false;
           this.$store.commit("assets_detail", {});
-          this.$toast.show( "币种信息获取失败，请重试");
         });
     },
     getcoin_list() {
@@ -154,17 +154,17 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-                    this.loading = false;
+          this.loading = false;
           this.$store.commit("coin_list", {});
         });
     },
     tozhuanzang(item) {
-          this.$router.push({
-          path: "/takeCoins",
-          query: {
-            type: item
-          }
-        });
+      this.$router.push({
+        path: "/takeCoins",
+        query: {
+          type: item
+        }
+      });
     },
     hiddenmoney() {
       this.hidden = !this.hidden;
@@ -174,7 +174,7 @@ export default {
         path: "/acceptCoin",
         query: {
           type: 0,
-          coin:'',
+          coin: ""
         }
       });
     }
@@ -264,11 +264,11 @@ export default {
   .money {
     height: 100%;
     text-transform: uppercase;
-    background:$border2;
+    background: $border2;
     margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0px 6px 10px 0px $border3;
-     border: 1px solid $bg3;
+    border: 1px solid $bg3;
     border-radius: 10px;
     .coin {
       padding: 20px 15px 0 15px;

@@ -1,22 +1,21 @@
 <template>
     <section class="detais">
-        <Header :title="type == 0?'提币详情':'充币详情'" ></Header>
+        <Header :title="type == 0?$t(`wallet.wallet18`):$t(`wallet.wallet19`)" ></Header>
         <load v-if="loadState"></load>
         <section v-else>
-            <div class="t4">{{type == 0?'提币':'充币'}}&nbsp;200&nbsp;{{detials.symbol}}</div>
-            <div class="text2">{{type == 0?'支出':'收入'}}</div>
+            <div class="t4">{{type == 0?$t(`wallet.wallet1`):$t(`wallet.wallet2`)}}&nbsp;200&nbsp;{{detials.symbol}}</div>
+            <div class="text2">{{type == 0?$t(`wallet.info6`):$t(`wallet.info5`)}}</div>
             <div class="text3 text4">
-         
-                -{{detials.amount.$numberDecimal?detials.amount.$numberDecimal:''}} {{detials.symbol?detials.symbol:''}}，余额：8600.0000 {{detials.symbol}}
+                -{{detials.amount.$numberDecimal?detials.amount.$numberDecimal:''}} {{detials.symbol?detials.symbol:''}}，{{$t(`ctc.assets`)}}：8600.0000 {{detials.symbol}}
             </div>
-               <div class="text2">{{type == 0?'转出地址':'转入地址'}}</div>
+               <div class="text2">{{type == 0?$t(`wallet.wallet20`):$t(`wallet.wallet21`)}}</div>
                 <div class="text3" v-if="type == 1">
-                    {{detials.from ?detials.from:'暂无地址'}}
+                    {{detials.from ?detials.from:$t(`wallet.wallet22`)}}
                 </div>
                   <div class="text3" v-if="type == 0">
-                    {{detials.to ?detials.to:'暂无地址'}}
+                    {{detials.to ?detials.to:$t(`wallet.wallet22`)}}
                 </div>
-           <div class="text2">创建时间</div>
+           <div class="text2">{{$t(`wallet.wallet23`)}}</div>
             <div class="text3">{{detials.time?resolvingDate3(detials.time):''}}</div>
         </section>
     </section>

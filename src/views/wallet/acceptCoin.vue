@@ -2,13 +2,10 @@
     <section class="acceptCoin">
         <Header :title="$t(`wallet.jilu`)" :leftEv="leftEv"></Header>
         <div class="acceptCoin_type">
-            <div    :class="activeIdx == 0 ? 'divactive' : '' "  @click="changetype(0)">提币</div>
-            <div   :class="activeIdx == 1 ? 'divactive' : '' "  @click="changetype(1)">充币</div>
+            <div    :class="activeIdx == 0 ? 'divactive' : '' "  @click="changetype(0)">{{$t(`wallet.wallet1`)}}</div>
+            <div   :class="activeIdx == 1 ? 'divactive' : '' "  @click="changetype(1)">{{$t(`wallet.wallet2`)}}</div>
         </div>
           <load v-if="loading"></load>
-        <!-- 提币 -->
-      
-           
         <div v-if="!loading" class="zhuaninfo">
            <Empty v-if="withdrawHistory.length <=0 && activeIdx == 0 "></Empty>
             <div class="zhuan"  v-if="activeIdx == 0  && withdrawHistory.length>0" v-for="(item,key) in withdrawHistory" :key="item.type" @click="todetails(key)">
@@ -96,7 +93,6 @@ export default {
         .then(res => {
           this.$store.commit("withdrawHistory", res.data.data || {});
           self.withdrawStatus = false;
-          console.log(this.withdrawHistory, "-withdrawHistory");
           this.loading = false;
         })
         .catch(err => {
@@ -136,7 +132,6 @@ export default {
       }
     },
     todetails(item) {
-      console.log(this.depositHistory);
       this.$router.push({
         path: "/detais",
         query: {

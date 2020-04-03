@@ -1,14 +1,14 @@
 <template>
   <section class="addressall">
       <load v-if="loading"></load>
-     <Header title="提币地址"></Header>
+     <Header :title="$t(`user.userMsg4`)"></Header>
      <div v-if="!loading && withdraw_address_list.length >0" class="addresBox" v-for="(item,index) in withdraw_address_list" :key="index">
-       <div class="coin"><span>{{item['symbol']}}</span><div @click="delAddress(item._id)">删除</div></div>
-       <div class="address">地址:{{item['address']}}</div>
-       <div class="title">标签:{{item['name']}}</div>
+       <div class="coin"><span>{{item['symbol']}}</span><div @click="delAddress(item._id)">{{$t(`delete`)}}</div></div>
+       <div class="address">{{$t(`wallet.wallet15`)}}:{{item['address']}}</div>
+       <div class="title">{{$t(`wallet.wallet16`)}}:{{item['name']}}</div>
      </div>
      <Empty v-if="!loading && withdraw_address_list <=0"></Empty>
-    <r-button v-if="!loading" :tocomfirm='submit' text="添加地址" width="100%" class="comfirm" />
+    <r-button v-if="!loading" :tocomfirm='submit' :text="$t(`wallet.wallet24`)" width="100%" class="comfirm" />
   </section>
 </template>
 <script>
@@ -43,12 +43,12 @@ export default {
       })
         .then(res => {
           self.delAddresStatus = false;
-          this.$toast.show("删除地址成功!");
+          this.$toast.show(this.$t('wallet.wallet25'));
           this.withdrawlist();
         })
         .catch(err => {
           self.delAddresStatus = false;
-          this.$toast.show(err.message || "删除地址失败，请重试");
+          this.$toast.show(this.$t('wallet.wallet26'));
         });
     },
     withdrawlist() {

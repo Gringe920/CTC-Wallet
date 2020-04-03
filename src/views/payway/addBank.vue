@@ -1,27 +1,25 @@
 <template>
   <section>
     <load v-if="loading"></load>
-    
-    <Header :title="user.bankcard_state==0?'添加银行卡':'修改银行卡'" />
+    <Header :title="user.bankcard_state==0?$t(`pay.pay31`):$t(`pay.pay32`)" />
     <div class="container" v-if="!loading">
-      <div class="item-label">姓名</div>
-      <input class="item-inp" type="text" placeholder="请输入姓名"  v-model="name" />
+      <div class="item-label">{{$t(`pay.pay3`)}}</div>
+      <input class="item-inp" type="text" :placeholder="$t(`pay.pay4`)"  v-model="name" />
       <div class="line"></div>
-      <div class="item-label">开户银行</div>
-      <input class="item-inp" type="text" placeholder="请输入开户银行"  v-model="register_bank" />
+      <div class="item-label">{{$t(`pay.pay33`)}}</div>
+      <input class="item-inp" type="text" :placeholder="$t(`pay.pay34`)"  v-model="register_bank" />
       <div class="line"></div>
-      <div class="item-label">银行卡号</div>
-      <input class="item-inp" type="text" placeholder="请输入银行卡号"   v-model="card"/>
+      <div class="item-label">{{$t(`pay.pay35`)}}</div>
+      <input class="item-inp" type="text" :placeholder="$t(`pay.pay36`)"   v-model="card"/>
       <div class="line"></div>
-      <div class="item-label">开户支行</div>
-      <input class="item-inp" type="text" placeholder="请输入开户支行"  v-model="second_bank" />
+      <div class="item-label">{{$t(`pay.pay37`)}}</div>
+      <input class="item-inp" type="text" :placeholder="$t(`pay.pay38`)"  v-model="second_bank" />
       <div class="line"></div>
       <r-button
-        text="确定"
+        text="$t(`pay.pay9`)"
         width="90%"
         class="btn-submit"
         :tocomfirm='topwdshow'
-       
       />
     </div>
     <Tradedialog v-on:onClose='pwdshow = !pwdshow'  v-on:onConfirm="submit" v-if="pwdshow"></Tradedialog>
@@ -80,24 +78,23 @@ export default {
         });
     },
     onConfirm(data) {
-      console.log(data);
     },
     topwdshow() {
        const { name, register_bank, card, second_bank } = this;
       if (this.isEmpty(name)) {
-        this.$toast.show("姓名不能为空");
+        this.$toast.show(this.$t('pay.pay10'));
         return;
       }
       if (this.isEmpty(register_bank)) {
-        this.$toast.show("开户银行不能为空");
+        this.$toast.show(this.$t('pay.pay39'));
         return;
       }
       if (this.isEmpty(card)) {
-        this.$toast.show("银行卡号不能为空");
+        this.$toast.show(this.$t('pay.pay40'));
         return;
       }
       if (this.isEmpty(second_bank)) {
-        this.$toast.show("开户支行不能为空");
+        this.$toast.show(this.$t('pay.pay41'));
         return;
       }
       this.pwdshow = true;
@@ -123,11 +120,10 @@ export default {
         .then(res => {
           self.submitstatus = false;
           if (this.user.bankcard_state == 0) {
-            this.$toast.show("银行卡添加成功!");
+            this.$toast.show(this.$t('pay.pay42'));
           } else {
-            this.$toast.show("银行卡修改成功!");
+            this.$toast.show(this.$t('pay.pay43'));
           }
-
           this.pwd = ""
             this.code = ""
             this.name = ""
@@ -139,7 +135,7 @@ export default {
         })
         .catch(err => {
           self.submitstatus = false;
-              this.errorMsg(err.code)
+            this.errorMsg(err.code)
              this.pwdshow = true;
         });
     }

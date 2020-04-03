@@ -51,10 +51,8 @@ export default {
             this.axios({
                 url : "/service/app_info"
             }).then(res => {
-                console.log(res.data);
                 this.android = res.data.app_android_download;
             }).catch(e => {
-                console.log(e);
             })
         },
         micromessenger () {
@@ -69,8 +67,6 @@ export default {
             location.href = this.android || 'http://rcposs.oss-accelerate.aliyuncs.com/app/RCP.v.1.0.7.apk';
         }
     }
-    
-    
 }
 </script>
 <style lang="scss" scoped>

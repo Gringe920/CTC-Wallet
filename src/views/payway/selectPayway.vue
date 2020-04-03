@@ -1,18 +1,18 @@
 <template>
   <section>
-       <Header title="支付方式" ></Header>
+       <Header :title="$t(`pay.pay54`)" ></Header>
     <div class="container">
-      <div class="tips">*请至少添加一种支付方式</div>
+      <div class="tips">*{{$t(`pay.pay55`)}}</div>
       <div class="line"></div>
       <div class="pay-box"  @click="$router.push({path: '/addWechat'})">
         <div class="pay-logo">
           <img src="../../assets/images/set_wechat@2x.png" alt />
         </div>
         <div class="pay-info">
-          <div class="p-tit">微信</div>
+          <div class="p-tit">{{$t(`pay.pay56`)}}</div>
         </div>
         <div class="turn-right ">
-          <span :class='user.wechat_state == 1 ? "blue" :""'> {{user.wechat_state == 1 ? '已设置':'未设置'}}</span>
+          <span :class='user.wechat_state == 1 ? "blue" :""'> {{user.wechat_state == 1 ? $t(`pay.pay57`):$t(`pay.pay58`)}}</span>
           <i></i>
         </div>
       </div>
@@ -22,10 +22,10 @@
           <img src="../../assets/images/set_alipay@2x.png" alt />
         </div>
         <div class="pay-info">
-          <div class="p-tit">支付宝</div>
+          <div class="p-tit">{{$t(`pay.pay59`)}}</div>
         </div>
         <div class="turn-right">
-      <span :class='user.alipay_state == 1 ? "blue" :""'> {{user.alipay_state == 1 ? '已设置':'未设置'}}</span>
+      <span :class='user.alipay_state == 1 ? "blue" :""'> {{user.alipay_state == 1 ? $t(`pay.pay57`):$t(`pay.pay58`)}}</span>
           <i></i>
         </div>
       </div>
@@ -35,10 +35,10 @@
           <img src="../../assets/images/set_card@2x.png" alt />
         </div>
         <div class="pay-info">
-          <div class="p-tit">银行卡</div>
+          <div class="p-tit">{{$t(`pay.pay60`)}}</div>
         </div>
         <div class="turn-right">
-       <span :class='user.bankcard_state == 1 ? "blue" :""'> {{user.bankcard_state == 1 ? '已设置':'未设置'}}</span>
+       <span :class='user.bankcard_state == 1 ? "blue" :""'> {{user.bankcard_state == 1 ?  $t(`pay.pay57`): $t(`pay.pay58`)}}</span>
           <i></i>
         </div>
       </div>
@@ -60,26 +60,9 @@ export default {
     ...mapState(['user'])
   },
   methods:{
-    delWechat(){
-       this.axios({
-        url: "/service/user_info",
-        params: {
-          pwd: '123',
-          code:''
-        }
-      })
-        .then(res => {
-          this.$toast.show("设置成功");
-        })
-        .catch(err => {
-          this.$toast.show("设置失败");
-        });
-    }
   },
   watch: {
-    
     isWechat(val) {
-      console.log(val);
     }
   }
 };

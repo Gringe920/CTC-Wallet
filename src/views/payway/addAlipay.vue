@@ -1,27 +1,26 @@
 <template>
   <section>
         <load v-if="loading"></load>
-   <Header :title="user.alipay_state==0?'添加支付宝':'修改支付宝'" />
+   <Header :title="user.alipay_state==0?$t(`pay.pay1`):$t(`pay.pay2`)" />
     <div class="container"  v-if="!loading">
-      <div class="item-label">姓名</div>
-      <input class="item-inp" type="text" placeholder="请输入姓名" v-model="name" />
+      <div class="item-label">{{$t(`pay.pay3`)}}</div>
+      <input class="item-inp" type="text" :placeholder="$t(`pay.pay4`)" v-model="name" />
       <div class="line"></div>
-      <div class="item-label" >账号</div>
-      <input class="item-inp" type="text" placeholder="请输入支付宝账号" v-model="account" />
+      <div class="item-label" >{{$t(`pay.pay5`)}}</div>
+      <input class="item-inp" type="text" :placeholder="$t(`pay.pay6`)" v-model="account" />
       <div class="line"></div>
       <div class="upload-code">
-        <div class="up-tit">上传支付宝收款二维码</div>
+        <div class="up-tit">{{$t(`pay.pay7`)}}</div>
         <div class="upload-box">
-          点击上传
+          {{$t(`pay.pay8`)}}
           <input  value type="file" @change="upload($event)">
-          <!-- 上传成功，点击替换 -->
         </div>
         <div class="upload-img">
           <img :src="fileVal" alt="" srcset="">
         </div>
       </div>
       <r-button
-        text="确定"
+        :text="$t(`pay.pay9`)"
         width="90%"
         class="btn-submit"
         :tocomfirm='topwdshow'
@@ -66,15 +65,15 @@ export default {
     topwdshow() {
       const { name, account, fileVal } = this;
       if (!name) {
-        this.$toast.show("请输入姓名！");
+        this.$toast.show(this.$t('pay.pay10'));
         return;
       }
       if (!account) {
-        this.$toast.show("请输入支付宝账号！");
+        this.$toast.show(this.$t('pay.pay11'));
         return;
       }
       if (!fileVal) {
-        this.$toast.show("请上传支付宝收款二维码！");
+        this.$toast.show(this.$t('pay.pay12'));
         return;
       }
       this.pwdshow = true;
@@ -110,11 +109,11 @@ export default {
     upload(e) {
       let file = e.target.files[0];
       if (!/\.jpg$|\.png$|\.gif$|\.jpeg$|\.webp$/gi.test(file.name)) {
-        this.$toast.show("请上传jpg、jpeg、png、gif、webp格式图片");
+        this.$toast.show(this.$t('pay.pay13'));
         return;
       }
       if (file.size > 1024 * 1024 * this.size) {
-        this.$toast.show("请不要上传超过" + this.size + "M的图片");
+        this.$toast.show(this.$t('pay.pay14') + this.size + this.$t('pay.pay15'));
         return;
       }
       const fileType = file.type;
@@ -130,7 +129,7 @@ export default {
           this.fileVal = e.target.result;
         };
       } else {
-        this.$toast.show("请上传png/jpg/jpeg格式的图片");
+        this.$toast.show(this.$t('pay.pay16'));
         this.file = {};
       }
    
@@ -156,9 +155,9 @@ export default {
         .then(res => {
           self.submitstatus = false;
           if (this.user.alipay_state == 1) {
-            this.$toast.show("支付宝修改成功!");
+            this.$toast.show(this.$t('pay.pay17'));
           } else {
-            this.$toast.show("支付宝添加成功!");
+            this.$toast.show(this.$t('pay.pay18'));
           }
           this.pwdshow = false;
           this.getPayPath();
@@ -166,9 +165,9 @@ export default {
         .catch(err => {
           self.submitstatus = false;
           if (this.user.alipay_state == 1) {
-            this.$toast.show("支付宝添加失败");
+            this.$toast.show(this.$t('pay.pay19'));
           } else {
-            this.$toast.show("支付宝添加失败");
+            this.$toast.show(this.$t('pay.pay20'));
           }
                  this.pwdshow = false;
         });

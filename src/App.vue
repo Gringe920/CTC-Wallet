@@ -9,28 +9,28 @@
                 <div class="thenav">
                     <img src="./assets/images/home_transaction_press@2x.png" alt="" srcset="" v-if="$route.name=='ctc'" >
                     <img src="./assets/images/home_transaction@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">交易</span>
+                    <span class="nav-title">{{$t('app.app1')}}</span>
                 </div>
             </router-link>
             <router-link tag="a" to="/order" :class="$route.name=='order'?'nav-active':''" >
                 <div class="thenav">
                     <img src="./assets/images/home_order_press@2x.png" alt="" srcset="" v-if="$route.name=='order'" >
                     <img src="./assets/images/home_order@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title" >订单</span>
+                    <span class="nav-title" >{{$t('app.app2')}}</span>
                 </div>
             </router-link>
             <router-link tag="a" to="/wallet" :class="$route.name=='wallet'?'nav-active':''" >
                 <div class="thenav">
                     <img src="./assets/images/home_wallet_press@2x.png" alt="" srcset="" v-if="$route.name=='wallet'" >
                     <img src="./assets/images/home_wallet@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">资产</span>
+                    <span class="nav-title">{{$t('app.app3')}}</span>
                 </div>
             </router-link>
             <router-link tag="a" to="/user" :class="$route.name=='user'?'nav-active':''"  >
                 <div class="thenav">
                     <img src="./assets/images/home_my_press@2x.png" alt="" srcset="" v-if="$route.name=='user'" >
                     <img src="./assets/images/home_my@2x.png" alt="" srcset="" v-else >
-                    <span class="nav-title">我的</span>
+                    <span class="nav-title">{{$t('app.app4')}}</span>
                 </div>
             </router-link>
         </div>
@@ -96,7 +96,6 @@ export default {
         .catch(err => {
           self.submitstatus = false;
           this.$store.commit("coin_list", {});
-          this.$toast.show(err.message || "币种信息获取失败，请重试");
         });
     },
     getUser() {
@@ -153,15 +152,6 @@ export default {
             webview.back();
           } else {
               self.clickWallet();
-            // plus.nativeUI.confirm(
-            //   self.$t("exitAPP"),
-            //   function(e) {
-            //     if (e.index == 0) {
-            //       plus.runtime.quit();
-            //     }
-            //   },
-            //   self.$t("title")
-            // );
           }
         });
       });

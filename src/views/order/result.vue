@@ -29,11 +29,11 @@
       </div>
       <div class="order-result" v-if="order_detail.status == 0">
         <p class="status-text">{{$t('result.status9')}} {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
-        <p class="reason">等待对方汇款</p>
+        <p class="reason">{{$t('pay.pay61')}}</p>
       </div>
       <div class="order-result" v-if="order_detail.status == 3">
         <p class="status-text">{{$t('result.status9')}} {{ order_detail.price * order_detail.amount.$numberDecimal }}CNY</p>
-        <p class="reason">对方汇款方式：{{payWay[+order_detail.pay_type - 1]}}</p>
+        <p class="reason">{{$t('pay.pay62')}}：{{payWay[+order_detail.pay_type - 1]}}</p>
       </div>
       <div class="order-detail">
         <div class="d-row">
@@ -107,7 +107,7 @@
       </Dialog>
       <Dialog :title="$t('result.dialogT3')" :show="complainDialogShow" @on-cancel="complainDialogShow = false" @on-ok="appeal">
         <div class="complain-dialog-slot" >
-          <textarea placeholder="请填写申诉内容" v-model="complainContent" />
+          <textarea :placeholder="$t('pay.pay63')" v-model="complainContent" />
           <span> {{ complainContent.length }} / 300 </span>
         </div>
       </Dialog>

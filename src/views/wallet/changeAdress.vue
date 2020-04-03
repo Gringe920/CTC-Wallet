@@ -1,15 +1,15 @@
 <template>
   <section class="addressall">
       <load v-if="loading"></load>
-     <Header title="选择提币地址"></Header>
+     <Header :title="$t(`wallet.wallet12`)"></Header>
      <div :class="address == item.address ?'changeActive':''" v-if="!loading && withdraw_address_list.length >0" class="addresBox" v-for="(item,index) in withdraw_address_list" :key="index">
-       <div class="coin"><span>{{item['symbol']}}</span><div @click="selectAddress(item['address'])">{{address == item.address?'已选择':'选择'}}</div></div>
-       <div class="address">地址:{{item['address']}}</div>
-       <div class="title">标签:{{item['name']}}</div>
+       <div class="coin"><span>{{item['symbol']}}</span><div @click="selectAddress(item['address'])">{{address == item.address?$t(`wallet.wallet13`):$t(`wallet.wallet14`)}}</div></div>
+       <div class="address">{{$t(`wallet.wallet15`)}}:{{item['address']}}</div>
+       <div class="title">{{$t(`wallet.wallet16`)}}:{{item['name']}}</div>
      </div>
      <Empty v-if="!loading && withdraw_address_list <=0"></Empty>
-     <r-button v-if="!loading&& withdraw_address_list <=0" :tocomfirm='toaddAdress' text="去添加地址" width="100%" class="comfirm" />
-    <r-button v-if="!loading&& withdraw_address_list >0" :tocomfirm='submit' text="确定" width="100%" class="comfirm" />
+     <r-button v-if="!loading&& withdraw_address_list <=0" :tocomfirm='toaddAdress' :text="$t(`wallet.wallet17`)" width="100%" class="comfirm" />
+    <r-button v-if="!loading&& withdraw_address_list >0" :tocomfirm='submit' text="$t(`wallet.zhuanqian6`)" width="100%" class="comfirm" />
   </section>
 </template>
 <script>
@@ -40,8 +40,6 @@ export default {
     },
     selectAddress(address){
            this.$store.commit("address",address);
-           console.log(address)
-
     },
     withdrawlist() {
       var self = this;
@@ -64,7 +62,7 @@ export default {
     },
     toacceptCoin() {},
     submit() {
-           this.$router.go(-1);
+      this.$router.go(-1);
     }
   }
 };

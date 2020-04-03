@@ -1,12 +1,12 @@
 <template>
   <section class="reCharge">
-    <Header :title="'充币 ' + symbol.toUpperCase()" :rightEv='toacceptCoin'  :rightIcon="require('../../assets/images/record_black@2x.png')" ></Header>
+    <Header :title="$t(`wallet.wallet2`) + symbol.toUpperCase()" :rightEv='toacceptCoin'  :rightIcon="require('../../assets/images/record_black@2x.png')" ></Header>
     <img src="" alt="" srcset="">
-    <div class="title" @click="create_address()"> 充币地址 <span v-if="symbol.toLowerCase() == 'usdt'">ERC20</span></div>
+    <div class="title" @click="create_address()">{{$t(`wallet.wallet27`)}} <span v-if="symbol.toLowerCase() == 'usdt'">ERC20</span></div>
     <div class="address">{{address}}</div>
-    <div class="infos">* 该地址只接受{{symbol.toUpperCase()}}，其他币转至该地址造成的损失，本平台概不负责</div>
+    <div class="infos">*{{$t(`wallet.wallet29`)}}{{symbol.toUpperCase()}}，{{$t(`wallet.wallet29`)}}</div>
     <r-copy :copyText="address" class="btn">
-      复制充币地址
+      {{$t(`wallet.wallet31`)}}
     </r-copy>
   </section>
 </template>
@@ -42,11 +42,9 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.address = res.data.address;
-          this.$toast.show("获取充币地址成功");
         })
         .catch(err => {
           self.submitstatus = false;
-          this.$toast.show("获取充币地址失败，请重试");
         });
     },
     toacceptCoin() {
