@@ -59,7 +59,7 @@ export default {
         .then(res => {
           self.submitstatus = false;
           this.$toast.show(this.$t('login.toast3'));
-          this.getLoginInfo();
+            self.$router.push("/ctc");
         })
         .catch(err => {
           self.submitstatus = false;

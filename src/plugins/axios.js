@@ -3,13 +3,15 @@ import Vue from 'vue'
 import vueAxios from 'vue-axios'
 var instance = axios.create({
     baseURL: (/file/gi.test(location.href)) ? 'http://otcapi.goaladdin.org' : process.env.NODE_ENV == 'development' ? '' : 'https://otcapi.goaladdin.org',
-    withCredentials: process.env.NODE_ENV == "development" ? true : false,
+    // withCredentials: process.env.NODE_ENV == "development" ? true : false,
     method: "get",
     responseType: "json",
     timeout: 10000,
-    headers: {}
+    headers: {
+    }
 });
 instance.defaults.headers.post["Content-Type"] = "application/json; charset=UTF-8";
+
 instance.interceptors.request.use(function (config) {
     // console.log(config.url);
     // if(/\?/g.test(config.url)){
@@ -17,12 +19,15 @@ instance.interceptors.request.use(function (config) {
     // }else{
     //     config.url = config.url + '?' + (new Date()).getTime();
     // };
+    // console.log(JSON.stringify(config));
     return config;
 }, function (error) {
     return Promise.reject(error);
 });
+
 instance.interceptors.response.use(
     function(res) {
+        console.log(JSON.stringify(res));
         if (res.data && res.data.error_code == 0) {
             return Promise.resolve(res.data);
         } else {
@@ -42,10 +47,6 @@ instance.interceptors.response.use(
                 code: -1
             });
         }
-        
-        
-        return Promise.reject([ ])
-
         return Promise.reject({
             message: error.message,
             code: error.code
