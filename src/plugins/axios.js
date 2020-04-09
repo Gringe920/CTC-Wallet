@@ -27,7 +27,7 @@ instance.interceptors.request.use(function (config) {
 
 instance.interceptors.response.use(
     function(res) {
-        console.log(JSON.stringify(res));
+        // console.log(JSON.stringify(res));
         if (res.data && res.data.error_code == 0) {
             return Promise.resolve(res.data);
         } else {
