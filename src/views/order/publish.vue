@@ -154,6 +154,7 @@ export default {
       this.activeIndex = idx;
     },
     commitButton() {
+        console.log('commitButton');
       if (!this.user.basicInfo) {
         this.$router.push({ path: "/login" });
         return;
@@ -201,6 +202,7 @@ export default {
         return;
       }
       this.VerifyCodeStatus = true;
+        console.log('commitButton', VerifyCodeStatus);
     },
     changebuySellShow() {
       this.VerifyCodeStatus = false;

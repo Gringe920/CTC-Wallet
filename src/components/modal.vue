@@ -9,7 +9,7 @@
             </div>
             <div class="modal-footer">
                 <button class="cancel" @click="hideModal">{{$t('cancel')}}</button>
-                <button class="ok" @click="submit">{{btnText}}</button>
+                <button class="ok" @click="submit">{{btnText || $t('confirm')}}</button>
             </div>
         </div>
     </div>
@@ -28,8 +28,16 @@
             },
             btnText: {
                 type: String,
-                default: this.$t('confirm')
+                // default: this.$t('confirm')
+                default: ''
             },
+        },
+        created (){
+            // if(this.btnText){
+            //
+            // }else{
+            //     this.btnText = this.$t('confirm');
+            // }
         },
         methods: {
             hideModal(){
